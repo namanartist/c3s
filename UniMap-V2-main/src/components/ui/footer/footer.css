@@ -1,0 +1,165 @@
+/* src/components/ui/footer.css */
+
+.footer-section {
+  position: relative;
+  width: 100%;
+}
+
+.footer-card {
+  position: relative;
+  background-color: #050505;
+  background-image: 
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    radial-gradient(circle at 25% 42%, rgba(255, 255, 255, 0.1) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 38% 15%, rgba(255, 255, 255, 0.18) 1px, transparent 1px),
+    radial-gradient(circle at 62% 28%, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    radial-gradient(circle at 78% 48%, rgba(255, 255, 255, 0.16) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 88% 22%, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    radial-gradient(circle at 45% 72%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 68% 85%, rgba(255, 255, 255, 0.12) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 92% 70%, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    radial-gradient(circle at 5% 75%, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 350px 350px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Secondary layer of stars for parallax / depth */
+.footer-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 5% 5%, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    radial-gradient(circle at 55% 45%, rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 85% 65%, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    radial-gradient(circle at 30% 80%, rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+  background-size: 200px 200px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Diagonal prism / light streak at the bottom of the card matching the screenshot */
+.footer-glow {
+  position: absolute;
+  bottom: -120px;
+  left: -10%;
+  width: 120%;
+  height: 340px;
+  background: 
+    linear-gradient(40deg, 
+      transparent 10%, 
+      rgba(255, 223, 128, 0.08) 18%, 
+      rgba(255, 179, 64, 0.18) 26%, 
+      rgba(255, 96, 46, 0.28) 35%, 
+      rgba(0, 102, 204, 0.24) 55%, 
+      rgba(75, 0, 130, 0.15) 75%, 
+      transparent 90%
+    ),
+    radial-gradient(circle at 20% 100%, 
+      rgba(255, 223, 128, 0.35) 0%, 
+      rgba(255, 96, 46, 0.3) 25%, 
+      rgba(0, 102, 204, 0.25) 50%, 
+      transparent 75%
+    );
+  filter: blur(65px);
+  pointer-events: none;
+  z-index: 1;
+  transform: skewY(-7deg) rotate(-2deg);
+}
+
+/* Star glow effect in the sky */
+.footer-star-glow {
+  position: absolute;
+  top: 15%;
+  left: 30%;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.footer-star-glow-2 {
+  position: absolute;
+  top: 25%;
+  right: 25%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 75%);
+  filter: blur(15px);
+  pointer-events: none;
+}
+
+/* Shooting Stars effect */
+.shooting-stars-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.shooting-star {
+  position: absolute;
+  height: 1.5px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 1));
+  border-radius: 999px;
+  opacity: 0;
+}
+
+@keyframes shoot-star {
+  0% {
+    transform: translate(0, 0) rotate(-45deg) scale(0);
+    width: 0;
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.85;
+    width: var(--star-width, 70px);
+    transform: translate(0, 0) rotate(-45deg) scale(1);
+  }
+  30% {
+    transform: translate(-300px, 300px) rotate(-45deg) scale(0.3);
+    width: 100px;
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-300px, 300px) rotate(-45deg) scale(0);
+    width: 0;
+    opacity: 0;
+  }
+}
+
+.shooting-star-1 {
+  top: 15%;
+  right: 10%;
+  --star-width: 60px;
+  animation: shoot-star 6s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+.shooting-star-2 {
+  top: 25%;
+  right: 28%;
+  --star-width: 80px;
+  animation: shoot-star 8s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.shooting-star-3 {
+  top: 5%;
+  right: 45%;
+  --star-width: 50px;
+  animation: shoot-star 5s ease-in-out infinite;
+  animation-delay: 3.8s;
+}
+
+.shooting-star-4 {
+  top: 35%;
+  right: 18%;
+  --star-width: 70px;
+  animation: shoot-star 7s ease-in-out infinite;
+  animation-delay: 1.2s;
+}

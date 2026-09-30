@@ -1,0 +1,6365 @@
+[
+  {
+    "id": "MainRoad09",
+    "name": "Main Road Node 09",
+    "map": "Campus_Map",
+    "x": 253.0593,
+    "y": 272.7038,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "AiRoad08",
+    "name": "AI Road Node 08",
+    "map": "Campus_Map",
+    "x": 628.7278,
+    "y": 128.1183,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "MainBuilRoad08",
+    "name": "Main Building Road Node 08",
+    "map": "Campus_Map",
+    "x": 691.043,
+    "y": 556.0163,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "corridor03_05",
+    "name": "Corridor 03 Node 05",
+    "map": "Main_GF",
+    "x": 327.4785,
+    "y": 363.5879,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor08_03",
+    "name": "Corridor 08 Node 03",
+    "map": "Main_GF",
+    "x": 674.7629,
+    "y": 80.0169,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor09_03",
+    "name": "Corridor 09 Node 03",
+    "map": "Main_GF",
+    "x": 578.7534,
+    "y": 80.6019,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorridor08_10",
+    "name": "Intersection Corridor08–10",
+    "map": "Main_GF",
+    "x": 659.1001,
+    "y": 59.633,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorridor04_05",
+    "name": "Intersection Corridor04–05",
+    "map": "Main_GF",
+    "x": 166.0127,
+    "y": 346.9444,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_SH12",
+    "name": "SH-12",
+    "map": "Main_GF",
+    "x": 162.3614,
+    "y": 306.273,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J040",
+    "name": "J040",
+    "map": "Main_GF",
+    "x": 677.7886,
+    "y": 60.3264,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Prof_Khushboo_Agarwal",
+    "name": "Prof. Khushboo Agarwal",
+    "map": "Main_GF",
+    "x": 700.0931,
+    "y": 274.6766,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_J025_Chemical_Dept",
+    "name": "J025 – Chemical Engineering Department",
+    "map": "Main_GF",
+    "x": 223.0077,
+    "y": 356.5498,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Sulochana_Wadhwani",
+    "name": "Dr. Sulochana Wadhwani",
+    "map": "Main_GF",
+    "x": 128.5935,
+    "y": 478.5736,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor11_01",
+    "name": "Corridor 11 Node 01",
+    "map": "Main_FF",
+    "x": 347.7099,
+    "y": 465.9191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor12_08",
+    "name": "Corridor 12 Node 08",
+    "map": "Main_FF",
+    "x": 394.4221,
+    "y": 286.4408,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor13_02",
+    "name": "Corridor 13 Node 02",
+    "map": "Main_FF",
+    "x": 247.096,
+    "y": 397.5713,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_20b",
+    "name": "Corridor 16 Node 20b",
+    "map": "Main_FF",
+    "x": 26.9493,
+    "y": 216.2017,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor18_03",
+    "name": "Corridor 18 Node 03",
+    "map": "Main_FF",
+    "x": 539.5973,
+    "y": 293.4191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J103",
+    "name": "SH-8 J103",
+    "map": "Main_FF",
+    "x": 141.5906,
+    "y": 470.1908,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J114",
+    "name": "Student Activity Center J114",
+    "map": "Main_FF",
+    "x": 246.7451,
+    "y": 247.3756,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J119",
+    "name": "Classroom 119 J119",
+    "map": "Main_FF",
+    "x": 389.1395,
+    "y": 383.1256,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J126",
+    "name": "Classroom 102 J126",
+    "map": "Main_FF",
+    "x": 176.6123,
+    "y": 337.5387,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J129",
+    "name": "Classroom 118 J129",
+    "map": "Main_FF",
+    "x": 383.2699,
+    "y": 336.805,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J144",
+    "name": "Programming Lab J144",
+    "map": "Main_FF",
+    "x": 542.6775,
+    "y": 179.0661,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Vijay_S_Sharma",
+    "name": "Dr. Vijay S. Sharma",
+    "map": "Main_FF",
+    "x": 57.2319,
+    "y": 256.18,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Ar_Jaspreet_Walia",
+    "name": "Ar. Jaspreet Walia",
+    "map": "Main_FF",
+    "x": 599.3677,
+    "y": 30.2096,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_09",
+    "name": "Corridor 23 Node 09",
+    "map": "Main_SF",
+    "x": 607.8913,
+    "y": 149.0239,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_10",
+    "name": "Corridor 23 Node 10",
+    "map": "Main_SF",
+    "x": 563.0217,
+    "y": 149.1186,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_22",
+    "name": "Corridor 23 Node 22",
+    "map": "Main_SF",
+    "x": 298.5,
+    "y": 149.0239,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "JubileeRoad04",
+    "name": "Jubilee Road Node 04",
+    "map": "Campus_Map",
+    "x": 751.85,
+    "y": 207.4864,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "JubileeRoad11",
+    "name": "Jubilee Road Node 11",
+    "map": "Campus_Map",
+    "x": 781.7033,
+    "y": 411.4294,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "AiRoad03",
+    "name": "AI Road Node 03",
+    "map": "Campus_Map",
+    "x": 375.4234,
+    "y": 128.3859,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "AiRoad05",
+    "name": "AI Road Node 05",
+    "map": "Campus_Map",
+    "x": 479.8038,
+    "y": 128.2881,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "MainBuilRoad06",
+    "name": "Main Building Road Node 06",
+    "map": "Campus_Map",
+    "x": 577.3691,
+    "y": 556.0163,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "Canteen01",
+    "name": "Canteen Path Node 01",
+    "map": "Campus_Map",
+    "x": 621.4905,
+    "y": 527.7772,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "Library02",
+    "name": "Library Path Node 02",
+    "map": "Campus_Map",
+    "x": 698.2342,
+    "y": 369.3398,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "ENTRY01",
+    "name": "Main Building Entry (South)",
+    "map": "Campus_Map",
+    "x": 499.1435,
+    "y": 473.2811,
+    "type": "entry",
+    "connects_to": {
+      "map": "Main_GF",
+      "node": "intersectionCorridor02_AccountsSection"
+    },
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "ENTRY07",
+    "name": "Architecture Building Entry (North)",
+    "map": "Campus_Map",
+    "x": 624.3588,
+    "y": 152.198,
+    "type": "entry",
+    "connects_to": {
+      "map": "AI_GF",
+      "node": "ai_entry_gf"
+    },
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "Workshops",
+    "name": "Workshops",
+    "map": "Campus_Map",
+    "x": 423.1636,
+    "y": 113.6069,
+    "type": "room",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "corridor08_01",
+    "name": "Corridor 08 Node 01",
+    "map": "Main_GF",
+    "x": 674.6449,
+    "y": 163.28,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "LabCorridor02_03",
+    "name": "Lab Corridor 02 Node 03",
+    "map": "Main_GF",
+    "x": 596.0197,
+    "y": 295.3639,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorridor02_AccountsSection",
+    "name": "Intersection Corridor02 – Accounts Section",
+    "map": "Main_GF",
+    "x": 461.5711,
+    "y": 474.733,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorridor06_Connector",
+    "name": "Intersection Corridor06 – Connector",
+    "map": "Main_GF",
+    "x": 603.8276,
+    "y": 271.2946,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorrdior07_09",
+    "name": "Intersection Corridor07–09",
+    "map": "Main_GF",
+    "x": 578.7534,
+    "y": 204.6392,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Stairs01",
+    "name": "Stairs 01",
+    "map": "Main_GF",
+    "x": 457.7956,
+    "y": 474.5485,
+    "type": "stairs",
+    "connects_to": {
+      "map": "Main_FF",
+      "node": "Stair01"
+    },
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J001",
+    "name": "J001 – Conclave Centre",
+    "map": "Main_GF",
+    "x": 406.8033,
+    "y": 487.5583,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J006",
+    "name": "J006",
+    "map": "Main_GF",
+    "x": 152.7602,
+    "y": 500.6985,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J044",
+    "name": "J044 – Studio-4",
+    "map": "Main_GF",
+    "x": 681.0803,
+    "y": 120.8834,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_PL1",
+    "name": "PL-1",
+    "map": "Main_GF",
+    "x": 719.8038,
+    "y": 330.9995,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_IQAC",
+    "name": "IQAC Office",
+    "map": "Main_GF",
+    "x": 311.2915,
+    "y": 478.7,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Sanjay_Tiwari_CE",
+    "name": "Dr. Sanjay Tiwari",
+    "map": "Main_GF",
+    "x": 322.4948,
+    "y": 282.2293,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Prof_Aditya_Agarwal",
+    "name": "Prof. Aditya Kumar Agarwal",
+    "map": "Main_GF",
+    "x": 332.628,
+    "y": 360.2609,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Prof_Anish_Jacob",
+    "name": "Prof. Anish P. Jacob",
+    "map": "Main_GF",
+    "x": 322.8126,
+    "y": 460.9037,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dept_Architecture",
+    "name": "Department of Architecture & Planning",
+    "map": "Main_GF",
+    "x": 591.0035,
+    "y": 57.5972,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor11_06",
+    "name": "Corridor 11 Node 06",
+    "map": "Main_FF",
+    "x": 216.7699,
+    "y": 465.9191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor12_02",
+    "name": "Corridor 12 Node 02",
+    "map": "Main_FF",
+    "x": 394.4873,
+    "y": 443.5658,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor12_09",
+    "name": "Corridor 12 Node 09",
+    "map": "Main_FF",
+    "x": 394.4221,
+    "y": 251.6963,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor13_01",
+    "name": "Corridor 13 Node 01",
+    "map": "Main_FF",
+    "x": 247.096,
+    "y": 443.093,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor15_04",
+    "name": "Corridor 15 Node 04",
+    "map": "Main_FF",
+    "x": 304.096,
+    "y": 333.3322,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor15_10",
+    "name": "Corridor 15 Node 10",
+    "map": "Main_FF",
+    "x": 98.7264,
+    "y": 333.3575,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_11",
+    "name": "Corridor 16 Node 11",
+    "map": "Main_FF",
+    "x": 503.596,
+    "y": 251.5169,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor20_08",
+    "name": "Corridor 20 Node 08",
+    "map": "Main_FF",
+    "x": 604.2474,
+    "y": 35.3539,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor21_08",
+    "name": "Corridor 21 Node 08",
+    "map": "Main_FF",
+    "x": 542.4887,
+    "y": 35.954,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J107",
+    "name": "Classroom 104 J107",
+    "map": "Main_FF",
+    "x": 68.8569,
+    "y": 406.7995,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J110",
+    "name": "Classroom 107 J110",
+    "map": "Main_FF",
+    "x": 68.9221,
+    "y": 298.3104,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J118",
+    "name": "Classroom 115 J118",
+    "map": "Main_FF",
+    "x": 388.846,
+    "y": 322.9137,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Vikas_Mahor",
+    "name": "Dr. Vikas Mahor",
+    "map": "Main_FF",
+    "x": 631.3569,
+    "y": 247.2452,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_R_Jenkin_Suji",
+    "name": "Dr. R. Jenkin Suji",
+    "map": "Main_FF",
+    "x": 652.4888,
+    "y": 254.9408,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Prof_Madhav_Singh",
+    "name": "Prof. Madhav Singh",
+    "map": "Main_FF",
+    "x": 524.833,
+    "y": 254.9408,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_04",
+    "name": "Corridor 23 Node 04",
+    "map": "Main_SF",
+    "x": 711.5502,
+    "y": 149.0239,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "JubileeRoad03",
+    "name": "Jubilee Road Node 03",
+    "map": "Campus_Map",
+    "x": 748.0837,
+    "y": 180.8533,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "AiRoad06",
+    "name": "AI Road Node 06",
+    "map": "Campus_Map",
+    "x": 529.2712,
+    "y": 128.1183,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "MainBuilRoad04",
+    "name": "Main Building Road Node 04",
+    "map": "Campus_Map",
+    "x": 516.2278,
+    "y": 556.0163,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "Canteen02",
+    "name": "Canteen Path Node 02",
+    "map": "Campus_Map",
+    "x": 621.1381,
+    "y": 497.8995,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "ENTRY04",
+    "name": "Main Building Entry (East)",
+    "map": "Campus_Map",
+    "x": 692.4898,
+    "y": 300.524,
+    "type": "entry",
+    "connects_to": {
+      "map": "Main_GF",
+      "node": "intersectionLibraryPath_Corridor06"
+    },
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "corridor01_04",
+    "name": "Corridor 01 Node 04",
+    "map": "Main_GF",
+    "x": 352.489,
+    "y": 482.8975,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor01_08",
+    "name": "Corridor 01 Node 08",
+    "map": "Main_GF",
+    "x": 218.3578,
+    "y": 482.9223,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor04_05",
+    "name": "Corridor 04 Node 05",
+    "map": "Main_GF",
+    "x": 166.0826,
+    "y": 367.2754,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_13",
+    "name": "Corridor 06 Node 13",
+    "map": "Main_GF",
+    "x": 343.5702,
+    "y": 271.4114,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_14",
+    "name": "Corridor 06 Node 14",
+    "map": "Main_GF",
+    "x": 272.2515,
+    "y": 271.3527,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorridor09_10",
+    "name": "Intersection Corridor09–10",
+    "map": "Main_GF",
+    "x": 593.3218,
+    "y": 59.7423,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorridor01_02",
+    "name": "Intersection Corridor01–02",
+    "map": "Main_GF",
+    "x": 461.3807,
+    "y": 482.7163,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Stairs05",
+    "name": "Stairs 05",
+    "map": "Main_GF",
+    "x": 715.5956,
+    "y": 264.386,
+    "type": "stairs",
+    "connects_to": {
+      "map": "Main_FF",
+      "node": "Stair05"
+    },
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Stairs07",
+    "name": "Stairs 07 (Architecture Wing)",
+    "map": "Main_GF",
+    "x": 622.5132,
+    "y": 67.7345,
+    "type": "stairs",
+    "connects_to": {
+      "map": "Main_FF",
+      "node": "Stair07"
+    },
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Anjula_Gaur",
+    "name": "Dr. Anjula Gaur",
+    "map": "Main_GF",
+    "x": 332.628,
+    "y": 375.2918,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor11_11",
+    "name": "Corridor 11 Node 11",
+    "map": "Main_FF",
+    "x": 73.5525,
+    "y": 465.9191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor12_06",
+    "name": "Corridor 12 Node 06",
+    "map": "Main_FF",
+    "x": 394.3752,
+    "y": 333.2457,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor20_03",
+    "name": "Corridor 20 Node 03",
+    "map": "Main_FF",
+    "x": 626.6612,
+    "y": 142.8648,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor21_03",
+    "name": "Corridor 21 Node 03",
+    "map": "Main_FF",
+    "x": 521.009,
+    "y": 94.2568,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Stair03",
+    "name": "Stair 03",
+    "map": "Main_FF",
+    "x": 241.846,
+    "y": 322.1474,
+    "type": "stairs",
+    "connects_to": {
+      "map": "Main_GF",
+      "node": "Stairs03"
+    },
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J101",
+    "name": "Colloquium Hall J101",
+    "map": "Main_FF",
+    "x": 341.3025,
+    "y": 489.9517,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J104",
+    "name": "SH-9 J104",
+    "map": "Main_FF",
+    "x": 71.1558,
+    "y": 470.1908,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J132",
+    "name": "J132",
+    "map": "Main_FF",
+    "x": 503.596,
+    "y": 247.2452,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J134",
+    "name": "J134",
+    "map": "Main_FF",
+    "x": 539.6938,
+    "y": 308.7167,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J140",
+    "name": "Cloud Computing Lab J140",
+    "map": "Main_FF",
+    "x": 521.7822,
+    "y": 44.9408,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_FemaleWashroom_FF",
+    "name": "Female Washroom",
+    "map": "Main_FF",
+    "x": 203.5634,
+    "y": 328.5387,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Prof_Pavitra_Pathak",
+    "name": "Prof. Pavitra Pathak",
+    "map": "Main_FF",
+    "x": 503.596,
+    "y": 247.2452,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_JK_Muthele",
+    "name": "Dr. J. K. Muthele",
+    "map": "Main_FF",
+    "x": 52.7645,
+    "y": 474.4501,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Ranjeev_Kumar_Singh",
+    "name": "Ranjeev Kumar Singh",
+    "map": "Main_FF",
+    "x": 634.4873,
+    "y": 99.6542,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Sanjiv_Sharma",
+    "name": "Dr. Sanjiv Sharma",
+    "map": "Main_FF",
+    "x": 492.8631,
+    "y": 83.9735,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "JubileeRoad08",
+    "name": "Jubilee Road Node 08",
+    "map": "Campus_Map",
+    "x": 767.7631,
+    "y": 319.106,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "JubileeRoad12",
+    "name": "Jubilee Road Node 12",
+    "map": "Campus_Map",
+    "x": 785.9343,
+    "y": 439.5299,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "AiRoad04",
+    "name": "AI Road Node 04",
+    "map": "Campus_Map",
+    "x": 422.8528,
+    "y": 128.2881,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "Canteen05",
+    "name": "Canteen Path Node 05",
+    "map": "Campus_Map",
+    "x": 666.2114,
+    "y": 454.1957,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "Canteen07",
+    "name": "Canteen Path Node 07",
+    "map": "Campus_Map",
+    "x": 697.5158,
+    "y": 426.5109,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "mainentryroad03",
+    "name": "Main Entry Road Node 03",
+    "map": "Campus_Map",
+    "x": 537.0566,
+    "y": 510.7392,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "corridor03_02",
+    "name": "Corridor 03 Node 02",
+    "map": "Main_GF",
+    "x": 327.5669,
+    "y": 425.1145,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor04_07",
+    "name": "Corridor 04 Node 07",
+    "map": "Main_GF",
+    "x": 166.0826,
+    "y": 353.4052,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor08_02",
+    "name": "Corridor 08 Node 02",
+    "map": "Main_GF",
+    "x": 674.5432,
+    "y": 120.7851,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor10_02",
+    "name": "Corridor 10 Node 02",
+    "map": "Main_GF",
+    "x": 617.3804,
+    "y": 59.4517,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionConnector_Corridor07",
+    "name": "Intersection Connector – Corridor07",
+    "map": "Main_GF",
+    "x": 603.8276,
+    "y": 204.7515,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorridor03_05",
+    "name": "Intersection Corridor03–05",
+    "map": "Main_GF",
+    "x": 327.5669,
+    "y": 353.0099,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J010",
+    "name": "J010 – SH-4",
+    "map": "Main_GF",
+    "x": 162.9803,
+    "y": 353.4052,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J023",
+    "name": "J023 – SH-5",
+    "map": "Main_GF",
+    "x": 322.8522,
+    "y": 329.8484,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J037",
+    "name": "J037 – Department Library",
+    "map": "Main_GF",
+    "x": 571.2616,
+    "y": 81.0137,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_PL5",
+    "name": "PL-5",
+    "map": "Main_GF",
+    "x": 592.5429,
+    "y": 321.1725,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Project_Research_Lab",
+    "name": "Project Research Lab",
+    "map": "Main_GF",
+    "x": 610.317,
+    "y": 253.8019,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_J022_Prof_Bhadoria",
+    "name": "J022 – Prof. Gautam Bhadoria / Environmental Engineering Lab",
+    "map": "Main_GF",
+    "x": 322.5983,
+    "y": 389.3722,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_J021_Chemical_Eng",
+    "name": "J021 – Dr. Shourabh S. Raghuvanshi / Prof. Swati Gupta / Dept. of Chemical Engineering",
+    "map": "Main_GF",
+    "x": 322.8126,
+    "y": 425.1145,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Manoj_Gaur",
+    "name": "Dr. Manoj Kumar Gaur – Dean Research",
+    "map": "Main_GF",
+    "x": 150.8004,
+    "y": 267.3203,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Shishir_Dixit_HOD",
+    "name": "Dr. Shishir Dixit – HOD Dept. of Electrical Engineering",
+    "map": "Main_GF",
+    "x": 162.5359,
+    "y": 460.7165,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Monica_Bhadoriya",
+    "name": "Dr. Monica Chauhan Bhadoriya",
+    "map": "Main_GF",
+    "x": 170.9787,
+    "y": 367.1069,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Anjali_Patil",
+    "name": "Dr. Anjali S. Patil",
+    "map": "Main_GF",
+    "x": 603.0631,
+    "y": 53.0112,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor11_12",
+    "name": "Corridor 11 Node 12",
+    "map": "Main_FF",
+    "x": 70.9438,
+    "y": 465.9191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor11_15",
+    "name": "Corridor 11 Node 15",
+    "map": "Main_FF",
+    "x": 30.9656,
+    "y": 465.9191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor15_07",
+    "name": "Corridor 15 Node 07",
+    "map": "Main_FF",
+    "x": 182.9221,
+    "y": 333.4254,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_06",
+    "name": "Corridor 16 Node 06",
+    "map": "Main_FF",
+    "x": 591.4438,
+    "y": 251.1588,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_10",
+    "name": "Corridor 16 Node 10",
+    "map": "Main_FF",
+    "x": 518.0417,
+    "y": 251.5169,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_21",
+    "name": "Corridor 16 Node 21",
+    "map": "Main_FF",
+    "x": 34.8204,
+    "y": 251.2218,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor20_05",
+    "name": "Corridor 20 Node 05",
+    "map": "Main_FF",
+    "x": 626.6612,
+    "y": 90.4211,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor21_07",
+    "name": "Corridor 21 Node 07",
+    "map": "Main_FF",
+    "x": 537.6692,
+    "y": 39.1988,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J105",
+    "name": "SH-10 J105",
+    "map": "Main_FF",
+    "x": 58.4384,
+    "y": 483.6908,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J109",
+    "name": "Classroom 106 J109",
+    "map": "Main_FF",
+    "x": 68.8569,
+    "y": 334.2941,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J133",
+    "name": "Digital Circuit Lab J133",
+    "map": "Main_FF",
+    "x": 535.683,
+    "y": 277.3756,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J141",
+    "name": "Computing Lab J141",
+    "map": "Main_FF",
+    "x": 512.4656,
+    "y": 58.4408,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_PL03",
+    "name": "PL-03",
+    "map": "Main_FF",
+    "x": 513.4275,
+    "y": 142.7669,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Hemant_Choubey",
+    "name": "Dr. Hemant Choubey",
+    "map": "Main_FF",
+    "x": 533.4649,
+    "y": 236.829,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Nitin_Upadhyay",
+    "name": "Dr. Nitin Upadhyay",
+    "map": "Main_FF",
+    "x": 20.7917,
+    "y": 216.2714,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Chandra_S_Malvi",
+    "name": "Dr. Chandra S. Malvi",
+    "map": "Main_FF",
+    "x": 34.0254,
+    "y": 219.2669,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_01",
+    "name": "Corridor 23 Node 01",
+    "map": "Main_SF",
+    "x": 711.6032,
+    "y": 293.2684,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_06",
+    "name": "Corridor 23 Node 06",
+    "map": "Main_SF",
+    "x": 677.3478,
+    "y": 149.0239,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_21",
+    "name": "Corridor 23 Node 21",
+    "map": "Main_SF",
+    "x": 334.3695,
+    "y": 149.1543,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "MainRoad01",
+    "name": "Main Road Node 01",
+    "map": "Campus_Map",
+    "x": 253.0593,
+    "y": 556.0163,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "MainRoad08",
+    "name": "Main Road Node 08",
+    "map": "Campus_Map",
+    "x": 253.0593,
+    "y": 300.3454,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "Canteen08",
+    "name": "Canteen Path Node 08",
+    "map": "Campus_Map",
+    "x": 698.0294,
+    "y": 404.231,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "mainentryroad04",
+    "name": "Main Entry Road Node 04",
+    "map": "Campus_Map",
+    "x": 537.0566,
+    "y": 533.3777,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "corridor04_02",
+    "name": "Corridor 04 Node 02",
+    "map": "Main_GF",
+    "x": 166.2032,
+    "y": 430.8671,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_17",
+    "name": "Corridor 06 Node 17",
+    "map": "Main_GF",
+    "x": 150.6098,
+    "y": 271.463,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "LabCorridor01_02",
+    "name": "Lab Corridor 01 Node 02",
+    "map": "Main_GF",
+    "x": 719.6676,
+    "y": 307.8077,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionAccountDepartment",
+    "name": "Intersection Account Department",
+    "map": "Main_GF",
+    "x": 525.4835,
+    "y": 475.0009,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Stairs06",
+    "name": "Stairs 06",
+    "map": "Main_GF",
+    "x": 687.9248,
+    "y": 197.4091,
+    "type": "stairs",
+    "connects_to": {
+      "map": "Main_FF",
+      "node": "Stair06"
+    },
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_SH6",
+    "name": "SH-6",
+    "map": "Main_GF",
+    "x": 446.5396,
+    "y": 267.2642,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J031",
+    "name": "J031",
+    "map": "Main_GF",
+    "x": 596.0197,
+    "y": 331.3926,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Sanjay_Tiwari_HOD",
+    "name": "Dr. Sanjay Tiwari – HOD Dept. of Civil Engineering",
+    "map": "Main_GF",
+    "x": 352.9131,
+    "y": 356.4095,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor11_09",
+    "name": "Corridor 11 Node 09",
+    "map": "Main_FF",
+    "x": 142.0308,
+    "y": 465.9191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor13_06",
+    "name": "Corridor 13 Node 06",
+    "map": "Main_FF",
+    "x": 247.1437,
+    "y": 322.6365,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor14_06",
+    "name": "Corridor 14 Node 06",
+    "map": "Main_FF",
+    "x": 73.5525,
+    "y": 355.6365,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor14_07",
+    "name": "Corridor 14 Node 07",
+    "map": "Main_FF",
+    "x": 73.3569,
+    "y": 348.6908,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor14_08",
+    "name": "Corridor 14 Node 08",
+    "map": "Main_FF",
+    "x": 73.4804,
+    "y": 333.7072,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor15_01",
+    "name": "Corridor 15 Node 01",
+    "map": "Main_FF",
+    "x": 383.2047,
+    "y": 333.2457,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor15_02",
+    "name": "Corridor 15 Node 02",
+    "map": "Main_FF",
+    "x": 352.2264,
+    "y": 333.3322,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor15_03",
+    "name": "Corridor 15 Node 03",
+    "map": "Main_FF",
+    "x": 319.0308,
+    "y": 333.3322,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_01",
+    "name": "Corridor 16 Node 01",
+    "map": "Main_FF",
+    "x": 673.8134,
+    "y": 250.9626,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_09",
+    "name": "Corridor 16 Node 09",
+    "map": "Main_FF",
+    "x": 524.586,
+    "y": 251.5217,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_20",
+    "name": "Corridor 16 Node 20",
+    "map": "Main_FF",
+    "x": 56.7264,
+    "y": 251.1093,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor17_02",
+    "name": "Corridor 17 Node 02",
+    "map": "Main_FF",
+    "x": 673.683,
+    "y": 279.1365,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J115",
+    "name": "Classroom 113A J115",
+    "map": "Main_FF",
+    "x": 304.6177,
+    "y": 247.4408,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J121",
+    "name": "Classroom 103A J121",
+    "map": "Main_FF",
+    "x": 242.808,
+    "y": 443.0278,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Aashi_Singh_Bhadouria",
+    "name": "Aashi Singh Bhadouria",
+    "map": "Main_FF",
+    "x": 494.787,
+    "y": 121.0101,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_14",
+    "name": "Corridor 23 Node 14",
+    "map": "Main_SF",
+    "x": 386.6739,
+    "y": 188.8181,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "MainRoad11",
+    "name": "Main Road Node 11",
+    "map": "Campus_Map",
+    "x": 253.0593,
+    "y": 179.3451,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "MainBuilRoad02",
+    "name": "Main Building Road Node 02",
+    "map": "Campus_Map",
+    "x": 367.6951,
+    "y": 556.0163,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "MainBuilRoad07",
+    "name": "Main Building Road Node 07",
+    "map": "Campus_Map",
+    "x": 621.8271,
+    "y": 556.0163,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "Library04",
+    "name": "Library Path Node 04",
+    "map": "Campus_Map",
+    "x": 698.2342,
+    "y": 300.5072,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "Library05",
+    "name": "Library Path Node 05",
+    "map": "Campus_Map",
+    "x": 737.9916,
+    "y": 300.5924,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "ENTRY03",
+    "name": "Main Building Entry (West)",
+    "map": "Campus_Map",
+    "x": 280.5616,
+    "y": 300.5072,
+    "type": "entry",
+    "connects_to": {
+      "map": "Main_GF",
+      "node": "intersectionCorridor06_MechDeprt"
+    },
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "corridor02_03",
+    "name": "Corridor 02 Node 03",
+    "map": "Main_GF",
+    "x": 461.4041,
+    "y": 389.5968,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor03_06",
+    "name": "Corridor 03 Node 06",
+    "map": "Main_GF",
+    "x": 327.6687,
+    "y": 360.2609,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor03_08",
+    "name": "Corridor 03 Node 08",
+    "map": "Main_GF",
+    "x": 327.5261,
+    "y": 304.881,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_08",
+    "name": "Corridor 06 Node 08",
+    "map": "Main_GF",
+    "x": 542.6774,
+    "y": 271.1672,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor07_01",
+    "name": "Corridor 07 Node 01",
+    "map": "Main_GF",
+    "x": 641.4921,
+    "y": 204.7515,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorridor01_04",
+    "name": "Intersection Corridor01–04",
+    "map": "Main_GF",
+    "x": 166.2032,
+    "y": 482.7163,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J045",
+    "name": "J045 – Studio-3",
+    "map": "Main_GF",
+    "x": 681.2707,
+    "y": 163.1677,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_DirectorsOffice",
+    "name": "Director's Office",
+    "map": "Main_GF",
+    "x": 512.7124,
+    "y": 425.1018,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Prof_Parul_Saxena",
+    "name": "Prof. Parul Saxena",
+    "map": "Main_GF",
+    "x": 582.8306,
+    "y": 274.9012,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor11_04",
+    "name": "Corridor 11 Node 04",
+    "map": "Main_FF",
+    "x": 247.096,
+    "y": 465.9191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor11_05",
+    "name": "Corridor 11 Node 05",
+    "map": "Main_FF",
+    "x": 230.7264,
+    "y": 465.9191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor14_10",
+    "name": "Corridor 14 Node 10",
+    "map": "Main_FF",
+    "x": 73.4226,
+    "y": 274.7099,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_12",
+    "name": "Corridor 16 Node 12",
+    "map": "Main_FF",
+    "x": 471.8025,
+    "y": 251.5169,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Stair04",
+    "name": "Stair 04",
+    "map": "Main_FF",
+    "x": 394.4221,
+    "y": 247.1474,
+    "type": "stairs",
+    "connects_to": {
+      "map": "Main_GF",
+      "node": "Stairs04"
+    },
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J102",
+    "name": "SH-7 J102",
+    "map": "Main_FF",
+    "x": 156.9493,
+    "y": 469.9952,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_VP_Shinde",
+    "name": "Dr. V.P. Shinde",
+    "map": "Main_FF",
+    "x": 30.8351,
+    "y": 461.2887,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Akhilesh_Tiwari",
+    "name": "Dr. Akhilesh Tiwari",
+    "map": "Main_FF",
+    "x": 514.1556,
+    "y": 100.9531,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Rohit_Agrawal",
+    "name": "Dr. Rohit Agrawal",
+    "map": "Main_FF",
+    "x": 521.7822,
+    "y": 44.9408,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_25",
+    "name": "Corridor 23 Node 25",
+    "map": "Main_SF",
+    "x": 27.7174,
+    "y": 148.9031,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "MainRoad12",
+    "name": "Main Road Node 12",
+    "map": "Campus_Map",
+    "x": 253.0593,
+    "y": 128.4756,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "JubileeRoad01",
+    "name": "Jubilee Road Node 01",
+    "map": "Campus_Map",
+    "x": 740.5756,
+    "y": 128.1183,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "AiRoad09",
+    "name": "AI Road Node 09",
+    "map": "Campus_Map",
+    "x": 686.0538,
+    "y": 128.1183,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "corridor02_02",
+    "name": "Corridor 02 Node 02",
+    "map": "Main_GF",
+    "x": 461.3762,
+    "y": 401.4313,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor03_01",
+    "name": "Corridor 03 Node 01",
+    "map": "Main_GF",
+    "x": 327.5669,
+    "y": 460.9037,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_09",
+    "name": "Corridor 06 Node 09",
+    "map": "Main_GF",
+    "x": 501.5378,
+    "y": 271.5881,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "LabCorridor02_02",
+    "name": "Lab Corridor 02 Node 02",
+    "map": "Main_GF",
+    "x": 595.9771,
+    "y": 321.2989,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_LT2",
+    "name": "LT-2 (Lecture Theatre 2)",
+    "map": "Main_GF",
+    "x": 688.0999,
+    "y": 267.7135,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J042",
+    "name": "J042 – Studio-5",
+    "map": "Main_GF",
+    "x": 680.6357,
+    "y": 80.0029,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Ar_Namita_Pranshi",
+    "name": "Ar. Namita Gupta / Ar. Pranshi Jain",
+    "map": "Main_GF",
+    "x": 573.7655,
+    "y": 64.6727,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor11_14",
+    "name": "Corridor 11 Node 14",
+    "map": "Main_FF",
+    "x": 58.4384,
+    "y": 474.4626,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor12_04",
+    "name": "Corridor 12 Node 04",
+    "map": "Main_FF",
+    "x": 394.3951,
+    "y": 383.3539,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor13_05",
+    "name": "Corridor 13 Node 05",
+    "map": "Main_FF",
+    "x": 247.096,
+    "y": 333.3322,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor14_03",
+    "name": "Corridor 14 Node 03",
+    "map": "Main_FF",
+    "x": 73.5525,
+    "y": 418.8974,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor15_05",
+    "name": "Corridor 15 Node 05",
+    "map": "Main_FF",
+    "x": 271.0308,
+    "y": 333.3322,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor21_02",
+    "name": "Corridor 21 Node 02",
+    "map": "Main_FF",
+    "x": 521.009,
+    "y": 136.0246,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Stair05",
+    "name": "Stair 05",
+    "map": "Main_FF",
+    "x": 673.8134,
+    "y": 247.93,
+    "type": "stairs",
+    "connects_to": {
+      "map": "Main_GF",
+      "node": "Stairs05"
+    },
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J117",
+    "name": "Classroom 114 J117",
+    "map": "Main_FF",
+    "x": 388.846,
+    "y": 286.4735,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J123",
+    "name": "Computer Lab J123",
+    "map": "Main_FF",
+    "x": 242.808,
+    "y": 346.5061,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J125",
+    "name": "Classroom 101 J125",
+    "map": "Main_FF",
+    "x": 133.6177,
+    "y": 337.6854,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J136",
+    "name": "J136",
+    "map": "Main_FF",
+    "x": 591.4438,
+    "y": 247.2452,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J137",
+    "name": "BE Lab J137",
+    "map": "Main_FF",
+    "x": 670.7482,
+    "y": 279.0713,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Prateek_Bhadauria",
+    "name": "Dr. Prateek Bhadauria",
+    "map": "Main_FF",
+    "x": 659.0898,
+    "y": 254.9408,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Er_Vivek_Sharma",
+    "name": "Er. Vivek Sharma",
+    "map": "Main_FF",
+    "x": 230.7264,
+    "y": 461.1582,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_11",
+    "name": "Corridor 23 Node 11",
+    "map": "Main_SF",
+    "x": 511.3695,
+    "y": 148.9348,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "MainRoad02",
+    "name": "Main Road Node 02",
+    "map": "Campus_Map",
+    "x": 253.0593,
+    "y": 514.5462,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "MainRoad03",
+    "name": "Main Road Node 03",
+    "map": "Campus_Map",
+    "x": 253.0593,
+    "y": 476.8343,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "MainRoad10",
+    "name": "Main Road Node 10",
+    "map": "Campus_Map",
+    "x": 253.0593,
+    "y": 220.9538,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "JubileeRoad05",
+    "name": "Jubilee Road Node 05",
+    "map": "Campus_Map",
+    "x": 757.5729,
+    "y": 248.0843,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "JubileeRoad16",
+    "name": "Jubilee Road Node 16",
+    "map": "Campus_Map",
+    "x": 803.4941,
+    "y": 556.0163,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "MainBuilRoad01",
+    "name": "Main Building Road Node 01",
+    "map": "Campus_Map",
+    "x": 306.3256,
+    "y": 556.0163,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "AiBuilding_Entry",
+    "name": "AI Building Entry",
+    "map": "Campus_Map",
+    "x": 422.8528,
+    "y": 134.8587,
+    "type": "entry",
+    "connects_to": {
+      "map": "AI_GF",
+      "node": "ai_entry_gf"
+    },
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "corridor01_03",
+    "name": "Corridor 01 Node 03",
+    "map": "Main_GF",
+    "x": 380.2214,
+    "y": 482.7163,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor04_01",
+    "name": "Corridor 04 Node 01",
+    "map": "Main_GF",
+    "x": 166.0909,
+    "y": 460.8147,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor04_03",
+    "name": "Corridor 04 Node 03",
+    "map": "Main_GF",
+    "x": 166.226,
+    "y": 401.3471,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor05_01",
+    "name": "Corridor 05 Node 01",
+    "map": "Main_GF",
+    "x": 393.3219,
+    "y": 352.8224,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor05_05",
+    "name": "Corridor 05 Node 05",
+    "map": "Main_GF",
+    "x": 286.8112,
+    "y": 353.1121,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_06",
+    "name": "Corridor 06 Node 06",
+    "map": "Main_GF",
+    "x": 582.5211,
+    "y": 271.5434,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_15",
+    "name": "Corridor 06 Node 15",
+    "map": "Main_GF",
+    "x": 258.7781,
+    "y": 271.2628,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor09_04",
+    "name": "Corridor 09 Node 04",
+    "map": "Main_GF",
+    "x": 578.7534,
+    "y": 76.1008,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "LabCorridor02_01",
+    "name": "Lab Corridor 02 Node 01",
+    "map": "Main_GF",
+    "x": 596.0197,
+    "y": 327.4758,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionLabCorridor_06",
+    "name": "Intersection Lab Corridor – Corridor06",
+    "map": "Main_GF",
+    "x": 596.0197,
+    "y": 271.463,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J028",
+    "name": "J028",
+    "map": "Main_GF",
+    "x": 501.3235,
+    "y": 267.2642,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_PL2",
+    "name": "PL-2",
+    "map": "Main_GF",
+    "x": 716.0731,
+    "y": 307.8639,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_MaleWashroom",
+    "name": "Male Washroom",
+    "map": "Main_GF",
+    "x": 457.3326,
+    "y": 389.5684,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Anshu_Chaturvedi",
+    "name": "Dr. Anshu Chaturvedi – Girls Grievance Cell / Disability Support Unit",
+    "map": "Main_GF",
+    "x": 576.4232,
+    "y": 274.9012,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_IC_Lab",
+    "name": "IC Lab",
+    "map": "Main_GF",
+    "x": 343.8415,
+    "y": 267.3079,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Directors_Office",
+    "name": "Director's Office",
+    "map": "Main_GF",
+    "x": 518.0432,
+    "y": 425.1018,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor11_16",
+    "name": "Corridor 11 Node 16",
+    "map": "Main_FF",
+    "x": 347.7099,
+    "y": 489.9191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor14_05",
+    "name": "Corridor 14 Node 05",
+    "map": "Main_FF",
+    "x": 73.4804,
+    "y": 370.8322,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_22",
+    "name": "Corridor 16 Node 22",
+    "map": "Main_FF",
+    "x": 30.6852,
+    "y": 251.1778,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor21_01",
+    "name": "Corridor 21 Node 01",
+    "map": "Main_FF",
+    "x": 521.009,
+    "y": 165.0939,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Stair06",
+    "name": "Stair 06",
+    "map": "Main_FF",
+    "x": 637.2575,
+    "y": 179.1582,
+    "type": "stairs",
+    "connects_to": {
+      "map": "Main_GF",
+      "node": "Stairs06"
+    },
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J127",
+    "name": "Classroom 116 J127",
+    "map": "Main_FF",
+    "x": 304.1612,
+    "y": 337.5713,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_PL04",
+    "name": "PL-04",
+    "map": "Main_FF",
+    "x": 494.787,
+    "y": 121.0101,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Sanjeev_Khanna",
+    "name": "Dr. Sanjeev Khanna",
+    "map": "Main_FF",
+    "x": 78.2482,
+    "y": 348.6908,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_19",
+    "name": "Corridor 23 Node 19",
+    "map": "Main_SF",
+    "x": 349.7608,
+    "y": 149.2847,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "JubileeRoad06",
+    "name": "Jubilee Road Node 06",
+    "map": "Campus_Map",
+    "x": 762.4642,
+    "y": 282.4701,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "JubileeRoad13",
+    "name": "Jubilee Road Node 13",
+    "map": "Campus_Map",
+    "x": 791.0701,
+    "y": 473.5489,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "AiRoad01",
+    "name": "AI Road Node 01",
+    "map": "Campus_Map",
+    "x": 286.2386,
+    "y": 128.3533,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "AiRoad07",
+    "name": "AI Road Node 07",
+    "map": "Campus_Map",
+    "x": 569.8364,
+    "y": 128.2555,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "mainentryroad01",
+    "name": "Main Entry Road Node 01",
+    "map": "Campus_Map",
+    "x": 499.7403,
+    "y": 501.087,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "Jubilee_Gate",
+    "name": "Jubilee Gate",
+    "map": "Campus_Map",
+    "x": 749.9669,
+    "y": 127.5277,
+    "type": "gate",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "corridor01_02",
+    "name": "Corridor 01 Node 02",
+    "map": "Main_GF",
+    "x": 406.7636,
+    "y": 482.7163,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor01_06",
+    "name": "Corridor 01 Node 06",
+    "map": "Main_GF",
+    "x": 289.8193,
+    "y": 482.7163,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor02_06",
+    "name": "Corridor 02 Node 06",
+    "map": "Main_GF",
+    "x": 461.5939,
+    "y": 281.9907,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor03_03",
+    "name": "Corridor 03 Node 03",
+    "map": "Main_GF",
+    "x": 327.5669,
+    "y": 389.4283,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor03_07",
+    "name": "Corridor 03 Node 07",
+    "map": "Main_GF",
+    "x": 327.5261,
+    "y": 329.8484,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_02",
+    "name": "Corridor 06 Node 02",
+    "map": "Main_GF",
+    "x": 698.9886,
+    "y": 271.463,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_05",
+    "name": "Corridor 06 Node 05",
+    "map": "Main_GF",
+    "x": 631.4317,
+    "y": 271.3002,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor09_06",
+    "name": "Corridor 09 Node 06",
+    "map": "Main_GF",
+    "x": 587.283,
+    "y": 66.3858,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorrdior02_06",
+    "name": "Intersection Corridor02–06",
+    "map": "Main_GF",
+    "x": 461.5711,
+    "y": 271.6315,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Stairs02",
+    "name": "Stairs 02",
+    "map": "Main_GF",
+    "x": 159.9015,
+    "y": 473.3145,
+    "type": "stairs",
+    "connects_to": {
+      "map": "Main_FF",
+      "node": "Stair02"
+    },
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Stairs03",
+    "name": "Stairs 03",
+    "map": "Main_GF",
+    "x": 320.9145,
+    "y": 342.0657,
+    "type": "stairs",
+    "connects_to": {
+      "map": "Main_FF",
+      "node": "Stair03"
+    },
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J004",
+    "name": "J004 – SH-3",
+    "map": "Main_GF",
+    "x": 218.3763,
+    "y": 487.446,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J008",
+    "name": "J008",
+    "map": "Main_GF",
+    "x": 162.4725,
+    "y": 401.2488,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_Library",
+    "name": "Library",
+    "map": "Main_GF",
+    "x": 725.7073,
+    "y": 416.0328,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_RS_Jadon",
+    "name": "Dr. R.S. Jadon – Dean Student Administration / Anti-Ragging Cell / Office Proctorial Board",
+    "map": "Main_GF",
+    "x": 680.0805,
+    "y": 267.7135,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_J014_CAD_CAM_Lab",
+    "name": "J014 – Computer Aided Design & Manufacturing Lab",
+    "map": "Main_GF",
+    "x": 272.3229,
+    "y": 267.1519,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_19",
+    "name": "Corridor 16 Node 19",
+    "map": "Main_FF",
+    "x": 100.2917,
+    "y": 251.3382,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor22_03",
+    "name": "Corridor 22 Node 03",
+    "map": "Main_FF",
+    "x": 564.2482,
+    "y": 35.954,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J112",
+    "name": "Classroom 109 J112",
+    "map": "Main_FF",
+    "x": 100.2917,
+    "y": 247.5061,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J122",
+    "name": "Classroom 103B J122",
+    "map": "Main_FF",
+    "x": 242.808,
+    "y": 370.8974,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J142",
+    "name": "Machine Learning Lab J142",
+    "map": "Main_FF",
+    "x": 494.787,
+    "y": 121.0101,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_MaleWashroom_FF",
+    "name": "Male Washroom",
+    "map": "Main_FF",
+    "x": 182.9221,
+    "y": 337.5387,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Akansha_Soni",
+    "name": "Dr. Akansha Soni",
+    "map": "Main_FF",
+    "x": 533.7264,
+    "y": 34.9921,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_07",
+    "name": "Corridor 23 Node 07",
+    "map": "Main_SF",
+    "x": 659.9347,
+    "y": 149.0239,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "Main_Gate",
+    "name": "Main Gate",
+    "map": "Campus_Map",
+    "x": 253.0593,
+    "y": 606.1033,
+    "type": "gate",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "Library_Campus",
+    "name": "Library",
+    "map": "Campus_Map",
+    "x": 690.6019,
+    "y": 393.3739,
+    "type": "room",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "corridor01_05",
+    "name": "Corridor 01 Node 05",
+    "map": "Main_GF",
+    "x": 311.2915,
+    "y": 482.7163,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor05_02",
+    "name": "Corridor 05 Node 02",
+    "map": "Main_GF",
+    "x": 379.7056,
+    "y": 352.8224,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_11",
+    "name": "Corridor 06 Node 11",
+    "map": "Main_GF",
+    "x": 446.5015,
+    "y": 271.463,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_12",
+    "name": "Corridor 06 Node 12",
+    "map": "Main_GF",
+    "x": 379.5152,
+    "y": 271.5287,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor09_02",
+    "name": "Corridor 09 Node 02",
+    "map": "Main_GF",
+    "x": 578.7534,
+    "y": 117.8347,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_LT1",
+    "name": "LT-1 (Lecture Theatre 1)",
+    "map": "Main_GF",
+    "x": 542.6774,
+    "y": 267.2642,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J003",
+    "name": "J003 – SH-2",
+    "map": "Main_GF",
+    "x": 260.3571,
+    "y": 487.446,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J026",
+    "name": "J026",
+    "map": "Main_GF",
+    "x": 393.5679,
+    "y": 356.4095,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Manish_Dixit",
+    "name": "Dr. Manish Dixit – Dean PR / HOD CSE / Student Grievance Cell",
+    "map": "Main_GF",
+    "x": 598.383,
+    "y": 253.8019,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Prof_Vedansh",
+    "name": "Prof. Vedansh Chaturvedi",
+    "map": "Main_GF",
+    "x": 130.5826,
+    "y": 263.8387,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Prof_RP_Kori",
+    "name": "Prof. R.P. Kori",
+    "map": "Main_GF",
+    "x": 118.1641,
+    "y": 225.6764,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor11_02",
+    "name": "Corridor 11 Node 02",
+    "map": "Main_FF",
+    "x": 394.4873,
+    "y": 465.9191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor11_07",
+    "name": "Corridor 11 Node 07",
+    "map": "Main_FF",
+    "x": 207.183,
+    "y": 465.8311,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor11_13",
+    "name": "Corridor 11 Node 13",
+    "map": "Main_FF",
+    "x": 58.4384,
+    "y": 465.9191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor14_02",
+    "name": "Corridor 14 Node 02",
+    "map": "Main_FF",
+    "x": 73.5525,
+    "y": 443.2887,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor14_04",
+    "name": "Corridor 14 Node 04",
+    "map": "Main_FF",
+    "x": 73.4226,
+    "y": 406.7995,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_03",
+    "name": "Corridor 16 Node 03",
+    "map": "Main_FF",
+    "x": 652.2917,
+    "y": 251.0728,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_07",
+    "name": "Corridor 16 Node 07",
+    "map": "Main_FF",
+    "x": 540.3774,
+    "y": 251.5217,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_13",
+    "name": "Corridor 16 Node 13",
+    "map": "Main_FF",
+    "x": 436.2917,
+    "y": 251.6963,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor17_03",
+    "name": "Corridor 17 Node 03",
+    "map": "Main_FF",
+    "x": 673.8134,
+    "y": 294.2017,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor19_05",
+    "name": "Corridor 19 Node 05",
+    "map": "Main_FF",
+    "x": 521.009,
+    "y": 183.2682,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor20_06",
+    "name": "Corridor 20 Node 06",
+    "map": "Main_FF",
+    "x": 626.6612,
+    "y": 58.8322,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Stair01",
+    "name": "Stair 01",
+    "map": "Main_FF",
+    "x": 389.6775,
+    "y": 455.036,
+    "type": "stairs",
+    "connects_to": {
+      "map": "Main_GF",
+      "node": "Stairs01"
+    },
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J111",
+    "name": "Classroom 108 J111",
+    "map": "Main_FF",
+    "x": 56.2699,
+    "y": 247.6365,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J124",
+    "name": "Drawing Hall J124",
+    "map": "Main_FF",
+    "x": 242.808,
+    "y": 310.3919,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J145",
+    "name": "IT Dept. J145",
+    "map": "Main_FF",
+    "x": 573.1993,
+    "y": 179.1582,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Manisha_Pathak",
+    "name": "Manisha Pathak",
+    "map": "Main_FF",
+    "x": 494.787,
+    "y": 121.0101,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Ranjeet_Singh",
+    "name": "Dr. Ranjeet Kumar Singh",
+    "map": "Main_FF",
+    "x": 513.4275,
+    "y": 142.7669,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Sanjay_Jadon",
+    "name": "Dr. Sanjay Singh Jadon",
+    "map": "Main_FF",
+    "x": 547.1286,
+    "y": 30.2096,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_23",
+    "name": "Corridor 23 Node 23",
+    "map": "Main_SF",
+    "x": 219.0652,
+    "y": 149.0239,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "JubileeRoad14",
+    "name": "Jubilee Road Node 14",
+    "map": "Campus_Map",
+    "x": 796.0104,
+    "y": 506.394,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "Canteen04",
+    "name": "Canteen Path Node 04",
+    "map": "Campus_Map",
+    "x": 667.1163,
+    "y": 479.0435,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "corridor01_01",
+    "name": "Corridor 01 Node 01",
+    "map": "Main_GF",
+    "x": 439.036,
+    "y": 482.7163,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor02_04",
+    "name": "Corridor 02 Node 04",
+    "map": "Main_GF",
+    "x": 461.5711,
+    "y": 359.2723,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_04",
+    "name": "Corridor 06 Node 04",
+    "map": "Main_GF",
+    "x": 679.9139,
+    "y": 271.4681,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_07",
+    "name": "Corridor 06 Node 07",
+    "map": "Main_GF",
+    "x": 575.255,
+    "y": 271.463,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_10",
+    "name": "Corridor 06 Node 10",
+    "map": "Main_GF",
+    "x": 475.1047,
+    "y": 271.463,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "LabCorridor01_01",
+    "name": "Lab Corridor 01 Node 01",
+    "map": "Main_GF",
+    "x": 719.8038,
+    "y": 327.3635,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorridor01_03",
+    "name": "Intersection Corridor01–03",
+    "map": "Main_GF",
+    "x": 327.5669,
+    "y": 482.7163,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorridor04_06",
+    "name": "Intersection Corridor04–06",
+    "map": "Main_GF",
+    "x": 165.8223,
+    "y": 271.6315,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J002",
+    "name": "J002 – SH-1",
+    "map": "Main_GF",
+    "x": 352.6556,
+    "y": 487.446,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J024",
+    "name": "J024",
+    "map": "Main_GF",
+    "x": 296.6052,
+    "y": 359.4374,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_MOOC_Center",
+    "name": "MOOC Center",
+    "map": "Main_GF",
+    "x": 475.1047,
+    "y": 267.2642,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor13_03",
+    "name": "Corridor 13 Node 03",
+    "map": "Main_FF",
+    "x": 247.096,
+    "y": 371.4191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor13_08",
+    "name": "Corridor 13 Node 08",
+    "map": "Main_FF",
+    "x": 247.1201,
+    "y": 284.3622,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_17",
+    "name": "Corridor 16 Node 17",
+    "map": "Main_FF",
+    "x": 194.6123,
+    "y": 251.6963,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor18_01",
+    "name": "Corridor 18 Node 01",
+    "map": "Main_FF",
+    "x": 539.5973,
+    "y": 264.2381,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor18_02",
+    "name": "Corridor 18 Node 02",
+    "map": "Main_FF",
+    "x": 539.5973,
+    "y": 277.2778,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor19_03",
+    "name": "Corridor 19 Node 03",
+    "map": "Main_FF",
+    "x": 573.1993,
+    "y": 183.1035,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor19_04",
+    "name": "Corridor 19 Node 04",
+    "map": "Main_FF",
+    "x": 542.433,
+    "y": 183.1527,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor21_05",
+    "name": "Corridor 21 Node 05",
+    "map": "Main_FF",
+    "x": 521.009,
+    "y": 52.2452,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor22_04",
+    "name": "Corridor 22 Node 04",
+    "map": "Main_FF",
+    "x": 546.7373,
+    "y": 35.954,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Stair02",
+    "name": "Stair 02",
+    "map": "Main_FF",
+    "x": 67.2264,
+    "y": 454.5713,
+    "type": "stairs",
+    "connects_to": {
+      "map": "Main_GF",
+      "node": "Stairs02"
+    },
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Stair07",
+    "name": "Stair 07",
+    "map": "Main_FF",
+    "x": 564.2482,
+    "y": 47.9735,
+    "type": "stairs",
+    "connects_to": {
+      "map": "Main_GF",
+      "node": "Stairs07"
+    },
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J131",
+    "name": "J131",
+    "map": "Main_FF",
+    "x": 471.5743,
+    "y": 247.1148,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J139",
+    "name": "Machine Learning Lab J139",
+    "map": "Main_FF",
+    "x": 572.6612,
+    "y": 24.0273,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J146",
+    "name": "Data Science Lab J146",
+    "map": "Main_FF",
+    "x": 612.3786,
+    "y": 179.2072,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Ravindra_Narwaria",
+    "name": "Dr. Ravindra Pratap Narwaria",
+    "map": "Main_FF",
+    "x": 518.0171,
+    "y": 254.9408,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_16",
+    "name": "Corridor 23 Node 16",
+    "map": "Main_SF",
+    "x": 386.6739,
+    "y": 149.2239,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_17",
+    "name": "Corridor 23 Node 17",
+    "map": "Main_SF",
+    "x": 373.2174,
+    "y": 148.8883,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "MainRoad07",
+    "name": "Main Road Node 07",
+    "map": "Campus_Map",
+    "x": 253.0593,
+    "y": 323.2473,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "JubileeRoad07",
+    "name": "Jubilee Road Node 07",
+    "map": "Campus_Map",
+    "x": 764.9878,
+    "y": 300.5924,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "JubileeRoad09",
+    "name": "Jubilee Road Node 09",
+    "map": "Campus_Map",
+    "x": 772.043,
+    "y": 347.1576,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "AiRoad02",
+    "name": "AI Road Node 02",
+    "map": "Campus_Map",
+    "x": 322.0104,
+    "y": 128.3859,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "MainBuilRoad09",
+    "name": "Main Building Road Node 09",
+    "map": "Campus_Map",
+    "x": 742.6625,
+    "y": 556.0163,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "Library01",
+    "name": "Library Path Node 01",
+    "map": "Campus_Map",
+    "x": 698.2342,
+    "y": 393.3739,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "corridor01_07",
+    "name": "Corridor 01 Node 07",
+    "map": "Main_GF",
+    "x": 260.1111,
+    "y": 482.794,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor01_09",
+    "name": "Corridor 01 Node 09",
+    "map": "Main_GF",
+    "x": 153.4664,
+    "y": 482.8389,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor02_01",
+    "name": "Corridor 02 Node 01",
+    "map": "Main_GF",
+    "x": 461.5711,
+    "y": 453.1899,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor05_06",
+    "name": "Corridor 05 Node 06",
+    "map": "Main_GF",
+    "x": 223.0077,
+    "y": 353.1448,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_01",
+    "name": "Corridor 06 Node 01",
+    "map": "Main_GF",
+    "x": 705.9221,
+    "y": 271.4199,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor08_04",
+    "name": "Corridor 08 Node 04",
+    "map": "Main_GF",
+    "x": 674.5432,
+    "y": 76.1008,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor08_05",
+    "name": "Corridor 08 Node 05",
+    "map": "Main_GF",
+    "x": 670.0081,
+    "y": 70.5997,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionLibraryPath_Corridor06",
+    "name": "Intersection Library Path – Corridor06",
+    "map": "Main_GF",
+    "x": 737.1352,
+    "y": 271.463,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J013",
+    "name": "J013",
+    "map": "Main_GF",
+    "x": 258.6859,
+    "y": 267.1519,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J036",
+    "name": "J036",
+    "map": "Main_GF",
+    "x": 568.4035,
+    "y": 56.418,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J038",
+    "name": "J038 – Studio-2",
+    "map": "Main_GF",
+    "x": 571.4278,
+    "y": 163.3924,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_FacultyRC",
+    "name": "J020 – Faculty Resource Centre",
+    "map": "Main_GF",
+    "x": 457.3326,
+    "y": 401.3612,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Prof_Jaimala_Jha",
+    "name": "Prof. Jaimala Jha",
+    "map": "Main_GF",
+    "x": 705.2498,
+    "y": 267.7135,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Prof_Mahesh_Parmar",
+    "name": "Prof. Mahesh Parmar",
+    "map": "Main_GF",
+    "x": 706.3876,
+    "y": 274.6766,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_003",
+    "name": "Room 003",
+    "map": "Main_GF",
+    "x": 457.396,
+    "y": 318.084,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_CS_Malvi_HOD_Mech",
+    "name": "Dr. Chandra Shekhar Malvi – HOD Dept. of Mechanical Engineering",
+    "map": "Main_GF",
+    "x": 130.5712,
+    "y": 243.6752,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dynamics_Machine_Lab",
+    "name": "Dynamics & Machine Lab",
+    "map": "Main_GF",
+    "x": 124.4389,
+    "y": 205.9434,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor11_03",
+    "name": "Corridor 11 Node 03",
+    "map": "Main_FF",
+    "x": 301.4221,
+    "y": 465.9191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor12_07",
+    "name": "Corridor 12 Node 07",
+    "map": "Main_FF",
+    "x": 394.4221,
+    "y": 323.093,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor14_01",
+    "name": "Corridor 14 Node 01",
+    "map": "Main_FF",
+    "x": 73.4226,
+    "y": 454.7669,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor15_08",
+    "name": "Corridor 15 Node 08",
+    "map": "Main_FF",
+    "x": 176.6123,
+    "y": 333.2319,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_16",
+    "name": "Corridor 16 Node 16",
+    "map": "Main_FF",
+    "x": 304.4547,
+    "y": 251.6963,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_25",
+    "name": "Corridor 16 Node 25",
+    "map": "Main_FF",
+    "x": 27.2482,
+    "y": 223.9626,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor19_02",
+    "name": "Corridor 19 Node 02",
+    "map": "Main_FF",
+    "x": 612.5743,
+    "y": 183.202,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor20_02",
+    "name": "Corridor 20 Node 02",
+    "map": "Main_FF",
+    "x": 626.4003,
+    "y": 160.2861,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor20_04",
+    "name": "Corridor 20 Node 04",
+    "map": "Main_FF",
+    "x": 626.6612,
+    "y": 99.9191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J150",
+    "name": "Hardware/Microprocessor Lab J150",
+    "map": "Main_FF",
+    "x": 633.5253,
+    "y": 142.8648,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Nidhi_Humnekar",
+    "name": "Dr. Nidhi Humnekar",
+    "map": "Main_FF",
+    "x": 25.8462,
+    "y": 256.18,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_08",
+    "name": "Corridor 23 Node 08",
+    "map": "Main_SF",
+    "x": 629.6739,
+    "y": 149.0239,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_12",
+    "name": "Corridor 23 Node 12",
+    "map": "Main_SF",
+    "x": 453.0326,
+    "y": 149.0239,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_15",
+    "name": "Corridor 23 Node 15",
+    "map": "Main_SF",
+    "x": 386.6739,
+    "y": 230.4586,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "MainRoad06",
+    "name": "Main Road Node 06",
+    "map": "Campus_Map",
+    "x": 253.0593,
+    "y": 366.5517,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "JubileeRoad02",
+    "name": "Jubilee Road Node 02",
+    "map": "Campus_Map",
+    "x": 743.9261,
+    "y": 151.5788,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "JubileeRoad15",
+    "name": "Jubilee Road Node 15",
+    "map": "Campus_Map",
+    "x": 800.8038,
+    "y": 538.1142,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "MainBuilRoad05",
+    "name": "Main Building Road Node 05",
+    "map": "Campus_Map",
+    "x": 537.0566,
+    "y": 556.0163,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "corridor01_10",
+    "name": "Corridor 01 Node 10",
+    "map": "Main_GF",
+    "x": 127.8388,
+    "y": 482.7163,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor02_05",
+    "name": "Corridor 02 Node 05",
+    "map": "Main_GF",
+    "x": 461.5711,
+    "y": 318.084,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor03_09",
+    "name": "Corridor 03 Node 09",
+    "map": "Main_GF",
+    "x": 327.5261,
+    "y": 282.3276,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_16",
+    "name": "Corridor 06 Node 16",
+    "map": "Main_GF",
+    "x": 186.7929,
+    "y": 271.395,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor09_05",
+    "name": "Corridor 09 Node 05",
+    "map": "Main_GF",
+    "x": 583.7645,
+    "y": 69.8824,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor10_01",
+    "name": "Corridor 10 Node 01",
+    "map": "Main_GF",
+    "x": 626.5214,
+    "y": 59.4517,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorridor02_DirectorsOffice",
+    "name": "Intersection Corridor02 – Director's Office",
+    "map": "Main_GF",
+    "x": 461.5711,
+    "y": 425.2141,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorrdor02_05",
+    "name": "Intersection Corridor02–05",
+    "map": "Main_GF",
+    "x": 461.4378,
+    "y": 352.6147,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionLabCorridor01_06",
+    "name": "Intersection Lab Corridor01 – Corridor06",
+    "map": "Main_GF",
+    "x": 719.8038,
+    "y": 271.463,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorridor07_08",
+    "name": "Intersection Corridor07–08",
+    "map": "Main_GF",
+    "x": 674.5432,
+    "y": 204.3541,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_LadiesWashroom",
+    "name": "Female Washroom",
+    "map": "Main_GF",
+    "x": 190.4539,
+    "y": 356.9616,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_RK_Gupta",
+    "name": "Dr. R.K. Gupta",
+    "map": "Main_GF",
+    "x": 574.4413,
+    "y": 267.2642,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_004",
+    "name": "Room 004",
+    "map": "Main_GF",
+    "x": 457.2691,
+    "y": 282.0328,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Jyoti_Vimal",
+    "name": "Dr. Jyoti Vimal",
+    "map": "Main_GF",
+    "x": 118.1641,
+    "y": 237.1258,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Prof_Bhupendra_Pandey",
+    "name": "Prof. Bhupendra Pandey",
+    "map": "Main_GF",
+    "x": 117.8208,
+    "y": 208.6389,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor11_08",
+    "name": "Corridor 11 Node 08",
+    "map": "Main_FF",
+    "x": 156.8351,
+    "y": 465.9191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor12_03",
+    "name": "Corridor 12 Node 03",
+    "map": "Main_FF",
+    "x": 394.3951,
+    "y": 406.3756,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor13_04",
+    "name": "Corridor 13 Node 04",
+    "map": "Main_FF",
+    "x": 247.1437,
+    "y": 346.6365,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor13_07",
+    "name": "Corridor 13 Node 07",
+    "map": "Main_FF",
+    "x": 246.9672,
+    "y": 310.2452,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor13_09",
+    "name": "Corridor 13 Node 09",
+    "map": "Main_FF",
+    "x": 246.9672,
+    "y": 251.6989,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor15_06",
+    "name": "Corridor 15 Node 06",
+    "map": "Main_FF",
+    "x": 203.6612,
+    "y": 333.1535,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_04",
+    "name": "Corridor 16 Node 04",
+    "map": "Main_FF",
+    "x": 631.3569,
+    "y": 250.9626,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_14",
+    "name": "Corridor 16 Node 14",
+    "map": "Main_FF",
+    "x": 408.4665,
+    "y": 251.5902,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor22_02",
+    "name": "Corridor 22 Node 02",
+    "map": "Main_FF",
+    "x": 572.5634,
+    "y": 35.6001,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J106",
+    "name": "SH-11 J106",
+    "map": "Main_FF",
+    "x": 68.8569,
+    "y": 443.3376,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J130",
+    "name": "Examination Centre J130",
+    "map": "Main_FF",
+    "x": 408.4665,
+    "y": 245.8756,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J138",
+    "name": "J138",
+    "map": "Main_FF",
+    "x": 673.8134,
+    "y": 305.3539,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J148",
+    "name": "Project Lab J148",
+    "map": "Main_FF",
+    "x": 633.5253,
+    "y": 59.1256,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Laxmi_HOD_EE",
+    "name": "Dr. Laxmi Shrivastava – HOD Dept. of EE",
+    "map": "Main_FF",
+    "x": 659.0898,
+    "y": 247.2452,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Barkha_Tiwari",
+    "name": "Dr. Barkha Tiwari",
+    "map": "Main_FF",
+    "x": 25.8462,
+    "y": 256.18,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Minakshi_Dahiya",
+    "name": "Dr. Minakshi Dahiya",
+    "map": "Main_FF",
+    "x": 34.7241,
+    "y": 256.18,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Arzoo_Choubey",
+    "name": "Dr. Arzoo Choubey",
+    "map": "Main_FF",
+    "x": 78.2482,
+    "y": 355.5115,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_DK_Jain",
+    "name": "Dr. D. K. Jain",
+    "map": "Main_FF",
+    "x": 207.0525,
+    "y": 461.1582,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_SK_Bharadwaj",
+    "name": "Dr. S. K. Bharadwaj",
+    "map": "Main_FF",
+    "x": 30.8351,
+    "y": 470.3376,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_03",
+    "name": "Corridor 23 Node 03",
+    "map": "Main_SF",
+    "x": 711.4891,
+    "y": 201.4913,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_18",
+    "name": "Corridor 23 Node 18",
+    "map": "Main_SF",
+    "x": 357.2608,
+    "y": 149.0239,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_24",
+    "name": "Corridor 23 Node 24",
+    "map": "Main_SF",
+    "x": 67.6304,
+    "y": 149.0301,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "Stair04_SF",
+    "name": "Stair 04",
+    "map": "Main_SF",
+    "x": 28.0434,
+    "y": 130.5021,
+    "type": "stairs",
+    "connects_to": {
+      "map": "Main_FF",
+      "node": "Stair04"
+    },
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "MainRoad04",
+    "name": "Main Road Node 04",
+    "map": "Campus_Map",
+    "x": 253.0593,
+    "y": 436.2092,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "Canteen06",
+    "name": "Canteen Path Node 06",
+    "map": "Campus_Map",
+    "x": 665.2087,
+    "y": 426.731,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "Library03",
+    "name": "Library Path Node 03",
+    "map": "Campus_Map",
+    "x": 698.2342,
+    "y": 337.8398,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "mainentryroad02",
+    "name": "Main Entry Road Node 02",
+    "map": "Campus_Map",
+    "x": 526.1979,
+    "y": 502.4565,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "corridor04_04",
+    "name": "Corridor 04 Node 04",
+    "map": "Main_GF",
+    "x": 166.415,
+    "y": 373.7612,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor04_06",
+    "name": "Corridor 04 Node 06",
+    "map": "Main_GF",
+    "x": 165.9876,
+    "y": 365.338,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor05_04",
+    "name": "Corridor 05 Node 04",
+    "map": "Main_GF",
+    "x": 296.6052,
+    "y": 353.0099,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorridor06_MechDeprt",
+    "name": "Intersection Corridor06 – Mech Dept",
+    "map": "Main_GF",
+    "x": 123.5453,
+    "y": 271.463,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J039",
+    "name": "J039 – Studio-1",
+    "map": "Main_GF",
+    "x": 572.4677,
+    "y": 123.1296,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_J005_BEEE_Lab",
+    "name": "J005 – BEEE Lab",
+    "map": "Main_GF",
+    "x": 164.5673,
+    "y": 487.5022,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Vijay_Bhuria",
+    "name": "Dr. Vijay Bhuria – Chief Warden",
+    "map": "Main_GF",
+    "x": 147.6818,
+    "y": 491.7898,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor12_01",
+    "name": "Corridor 12 Node 01",
+    "map": "Main_FF",
+    "x": 394.3951,
+    "y": 455.036,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor14_09",
+    "name": "Corridor 14 Node 09",
+    "map": "Main_FF",
+    "x": 73.4804,
+    "y": 298.3104,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor15_09",
+    "name": "Corridor 15 Node 09",
+    "map": "Main_FF",
+    "x": 133.4221,
+    "y": 333.3322,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_02",
+    "name": "Corridor 16 Node 02",
+    "map": "Main_FF",
+    "x": 659.0898,
+    "y": 251.1143,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor17_01",
+    "name": "Corridor 17 Node 01",
+    "map": "Main_FF",
+    "x": 673.8134,
+    "y": 265.4164,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor21_04",
+    "name": "Corridor 21 Node 04",
+    "map": "Main_FF",
+    "x": 520.8202,
+    "y": 58.6365,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor22_01",
+    "name": "Corridor 22 Node 01",
+    "map": "Main_FF",
+    "x": 599.0743,
+    "y": 35.3539,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J113",
+    "name": "Classroom 110 J113",
+    "map": "Main_FF",
+    "x": 143.9873,
+    "y": 247.5061,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Anand_Pawar",
+    "name": "Dr. Anand Pawar",
+    "map": "Main_FF",
+    "x": 57.2319,
+    "y": 256.18,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Kuldeep_Tiwari",
+    "name": "Dr. Kuldeep Kumar Tiwari",
+    "map": "Main_FF",
+    "x": 52.7645,
+    "y": 474.4501,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Kuldeep_Tripathi",
+    "name": "Dr. Kuldeep Narayan Tripathi",
+    "map": "Main_FF",
+    "x": 521.7822,
+    "y": 44.9408,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "MainRoad05",
+    "name": "Main Road Node 05",
+    "map": "Campus_Map",
+    "x": 253.0593,
+    "y": 403.9212,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "JubileeRoad10",
+    "name": "Jubilee Road Node 10",
+    "map": "Campus_Map",
+    "x": 777.5212,
+    "y": 383.5734,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "MainBuilRoad03",
+    "name": "Main Building Road Node 03",
+    "map": "Campus_Map",
+    "x": 436.8256,
+    "y": 556.0163,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "Canteen03",
+    "name": "Canteen Path Node 03",
+    "map": "Campus_Map",
+    "x": 621.0158,
+    "y": 479.2147,
+    "type": "corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "campus_intersectionCorridor01_04",
+    "name": "Intersection – Main Road / Inner Road",
+    "map": "Campus_Map",
+    "x": 316.9273,
+    "y": 436.2092,
+    "type": "intersection",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "id": "corridor03_04",
+    "name": "Corridor 03 Node 04",
+    "map": "Main_GF",
+    "x": 327.5669,
+    "y": 375.3212,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor06_03",
+    "name": "Corridor 06 Node 03",
+    "map": "Main_GF",
+    "x": 688.0074,
+    "y": 271.3378,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "intersectionCorridor03_06",
+    "name": "Intersection Corridor03–06",
+    "map": "Main_GF",
+    "x": 327.5669,
+    "y": 271.6315,
+    "type": "intersection",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Stairs04",
+    "name": "Stairs 04",
+    "map": "Main_GF",
+    "x": 461.5711,
+    "y": 266.6416,
+    "type": "stairs",
+    "connects_to": {
+      "map": "Main_FF",
+      "node": "Stair04"
+    },
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Smita_Parte",
+    "name": "Dr. Smita Parte",
+    "map": "Main_GF",
+    "x": 698.251,
+    "y": 267.7135,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Pratesh_Jayaswal",
+    "name": "Dr. Pratesh Jayaswal",
+    "map": "Main_GF",
+    "x": 325.8381,
+    "y": 267.1519,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_J012_Fluid_Lab",
+    "name": "J012 – Fluid Mechanics & Hydraulic Machines Lab",
+    "map": "Main_GF",
+    "x": 186.9435,
+    "y": 267.1519,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor12_05",
+    "name": "Corridor 12 Node 05",
+    "map": "Main_FF",
+    "x": 394.4221,
+    "y": 370.8322,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor14_11",
+    "name": "Corridor 14 Node 11",
+    "map": "Main_FF",
+    "x": 73.4804,
+    "y": 251.1093,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_15",
+    "name": "Corridor 16 Node 15",
+    "map": "Main_FF",
+    "x": 348.6721,
+    "y": 251.6963,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_18",
+    "name": "Corridor 16 Node 18",
+    "map": "Main_FF",
+    "x": 143.7264,
+    "y": 251.3294,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_23",
+    "name": "Corridor 16 Node 23",
+    "map": "Main_FF",
+    "x": 27.183,
+    "y": 250.9626,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor19_01",
+    "name": "Corridor 19 Node 01",
+    "map": "Main_FF",
+    "x": 626.4003,
+    "y": 183.1035,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor20_07",
+    "name": "Corridor 20 Node 07",
+    "map": "Main_FF",
+    "x": 626.6612,
+    "y": 53.4517,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor21_06",
+    "name": "Corridor 21 Node 06",
+    "map": "Main_FF",
+    "x": 525.4489,
+    "y": 48.7887,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J120",
+    "name": "Training & Placement Centre J120",
+    "map": "Main_FF",
+    "x": 388.9438,
+    "y": 443.1908,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J128",
+    "name": "Classroom 117 J128",
+    "map": "Main_FF",
+    "x": 319.0308,
+    "y": 337.5713,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J135",
+    "name": "J135",
+    "map": "Main_FF",
+    "x": 541.0308,
+    "y": 247.2452,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J143",
+    "name": "Data Science Lab J143",
+    "map": "Main_FF",
+    "x": 513.4275,
+    "y": 142.7669,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J147",
+    "name": "Exhibition Hall J147",
+    "map": "Main_FF",
+    "x": 634.4873,
+    "y": 53.3539,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_Language_Lab",
+    "name": "Language Laboratory",
+    "map": "Main_FF",
+    "x": 68.8569,
+    "y": 418.93,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Amit_Aherwar",
+    "name": "Dr. Amit Aherwar",
+    "map": "Main_FF",
+    "x": 34.0254,
+    "y": 236.8584,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Divya_Chaturvedi",
+    "name": "Dr. Divya Chaturvedi",
+    "map": "Main_FF",
+    "x": 34.7241,
+    "y": 256.18,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_02",
+    "name": "Corridor 23 Node 02",
+    "map": "Main_SF",
+    "x": 711.5543,
+    "y": 232.6326,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_05",
+    "name": "Corridor 23 Node 05",
+    "map": "Main_SF",
+    "x": 706.9239,
+    "y": 149.0239,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_20",
+    "name": "Corridor 23 Node 20",
+    "map": "Main_SF",
+    "x": 345.9782,
+    "y": 149.2239,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "corridor04_08",
+    "name": "Corridor 04 Node 08",
+    "map": "Main_GF",
+    "x": 165.7033,
+    "y": 306.2494,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor05_03",
+    "name": "Corridor 05 Node 03",
+    "map": "Main_GF",
+    "x": 352.9492,
+    "y": 352.8818,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor09_01",
+    "name": "Corridor 09 Node 01",
+    "map": "Main_GF",
+    "x": 578.6078,
+    "y": 156.9111,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "corridor10_03",
+    "name": "Corridor 10 Node 03",
+    "map": "Main_GF",
+    "x": 603.2788,
+    "y": 59.4248,
+    "type": "corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J009",
+    "name": "J009",
+    "map": "Main_GF",
+    "x": 162.9803,
+    "y": 365.31,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Girls_Common_Room",
+    "name": "Girls Common Room",
+    "map": "Main_GF",
+    "x": 631.4555,
+    "y": 267.7135,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_SK_Jain",
+    "name": "Dr. S.K. Jain",
+    "map": "Main_GF",
+    "x": 322.5983,
+    "y": 363.5879,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_PK_Singhal",
+    "name": "Dr. P.K. Singhal",
+    "map": "Main_GF",
+    "x": 289.8909,
+    "y": 478.5596,
+    "type": "room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "id": "Corridor11_10",
+    "name": "Corridor 11 Node 10",
+    "map": "Main_FF",
+    "x": 99.5743,
+    "y": 465.9191,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_05",
+    "name": "Corridor 16 Node 05",
+    "map": "Main_FF",
+    "x": 611.2699,
+    "y": 251.1143,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_08",
+    "name": "Corridor 16 Node 08",
+    "map": "Main_FF",
+    "x": 533.4649,
+    "y": 251.3294,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_24",
+    "name": "Corridor 16 Node 24",
+    "map": "Main_FF",
+    "x": 27.183,
+    "y": 237.1691,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor16_27",
+    "name": "Corridor 16 Node 27",
+    "map": "Main_FF",
+    "x": 26.9798,
+    "y": 220.1148,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor20_01",
+    "name": "Corridor 20 Node 01",
+    "map": "Main_FF",
+    "x": 626.5308,
+    "y": 179.2561,
+    "type": "corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J108",
+    "name": "Classroom 105 J108",
+    "map": "Main_FF",
+    "x": 68.8569,
+    "y": 370.8322,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J116",
+    "name": "Classroom 113B J116",
+    "map": "Main_FF",
+    "x": 348.6956,
+    "y": 247.4408,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J149",
+    "name": "Research Lab J149",
+    "map": "Main_FF",
+    "x": 651.6345,
+    "y": 120.6582,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Shailendra_Singh",
+    "name": "Dr. Shailendra Singh",
+    "map": "Main_FF",
+    "x": 523.8711,
+    "y": 238.3104,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Kumar_Gaurav",
+    "name": "Dr. Kumar Gaurav",
+    "map": "Main_FF",
+    "x": 523.8711,
+    "y": 238.3104,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Prof_Vaibhav_Shivhare",
+    "name": "Prof. Vaibhav Shivhare",
+    "map": "Main_FF",
+    "x": 20.7917,
+    "y": 220.7669,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Surendra_Chourasiya",
+    "name": "Dr. Surendra K. Chourasiya",
+    "map": "Main_FF",
+    "x": 34.0254,
+    "y": 223.7244,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_DK_Mishra",
+    "name": "Dr. D. K. Mishra",
+    "map": "Main_FF",
+    "x": 30.8351,
+    "y": 470.3376,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Punit_Johari",
+    "name": "Dr. Punit Kumar Johari",
+    "map": "Main_FF",
+    "x": 645.933,
+    "y": 90.4211,
+    "type": "room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "id": "Corridor23_13",
+    "name": "Corridor 23 Node 13",
+    "map": "Main_SF",
+    "x": 386.6739,
+    "y": 281.138,
+    "type": "corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "room_J203",
+    "name": "J203 (Dr. Nidhi Saxena)",
+    "map": "Main_SF",
+    "x": 298.5652,
+    "y": 135.7195,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Prof_Pooja_Sahoo",
+    "name": "Prof. Pooja Sahoo",
+    "map": "Main_SF",
+    "x": 660.326,
+    "y": 162.0673,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Rahul_Dubey_ET",
+    "name": "Dr. Rahul Dubey (ET)",
+    "map": "Main_SF",
+    "x": 345.7826,
+    "y": 124.1108,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Project_Lab_J204",
+    "name": "Project Lab – J204",
+    "map": "Main_SF",
+    "x": 376.1087,
+    "y": 230.4586,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "FF_Corridor04",
+    "name": "FF Corridor Node 04",
+    "map": "AI_FF",
+    "x": 130.9722,
+    "y": 104.3704,
+    "type": "corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_FF_MaleWC",
+    "name": "Male Washroom",
+    "map": "AI_FF",
+    "x": 87.9231,
+    "y": 85.653,
+    "type": "room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "SF_Corridor10",
+    "name": "SF Corridor Node 10",
+    "map": "AI_SF",
+    "x": 558,
+    "y": 102.8052,
+    "type": "corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_SF_Dr_Sunil_Shukla",
+    "name": "Dr. Sunil Kumar Shukla",
+    "map": "AI_SF",
+    "x": 630.0704,
+    "y": 151.4128,
+    "type": "room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Deepak_Batham",
+    "name": "Dr. Deepak Batham",
+    "map": "Main_SF",
+    "x": 334.4199,
+    "y": 161.676,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "GF_Corridor04",
+    "name": "GF Corridor Node 04",
+    "map": "AI_GF",
+    "x": 311.6522,
+    "y": 273.3913,
+    "type": "corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "AI_GF_Stairs01",
+    "name": "Stairs 01",
+    "map": "AI_GF",
+    "x": 588.8,
+    "y": 260.56,
+    "type": "stairs",
+    "connects_to": {
+      "map": "AI_FF",
+      "node": "AI_FF_Stairs01"
+    },
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_GF_M007",
+    "name": "M007 – CIoT Lab",
+    "map": "AI_GF",
+    "x": 651.397,
+    "y": 285.4979,
+    "type": "room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_GF_Dr_Bhavna_Rathore",
+    "name": "Dr. Bhavna Rathore",
+    "map": "AI_GF",
+    "x": 753.2538,
+    "y": 295.8859,
+    "type": "room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "AI_FF_Stairs01",
+    "name": "Stairs 01",
+    "map": "AI_FF",
+    "x": 495.12,
+    "y": 92.52,
+    "type": "stairs",
+    "connects_to": {
+      "map": "AI_GF",
+      "node": "AI_GF_Stairs01"
+    },
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_FF_Shubha_Mishra",
+    "name": "Shubha Mishra",
+    "map": "AI_FF",
+    "x": 658.6461,
+    "y": 56.3052,
+    "type": "room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "SF_Corridor03",
+    "name": "SF Corridor Node 03",
+    "map": "AI_SF",
+    "x": 129.6659,
+    "y": 102.8052,
+    "type": "corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "SF_Corridor05",
+    "name": "SF Corridor Node 05",
+    "map": "AI_SF",
+    "x": 350.8748,
+    "y": 102.8052,
+    "type": "corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "SF_Corridor08",
+    "name": "SF Corridor Node 08",
+    "map": "AI_SF",
+    "x": 419.4,
+    "y": 102.8052,
+    "type": "corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "AI_SF_Stairs02",
+    "name": "Stairs 02",
+    "map": "AI_SF",
+    "x": 131.28,
+    "y": 92.52,
+    "type": "stairs",
+    "connects_to": {
+      "map": "AI_FF",
+      "node": "AI_FF_Stairs02"
+    },
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "Stair05_SF",
+    "name": "Stair 05",
+    "map": "Main_SF",
+    "x": 707.2826,
+    "y": 136.1108,
+    "type": "stairs",
+    "connects_to": {
+      "map": "Main_FF",
+      "node": "Stair05"
+    },
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "GF_Corridor09",
+    "name": "GF Corridor Node 09",
+    "map": "AI_GF",
+    "x": 632.96,
+    "y": 273.3913,
+    "type": "corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_GF_FemWC",
+    "name": "Female Washroom",
+    "map": "AI_GF",
+    "x": 143.48,
+    "y": 253.96,
+    "type": "room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_J202",
+    "name": "Communication Lab J202",
+    "map": "Main_SF",
+    "x": 219.2608,
+    "y": 135.85,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Prof_DK_Parsediya",
+    "name": "Prof. D. K. Parsediya (NSS)",
+    "map": "Main_SF",
+    "x": 677.2826,
+    "y": 162.0673,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Nidhi_Saxena",
+    "name": "Dr. Nidhi Saxena – J203",
+    "map": "Main_SF",
+    "x": 298.5652,
+    "y": 135.7195,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Varun_Sharma",
+    "name": "Dr. Varun Sharma",
+    "map": "Main_SF",
+    "x": 349.8548,
+    "y": 161.676,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_GF_Dr_Kaushal_Sengar",
+    "name": "Dr. Kaushal Pratap Sengar",
+    "map": "AI_GF",
+    "x": 723.6691,
+    "y": 320.3082,
+    "type": "room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "AI_FF_Stairs02",
+    "name": "Stairs 02",
+    "map": "AI_FF",
+    "x": 130.9722,
+    "y": 92.4356,
+    "type": "stairs",
+    "connects_to": {
+      "map": "AI_GF",
+      "node": "AI_GF_Stairs02"
+    },
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_FemaleWashroom_SF",
+    "name": "Female Washroom",
+    "map": "Main_SF",
+    "x": 563.2218,
+    "y": 136.1108,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Yogesh_Himanshu",
+    "name": "Dr. Yogesh Kumar & Dr. Himanshu Singh",
+    "map": "Main_SF",
+    "x": 608.413,
+    "y": 136.1108,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "GF_Corridor12",
+    "name": "GF Corridor Node 12",
+    "map": "AI_GF",
+    "x": 738.7446,
+    "y": 273.3913,
+    "type": "corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "FF_Corridor14",
+    "name": "FF Corridor Node 14 (South2)",
+    "map": "AI_FF",
+    "x": 645.1461,
+    "y": 127.1259,
+    "type": "corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_FF_FemWC",
+    "name": "Female Washroom",
+    "map": "AI_FF",
+    "x": 50.4287,
+    "y": 85.653,
+    "type": "room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "SF_Corridor01",
+    "name": "SF Corridor Node 01",
+    "map": "AI_SF",
+    "x": 49.7009,
+    "y": 102.8052,
+    "type": "corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_SF_Dr_Atul_Chauhan",
+    "name": "Dr. Atul Chauhan",
+    "map": "AI_SF",
+    "x": 350.8748,
+    "y": 92.7617,
+    "type": "room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_SF_Dr_Vibha_Tiwari",
+    "name": "Dr. Vibha Tiwari",
+    "map": "AI_SF",
+    "x": 659.2129,
+    "y": 56.9314,
+    "type": "room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_SF_Ramnaresh_Sharma",
+    "name": "Ramnaresh Sharma",
+    "map": "AI_SF",
+    "x": 635.942,
+    "y": 51.2183,
+    "type": "room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Shubhi_Kansal",
+    "name": "Dr. Shubhi Kansal",
+    "map": "Main_SF",
+    "x": 373.2174,
+    "y": 98.2847,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "GF_Corridor15",
+    "name": "GF Corridor Node 15 (South2)",
+    "map": "AI_GF",
+    "x": 738.5,
+    "y": 319.7564,
+    "type": "corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_GF_Dr_Murli_Manohar",
+    "name": "Dr. Murli Manohar",
+    "map": "AI_GF",
+    "x": 753.2538,
+    "y": 224.7811,
+    "type": "room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "SF_Corridor07",
+    "name": "SF Corridor Node 07",
+    "map": "AI_SF",
+    "x": 397.8313,
+    "y": 102.8052,
+    "type": "corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "SF_Corridor13",
+    "name": "SF Corridor Node 13 (South)",
+    "map": "AI_SF",
+    "x": 643.4402,
+    "y": 146.9273,
+    "type": "corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "room_J209",
+    "name": "J209",
+    "map": "Main_SF",
+    "x": 711.5502,
+    "y": 345.5681,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Computer_Lab_J208",
+    "name": "Computer Lab – J208",
+    "map": "Main_SF",
+    "x": 702.3056,
+    "y": 232.5918,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "GF_Corridor14",
+    "name": "GF Corridor Node 14 (South1)",
+    "map": "AI_GF",
+    "x": 738.6957,
+    "y": 295.8859,
+    "type": "corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "FF_Corridor01",
+    "name": "FF Corridor Node 01",
+    "map": "AI_FF",
+    "x": 49.32,
+    "y": 104.3704,
+    "type": "corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "FF_Corridor02",
+    "name": "FF Corridor Node 02",
+    "map": "AI_FF",
+    "x": 87.9231,
+    "y": 104.3704,
+    "type": "corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "FF_Corridor16",
+    "name": "FF Corridor Node 16 (South4)",
+    "map": "AI_FF",
+    "x": 645.1461,
+    "y": 150.9008,
+    "type": "corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_FF_M102",
+    "name": "M102",
+    "map": "AI_FF",
+    "x": 419.28,
+    "y": 116.64,
+    "type": "room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "SF_Corridor02",
+    "name": "SF Corridor Node 02",
+    "map": "AI_SF",
+    "x": 88.5065,
+    "y": 102.8052,
+    "type": "corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "SF_Corridor04",
+    "name": "SF Corridor Node 04",
+    "map": "AI_SF",
+    "x": 282.0182,
+    "y": 102.8052,
+    "type": "corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_SF_M203",
+    "name": "M203",
+    "map": "AI_SF",
+    "x": 282.24,
+    "y": 116.64,
+    "type": "room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "room_J204",
+    "name": "Project Lab J204",
+    "map": "Main_SF",
+    "x": 376.1087,
+    "y": 230.4586,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "room_J206",
+    "name": "J206",
+    "map": "Main_SF",
+    "x": 511.6304,
+    "y": 135.4586,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "GF_Corridor01",
+    "name": "GF Corridor Node 01",
+    "map": "AI_GF",
+    "x": 142.4783,
+    "y": 273.3913,
+    "type": "corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_GF_M004",
+    "name": "M004",
+    "map": "AI_GF",
+    "x": 374.587,
+    "y": 260.2826,
+    "type": "room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_GF_Dr_Dhananjay_Aditya",
+    "name": "Dr. Dhananjay Bisen / Dr. Aditya Dubey",
+    "map": "AI_GF",
+    "x": 728.5467,
+    "y": 220.2832,
+    "type": "room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "FF_Corridor03",
+    "name": "FF Corridor Node 03",
+    "map": "AI_FF",
+    "x": 128.28,
+    "y": 104.3704,
+    "type": "corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "FF_Corridor06",
+    "name": "FF Corridor Node 06",
+    "map": "AI_FF",
+    "x": 419.52,
+    "y": 104.22,
+    "type": "corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "FF_Corridor09",
+    "name": "FF Corridor Node 09",
+    "map": "AI_FF",
+    "x": 557.88,
+    "y": 104.22,
+    "type": "corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "FF_Corridor10",
+    "name": "FF Corridor Node 10",
+    "map": "AI_FF",
+    "x": 586.907,
+    "y": 104.3704,
+    "type": "corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_FF_M101",
+    "name": "M101",
+    "map": "AI_FF",
+    "x": 539.4,
+    "y": 91.8,
+    "type": "room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_FF_Dr_Tej_Singh",
+    "name": "Dr. Tej Singh",
+    "map": "AI_FF",
+    "x": 629.82,
+    "y": 151.1614,
+    "type": "room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_SF_M201",
+    "name": "M201",
+    "map": "AI_SF",
+    "x": 558,
+    "y": 91.8,
+    "type": "room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_SF_Dr_Manjree_ProVC",
+    "name": "Dr. Manjree Pandit – Pro Vice-Chancellor",
+    "map": "AI_SF",
+    "x": 373.1791,
+    "y": 115.1965,
+    "type": "room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Karuna_Markam",
+    "name": "Dr. Karuna Markam",
+    "map": "Main_SF",
+    "x": 357.2608,
+    "y": 99.1652,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "GF_Corridor11",
+    "name": "GF Corridor Node 11",
+    "map": "AI_GF",
+    "x": 680.36,
+    "y": 273.3913,
+    "type": "corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_GF_Dr_Praveen_Bansal",
+    "name": "Dr. Praveen Bansal – HOD CIoT",
+    "map": "AI_GF",
+    "x": 680.36,
+    "y": 285.4,
+    "type": "room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_FF_Dr_Hardev_Pal",
+    "name": "Dr. Hardev Singh Pal",
+    "map": "AI_FF",
+    "x": 658.6461,
+    "y": 116.64,
+    "type": "room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_J201",
+    "name": "Exam Room J201",
+    "map": "Main_SF",
+    "x": 67.4347,
+    "y": 136.1108,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "GF_Corridor07",
+    "name": "GF Corridor Node 07",
+    "map": "AI_GF",
+    "x": 513.05,
+    "y": 273.3913,
+    "type": "corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_GF_M005",
+    "name": "M005",
+    "map": "AI_GF",
+    "x": 221.7741,
+    "y": 285.2209,
+    "type": "room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "FF_Corridor05",
+    "name": "FF Corridor Node 05",
+    "map": "AI_FF",
+    "x": 282.12,
+    "y": 104.3704,
+    "type": "corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_SF_Dr_Abhishek_HOD_CST",
+    "name": "Dr. Abhishek Dixit – HOD Centre of CST",
+    "map": "AI_SF",
+    "x": 558,
+    "y": 116.64,
+    "type": "room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "room_J205",
+    "name": "J205",
+    "map": "Main_SF",
+    "x": 386.6739,
+    "y": 346.2413,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Dr_Vandana_HOD_ET",
+    "name": "Dr. Vandana Vikas Thakare – HOD Dept. of ET",
+    "map": "Main_SF",
+    "x": 629.6739,
+    "y": 136.1108,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "GF_Corridor03",
+    "name": "GF Corridor Node 03",
+    "map": "AI_GF",
+    "x": 223.3882,
+    "y": 273.3913,
+    "type": "corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "AI_FF_Elevator",
+    "name": "Elevator",
+    "map": "AI_FF",
+    "x": 419.76,
+    "y": 91.8,
+    "type": "lift",
+    "connects_to": {
+      "map": "AI_GF",
+      "node": "AI_GF_Elevator"
+    },
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_FF_M104",
+    "name": "M104",
+    "map": "AI_FF",
+    "x": 281.16,
+    "y": 91.8,
+    "type": "room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "SF_Corridor09",
+    "name": "SF Corridor Node 09",
+    "map": "AI_SF",
+    "x": 495.12,
+    "y": 102.8052,
+    "type": "corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_SF_FemWC",
+    "name": "Female Washroom",
+    "map": "AI_SF",
+    "x": 50.2187,
+    "y": 85.1965,
+    "type": "room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_SF_Dr_Priyanka_Garg",
+    "name": "Dr. Priyanka Garg",
+    "map": "AI_SF",
+    "x": 397.8313,
+    "y": 92.7617,
+    "type": "room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_SF_Dr_Sumit_Dhariwal",
+    "name": "Dr. Sumit Dhariwal",
+    "map": "AI_SF",
+    "x": 630.0704,
+    "y": 141.2183,
+    "type": "room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Communication_Lab_J202",
+    "name": "Communication Lab – J202",
+    "map": "Main_SF",
+    "x": 219.2608,
+    "y": 135.85,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "GF_Corridor02",
+    "name": "GF Corridor Node 02",
+    "map": "AI_GF",
+    "x": 180.9997,
+    "y": 273.3913,
+    "type": "corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "GF_Corridor06",
+    "name": "GF Corridor Node 06",
+    "map": "AI_GF",
+    "x": 452.913,
+    "y": 273.3913,
+    "type": "corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "GF_Corridor08",
+    "name": "GF Corridor Node 08",
+    "map": "AI_GF",
+    "x": 588.8,
+    "y": 273.3913,
+    "type": "corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "GF_Corridor13",
+    "name": "GF Corridor Node 13 (North)",
+    "map": "AI_GF",
+    "x": 738.6957,
+    "y": 225.1304,
+    "type": "corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "FF_Corridor07",
+    "name": "FF Corridor Node 07",
+    "map": "AI_FF",
+    "x": 495.12,
+    "y": 104.3704,
+    "type": "corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "FF_Corridor11",
+    "name": "FF Corridor Node 11",
+    "map": "AI_FF",
+    "x": 645.1461,
+    "y": 104.3704,
+    "type": "corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "SF_Corridor06",
+    "name": "SF Corridor Node 06",
+    "map": "AI_SF",
+    "x": 373.1791,
+    "y": 102.8052,
+    "type": "corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_SF_M202",
+    "name": "M202",
+    "map": "AI_SF",
+    "x": 419.4,
+    "y": 116.64,
+    "type": "room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "GF_Corridor05",
+    "name": "GF Corridor Node 05",
+    "map": "AI_GF",
+    "x": 375.1739,
+    "y": 273.3913,
+    "type": "corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "GF_Corridor10",
+    "name": "GF Corridor Node 10",
+    "map": "AI_GF",
+    "x": 651.2711,
+    "y": 273.3913,
+    "type": "corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "FF_Corridor08",
+    "name": "FF Corridor Node 08",
+    "map": "AI_FF",
+    "x": 539.4,
+    "y": 104.22,
+    "type": "corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "FF_Corridor15",
+    "name": "FF Corridor Node 15 (South3)",
+    "map": "AI_FF",
+    "x": 645.1461,
+    "y": 140.8709,
+    "type": "corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_FF_Dr_Neeraj_Mishra",
+    "name": "Dr. Neeraj Mishra",
+    "map": "AI_FF",
+    "x": 629.82,
+    "y": 140.8709,
+    "type": "room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_FF_Dr_Bhagat_Raghuwanshi",
+    "name": "Dr. Bhagat S. Raghuwanshi",
+    "map": "AI_FF",
+    "x": 658.6461,
+    "y": 127.1259,
+    "type": "room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_FF_Dr_Anu_Sayal",
+    "name": "Dr. Anu Sayal",
+    "map": "AI_FF",
+    "x": 635.2318,
+    "y": 50.8558,
+    "type": "room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "AI_SF_Elevator",
+    "name": "Elevator",
+    "map": "AI_SF",
+    "x": 419.76,
+    "y": 91.8,
+    "type": "lift",
+    "connects_to": {
+      "map": "AI_FF",
+      "node": "AI_FF_Elevator"
+    },
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_SF_MaleWC",
+    "name": "Male Washroom",
+    "map": "AI_SF",
+    "x": 88.5065,
+    "y": 84.5443,
+    "type": "room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "AI_GF_Elevator",
+    "name": "Elevator",
+    "map": "AI_GF",
+    "x": 513.3532,
+    "y": 260.56,
+    "type": "lift",
+    "connects_to": {
+      "map": "AI_FF",
+      "node": "AI_FF_Elevator"
+    },
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_GF_M001",
+    "name": "M001",
+    "map": "AI_GF",
+    "x": 633.08,
+    "y": 260.56,
+    "type": "room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_GF_MaleWC",
+    "name": "Male Washroom",
+    "map": "AI_GF",
+    "x": 181.2801,
+    "y": 253.96,
+    "type": "room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_FF_M103",
+    "name": "M103",
+    "map": "AI_FF",
+    "x": 282.12,
+    "y": 116.64,
+    "type": "room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "AI_SF_Stairs01",
+    "name": "Stairs 01",
+    "map": "AI_SF",
+    "x": 495.12,
+    "y": 92.52,
+    "type": "stairs",
+    "connects_to": {
+      "map": "AI_FF",
+      "node": "AI_FF_Stairs01"
+    },
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_SF_M205",
+    "name": "M205",
+    "map": "AI_SF",
+    "x": 128.28,
+    "y": 116.64,
+    "type": "room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "AI_GF_Stairs02",
+    "name": "Stairs 02",
+    "map": "AI_GF",
+    "x": 225.0024,
+    "y": 260.7065,
+    "type": "stairs",
+    "connects_to": {
+      "map": "AI_FF",
+      "node": "AI_FF_Stairs02"
+    },
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "ai_entry_gf",
+    "name": "AI Building Entry",
+    "map": "AI_GF",
+    "x": 451.1359,
+    "y": 361.7772,
+    "type": "entry",
+    "connects_to": {
+      "map": "Campus_Map",
+      "node": "AiBuilding_Entry"
+    },
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_GF_M003b",
+    "name": "M002",
+    "map": "AI_GF",
+    "x": 512.96,
+    "y": 285.4,
+    "type": "room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_FF_Dr_Archana_Prerna",
+    "name": "Dr. Archana Acharya / Dr. Prerna Mishra",
+    "map": "AI_FF",
+    "x": 557.88,
+    "y": 116.64,
+    "type": "room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "SF_Corridor11",
+    "name": "SF Corridor Node 11",
+    "map": "AI_SF",
+    "x": 643.4402,
+    "y": 102.8052,
+    "type": "corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "SF_Corridor12",
+    "name": "SF Corridor Node 12 (North)",
+    "map": "AI_SF",
+    "x": 643.9617,
+    "y": 56.5009,
+    "type": "corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_SF_M204",
+    "name": "M204",
+    "map": "AI_SF",
+    "x": 281.16,
+    "y": 91.92,
+    "type": "room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_SF_Dr_Nandkishor_Joshi",
+    "name": "Dr. Nandkishor Joshi",
+    "map": "AI_SF",
+    "x": 635.942,
+    "y": 156.5346,
+    "type": "room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "id": "room_J208",
+    "name": "Computer Lab J208",
+    "map": "Main_SF",
+    "x": 702.3056,
+    "y": 232.5918,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "cabin_Exam_Room_J201",
+    "name": "Exam Room – J201",
+    "map": "Main_SF",
+    "x": 67.4347,
+    "y": 136.1108,
+    "type": "room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_GF_M003",
+    "name": "M003",
+    "map": "AI_GF",
+    "x": 375.8,
+    "y": 285.4,
+    "type": "room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "id": "FF_Corridor12",
+    "name": "FF Corridor Node 12 (North)",
+    "map": "AI_FF",
+    "x": 645.1461,
+    "y": 56.3052,
+    "type": "corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "FF_Corridor13",
+    "name": "FF Corridor Node 13 (South1)",
+    "map": "AI_FF",
+    "x": 645.1461,
+    "y": 116.64,
+    "type": "corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "room_AI_FF_M105",
+    "name": "M105",
+    "map": "AI_FF",
+    "x": 128.28,
+    "y": 116.64,
+    "type": "room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_FF_Dr_Rajni_HOD_AI",
+    "name": "Dr. Rajni Ranjan Singh – HOD AI",
+    "map": "AI_FF",
+    "x": 586.547,
+    "y": 116.64,
+    "type": "room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "cabin_AI_FF_Dr_Pawan_Dubey",
+    "name": "Dr. Pawan Dubey",
+    "map": "AI_FF",
+    "x": 635.2318,
+    "y": 157.3922,
+    "type": "room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "id": "ElectricalEntry",
+    "name": "Electrical Entry",
+    "map": "Campus_Map",
+    "x": 280.5616,
+    "y": 415.89,
+    "type": "entry",
+    "category": "campus"
+  }
+]

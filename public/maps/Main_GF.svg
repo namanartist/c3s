@@ -1,0 +1,1122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 848.4096 609.5946" width="848.4096" height="609.5946">
+  <defs>
+    <!-- Architectural grid for light theme -->
+    <pattern id="lightGrid_Main_GF" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E2E8F0" stroke-width="0.75" stroke-opacity="0.8"/>
+      <circle cx="0" cy="0" r="1" fill="#94A3B8" fill-opacity="0.5"/>
+    </pattern>
+    <filter id="softShadow_Main_GF" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0F172A" flood-opacity="0.08" />
+    </filter>
+    <filter id="badgeShadow_Main_GF" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <!-- Clean Light Canvas Background -->
+  <rect x="0" y="0" width="848.4096" height="609.5946" fill="#F8FAFC"/>
+  <rect x="0" y="0" width="848.4096" height="609.5946" fill="url(#lightGrid_Main_GF)"/>
+
+  <!-- Architectural Floor Outline & Slab Boundary -->
+  <g filter="url(#softShadow_Main_GF)">
+    <rect x="81.8208" y="17.011200000000002" width="691.3144000000001" height="519.6873" rx="18" fill="#FFFFFF" stroke="#475569" stroke-width="2.5" />
+    <rect x="87.8208" y="23.011200000000002" width="679.3144000000001" height="507.68730000000005" rx="14" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" />
+    
+    <!-- Floor Banner Badge -->
+    <rect x="97.8208" y="33.0112" width="260" height="36" rx="8" fill="#0F172A" />
+    <text x="109.8208" y="56.0112" fill="#F8FAFC" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="1">MAIN BUILDING // GROUND FLOOR</text>
+  </g>
+  <!-- Hallways and Walkway Corridors -->
+  <g>
+    <line x1="327.5261" y1="282.3276" x2="327.5261" y2="304.881" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="327.5261" y1="282.3276" x2="327.5261" y2="304.881" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="327.5261" y1="282.3276" x2="327.5261" y2="304.881" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="166.0826" y1="353.4052" x2="165.9876" y2="365.338" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="166.0826" y1="353.4052" x2="165.9876" y2="365.338" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="166.0826" y1="353.4052" x2="165.9876" y2="365.338" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="603.8276" y1="204.7515" x2="641.4921" y2="204.7515" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="603.8276" y1="204.7515" x2="641.4921" y2="204.7515" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="603.8276" y1="204.7515" x2="641.4921" y2="204.7515" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="641.4921" y1="204.7515" x2="674.5432" y2="204.3541" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="641.4921" y1="204.7515" x2="674.5432" y2="204.3541" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="641.4921" y1="204.7515" x2="674.5432" y2="204.3541" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="688.0074" y1="271.3378" x2="688.0999" y2="267.7135" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="688.0074" y1="271.3378" x2="688.0999" y2="267.7135" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="688.0074" y1="271.3378" x2="688.0999" y2="267.7135" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="352.489" y1="482.8975" x2="352.6556" y2="487.446" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="352.489" y1="482.8975" x2="352.6556" y2="487.446" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="352.489" y1="482.8975" x2="352.6556" y2="487.446" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="153.4664" y1="482.8389" x2="152.7602" y2="500.6985" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="153.4664" y1="482.8389" x2="152.7602" y2="500.6985" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="153.4664" y1="482.8389" x2="152.7602" y2="500.6985" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="578.6078" y1="156.9111" x2="571.4278" y2="163.3924" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="578.6078" y1="156.9111" x2="571.4278" y2="163.3924" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="578.6078" y1="156.9111" x2="571.4278" y2="163.3924" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="595.9771" y1="321.2989" x2="592.5429" y2="321.1725" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="595.9771" y1="321.2989" x2="592.5429" y2="321.1725" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="595.9771" y1="321.2989" x2="592.5429" y2="321.1725" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.4041" y1="389.5968" x2="457.3326" y2="389.5684" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.4041" y1="389.5968" x2="457.3326" y2="389.5684" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.4041" y1="389.5968" x2="457.3326" y2="389.5684" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="680.0805" y1="267.7135" x2="688.0074" y2="271.3378" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="680.0805" y1="267.7135" x2="688.0074" y2="271.3378" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="680.0805" y1="267.7135" x2="688.0074" y2="271.3378" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="706.3876" y1="274.6766" x2="705.9221" y2="271.4199" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="706.3876" y1="274.6766" x2="705.9221" y2="271.4199" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="706.3876" y1="274.6766" x2="705.9221" y2="271.4199" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="170.9787" y1="367.1069" x2="166.0826" y2="367.2754" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="170.9787" y1="367.1069" x2="166.0826" y2="367.2754" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="170.9787" y1="367.1069" x2="166.0826" y2="367.2754" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="352.489" y1="482.8975" x2="380.2214" y2="482.7163" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="352.489" y1="482.8975" x2="380.2214" y2="482.7163" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="352.489" y1="482.8975" x2="380.2214" y2="482.7163" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="327.5261" y1="329.8484" x2="327.5669" y2="353.0099" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="327.5261" y1="329.8484" x2="327.5669" y2="353.0099" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="327.5261" y1="329.8484" x2="327.5669" y2="353.0099" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="327.5669" y1="353.0099" x2="327.6687" y2="360.2609" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="327.5669" y1="353.0099" x2="327.6687" y2="360.2609" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="327.5669" y1="353.0099" x2="327.6687" y2="360.2609" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="379.7056" y1="352.8224" x2="393.3219" y2="352.8224" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="379.7056" y1="352.8224" x2="393.3219" y2="352.8224" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="379.7056" y1="352.8224" x2="393.3219" y2="352.8224" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="343.5702" y1="271.4114" x2="379.5152" y2="271.5287" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="343.5702" y1="271.4114" x2="379.5152" y2="271.5287" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="343.5702" y1="271.4114" x2="379.5152" y2="271.5287" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="674.7629" y1="80.0169" x2="674.5432" y2="120.7851" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="674.7629" y1="80.0169" x2="674.5432" y2="120.7851" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="674.7629" y1="80.0169" x2="674.5432" y2="120.7851" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="578.7534" y1="117.8347" x2="578.7534" y2="80.6019" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="578.7534" y1="117.8347" x2="578.7534" y2="80.6019" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="578.7534" y1="117.8347" x2="578.7534" y2="80.6019" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="587.283" y1="66.3858" x2="593.3218" y2="59.7423" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="587.283" y1="66.3858" x2="593.3218" y2="59.7423" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="587.283" y1="66.3858" x2="593.3218" y2="59.7423" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="719.8038" y1="271.463" x2="719.6676" y2="307.8077" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="719.8038" y1="271.463" x2="719.6676" y2="307.8077" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="719.8038" y1="271.463" x2="719.6676" y2="307.8077" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="542.6774" y1="271.1672" x2="542.6774" y2="267.2642" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="542.6774" y1="271.1672" x2="542.6774" y2="267.2642" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="542.6774" y1="271.1672" x2="542.6774" y2="267.2642" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="393.3219" y1="352.8224" x2="393.5679" y2="356.4095" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="393.3219" y1="352.8224" x2="393.5679" y2="356.4095" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="393.3219" y1="352.8224" x2="393.5679" y2="356.4095" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="343.8415" y1="267.3079" x2="343.5702" y2="271.4114" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="343.8415" y1="267.3079" x2="343.5702" y2="271.4114" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="343.8415" y1="267.3079" x2="343.5702" y2="271.4114" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="130.5826" y1="263.8387" x2="123.5453" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="130.5826" y1="263.8387" x2="123.5453" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="130.5826" y1="263.8387" x2="123.5453" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="518.0432" y1="425.1018" x2="461.5711" y2="425.2141" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="518.0432" y1="425.1018" x2="461.5711" y2="425.2141" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="518.0432" y1="425.1018" x2="461.5711" y2="425.2141" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="127.8388" y1="482.7163" x2="153.4664" y2="482.8389" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="127.8388" y1="482.7163" x2="153.4664" y2="482.8389" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="127.8388" y1="482.7163" x2="153.4664" y2="482.8389" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="165.7033" y1="306.2494" x2="166.0127" y2="346.9444" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="165.7033" y1="306.2494" x2="166.0127" y2="346.9444" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="165.7033" y1="306.2494" x2="166.0127" y2="346.9444" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="166.0826" y1="367.2754" x2="166.415" y2="373.7612" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="166.0826" y1="367.2754" x2="166.415" y2="373.7612" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="166.0826" y1="367.2754" x2="166.415" y2="373.7612" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="286.8112" y1="353.1121" x2="296.6052" y2="353.0099" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="286.8112" y1="353.1121" x2="296.6052" y2="353.0099" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="286.8112" y1="353.1121" x2="296.6052" y2="353.0099" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="674.5432" y1="76.1008" x2="674.7629" y2="80.0169" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="674.5432" y1="76.1008" x2="674.7629" y2="80.0169" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="674.5432" y1="76.1008" x2="674.7629" y2="80.0169" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="578.6078" y1="156.9111" x2="578.7534" y2="117.8347" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="578.6078" y1="156.9111" x2="578.7534" y2="117.8347" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="578.6078" y1="156.9111" x2="578.7534" y2="117.8347" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="583.7645" y1="69.8824" x2="587.283" y2="66.3858" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="583.7645" y1="69.8824" x2="587.283" y2="66.3858" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="583.7645" y1="69.8824" x2="587.283" y2="66.3858" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="674.5432" y1="204.3541" x2="687.9248" y2="197.4091" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="674.5432" y1="204.3541" x2="687.9248" y2="197.4091" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="674.5432" y1="204.3541" x2="687.9248" y2="197.4091" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="719.8038" y1="271.463" x2="715.5956" y2="264.386" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="719.8038" y1="271.463" x2="715.5956" y2="264.386" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="719.8038" y1="271.463" x2="715.5956" y2="264.386" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="610.317" y1="253.8019" x2="596.0197" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="610.317" y1="253.8019" x2="596.0197" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="610.317" y1="253.8019" x2="596.0197" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="325.8381" y1="267.1519" x2="327.5669" y2="271.6315" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="325.8381" y1="267.1519" x2="327.5669" y2="271.6315" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="325.8381" y1="267.1519" x2="327.5669" y2="271.6315" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="147.6818" y1="491.7898" x2="153.4664" y2="482.8389" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="147.6818" y1="491.7898" x2="153.4664" y2="482.8389" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="147.6818" y1="491.7898" x2="153.4664" y2="482.8389" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="218.3578" y1="482.9223" x2="260.1111" y2="482.794" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="218.3578" y1="482.9223" x2="260.1111" y2="482.794" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="218.3578" y1="482.9223" x2="260.1111" y2="482.794" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.5939" y1="281.9907" x2="461.5711" y2="318.084" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.5939" y1="281.9907" x2="461.5711" y2="318.084" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.5939" y1="281.9907" x2="461.5711" y2="318.084" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.4041" y1="389.5968" x2="461.3762" y2="401.4313" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.4041" y1="389.5968" x2="461.3762" y2="401.4313" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.4041" y1="389.5968" x2="461.3762" y2="401.4313" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.3762" y1="401.4313" x2="461.5711" y2="425.2141" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.3762" y1="401.4313" x2="461.5711" y2="425.2141" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.3762" y1="401.4313" x2="461.5711" y2="425.2141" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.5711" y1="425.2141" x2="461.5711" y2="453.1899" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.5711" y1="425.2141" x2="461.5711" y2="453.1899" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.5711" y1="425.2141" x2="461.5711" y2="453.1899" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="166.2032" y1="430.8671" x2="166.0909" y2="460.8147" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="166.2032" y1="430.8671" x2="166.0909" y2="460.8147" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="166.2032" y1="430.8671" x2="166.0909" y2="460.8147" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="223.0077" y1="353.1448" x2="286.8112" y2="353.1121" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="223.0077" y1="353.1448" x2="286.8112" y2="353.1121" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="223.0077" y1="353.1448" x2="286.8112" y2="353.1121" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="186.7929" y1="271.395" x2="258.7781" y2="271.2628" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="186.7929" y1="271.395" x2="258.7781" y2="271.2628" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="186.7929" y1="271.395" x2="258.7781" y2="271.2628" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="578.7534" y1="80.6019" x2="571.2616" y2="81.0137" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="578.7534" y1="80.6019" x2="571.2616" y2="81.0137" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="578.7534" y1="80.6019" x2="571.2616" y2="81.0137" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="631.4555" y1="267.7135" x2="631.4317" y2="271.3002" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="631.4555" y1="267.7135" x2="631.4317" y2="271.3002" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="631.4555" y1="267.7135" x2="631.4317" y2="271.3002" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="118.1641" y1="237.1258" x2="123.5453" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="118.1641" y1="237.1258" x2="123.5453" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="118.1641" y1="237.1258" x2="123.5453" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="162.5359" y1="460.7165" x2="166.0909" y2="460.8147" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="162.5359" y1="460.7165" x2="166.0909" y2="460.8147" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="162.5359" y1="460.7165" x2="166.0909" y2="460.8147" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="591.0035" y1="57.5972" x2="593.3218" y2="59.7423" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="591.0035" y1="57.5972" x2="593.3218" y2="59.7423" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="591.0035" y1="57.5972" x2="593.3218" y2="59.7423" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="439.036" y1="482.7163" x2="461.3807" y2="482.7163" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="439.036" y1="482.7163" x2="461.3807" y2="482.7163" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="439.036" y1="482.7163" x2="461.3807" y2="482.7163" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.5711" y1="318.084" x2="461.4378" y2="352.6147" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.5711" y1="318.084" x2="461.4378" y2="352.6147" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.5711" y1="318.084" x2="461.4378" y2="352.6147" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="327.4785" y1="363.5879" x2="327.5669" y2="375.3212" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="327.4785" y1="363.5879" x2="327.5669" y2="375.3212" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="327.4785" y1="363.5879" x2="327.5669" y2="375.3212" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="327.5669" y1="389.4283" x2="327.5669" y2="425.1145" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="327.5669" y1="389.4283" x2="327.5669" y2="425.1145" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="327.5669" y1="389.4283" x2="327.5669" y2="425.1145" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="393.3219" y1="352.8224" x2="461.4378" y2="352.6147" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="393.3219" y1="352.8224" x2="461.4378" y2="352.6147" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="393.3219" y1="352.8224" x2="461.4378" y2="352.6147" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="165.7033" y1="306.2494" x2="162.3614" y2="306.273" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="165.7033" y1="306.2494" x2="162.3614" y2="306.273" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="165.7033" y1="306.2494" x2="162.3614" y2="306.273" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="327.5261" y1="329.8484" x2="322.8522" y2="329.8484" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="327.5261" y1="329.8484" x2="322.8522" y2="329.8484" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="327.5261" y1="329.8484" x2="322.8522" y2="329.8484" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="698.251" y1="267.7135" x2="698.9886" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="698.251" y1="267.7135" x2="698.9886" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="698.251" y1="267.7135" x2="698.9886" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="332.628" y1="360.2609" x2="327.6687" y2="360.2609" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="332.628" y1="360.2609" x2="327.6687" y2="360.2609" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="332.628" y1="360.2609" x2="327.6687" y2="360.2609" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="352.9131" y1="356.4095" x2="352.9492" y2="352.8818" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="352.9131" y1="356.4095" x2="352.9492" y2="352.8818" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="352.9131" y1="356.4095" x2="352.9492" y2="352.8818" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.5711" y1="271.6315" x2="461.5939" y2="281.9907" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.5711" y1="271.6315" x2="461.5939" y2="281.9907" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.5711" y1="271.6315" x2="461.5939" y2="281.9907" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="327.5669" y1="271.6315" x2="327.5261" y2="282.3276" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="327.5669" y1="271.6315" x2="327.5261" y2="282.3276" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="327.5669" y1="271.6315" x2="327.5261" y2="282.3276" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="352.9492" y1="352.8818" x2="379.7056" y2="352.8224" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="352.9492" y1="352.8818" x2="379.7056" y2="352.8224" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="352.9492" y1="352.8818" x2="379.7056" y2="352.8224" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="150.6098" y1="271.463" x2="165.8223" y2="271.6315" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="150.6098" y1="271.463" x2="165.8223" y2="271.6315" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="150.6098" y1="271.463" x2="165.8223" y2="271.6315" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="603.8276" y1="271.2946" x2="631.4317" y2="271.3002" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="603.8276" y1="271.2946" x2="631.4317" y2="271.3002" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="603.8276" y1="271.2946" x2="631.4317" y2="271.3002" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="501.5378" y1="271.5881" x2="501.3235" y2="267.2642" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="501.5378" y1="271.5881" x2="501.3235" y2="267.2642" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="501.5378" y1="271.5881" x2="501.3235" y2="267.2642" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="457.2691" y1="282.0328" x2="461.5939" y2="281.9907" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="457.2691" y1="282.0328" x2="461.5939" y2="281.9907" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="457.2691" y1="282.0328" x2="461.5939" y2="281.9907" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="603.0631" y1="53.0112" x2="603.2788" y2="59.4248" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="603.0631" y1="53.0112" x2="603.2788" y2="59.4248" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="603.0631" y1="53.0112" x2="603.2788" y2="59.4248" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="379.5152" y1="271.5287" x2="446.5015" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="379.5152" y1="271.5287" x2="446.5015" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="379.5152" y1="271.5287" x2="446.5015" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="578.7534" y1="80.6019" x2="578.7534" y2="76.1008" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="578.7534" y1="80.6019" x2="578.7534" y2="76.1008" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="578.7534" y1="80.6019" x2="578.7534" y2="76.1008" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="166.2032" y1="482.7163" x2="159.9015" y2="473.3145" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="166.2032" y1="482.7163" x2="159.9015" y2="473.3145" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="166.2032" y1="482.7163" x2="159.9015" y2="473.3145" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="260.1111" y1="482.794" x2="260.3571" y2="487.446" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="260.1111" y1="482.794" x2="260.3571" y2="487.446" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="260.1111" y1="482.794" x2="260.3571" y2="487.446" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="311.2915" y1="482.7163" x2="311.2915" y2="478.7" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="311.2915" y1="482.7163" x2="311.2915" y2="478.7" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="311.2915" y1="482.7163" x2="311.2915" y2="478.7" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="118.1641" y1="225.6764" x2="123.5453" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="118.1641" y1="225.6764" x2="123.5453" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="118.1641" y1="225.6764" x2="123.5453" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="164.5673" y1="487.5022" x2="166.2032" y2="482.7163" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="164.5673" y1="487.5022" x2="166.2032" y2="482.7163" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="164.5673" y1="487.5022" x2="166.2032" y2="482.7163" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="260.1111" y1="482.794" x2="289.8193" y2="482.7163" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="260.1111" y1="482.794" x2="289.8193" y2="482.7163" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="260.1111" y1="482.794" x2="289.8193" y2="482.7163" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="311.2915" y1="482.7163" x2="327.5669" y2="482.7163" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="311.2915" y1="482.7163" x2="327.5669" y2="482.7163" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="311.2915" y1="482.7163" x2="327.5669" y2="482.7163" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="327.5669" y1="425.1145" x2="327.5669" y2="460.9037" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="327.5669" y1="425.1145" x2="327.5669" y2="460.9037" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="327.5669" y1="425.1145" x2="327.5669" y2="460.9037" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="166.415" y1="373.7612" x2="166.226" y2="401.3471" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="166.415" y1="373.7612" x2="166.226" y2="401.3471" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="166.415" y1="373.7612" x2="166.226" y2="401.3471" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="501.5378" y1="271.5881" x2="542.6774" y2="271.1672" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="501.5378" y1="271.5881" x2="542.6774" y2="271.1672" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="501.5378" y1="271.5881" x2="542.6774" y2="271.1672" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="674.5432" y1="120.7851" x2="674.6449" y2="163.28" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="674.5432" y1="120.7851" x2="674.6449" y2="163.28" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="674.5432" y1="120.7851" x2="674.6449" y2="163.28" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="674.6449" y1="163.28" x2="674.5432" y2="204.3541" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="674.6449" y1="163.28" x2="674.5432" y2="204.3541" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="674.6449" y1="163.28" x2="674.5432" y2="204.3541" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="603.2788" y1="59.4248" x2="617.3804" y2="59.4517" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="603.2788" y1="59.4248" x2="617.3804" y2="59.4517" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="603.2788" y1="59.4248" x2="617.3804" y2="59.4517" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="622.5132" y1="67.7345" x2="626.5214" y2="59.4517" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="622.5132" y1="67.7345" x2="626.5214" y2="59.4517" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="622.5132" y1="67.7345" x2="626.5214" y2="59.4517" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="446.5015" y1="271.463" x2="446.5396" y2="267.2642" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="446.5015" y1="271.463" x2="446.5396" y2="267.2642" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="446.5015" y1="271.463" x2="446.5396" y2="267.2642" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="296.6052" y1="353.0099" x2="296.6052" y2="359.4374" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="296.6052" y1="353.0099" x2="296.6052" y2="359.4374" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="296.6052" y1="353.0099" x2="296.6052" y2="359.4374" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="670.0081" y1="70.5997" x2="677.7886" y2="60.3264" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="670.0081" y1="70.5997" x2="677.7886" y2="60.3264" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="670.0081" y1="70.5997" x2="677.7886" y2="60.3264" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="674.6449" y1="163.28" x2="681.2707" y2="163.1677" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="674.6449" y1="163.28" x2="681.2707" y2="163.1677" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="674.6449" y1="163.28" x2="681.2707" y2="163.1677" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="700.0931" y1="274.6766" x2="698.9886" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="700.0931" y1="274.6766" x2="698.9886" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="700.0931" y1="274.6766" x2="698.9886" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="574.4413" y1="267.2642" x2="575.255" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="574.4413" y1="267.2642" x2="575.255" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="574.4413" y1="267.2642" x2="575.255" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="322.8126" y1="425.1145" x2="327.5669" y2="425.1145" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="322.8126" y1="425.1145" x2="327.5669" y2="425.1145" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="322.8126" y1="425.1145" x2="327.5669" y2="425.1145" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="117.8208" y1="208.6389" x2="123.5453" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="117.8208" y1="208.6389" x2="123.5453" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="117.8208" y1="208.6389" x2="123.5453" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="289.8193" y1="482.7163" x2="311.2915" y2="482.7163" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="289.8193" y1="482.7163" x2="311.2915" y2="482.7163" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="289.8193" y1="482.7163" x2="311.2915" y2="482.7163" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.5711" y1="474.733" x2="461.3807" y2="482.7163" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.5711" y1="474.733" x2="461.3807" y2="482.7163" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.5711" y1="474.733" x2="461.3807" y2="482.7163" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="166.0127" y1="346.9444" x2="223.0077" y2="353.1448" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="166.0127" y1="346.9444" x2="223.0077" y2="353.1448" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="166.0127" y1="346.9444" x2="223.0077" y2="353.1448" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="679.9139" y1="271.4681" x2="688.0074" y2="271.3378" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="679.9139" y1="271.4681" x2="688.0074" y2="271.3378" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="679.9139" y1="271.4681" x2="688.0074" y2="271.3378" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="626.5214" y1="59.4517" x2="659.1001" y2="59.633" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="626.5214" y1="59.4517" x2="659.1001" y2="59.633" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="626.5214" y1="59.4517" x2="659.1001" y2="59.633" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="719.6676" y1="307.8077" x2="719.8038" y2="327.3635" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="719.6676" y1="307.8077" x2="719.8038" y2="327.3635" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="719.6676" y1="307.8077" x2="719.8038" y2="327.3635" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="596.0197" y1="295.3639" x2="595.9771" y2="321.2989" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="596.0197" y1="295.3639" x2="595.9771" y2="321.2989" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="596.0197" y1="295.3639" x2="595.9771" y2="321.2989" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.5711" y1="474.733" x2="457.7956" y2="474.5485" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.5711" y1="474.733" x2="457.7956" y2="474.5485" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.5711" y1="474.733" x2="457.7956" y2="474.5485" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="166.0826" y1="353.4052" x2="162.9803" y2="353.4052" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="166.0826" y1="353.4052" x2="162.9803" y2="353.4052" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="166.0826" y1="353.4052" x2="162.9803" y2="353.4052" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="583.7645" y1="69.8824" x2="568.4035" y2="56.418" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="583.7645" y1="69.8824" x2="568.4035" y2="56.418" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="583.7645" y1="69.8824" x2="568.4035" y2="56.418" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="719.6676" y1="307.8077" x2="716.0731" y2="307.8639" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="719.6676" y1="307.8077" x2="716.0731" y2="307.8639" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="719.6676" y1="307.8077" x2="716.0731" y2="307.8639" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="332.628" y1="375.2918" x2="327.5669" y2="375.3212" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="332.628" y1="375.2918" x2="327.5669" y2="375.3212" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="332.628" y1="375.2918" x2="327.5669" y2="375.3212" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="166.2032" y1="482.7163" x2="218.3578" y2="482.9223" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="166.2032" y1="482.7163" x2="218.3578" y2="482.9223" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="166.2032" y1="482.7163" x2="218.3578" y2="482.9223" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="327.5669" y1="482.7163" x2="352.489" y2="482.8975" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="327.5669" y1="482.7163" x2="352.489" y2="482.8975" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="327.5669" y1="482.7163" x2="352.489" y2="482.8975" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="327.5669" y1="460.9037" x2="327.5669" y2="482.7163" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="327.5669" y1="460.9037" x2="327.5669" y2="482.7163" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="327.5669" y1="460.9037" x2="327.5669" y2="482.7163" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="327.5669" y1="271.6315" x2="343.5702" y2="271.4114" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="327.5669" y1="271.6315" x2="343.5702" y2="271.4114" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="327.5669" y1="271.6315" x2="343.5702" y2="271.4114" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="688.0074" y1="271.3378" x2="698.9886" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="688.0074" y1="271.3378" x2="698.9886" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="688.0074" y1="271.3378" x2="698.9886" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="578.7534" y1="204.6392" x2="603.8276" y2="204.7515" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="578.7534" y1="204.6392" x2="603.8276" y2="204.7515" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="578.7534" y1="204.6392" x2="603.8276" y2="204.7515" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="603.8276" y1="271.2946" x2="603.8276" y2="204.7515" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="603.8276" y1="271.2946" x2="603.8276" y2="204.7515" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="603.8276" y1="271.2946" x2="603.8276" y2="204.7515" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="737.1352" y1="271.463" x2="725.7073" y2="416.0328" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="737.1352" y1="271.463" x2="725.7073" y2="416.0328" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="737.1352" y1="271.463" x2="725.7073" y2="416.0328" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="322.5983" y1="363.5879" x2="327.4785" y2="363.5879" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="322.5983" y1="363.5879" x2="327.4785" y2="363.5879" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="322.5983" y1="363.5879" x2="327.4785" y2="363.5879" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="322.5983" y1="389.3722" x2="327.5669" y2="389.4283" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="322.5983" y1="389.3722" x2="327.5669" y2="389.4283" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="322.5983" y1="389.3722" x2="327.5669" y2="389.4283" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="124.4389" y1="205.9434" x2="123.5453" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="124.4389" y1="205.9434" x2="123.5453" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="124.4389" y1="205.9434" x2="123.5453" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="380.2214" y1="482.7163" x2="406.7636" y2="482.7163" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="380.2214" y1="482.7163" x2="406.7636" y2="482.7163" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="380.2214" y1="482.7163" x2="406.7636" y2="482.7163" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.5711" y1="359.2723" x2="461.4041" y2="389.5968" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.5711" y1="359.2723" x2="461.4041" y2="389.5968" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.5711" y1="359.2723" x2="461.4041" y2="389.5968" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="327.5261" y1="304.881" x2="327.5261" y2="329.8484" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="327.5261" y1="304.881" x2="327.5261" y2="329.8484" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="327.5261" y1="304.881" x2="327.5261" y2="329.8484" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="123.5453" y1="271.463" x2="150.6098" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="123.5453" y1="271.463" x2="150.6098" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="123.5453" y1="271.463" x2="150.6098" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="446.5015" y1="271.463" x2="461.5711" y2="271.6315" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="446.5015" y1="271.463" x2="461.5711" y2="271.6315" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="446.5015" y1="271.463" x2="461.5711" y2="271.6315" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="475.1047" y1="271.463" x2="501.5378" y2="271.5881" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="475.1047" y1="271.463" x2="501.5378" y2="271.5881" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="475.1047" y1="271.463" x2="501.5378" y2="271.5881" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="542.6774" y1="271.1672" x2="575.255" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="542.6774" y1="271.1672" x2="575.255" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="542.6774" y1="271.1672" x2="575.255" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="593.3218" y1="59.7423" x2="603.2788" y2="59.4248" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="593.3218" y1="59.7423" x2="603.2788" y2="59.4248" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="593.3218" y1="59.7423" x2="603.2788" y2="59.4248" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="617.3804" y1="59.4517" x2="622.5132" y2="67.7345" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="617.3804" y1="59.4517" x2="622.5132" y2="67.7345" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="617.3804" y1="59.4517" x2="622.5132" y2="67.7345" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="258.7781" y1="271.2628" x2="258.6859" y2="267.1519" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="258.7781" y1="271.2628" x2="258.6859" y2="267.1519" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="258.7781" y1="271.2628" x2="258.6859" y2="267.1519" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="186.9435" y1="267.1519" x2="186.7929" y2="271.395" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="186.9435" y1="267.1519" x2="186.7929" y2="271.395" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="186.9435" y1="267.1519" x2="186.7929" y2="271.395" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="130.5712" y1="243.6752" x2="123.5453" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="130.5712" y1="243.6752" x2="123.5453" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="130.5712" y1="243.6752" x2="123.5453" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="128.5935" y1="478.5736" x2="127.8388" y2="482.7163" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="128.5935" y1="478.5736" x2="127.8388" y2="482.7163" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="128.5935" y1="478.5736" x2="127.8388" y2="482.7163" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="406.7636" y1="482.7163" x2="439.036" y2="482.7163" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="406.7636" y1="482.7163" x2="439.036" y2="482.7163" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="406.7636" y1="482.7163" x2="439.036" y2="482.7163" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="272.2515" y1="271.3527" x2="327.5669" y2="271.6315" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="272.2515" y1="271.3527" x2="327.5669" y2="271.6315" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="272.2515" y1="271.3527" x2="327.5669" y2="271.6315" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="705.9221" y1="271.4199" x2="719.8038" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="705.9221" y1="271.4199" x2="719.8038" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="705.9221" y1="271.4199" x2="719.8038" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="719.8038" y1="271.463" x2="737.1352" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="719.8038" y1="271.463" x2="737.1352" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="719.8038" y1="271.463" x2="737.1352" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.3762" y1="401.4313" x2="457.3326" y2="401.3612" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.3762" y1="401.4313" x2="457.3326" y2="401.3612" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.3762" y1="401.4313" x2="457.3326" y2="401.3612" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="576.4232" y1="274.9012" x2="575.255" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="576.4232" y1="274.9012" x2="575.255" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="576.4232" y1="274.9012" x2="575.255" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="475.1047" y1="267.2642" x2="475.1047" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="475.1047" y1="267.2642" x2="475.1047" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="475.1047" y1="267.2642" x2="475.1047" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.5711" y1="453.1899" x2="461.5711" y2="474.733" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.5711" y1="453.1899" x2="461.5711" y2="474.733" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.5711" y1="453.1899" x2="461.5711" y2="474.733" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="165.8223" y1="271.6315" x2="165.7033" y2="306.2494" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="165.8223" y1="271.6315" x2="165.7033" y2="306.2494" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="165.8223" y1="271.6315" x2="165.7033" y2="306.2494" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.5711" y1="271.6315" x2="475.1047" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.5711" y1="271.6315" x2="475.1047" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.5711" y1="271.6315" x2="475.1047" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="575.255" y1="271.463" x2="582.5211" y2="271.5434" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="575.255" y1="271.463" x2="582.5211" y2="271.5434" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="575.255" y1="271.463" x2="582.5211" y2="271.5434" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="578.7534" y1="76.1008" x2="583.7645" y2="69.8824" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="578.7534" y1="76.1008" x2="583.7645" y2="69.8824" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="578.7534" y1="76.1008" x2="583.7645" y2="69.8824" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="595.9771" y1="321.2989" x2="596.0197" y2="327.4758" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="595.9771" y1="321.2989" x2="596.0197" y2="327.4758" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="595.9771" y1="321.2989" x2="596.0197" y2="327.4758" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.5711" y1="271.6315" x2="461.5711" y2="266.6416" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.5711" y1="271.6315" x2="461.5711" y2="266.6416" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.5711" y1="271.6315" x2="461.5711" y2="266.6416" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="218.3578" y1="482.9223" x2="218.3763" y2="487.446" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="218.3578" y1="482.9223" x2="218.3763" y2="487.446" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="218.3578" y1="482.9223" x2="218.3763" y2="487.446" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="165.9876" y1="365.338" x2="162.9803" y2="365.31" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="165.9876" y1="365.338" x2="162.9803" y2="365.31" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="165.9876" y1="365.338" x2="162.9803" y2="365.31" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="674.7629" y1="80.0169" x2="680.6357" y2="80.0029" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="674.7629" y1="80.0169" x2="680.6357" y2="80.0029" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="674.7629" y1="80.0169" x2="680.6357" y2="80.0029" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="674.5432" y1="120.7851" x2="681.0803" y2="120.8834" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="674.5432" y1="120.7851" x2="681.0803" y2="120.8834" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="674.5432" y1="120.7851" x2="681.0803" y2="120.8834" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="719.8038" y1="327.3635" x2="719.8038" y2="330.9995" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="719.8038" y1="327.3635" x2="719.8038" y2="330.9995" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="719.8038" y1="327.3635" x2="719.8038" y2="330.9995" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="153.4664" y1="482.8389" x2="166.2032" y2="482.7163" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="153.4664" y1="482.8389" x2="166.2032" y2="482.7163" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="153.4664" y1="482.8389" x2="166.2032" y2="482.7163" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="327.6687" y1="360.2609" x2="327.4785" y2="363.5879" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="327.6687" y1="360.2609" x2="327.4785" y2="363.5879" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="327.6687" y1="360.2609" x2="327.4785" y2="363.5879" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="327.5669" y1="375.3212" x2="327.5669" y2="389.4283" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="327.5669" y1="375.3212" x2="327.5669" y2="389.4283" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="327.5669" y1="375.3212" x2="327.5669" y2="389.4283" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="582.5211" y1="271.5434" x2="596.0197" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="582.5211" y1="271.5434" x2="596.0197" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="582.5211" y1="271.5434" x2="596.0197" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="698.9886" y1="271.463" x2="705.9221" y2="271.4199" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="698.9886" y1="271.463" x2="705.9221" y2="271.4199" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="698.9886" y1="271.463" x2="705.9221" y2="271.4199" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="659.1001" y1="59.633" x2="670.0081" y2="70.5997" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="659.1001" y1="59.633" x2="670.0081" y2="70.5997" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="659.1001" y1="59.633" x2="670.0081" y2="70.5997" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="596.0197" y1="327.4758" x2="596.0197" y2="331.3926" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="596.0197" y1="327.4758" x2="596.0197" y2="331.3926" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="596.0197" y1="327.4758" x2="596.0197" y2="331.3926" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.5711" y1="425.2141" x2="512.7124" y2="425.1018" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.5711" y1="425.2141" x2="512.7124" y2="425.1018" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.5711" y1="425.2141" x2="512.7124" y2="425.1018" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="705.2498" y1="267.7135" x2="705.9221" y2="271.4199" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="705.2498" y1="267.7135" x2="705.9221" y2="271.4199" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="705.2498" y1="267.7135" x2="705.9221" y2="271.4199" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="582.8306" y1="274.9012" x2="582.5211" y2="271.5434" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="582.8306" y1="274.9012" x2="582.5211" y2="271.5434" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="582.8306" y1="274.9012" x2="582.5211" y2="271.5434" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="322.8126" y1="460.9037" x2="327.5669" y2="460.9037" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="322.8126" y1="460.9037" x2="327.5669" y2="460.9037" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="322.8126" y1="460.9037" x2="327.5669" y2="460.9037" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="272.3229" y1="267.1519" x2="272.2515" y2="271.3527" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="272.3229" y1="267.1519" x2="272.2515" y2="271.3527" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="272.3229" y1="267.1519" x2="272.2515" y2="271.3527" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.4378" y1="352.6147" x2="461.5711" y2="359.2723" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.4378" y1="352.6147" x2="461.5711" y2="359.2723" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.4378" y1="352.6147" x2="461.5711" y2="359.2723" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="166.226" y1="401.3471" x2="166.2032" y2="430.8671" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="166.226" y1="401.3471" x2="166.2032" y2="430.8671" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="166.226" y1="401.3471" x2="166.2032" y2="430.8671" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="166.0909" y1="460.8147" x2="166.2032" y2="482.7163" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="166.0909" y1="460.8147" x2="166.2032" y2="482.7163" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="166.0909" y1="460.8147" x2="166.2032" y2="482.7163" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="296.6052" y1="353.0099" x2="352.9492" y2="352.8818" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="296.6052" y1="353.0099" x2="352.9492" y2="352.8818" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="296.6052" y1="353.0099" x2="352.9492" y2="352.8818" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="258.7781" y1="271.2628" x2="272.2515" y2="271.3527" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="258.7781" y1="271.2628" x2="272.2515" y2="271.3527" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="258.7781" y1="271.2628" x2="272.2515" y2="271.3527" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="578.7534" y1="204.6392" x2="578.6078" y2="156.9111" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="578.7534" y1="204.6392" x2="578.6078" y2="156.9111" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="578.7534" y1="204.6392" x2="578.6078" y2="156.9111" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="596.0197" y1="271.463" x2="596.0197" y2="295.3639" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="596.0197" y1="271.463" x2="596.0197" y2="295.3639" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="596.0197" y1="271.463" x2="596.0197" y2="295.3639" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="166.226" y1="401.3471" x2="162.4725" y2="401.2488" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="166.226" y1="401.3471" x2="162.4725" y2="401.2488" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="166.226" y1="401.3471" x2="162.4725" y2="401.2488" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="578.7534" y1="117.8347" x2="572.4677" y2="123.1296" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="578.7534" y1="117.8347" x2="572.4677" y2="123.1296" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="578.7534" y1="117.8347" x2="572.4677" y2="123.1296" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="223.0077" y1="353.1448" x2="190.4539" y2="356.9616" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="223.0077" y1="353.1448" x2="190.4539" y2="356.9616" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="223.0077" y1="353.1448" x2="190.4539" y2="356.9616" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="598.383" y1="253.8019" x2="596.0197" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="598.383" y1="253.8019" x2="596.0197" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="598.383" y1="253.8019" x2="596.0197" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="223.0077" y1="356.5498" x2="223.0077" y2="353.1448" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="223.0077" y1="356.5498" x2="223.0077" y2="353.1448" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="223.0077" y1="356.5498" x2="223.0077" y2="353.1448" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="573.7655" y1="64.6727" x2="587.283" y2="66.3858" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="573.7655" y1="64.6727" x2="587.283" y2="66.3858" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="573.7655" y1="64.6727" x2="587.283" y2="66.3858" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="166.0127" y1="346.9444" x2="166.0826" y2="353.4052" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="166.0127" y1="346.9444" x2="166.0826" y2="353.4052" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="166.0127" y1="346.9444" x2="166.0826" y2="353.4052" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="165.9876" y1="365.338" x2="166.0826" y2="367.2754" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="165.9876" y1="365.338" x2="166.0826" y2="367.2754" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="165.9876" y1="365.338" x2="166.0826" y2="367.2754" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="165.8223" y1="271.6315" x2="186.7929" y2="271.395" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="165.8223" y1="271.6315" x2="186.7929" y2="271.395" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="165.8223" y1="271.6315" x2="186.7929" y2="271.395" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="596.0197" y1="271.463" x2="603.8276" y2="271.2946" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="596.0197" y1="271.463" x2="603.8276" y2="271.2946" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="596.0197" y1="271.463" x2="603.8276" y2="271.2946" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="631.4317" y1="271.3002" x2="679.9139" y2="271.4681" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="631.4317" y1="271.3002" x2="679.9139" y2="271.4681" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="631.4317" y1="271.3002" x2="679.9139" y2="271.4681" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="670.0081" y1="70.5997" x2="674.5432" y2="76.1008" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="670.0081" y1="70.5997" x2="674.5432" y2="76.1008" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="670.0081" y1="70.5997" x2="674.5432" y2="76.1008" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="327.5669" y1="353.0099" x2="320.9145" y2="342.0657" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="327.5669" y1="353.0099" x2="320.9145" y2="342.0657" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="327.5669" y1="353.0099" x2="320.9145" y2="342.0657" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="406.7636" y1="482.7163" x2="406.8033" y2="487.5583" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="406.7636" y1="482.7163" x2="406.8033" y2="487.5583" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="406.7636" y1="482.7163" x2="406.8033" y2="487.5583" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="457.396" y1="318.084" x2="461.5711" y2="318.084" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="457.396" y1="318.084" x2="461.5711" y2="318.084" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="457.396" y1="318.084" x2="461.5711" y2="318.084" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="322.4948" y1="282.2293" x2="327.5261" y2="282.3276" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="322.4948" y1="282.2293" x2="327.5261" y2="282.3276" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="322.4948" y1="282.2293" x2="327.5261" y2="282.3276" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="150.8004" y1="267.3203" x2="150.6098" y2="271.463" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="150.8004" y1="267.3203" x2="150.6098" y2="271.463" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="150.8004" y1="267.3203" x2="150.6098" y2="271.463" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="289.8909" y1="478.5596" x2="289.8193" y2="482.7163" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="289.8909" y1="478.5596" x2="289.8193" y2="482.7163" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="289.8909" y1="478.5596" x2="289.8193" y2="482.7163" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+    <line x1="461.5711" y1="474.733" x2="525.4835" y2="475.0009" stroke="#E2E8F0" stroke-width="18" stroke-linecap="round" />
+    <line x1="461.5711" y1="474.733" x2="525.4835" y2="475.0009" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <line x1="461.5711" y1="474.733" x2="525.4835" y2="475.0009" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" stroke-linecap="round" />
+  </g>
+
+  <!-- Rooms, Classrooms and Centers -->
+  <g>
+    <g id="node_room_SH12" transform="translate(162.3614, 306.273)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">SH-12</text>
+    </g>
+    <g id="node_room_J040" transform="translate(677.7886, 60.3264)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J040</text>
+    </g>
+    <g id="node_cabin_Prof_Khushboo_Agarwal" transform="translate(700.0931, 274.6766)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Prof. Khush</text>
+    </g>
+    <g id="node_cabin_J025_Chemical_Dept" transform="translate(223.0077, 356.5498)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J025 – Chem</text>
+    </g>
+    <g id="node_cabin_Dr_Sulochana_Wadhwani" transform="translate(128.5935, 478.5736)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. Sulocha</text>
+    </g>
+    <g id="node_room_J001" transform="translate(406.8033, 487.5583)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-27" y="-17" width="54" height="34" rx="7" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.8" />
+      <rect x="-25" y="-15" width="50" height="10" rx="4" fill="#FDE68A" />
+      <circle cx="0" cy="0" r="3" fill="#D97706" />
+      <text x="0" y="12" fill="#92400E" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">J001 – Conc</text>
+    </g>
+    <g id="node_room_J006" transform="translate(152.7602, 500.6985)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J006</text>
+    </g>
+    <g id="node_room_J044" transform="translate(681.0803, 120.8834)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J044 – Stud</text>
+    </g>
+    <g id="node_room_PL1" transform="translate(719.8038, 330.9995)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">PL-1</text>
+    </g>
+    <g id="node_room_IQAC" transform="translate(311.2915, 478.7)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">IQAC Office</text>
+    </g>
+    <g id="node_cabin_Dr_Sanjay_Tiwari_CE" transform="translate(322.4948, 282.2293)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. Sanjay </text>
+    </g>
+    <g id="node_cabin_Prof_Aditya_Agarwal" transform="translate(332.628, 360.2609)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Prof. Adity</text>
+    </g>
+    <g id="node_cabin_Prof_Anish_Jacob" transform="translate(322.8126, 460.9037)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Prof. Anish</text>
+    </g>
+    <g id="node_cabin_Dept_Architecture" transform="translate(591.0035, 57.5972)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Department </text>
+    </g>
+    <g id="node_cabin_Dr_Anjula_Gaur" transform="translate(332.628, 375.2918)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. Anjula </text>
+    </g>
+    <g id="node_room_J010" transform="translate(162.9803, 353.4052)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J010 – SH-4</text>
+    </g>
+    <g id="node_room_J023" transform="translate(322.8522, 329.8484)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J023 – SH-5</text>
+    </g>
+    <g id="node_room_J037" transform="translate(571.2616, 81.0137)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J037 – Depa</text>
+    </g>
+    <g id="node_room_PL5" transform="translate(592.5429, 321.1725)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">PL-5</text>
+    </g>
+    <g id="node_cabin_Project_Research_Lab" transform="translate(610.317, 253.8019)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FAF5FF" stroke="#A855F7" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#F3E8FF" />
+      <circle cx="0" cy="0" r="3" fill="#9333EA" />
+      <text x="0" y="10" fill="#581C87" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Project Res</text>
+    </g>
+    <g id="node_cabin_J022_Prof_Bhadoria" transform="translate(322.5983, 389.3722)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FAF5FF" stroke="#A855F7" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#F3E8FF" />
+      <circle cx="0" cy="0" r="3" fill="#9333EA" />
+      <text x="0" y="10" fill="#581C87" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J022 – Prof</text>
+    </g>
+    <g id="node_cabin_J021_Chemical_Eng" transform="translate(322.8126, 425.1145)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J021 – Dr. </text>
+    </g>
+    <g id="node_cabin_Dr_Manoj_Gaur" transform="translate(150.8004, 267.3203)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. Manoj K</text>
+    </g>
+    <g id="node_cabin_Dr_Shishir_Dixit_HOD" transform="translate(162.5359, 460.7165)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. Shishir</text>
+    </g>
+    <g id="node_cabin_Dr_Monica_Bhadoriya" transform="translate(170.9787, 367.1069)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. Monica </text>
+    </g>
+    <g id="node_cabin_Dr_Anjali_Patil" transform="translate(603.0631, 53.0112)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. Anjali </text>
+    </g>
+    <g id="node_room_SH6" transform="translate(446.5396, 267.2642)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">SH-6</text>
+    </g>
+    <g id="node_room_J031" transform="translate(596.0197, 331.3926)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J031</text>
+    </g>
+    <g id="node_cabin_Dr_Sanjay_Tiwari_HOD" transform="translate(352.9131, 356.4095)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. Sanjay </text>
+    </g>
+    <g id="node_room_J045" transform="translate(681.2707, 163.1677)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J045 – Stud</text>
+    </g>
+    <g id="node_room_DirectorsOffice" transform="translate(512.7124, 425.1018)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Directors O</text>
+    </g>
+    <g id="node_cabin_Prof_Parul_Saxena" transform="translate(582.8306, 274.9012)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Prof. Parul</text>
+    </g>
+    <g id="node_room_LT2" transform="translate(688.0999, 267.7135)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">LT-2 (Lectu</text>
+    </g>
+    <g id="node_room_J042" transform="translate(680.6357, 80.0029)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J042 – Stud</text>
+    </g>
+    <g id="node_cabin_Ar_Namita_Pranshi" transform="translate(573.7655, 64.6727)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Ar. Namita </text>
+    </g>
+    <g id="node_room_J028" transform="translate(501.3235, 267.2642)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J028</text>
+    </g>
+    <g id="node_room_PL2" transform="translate(716.0731, 307.8639)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">PL-2</text>
+    </g>
+    <g id="node_room_MaleWashroom" transform="translate(457.3326, 389.5684)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Male Washro</text>
+    </g>
+    <g id="node_cabin_Dr_Anshu_Chaturvedi" transform="translate(576.4232, 274.9012)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. Anshu C</text>
+    </g>
+    <g id="node_cabin_IC_Lab" transform="translate(343.8415, 267.3079)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FAF5FF" stroke="#A855F7" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#F3E8FF" />
+      <circle cx="0" cy="0" r="3" fill="#9333EA" />
+      <text x="0" y="10" fill="#581C87" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">IC Lab</text>
+    </g>
+    <g id="node_cabin_Directors_Office" transform="translate(518.0432, 425.1018)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Directors O</text>
+    </g>
+    <g id="node_room_J004" transform="translate(218.3763, 487.446)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J004 – SH-3</text>
+    </g>
+    <g id="node_room_J008" transform="translate(162.4725, 401.2488)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J008</text>
+    </g>
+    <g id="node_room_Library" transform="translate(725.7073, 416.0328)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Library</text>
+    </g>
+    <g id="node_cabin_Dr_RS_Jadon" transform="translate(680.0805, 267.7135)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. R.S. Ja</text>
+    </g>
+    <g id="node_cabin_J014_CAD_CAM_Lab" transform="translate(272.3229, 267.1519)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FAF5FF" stroke="#A855F7" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#F3E8FF" />
+      <circle cx="0" cy="0" r="3" fill="#9333EA" />
+      <text x="0" y="10" fill="#581C87" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J014 – Comp</text>
+    </g>
+    <g id="node_room_LT1" transform="translate(542.6774, 267.2642)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">LT-1 (Lectu</text>
+    </g>
+    <g id="node_room_J003" transform="translate(260.3571, 487.446)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J003 – SH-2</text>
+    </g>
+    <g id="node_room_J026" transform="translate(393.5679, 356.4095)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J026</text>
+    </g>
+    <g id="node_cabin_Dr_Manish_Dixit" transform="translate(598.383, 253.8019)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. Manish </text>
+    </g>
+    <g id="node_cabin_Prof_Vedansh" transform="translate(130.5826, 263.8387)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Prof. Vedan</text>
+    </g>
+    <g id="node_cabin_Prof_RP_Kori" transform="translate(118.1641, 225.6764)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Prof. R.P. </text>
+    </g>
+    <g id="node_room_J002" transform="translate(352.6556, 487.446)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J002 – SH-1</text>
+    </g>
+    <g id="node_room_J024" transform="translate(296.6052, 359.4374)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J024</text>
+    </g>
+    <g id="node_cabin_MOOC_Center" transform="translate(475.1047, 267.2642)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">MOOC Center</text>
+    </g>
+    <g id="node_room_J013" transform="translate(258.6859, 267.1519)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J013</text>
+    </g>
+    <g id="node_room_J036" transform="translate(568.4035, 56.418)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J036</text>
+    </g>
+    <g id="node_room_J038" transform="translate(571.4278, 163.3924)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J038 – Stud</text>
+    </g>
+    <g id="node_room_FacultyRC" transform="translate(457.3326, 401.3612)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J020 – Facu</text>
+    </g>
+    <g id="node_cabin_Prof_Jaimala_Jha" transform="translate(705.2498, 267.7135)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Prof. Jaima</text>
+    </g>
+    <g id="node_cabin_Prof_Mahesh_Parmar" transform="translate(706.3876, 274.6766)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Prof. Mahes</text>
+    </g>
+    <g id="node_cabin_003" transform="translate(457.396, 318.084)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Room 003</text>
+    </g>
+    <g id="node_cabin_Dr_CS_Malvi_HOD_Mech" transform="translate(130.5712, 243.6752)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. Chandra</text>
+    </g>
+    <g id="node_cabin_Dynamics_Machine_Lab" transform="translate(124.4389, 205.9434)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FAF5FF" stroke="#A855F7" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#F3E8FF" />
+      <circle cx="0" cy="0" r="3" fill="#9333EA" />
+      <text x="0" y="10" fill="#581C87" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dynamics  M</text>
+    </g>
+    <g id="node_room_LadiesWashroom" transform="translate(190.4539, 356.9616)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Female Wash</text>
+    </g>
+    <g id="node_cabin_Dr_RK_Gupta" transform="translate(574.4413, 267.2642)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. R.K. Gu</text>
+    </g>
+    <g id="node_cabin_004" transform="translate(457.2691, 282.0328)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Room 004</text>
+    </g>
+    <g id="node_cabin_Dr_Jyoti_Vimal" transform="translate(118.1641, 237.1258)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. Jyoti V</text>
+    </g>
+    <g id="node_cabin_Prof_Bhupendra_Pandey" transform="translate(117.8208, 208.6389)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Prof. Bhupe</text>
+    </g>
+    <g id="node_room_J039" transform="translate(572.4677, 123.1296)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J039 – Stud</text>
+    </g>
+    <g id="node_cabin_J005_BEEE_Lab" transform="translate(164.5673, 487.5022)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FAF5FF" stroke="#A855F7" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#F3E8FF" />
+      <circle cx="0" cy="0" r="3" fill="#9333EA" />
+      <text x="0" y="10" fill="#581C87" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J005 – BEEE</text>
+    </g>
+    <g id="node_cabin_Dr_Vijay_Bhuria" transform="translate(147.6818, 491.7898)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. Vijay B</text>
+    </g>
+    <g id="node_cabin_Dr_Smita_Parte" transform="translate(698.251, 267.7135)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. Smita P</text>
+    </g>
+    <g id="node_cabin_Dr_Pratesh_Jayaswal" transform="translate(325.8381, 267.1519)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. Pratesh</text>
+    </g>
+    <g id="node_cabin_J012_Fluid_Lab" transform="translate(186.9435, 267.1519)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FAF5FF" stroke="#A855F7" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#F3E8FF" />
+      <circle cx="0" cy="0" r="3" fill="#9333EA" />
+      <text x="0" y="10" fill="#581C87" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J012 – Flui</text>
+    </g>
+    <g id="node_room_J009" transform="translate(162.9803, 365.31)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">J009</text>
+    </g>
+    <g id="node_cabin_Girls_Common_Room" transform="translate(631.4555, 267.7135)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Girls Commo</text>
+    </g>
+    <g id="node_cabin_Dr_SK_Jain" transform="translate(322.5983, 363.5879)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. S.K. Ja</text>
+    </g>
+    <g id="node_cabin_Dr_PK_Singhal" transform="translate(289.8909, 478.5596)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-23" y="-15" width="46" height="30" rx="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.8" />
+      <rect x="-21" y="-13" width="42" height="10" rx="4" fill="#EFF6FF" />
+      <circle cx="0" cy="0" r="3" fill="#3B82F6" />
+      <text x="0" y="10" fill="#0F172A" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" text-anchor="middle">Dr. P.K. Si</text>
+    </g>
+  </g>
+
+  <!-- Vertical Stairs & Lifts -->
+  <g>
+    <g id="node_Stairs01" transform="translate(457.7956, 474.5485)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-16" y="-16" width="32" height="32" rx="8" fill="#F5F3FF" stroke="#7C3AED" stroke-width="2" />
+      <path d="M-9 7 L-3 1 L3 1 L3 -5 L9 -5" fill="none" stroke="#6D28D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="0" y="27" fill="#4C1D95" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">Stairs 01</text>
+    </g>
+    <g id="node_Stairs05" transform="translate(715.5956, 264.386)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-16" y="-16" width="32" height="32" rx="8" fill="#F5F3FF" stroke="#7C3AED" stroke-width="2" />
+      <path d="M-9 7 L-3 1 L3 1 L3 -5 L9 -5" fill="none" stroke="#6D28D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="0" y="27" fill="#4C1D95" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">Stairs 05</text>
+    </g>
+    <g id="node_Stairs07" transform="translate(622.5132, 67.7345)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-16" y="-16" width="32" height="32" rx="8" fill="#F5F3FF" stroke="#7C3AED" stroke-width="2" />
+      <path d="M-9 7 L-3 1 L3 1 L3 -5 L9 -5" fill="none" stroke="#6D28D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="0" y="27" fill="#4C1D95" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">Stairs 07 (A</text>
+    </g>
+    <g id="node_Stairs06" transform="translate(687.9248, 197.4091)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-16" y="-16" width="32" height="32" rx="8" fill="#F5F3FF" stroke="#7C3AED" stroke-width="2" />
+      <path d="M-9 7 L-3 1 L3 1 L3 -5 L9 -5" fill="none" stroke="#6D28D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="0" y="27" fill="#4C1D95" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">Stairs 06</text>
+    </g>
+    <g id="node_Stairs02" transform="translate(159.9015, 473.3145)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-16" y="-16" width="32" height="32" rx="8" fill="#F5F3FF" stroke="#7C3AED" stroke-width="2" />
+      <path d="M-9 7 L-3 1 L3 1 L3 -5 L9 -5" fill="none" stroke="#6D28D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="0" y="27" fill="#4C1D95" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">Stairs 02</text>
+    </g>
+    <g id="node_Stairs03" transform="translate(320.9145, 342.0657)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-16" y="-16" width="32" height="32" rx="8" fill="#F5F3FF" stroke="#7C3AED" stroke-width="2" />
+      <path d="M-9 7 L-3 1 L3 1 L3 -5 L9 -5" fill="none" stroke="#6D28D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="0" y="27" fill="#4C1D95" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">Stairs 03</text>
+    </g>
+    <g id="node_Stairs04" transform="translate(461.5711, 266.6416)" filter="url(#badgeShadow_Main_GF)" class="map-node-group cursor-pointer">
+      <rect x="-16" y="-16" width="32" height="32" rx="8" fill="#F5F3FF" stroke="#7C3AED" stroke-width="2" />
+      <path d="M-9 7 L-3 1 L3 1 L3 -5 L9 -5" fill="none" stroke="#6D28D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="0" y="27" fill="#4C1D95" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" text-anchor="middle">Stairs 04</text>
+    </g>
+  </g>
+
+  <!-- Entry Points and Campus Gates -->
+  <g>
+  </g>
+
+  <!-- Clean Map Badge -->
+  <g transform="translate(24, 571.5946)">
+    <rect width="210" height="26" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.2" filter="url(#badgeShadow_Main_GF)"/>
+    <circle cx="14" cy="13" r="4" fill="#10B981"/>
+    <text x="26" y="17" fill="#334155" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="700">MITS GWALIOR • LIGHT THEME</text>
+  </g>
+</svg>

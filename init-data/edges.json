@@ -1,0 +1,5507 @@
+[
+  {
+    "from_node": "MainRoad08",
+    "to_node": "MainRoad09",
+    "distance": 27.64,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainRoad12",
+    "to_node": "AiRoad01",
+    "distance": 33.18,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainBuilRoad02",
+    "to_node": "MainBuilRoad03",
+    "distance": 69.13,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad07",
+    "to_node": "ENTRY04",
+    "distance": 72.5,
+    "type": "corridor_to_entry",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor03_09",
+    "to_node": "corridor03_08",
+    "distance": 22.55,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor04_07",
+    "to_node": "corridor04_06",
+    "distance": 11.93,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionConnector_Corridor07",
+    "to_node": "corridor07_01",
+    "distance": 37.66,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor07_01",
+    "to_node": "intersectionCorridor07_08",
+    "distance": 33.05,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_03",
+    "to_node": "room_LT2",
+    "distance": 3.63,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor01_04",
+    "to_node": "room_J002",
+    "distance": 4.55,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor01_09",
+    "to_node": "room_J006",
+    "distance": 17.87,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor09_01",
+    "to_node": "room_J038",
+    "distance": 9.67,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "LabCorridor02_02",
+    "to_node": "room_PL5",
+    "distance": 3.44,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor02_03",
+    "to_node": "room_MaleWashroom",
+    "distance": 4.07,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_RS_Jadon",
+    "to_node": "corridor06_03",
+    "distance": 8.72,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Prof_Mahesh_Parmar",
+    "to_node": "corridor06_01",
+    "distance": 3.29,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Monica_Bhadoriya",
+    "to_node": "corridor04_05",
+    "distance": 4.9,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Stair04",
+    "to_node": "Corridor12_09",
+    "distance": 4.55,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor13_01",
+    "to_node": "Corridor11_04",
+    "distance": 22.83,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_06",
+    "to_node": "Corridor14_05",
+    "distance": 15.2,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor13_09",
+    "to_node": "Corridor16_16",
+    "distance": 57.49,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_08",
+    "to_node": "Corridor16_07",
+    "distance": 6.92,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_02",
+    "to_node": "Corridor16_01",
+    "distance": 14.72,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_07",
+    "to_node": "Corridor18_01",
+    "distance": 12.74,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor19_01",
+    "to_node": "Corridor20_01",
+    "distance": 3.85,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor20_05",
+    "to_node": "Corridor20_04",
+    "distance": 9.5,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Stair06",
+    "to_node": "Corridor20_01",
+    "distance": 10.73,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor21_07",
+    "to_node": "Stair07",
+    "distance": 27.99,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Stair07",
+    "to_node": "Stairs07",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor17_03",
+    "to_node": "room_J138",
+    "distance": 11.15,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor21_05",
+    "to_node": "room_J140",
+    "distance": 7.35,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor20_04",
+    "to_node": "room_J149",
+    "distance": 32.46,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor20_03",
+    "to_node": "room_PL03",
+    "distance": 113.23,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Chandra_S_Malvi",
+    "to_node": "Corridor16_27",
+    "distance": 7.1,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Amit_Aherwar",
+    "to_node": "Corridor16_24",
+    "distance": 6.85,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad07",
+    "to_node": "JubileeRoad08",
+    "distance": 18.72,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "mainentryroad02",
+    "to_node": "mainentryroad01",
+    "distance": 26.49,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "Canteen02",
+    "to_node": "Canteen03",
+    "distance": 18.69,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "Canteen06",
+    "to_node": "Canteen07",
+    "distance": 32.31,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor01_04",
+    "to_node": "corridor01_03",
+    "distance": 27.73,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor03_07",
+    "to_node": "intersectionCorridor03_05",
+    "distance": 23.16,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor03_05",
+    "to_node": "corridor03_06",
+    "distance": 7.25,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor05_02",
+    "to_node": "corridor05_01",
+    "distance": 13.62,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_13",
+    "to_node": "corridor06_12",
+    "distance": 35.95,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor08_03",
+    "to_node": "corridor08_02",
+    "distance": 40.77,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor09_02",
+    "to_node": "corridor09_03",
+    "distance": 37.23,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor09_06",
+    "to_node": "intersectionCorridor09_10",
+    "distance": 8.98,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionLabCorridor01_06",
+    "to_node": "LabCorridor01_02",
+    "distance": 36.34,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_08",
+    "to_node": "room_LT1",
+    "distance": 3.9,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor05_01",
+    "to_node": "room_J026",
+    "distance": 3.6,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Stairs03",
+    "to_node": "Stair03",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_IC_Lab",
+    "to_node": "corridor06_13",
+    "distance": 4.11,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Prof_Vedansh",
+    "to_node": "intersectionCorridor06_MechDeprt",
+    "distance": 10.38,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Directors_Office",
+    "to_node": "intersectionCorridor02_DirectorsOffice",
+    "distance": 56.47,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_14",
+    "to_node": "Corridor11_13",
+    "distance": 8.54,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_10",
+    "to_node": "Corridor11_09",
+    "distance": 42.46,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor13_09",
+    "to_node": "Corridor13_08",
+    "distance": 32.66,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_10",
+    "to_node": "Corridor15_09",
+    "distance": 34.7,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_16",
+    "to_node": "Corridor16_15",
+    "distance": 44.22,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_05",
+    "to_node": "Corridor16_04",
+    "distance": 20.09,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_27",
+    "to_node": "Corridor16_25",
+    "distance": 3.86,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor18_01",
+    "to_node": "Corridor18_02",
+    "distance": 13.04,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor21_08",
+    "to_node": "Corridor21_07",
+    "distance": 5.81,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Stair02",
+    "to_node": "Stairs02",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_04",
+    "to_node": "room_J127",
+    "distance": 4.24,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor21_02",
+    "to_node": "room_J143",
+    "distance": 10.15,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Hemant_Choubey",
+    "to_node": "Corridor16_08",
+    "distance": 14.5,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Vijay_S_Sharma",
+    "to_node": "Corridor16_20",
+    "distance": 5.1,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Main_Gate",
+    "to_node": "MainRoad01",
+    "distance": 50.09,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainRoad01",
+    "to_node": "MainBuilRoad01",
+    "distance": 53.27,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainBuilRoad01",
+    "to_node": "MainBuilRoad02",
+    "distance": 61.37,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "Canteen08",
+    "to_node": "Library_Campus",
+    "distance": 13.15,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "Library04",
+    "to_node": "Library05",
+    "distance": 39.76,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "AiRoad04",
+    "to_node": "Workshops",
+    "distance": 14.68,
+    "type": "corridor_to_room",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor01_10",
+    "to_node": "corridor01_09",
+    "distance": 25.63,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor04_08",
+    "to_node": "intersectionCorridor04_05",
+    "distance": 40.7,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor04_05",
+    "to_node": "corridor04_04",
+    "distance": 6.49,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor05_05",
+    "to_node": "corridor05_04",
+    "distance": 9.79,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor08_04",
+    "to_node": "corridor08_03",
+    "distance": 3.92,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor09_01",
+    "to_node": "corridor09_02",
+    "distance": 39.08,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor09_05",
+    "to_node": "corridor09_06",
+    "distance": 4.96,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor07_08",
+    "to_node": "Stairs06",
+    "distance": 15.08,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionLabCorridor01_06",
+    "to_node": "Stairs05",
+    "distance": 8.23,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Stairs01",
+    "to_node": "Stair01",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Stairs04",
+    "to_node": "Stair04",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Project_Research_Lab",
+    "to_node": "intersectionLabCorridor_06",
+    "distance": 22.72,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Pratesh_Jayaswal",
+    "to_node": "intersectionCorridor03_06",
+    "distance": 4.8,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Vijay_Bhuria",
+    "to_node": "corridor01_09",
+    "distance": 10.66,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_06",
+    "to_node": "Corridor11_05",
+    "distance": 13.96,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor12_07",
+    "to_node": "Corridor12_06",
+    "distance": 10.15,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor12_03",
+    "to_node": "Corridor12_02",
+    "distance": 37.19,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor13_03",
+    "to_node": "Corridor13_02",
+    "distance": 26.15,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_11",
+    "to_node": "Corridor14_10",
+    "distance": 23.6,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor21_01",
+    "to_node": "Corridor19_05",
+    "distance": 18.17,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor19_04",
+    "to_node": "Corridor19_03",
+    "distance": 30.77,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Stair04",
+    "to_node": "Stairs04",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_08",
+    "to_node": "room_J109",
+    "distance": 4.66,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_14",
+    "to_node": "room_J130",
+    "distance": 5.71,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor19_02",
+    "to_node": "room_J146",
+    "distance": 4,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor20_06",
+    "to_node": "room_J148",
+    "distance": 6.87,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "AiRoad04",
+    "to_node": "AiRoad05",
+    "distance": 56.95,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad04",
+    "to_node": "JubileeRoad05",
+    "distance": 41,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad13",
+    "to_node": "JubileeRoad14",
+    "distance": 33.21,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainBuilRoad07",
+    "to_node": "MainBuilRoad08",
+    "distance": 69.22,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "Canteen04",
+    "to_node": "Canteen05",
+    "distance": 24.86,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "Library05",
+    "to_node": "JubileeRoad07",
+    "distance": 26.99,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor01_08",
+    "to_node": "corridor01_07",
+    "distance": 41.75,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor02_06",
+    "to_node": "corridor02_05",
+    "distance": 36.09,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor02_03",
+    "to_node": "corridor02_02",
+    "distance": 11.83,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor02_02",
+    "to_node": "intersectionCorridor02_DirectorsOffice",
+    "distance": 23.78,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor02_DirectorsOffice",
+    "to_node": "corridor02_01",
+    "distance": 27.98,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor04_02",
+    "to_node": "corridor04_01",
+    "distance": 29.95,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor05_06",
+    "to_node": "corridor05_05",
+    "distance": 63.8,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_16",
+    "to_node": "corridor06_15",
+    "distance": 71.99,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor09_03",
+    "to_node": "room_J037",
+    "distance": 7.5,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Girls_Common_Room",
+    "to_node": "corridor06_05",
+    "distance": 3.59,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Jyoti_Vimal",
+    "to_node": "intersectionCorridor06_MechDeprt",
+    "distance": 34.76,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Shishir_Dixit_HOD",
+    "to_node": "corridor04_01",
+    "distance": 3.56,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dept_Architecture",
+    "to_node": "intersectionCorridor09_10",
+    "distance": 3.16,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_08",
+    "to_node": "Corridor15_10",
+    "distance": 25.25,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_06",
+    "to_node": "Corridor16_05",
+    "distance": 19.83,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_20b",
+    "to_node": "Corridor16_27",
+    "distance": 3.91,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor21_04",
+    "to_node": "Corridor21_03",
+    "distance": 35.62,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor22_03",
+    "to_node": "Corridor22_02",
+    "distance": 8.32,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor12_07",
+    "to_node": "room_J118",
+    "distance": 5.58,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor12_02",
+    "to_node": "room_J120",
+    "distance": 5.56,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor13_04",
+    "to_node": "room_J123",
+    "distance": 4.34,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_07",
+    "to_node": "room_J135",
+    "distance": 4.33,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad01",
+    "to_node": "JubileeRoad02",
+    "distance": 23.7,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainBuilRoad05",
+    "to_node": "mainentryroad04",
+    "distance": 22.64,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "AiRoad07",
+    "to_node": "ENTRY06",
+    "distance": 129.46,
+    "type": "corridor_to_entry",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor01_01",
+    "to_node": "intersectionCorridor01_02",
+    "distance": 22.34,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor02_05",
+    "to_node": "intersectionCorrdor02_05",
+    "distance": 34.53,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor03_05",
+    "to_node": "corridor03_04",
+    "distance": 11.73,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor03_03",
+    "to_node": "corridor03_02",
+    "distance": 35.69,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor05_01",
+    "to_node": "intersectionCorrdor02_05",
+    "distance": 68.12,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor04_08",
+    "to_node": "room_SH12",
+    "distance": 3.34,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor03_07",
+    "to_node": "room_J023",
+    "distance": 4.67,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Smita_Parte",
+    "to_node": "corridor06_02",
+    "distance": 3.82,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Prof_Aditya_Agarwal",
+    "to_node": "corridor03_06",
+    "distance": 4.96,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Sanjay_Tiwari_HOD",
+    "to_node": "corridor05_03",
+    "distance": 3.53,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor12_04",
+    "to_node": "Corridor12_03",
+    "distance": 23.02,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_13",
+    "to_node": "Corridor16_12",
+    "distance": 35.51,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_04",
+    "to_node": "Corridor16_03",
+    "distance": 20.94,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_03",
+    "to_node": "Corridor16_02",
+    "distance": 6.8,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor20_03",
+    "to_node": "Corridor20_02",
+    "distance": 17.42,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor22_03",
+    "to_node": "Stair07",
+    "distance": 12.02,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_14",
+    "to_node": "room_J105",
+    "distance": 9.23,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Vikas_Mahor",
+    "to_node": "Corridor16_04",
+    "distance": 3.72,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Er_Vivek_Sharma",
+    "to_node": "Corridor11_05",
+    "distance": 4.76,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "MainRoad03",
+    "to_node": "MainRoad04",
+    "distance": 40.63,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainRoad04",
+    "to_node": "MainRoad05",
+    "distance": 32.29,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad06",
+    "to_node": "JubileeRoad07",
+    "distance": 18.3,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainBuilRoad09",
+    "to_node": "JubileeRoad16",
+    "distance": 60.83,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "Library03",
+    "to_node": "Library04",
+    "distance": 37.34,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorrdior02_06",
+    "to_node": "corridor02_06",
+    "distance": 10.36,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor03_06",
+    "to_node": "corridor03_09",
+    "distance": 10.7,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor05_03",
+    "to_node": "corridor05_02",
+    "distance": 26.76,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_17",
+    "to_node": "intersectionCorridor04_06",
+    "distance": 15.21,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor06_Connector",
+    "to_node": "corridor06_05",
+    "distance": 27.6,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_09",
+    "to_node": "room_J028",
+    "distance": 4.33,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_004",
+    "to_node": "corridor02_06",
+    "distance": 4.33,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Anjali_Patil",
+    "to_node": "corridor10_03",
+    "distance": 6.42,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_08",
+    "to_node": "Corridor11_07",
+    "distance": 50.35,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor13_02",
+    "to_node": "Corridor13_01",
+    "distance": 45.52,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_06",
+    "to_node": "Corridor15_05",
+    "distance": 67.37,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_19",
+    "to_node": "Corridor16_18",
+    "distance": 43.43,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_14",
+    "to_node": "Corridor16_13",
+    "distance": 27.83,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_09",
+    "to_node": "Corridor16_08",
+    "distance": 8.88,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor19_02",
+    "to_node": "Corridor19_01",
+    "distance": 13.83,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor12_01",
+    "to_node": "Stair01",
+    "distance": 4.72,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Stair05",
+    "to_node": "Stairs05",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Stair06",
+    "to_node": "Stairs06",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor13_07",
+    "to_node": "room_J124",
+    "distance": 4.16,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_12",
+    "to_node": "room_J131",
+    "distance": 4.41,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor18_02",
+    "to_node": "room_J133",
+    "distance": 3.92,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Shailendra_Singh",
+    "to_node": "Corridor16_09",
+    "distance": 13.23,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Prof_Vaibhav_Shivhare",
+    "to_node": "Corridor16_27",
+    "distance": 6.22,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Divya_Chaturvedi",
+    "to_node": "Corridor16_22",
+    "distance": 6.43,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_SK_Bharadwaj",
+    "to_node": "Corridor11_15",
+    "distance": 4.42,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "AiRoad06",
+    "to_node": "AiRoad07",
+    "distance": 40.57,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "AiRoad08",
+    "to_node": "AiRoad09",
+    "distance": 57.33,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad02",
+    "to_node": "JubileeRoad03",
+    "distance": 29.57,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "Canteen01",
+    "to_node": "Canteen02",
+    "distance": 29.88,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_12",
+    "to_node": "corridor06_11",
+    "distance": 66.99,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor09_03",
+    "to_node": "corridor09_04",
+    "distance": 4.5,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor01_04",
+    "to_node": "Stairs02",
+    "distance": 11.32,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor01_07",
+    "to_node": "room_J003",
+    "distance": 4.66,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor01_05",
+    "to_node": "room_IQAC",
+    "distance": 4.02,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Prof_RP_Kori",
+    "to_node": "intersectionCorridor06_MechDeprt",
+    "distance": 46.1,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_J005_BEEE_Lab",
+    "to_node": "intersectionCorridor01_04",
+    "distance": 5.06,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_05",
+    "to_node": "Corridor11_04",
+    "distance": 16.37,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_03",
+    "to_node": "Corridor11_01",
+    "distance": 46.29,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor12_05",
+    "to_node": "Corridor12_04",
+    "distance": 12.52,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_08",
+    "to_node": "Corridor14_07",
+    "distance": 14.98,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor20_06",
+    "to_node": "Corridor20_05",
+    "distance": 31.59,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor20_02",
+    "to_node": "Stair06",
+    "distance": 21.77,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor13_06",
+    "to_node": "Stair03",
+    "distance": 5.32,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_20",
+    "to_node": "room_J111",
+    "distance": 3.5,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Ravindra_Narwaria",
+    "to_node": "Corridor16_10",
+    "distance": 3.42,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Minakshi_Dahiya",
+    "to_node": "Corridor16_22",
+    "distance": 6.43,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Sanjeev_Khanna",
+    "to_node": "Corridor14_07",
+    "distance": 4.89,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "MainRoad01",
+    "to_node": "MainRoad02",
+    "distance": 41.47,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "AiRoad09",
+    "to_node": "JubileeRoad01",
+    "distance": 54.52,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad01",
+    "to_node": "Jubilee_Gate",
+    "distance": 9.41,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad10",
+    "to_node": "JubileeRoad11",
+    "distance": 28.17,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainBuilRoad05",
+    "to_node": "MainBuilRoad06",
+    "distance": 40.31,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainBuilRoad07",
+    "to_node": "Canteen01",
+    "distance": 28.24,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor01_07",
+    "to_node": "corridor01_06",
+    "distance": 29.71,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor01_05",
+    "to_node": "intersectionCorridor01_03",
+    "distance": 16.28,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor03_02",
+    "to_node": "corridor03_01",
+    "distance": 35.79,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor04_04",
+    "to_node": "corridor04_03",
+    "distance": 27.59,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_09",
+    "to_node": "corridor06_08",
+    "distance": 41.14,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor08_02",
+    "to_node": "corridor08_01",
+    "distance": 42.5,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor08_01",
+    "to_node": "intersectionCorridor07_08",
+    "distance": 41.07,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor10_03",
+    "to_node": "corridor10_02",
+    "distance": 14.1,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Stairs07",
+    "to_node": "corridor10_01",
+    "distance": 9.2,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_11",
+    "to_node": "room_SH6",
+    "distance": 4.2,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor05_04",
+    "to_node": "room_J024",
+    "distance": 6.43,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor08_05",
+    "to_node": "room_J040",
+    "distance": 12.89,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor08_01",
+    "to_node": "room_J045",
+    "distance": 6.63,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Stairs06",
+    "to_node": "Stair06",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Prof_Khushboo_Agarwal",
+    "to_node": "corridor06_02",
+    "distance": 3.4,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_RK_Gupta",
+    "to_node": "corridor06_07",
+    "distance": 4.28,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_J021_Chemical_Eng",
+    "to_node": "corridor03_02",
+    "distance": 4.75,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Prof_Bhupendra_Pandey",
+    "to_node": "intersectionCorridor06_MechDeprt",
+    "distance": 63.08,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_07",
+    "to_node": "Corridor11_06",
+    "distance": 9.59,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_04",
+    "to_node": "Corridor11_03",
+    "distance": 54.33,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_07",
+    "to_node": "Corridor14_06",
+    "distance": 6.95,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_03",
+    "to_node": "Corridor14_02",
+    "distance": 24.39,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_17",
+    "to_node": "Corridor13_09",
+    "distance": 52.35,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_24",
+    "to_node": "Corridor16_23",
+    "distance": 13.79,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_23",
+    "to_node": "Corridor16_22",
+    "distance": 3.51,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_01",
+    "to_node": "Corridor17_01",
+    "distance": 14.45,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor18_02",
+    "to_node": "Corridor18_03",
+    "distance": 16.14,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor19_03",
+    "to_node": "Corridor19_02",
+    "distance": 39.38,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor21_01",
+    "to_node": "Corridor19_05",
+    "distance": 18.17,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor20_08",
+    "to_node": "Corridor20_07",
+    "distance": 28.81,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Stair04_SF",
+    "to_node": "Stair04",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_15",
+    "to_node": "room_J116",
+    "distance": 4.26,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor19_03",
+    "to_node": "room_J145",
+    "distance": 3.95,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor20_07",
+    "to_node": "room_J147",
+    "distance": 7.83,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Punit_Johari",
+    "to_node": "Corridor20_05",
+    "distance": 19.27,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "MainRoad06",
+    "to_node": "MainRoad07",
+    "distance": 43.3,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainRoad08",
+    "to_node": "ENTRY03",
+    "distance": 27.5,
+    "type": "corridor_to_entry",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "Library02",
+    "to_node": "Library03",
+    "distance": 31.5,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "AiRoad09",
+    "to_node": "ENTRY05",
+    "distance": 129.55,
+    "type": "corridor_to_entry",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor01_06",
+    "to_node": "corridor01_05",
+    "distance": 21.47,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor02_AccountsSection",
+    "to_node": "intersectionCorridor01_02",
+    "distance": 7.99,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor04_05",
+    "to_node": "corridor05_06",
+    "distance": 57.33,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_04",
+    "to_node": "corridor06_03",
+    "distance": 8.09,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor10_01",
+    "to_node": "intersectionCorridor08_10",
+    "distance": 32.58,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "LabCorridor01_02",
+    "to_node": "LabCorridor01_01",
+    "distance": 19.56,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "LabCorridor02_03",
+    "to_node": "LabCorridor02_02",
+    "distance": 25.94,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor02_AccountsSection",
+    "to_node": "Stairs01",
+    "distance": 3.78,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor04_07",
+    "to_node": "room_J010",
+    "distance": 3.1,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor09_05",
+    "to_node": "room_J036",
+    "distance": 20.43,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "LabCorridor01_02",
+    "to_node": "room_PL2",
+    "distance": 3.59,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Anjula_Gaur",
+    "to_node": "corridor03_04",
+    "distance": 5.06,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_13",
+    "to_node": "Corridor11_14",
+    "distance": 8.54,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor13_07",
+    "to_node": "Corridor13_06",
+    "distance": 12.39,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor13_05",
+    "to_node": "Corridor13_04",
+    "distance": 13.3,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_09",
+    "to_node": "Corridor14_08",
+    "distance": 35.4,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_15",
+    "to_node": "Corridor12_09",
+    "distance": 45.75,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor17_01",
+    "to_node": "Corridor17_02",
+    "distance": 13.72,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_04",
+    "to_node": "room_J107",
+    "distance": 4.57,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_19",
+    "to_node": "room_J112",
+    "distance": 3.83,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_16",
+    "to_node": "room_J115",
+    "distance": 4.26,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_08",
+    "to_node": "room_J126",
+    "distance": 4.31,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_07",
+    "to_node": "room_MaleWashroom_FF",
+    "distance": 4.11,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Laxmi_HOD_EE",
+    "to_node": "Corridor16_02",
+    "distance": 3.87,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Prof_Pavitra_Pathak",
+    "to_node": "Corridor16_11",
+    "distance": 4.27,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Surendra_Chourasiya",
+    "to_node": "Corridor16_25",
+    "distance": 6.78,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_DK_Mishra",
+    "to_node": "Corridor11_15",
+    "distance": 4.42,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "AiRoad08",
+    "to_node": "ENTRY07",
+    "distance": 24.47,
+    "type": "corridor_to_entry",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad03",
+    "to_node": "JubileeRoad04",
+    "distance": 26.9,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainBuilRoad06",
+    "to_node": "MainBuilRoad07",
+    "distance": 44.46,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor01_04",
+    "to_node": "corridor01_08",
+    "distance": 52.16,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor01_03",
+    "to_node": "corridor01_04",
+    "distance": 24.92,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor03_01",
+    "to_node": "intersectionCorridor01_03",
+    "distance": 21.81,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor03_06",
+    "to_node": "corridor06_13",
+    "distance": 16,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_03",
+    "to_node": "corridor06_02",
+    "distance": 10.98,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorrdior07_09",
+    "to_node": "intersectionConnector_Corridor07",
+    "distance": 25.07,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor06_Connector",
+    "to_node": "intersectionConnector_Corridor07",
+    "distance": 66.54,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionLibraryPath_Corridor06",
+    "to_node": "room_Library",
+    "distance": 145.02,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Stairs02",
+    "to_node": "Stair02",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_SK_Jain",
+    "to_node": "corridor03_05",
+    "distance": 4.88,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_J022_Prof_Bhadoria",
+    "to_node": "corridor03_03",
+    "distance": 4.97,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dynamics_Machine_Lab",
+    "to_node": "intersectionCorridor06_MechDeprt",
+    "distance": 65.53,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor12_06",
+    "to_node": "Corridor12_05",
+    "distance": 37.59,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor13_06",
+    "to_node": "Corridor13_05",
+    "distance": 10.7,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_02",
+    "to_node": "Stair02",
+    "distance": 12.94,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_07",
+    "to_node": "Corridor15_06",
+    "distance": 20.74,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_02",
+    "to_node": "Corridor15_01",
+    "distance": 30.98,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor19_05",
+    "to_node": "Corridor19_04",
+    "distance": 21.42,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor21_08",
+    "to_node": "Corridor22_04",
+    "distance": 4.25,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor22_04",
+    "to_node": "Corridor22_03",
+    "distance": 17.51,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor22_01",
+    "to_node": "Corridor20_08",
+    "distance": 5.17,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_08",
+    "to_node": "room_J102",
+    "distance": 4.08,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_02",
+    "to_node": "room_J106",
+    "distance": 4.7,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor12_08",
+    "to_node": "room_J117",
+    "distance": 5.58,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_09",
+    "to_node": "room_J125",
+    "distance": 4.36,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor19_04",
+    "to_node": "room_J144",
+    "distance": 4.09,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_06",
+    "to_node": "room_FemaleWashroom_FF",
+    "distance": 4.62,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Kumar_Gaurav",
+    "to_node": "Corridor16_09",
+    "distance": 13.23,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "MainRoad07",
+    "to_node": "MainRoad08",
+    "distance": 22.9,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainRoad09",
+    "to_node": "MainRoad10",
+    "distance": 51.75,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainRoad10",
+    "to_node": "MainRoad11",
+    "distance": 41.61,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "AiRoad02",
+    "to_node": "AiRoad03",
+    "distance": 53.41,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad12",
+    "to_node": "JubileeRoad13",
+    "distance": 34.4,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainBuilRoad04",
+    "to_node": "MainBuilRoad05",
+    "distance": 20.83,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "Canteen08",
+    "to_node": "Library01",
+    "distance": 10.85,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor01_03",
+    "to_node": "corridor01_02",
+    "distance": 26.54,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor02_04",
+    "to_node": "corridor02_03",
+    "distance": 30.32,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor03_08",
+    "to_node": "corridor03_07",
+    "distance": 24.97,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor06_MechDeprt",
+    "to_node": "corridor06_17",
+    "distance": 27.06,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_11",
+    "to_node": "intersectionCorrdior02_06",
+    "distance": 15.07,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_10",
+    "to_node": "corridor06_09",
+    "distance": 26.43,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_08",
+    "to_node": "corridor06_07",
+    "distance": 32.58,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor09_10",
+    "to_node": "corridor10_03",
+    "distance": 9.96,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor10_02",
+    "to_node": "Stairs07",
+    "distance": 9.74,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_15",
+    "to_node": "room_J013",
+    "distance": 4.11,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_J012_Fluid_Lab",
+    "to_node": "corridor06_16",
+    "distance": 4.25,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_CS_Malvi_HOD_Mech",
+    "to_node": "intersectionCorridor06_MechDeprt",
+    "distance": 28.66,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Sulochana_Wadhwani",
+    "to_node": "corridor01_10",
+    "distance": 4.21,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_13",
+    "to_node": "Corridor11_12",
+    "distance": 12.51,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_10",
+    "to_node": "Corridor14_09",
+    "distance": 23.6,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_01",
+    "to_node": "Corridor12_06",
+    "distance": 11.17,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_11",
+    "to_node": "Corridor16_19",
+    "distance": 26.81,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_11",
+    "to_node": "Corridor16_10",
+    "distance": 14.45,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_07",
+    "to_node": "Corridor16_06",
+    "distance": 51.07,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_25",
+    "to_node": "Corridor16_24",
+    "distance": 13.21,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor21_06",
+    "to_node": "Corridor21_05",
+    "distance": 5.63,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor21_05",
+    "to_node": "Corridor21_04",
+    "distance": 6.39,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Stair03",
+    "to_node": "Stairs03",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_18",
+    "to_node": "room_J113",
+    "distance": 3.83,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor18_03",
+    "to_node": "room_J134",
+    "distance": 15.3,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Nidhi_Humnekar",
+    "to_node": "Corridor16_23",
+    "distance": 5.39,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Kuldeep_Tiwari",
+    "to_node": "Corridor11_14",
+    "distance": 5.67,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "MainRoad02",
+    "to_node": "MainRoad03",
+    "distance": 37.71,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainRoad05",
+    "to_node": "MainRoad06",
+    "distance": 37.37,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "AiRoad05",
+    "to_node": "AiRoad06",
+    "distance": 49.47,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "AiBuilding_Entry",
+    "to_node": "ai_entry_gf",
+    "distance": 0,
+    "type": "entry_to_entry",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "Canteen07",
+    "to_node": "Canteen08",
+    "distance": 22.29,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "Library01",
+    "to_node": "Library02",
+    "distance": 24.03,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor01_02",
+    "to_node": "corridor01_01",
+    "distance": 32.27,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_14",
+    "to_node": "intersectionCorridor03_06",
+    "distance": 55.32,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_01",
+    "to_node": "intersectionLabCorridor01_06",
+    "distance": 13.88,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionLabCorridor01_06",
+    "to_node": "intersectionLibraryPath_Corridor06",
+    "distance": 17.33,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor02_02",
+    "to_node": "room_FacultyRC",
+    "distance": 4.04,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Stairs05",
+    "to_node": "Stair05",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Anshu_Chaturvedi",
+    "to_node": "corridor06_07",
+    "distance": 3.63,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_MOOC_Center",
+    "to_node": "corridor06_10",
+    "distance": 4.2,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_11",
+    "to_node": "Corridor11_10",
+    "distance": 26.02,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_09",
+    "to_node": "Corridor11_08",
+    "distance": 14.8,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor12_09",
+    "to_node": "Corridor12_08",
+    "distance": 34.74,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor12_08",
+    "to_node": "Corridor12_07",
+    "distance": 36.65,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor13_08",
+    "to_node": "Corridor13_07",
+    "distance": 25.88,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_04",
+    "to_node": "Corridor14_03",
+    "distance": 12.1,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_01",
+    "to_node": "Corridor11_11",
+    "distance": 11.15,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_03",
+    "to_node": "Corridor15_02",
+    "distance": 33.2,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_22",
+    "to_node": "Corridor16_21",
+    "distance": 4.14,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_21",
+    "to_node": "Corridor16_20",
+    "distance": 21.91,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_18",
+    "to_node": "Corridor16_17",
+    "distance": 50.89,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor12_09",
+    "to_node": "Corridor16_14",
+    "distance": 14.04,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_01",
+    "to_node": "Stair02",
+    "distance": 6.2,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_12",
+    "to_node": "room_J104",
+    "distance": 4.28,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_05",
+    "to_node": "room_J108",
+    "distance": 4.62,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor12_04",
+    "to_node": "room_J119",
+    "distance": 5.26,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor13_01",
+    "to_node": "room_J121",
+    "distance": 4.29,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Barkha_Tiwari",
+    "to_node": "Corridor16_23",
+    "distance": 5.39,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_JK_Muthele",
+    "to_node": "Corridor11_14",
+    "distance": 5.67,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Ranjeev_Kumar_Singh",
+    "to_node": "Corridor20_04",
+    "distance": 7.83,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "MainRoad11",
+    "to_node": "MainRoad12",
+    "distance": 50.87,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "AiRoad03",
+    "to_node": "AiRoad04",
+    "distance": 47.43,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad09",
+    "to_node": "JubileeRoad10",
+    "distance": 36.83,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad14",
+    "to_node": "JubileeRoad15",
+    "distance": 32.08,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainBuilRoad08",
+    "to_node": "MainBuilRoad09",
+    "distance": 51.62,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "Canteen05",
+    "to_node": "Canteen06",
+    "distance": 27.48,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "Library_Campus",
+    "to_node": "Library01",
+    "distance": 7.63,
+    "type": "corridor_to_room",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainRoad04",
+    "to_node": "campus_intersectionCorridor01_04",
+    "distance": 63.87,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor02_01",
+    "to_node": "intersectionCorridor02_AccountsSection",
+    "distance": 21.54,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor04_06",
+    "to_node": "corridor04_08",
+    "distance": 34.62,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorrdior02_06",
+    "to_node": "corridor06_10",
+    "distance": 13.53,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_07",
+    "to_node": "corridor06_06",
+    "distance": 7.27,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor09_04",
+    "to_node": "corridor09_05",
+    "distance": 7.99,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "LabCorridor02_02",
+    "to_node": "LabCorridor02_01",
+    "distance": 6.18,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorrdior02_06",
+    "to_node": "Stairs04",
+    "distance": 4.99,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor01_08",
+    "to_node": "room_J004",
+    "distance": 4.52,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor04_06",
+    "to_node": "room_J009",
+    "distance": 3.01,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor08_03",
+    "to_node": "room_J042",
+    "distance": 5.87,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor08_02",
+    "to_node": "room_J044",
+    "distance": 6.54,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "LabCorridor01_01",
+    "to_node": "room_PL1",
+    "distance": 3.64,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor13_04",
+    "to_node": "Corridor13_03",
+    "distance": 24.78,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_12",
+    "to_node": "Corridor16_11",
+    "distance": 31.79,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_10",
+    "to_node": "Corridor16_09",
+    "distance": 6.54,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor20_01",
+    "to_node": "Stair06",
+    "distance": 10.73,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor20_07",
+    "to_node": "Corridor20_06",
+    "distance": 5.38,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor13_09",
+    "to_node": "room_J114",
+    "distance": 4.33,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_03",
+    "to_node": "room_J128",
+    "distance": 4.24,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_11",
+    "to_node": "room_J132",
+    "distance": 4.27,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_06",
+    "to_node": "room_J136",
+    "distance": 3.91,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_03",
+    "to_node": "room_Language_Lab",
+    "distance": 4.7,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Nitin_Upadhyay",
+    "to_node": "Corridor16_20b",
+    "distance": 6.16,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Sanjiv_Sharma",
+    "to_node": "Corridor21_03",
+    "distance": 29.97,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "AiRoad04",
+    "to_node": "AiBuilding_Entry",
+    "distance": 6.57,
+    "type": "corridor_to_entry",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad05",
+    "to_node": "JubileeRoad06",
+    "distance": 34.73,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad11",
+    "to_node": "JubileeRoad12",
+    "distance": 28.42,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "mainentryroad04",
+    "to_node": "mainentryroad03",
+    "distance": 22.64,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "mainentryroad01",
+    "to_node": "ENTRY01",
+    "distance": 27.81,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "Library04",
+    "to_node": "ENTRY04",
+    "distance": 6.26,
+    "type": "corridor_to_entry",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor01_09",
+    "to_node": "intersectionCorridor01_04",
+    "distance": 12.74,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor03_06",
+    "to_node": "corridor03_05",
+    "distance": 3.33,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor03_04",
+    "to_node": "corridor03_03",
+    "distance": 14.11,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_06",
+    "to_node": "intersectionLabCorridor_06",
+    "distance": 13.5,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_02",
+    "to_node": "corridor06_01",
+    "distance": 6.93,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor08_10",
+    "to_node": "corridor08_05",
+    "distance": 15.47,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "LabCorridor02_01",
+    "to_node": "room_J031",
+    "distance": 3.92,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor02_DirectorsOffice",
+    "to_node": "room_DirectorsOffice",
+    "distance": 51.14,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Stairs07",
+    "to_node": "Stair07",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Prof_Jaimala_Jha",
+    "to_node": "corridor06_01",
+    "distance": 3.77,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Prof_Parul_Saxena",
+    "to_node": "corridor06_06",
+    "distance": 3.37,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Prof_Anish_Jacob",
+    "to_node": "corridor03_01",
+    "distance": 4.75,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_J014_CAD_CAM_Lab",
+    "to_node": "corridor06_14",
+    "distance": 4.2,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_15",
+    "to_node": "Corridor11_14",
+    "distance": 28.77,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_01",
+    "to_node": "Corridor11_16",
+    "distance": 24,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Stair01",
+    "to_node": "Corridor12_01",
+    "distance": 4.72,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_05",
+    "to_node": "Corridor14_04",
+    "distance": 35.97,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_08",
+    "to_node": "Corridor15_07",
+    "distance": 6.31,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_04",
+    "to_node": "Corridor15_03",
+    "distance": 14.93,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor20_04",
+    "to_node": "Corridor20_03",
+    "distance": 42.95,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Stair01",
+    "to_node": "Stairs01",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_09",
+    "to_node": "room_J103",
+    "distance": 4.29,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor20_03",
+    "to_node": "room_J150",
+    "distance": 6.86,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Anand_Pawar",
+    "to_node": "Corridor16_20",
+    "distance": 5.1,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Arzoo_Choubey",
+    "to_node": "Corridor14_06",
+    "distance": 4.7,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_DK_Jain",
+    "to_node": "Corridor11_07",
+    "distance": 4.67,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorrdor02_05",
+    "to_node": "corridor02_04",
+    "distance": 6.66,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor04_03",
+    "to_node": "corridor04_02",
+    "distance": 29.52,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor04_01",
+    "to_node": "intersectionCorridor01_04",
+    "distance": 21.9,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor05_04",
+    "to_node": "corridor05_03",
+    "distance": 56.34,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_15",
+    "to_node": "corridor06_14",
+    "distance": 13.47,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorrdior07_09",
+    "to_node": "corridor09_01",
+    "distance": 47.73,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionLabCorridor_06",
+    "to_node": "LabCorridor02_03",
+    "distance": 23.9,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor04_03",
+    "to_node": "room_J008",
+    "distance": 3.75,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor09_02",
+    "to_node": "room_J039",
+    "distance": 8.22,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor05_06",
+    "to_node": "room_LadiesWashroom",
+    "distance": 32.78,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Manish_Dixit",
+    "to_node": "intersectionLabCorridor_06",
+    "distance": 17.82,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_J025_Chemical_Dept",
+    "to_node": "corridor05_06",
+    "distance": 3.41,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Ar_Namita_Pranshi",
+    "to_node": "corridor09_06",
+    "distance": 13.63,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_12",
+    "to_node": "Corridor11_11",
+    "distance": 2.61,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_01",
+    "to_node": "Corridor11_02",
+    "distance": 46.78,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor12_02",
+    "to_node": "Stair01",
+    "distance": 12.44,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor12_01",
+    "to_node": "Corridor11_02",
+    "distance": 10.88,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_09",
+    "to_node": "Corridor15_08",
+    "distance": 43.19,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor12_09",
+    "to_node": "Stair04",
+    "distance": 4.55,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Stair07",
+    "to_node": "Corridor21_06",
+    "distance": 38.81,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor21_03",
+    "to_node": "Corridor21_02",
+    "distance": 41.77,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor21_02",
+    "to_node": "Corridor21_01",
+    "distance": 29.07,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor22_02",
+    "to_node": "Corridor22_01",
+    "distance": 26.51,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Stair05_SF",
+    "to_node": "Stair05",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor17_02",
+    "to_node": "room_J137",
+    "distance": 2.94,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor21_02",
+    "to_node": "room_J142",
+    "distance": 30.22,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Prateek_Bhadauria",
+    "to_node": "Corridor16_02",
+    "distance": 3.83,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Akhilesh_Tiwari",
+    "to_node": "Corridor21_03",
+    "distance": 9.58,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "MainRoad08",
+    "to_node": "ENTRY03",
+    "distance": 27.51,
+    "type": "corridor_to_entry",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "AiRoad01",
+    "to_node": "AiRoad02",
+    "distance": 35.77,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "AiRoad07",
+    "to_node": "AiRoad08",
+    "distance": 58.89,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad08",
+    "to_node": "JubileeRoad09",
+    "distance": 28.38,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "JubileeRoad15",
+    "to_node": "JubileeRoad16",
+    "distance": 18.1,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "MainBuilRoad03",
+    "to_node": "MainBuilRoad04",
+    "distance": 79.4,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "mainentryroad03",
+    "to_node": "mainentryroad02",
+    "distance": 13.66,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "Canteen03",
+    "to_node": "Canteen04",
+    "distance": 46.1,
+    "type": "corridor_to_corridor",
+    "category": "campus",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor04_05",
+    "to_node": "corridor04_07",
+    "distance": 6.46,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor04_06",
+    "to_node": "corridor04_05",
+    "distance": 1.94,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor04_06",
+    "to_node": "corridor06_16",
+    "distance": 20.97,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionLabCorridor_06",
+    "to_node": "intersectionCorridor06_Connector",
+    "distance": 7.81,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor06_05",
+    "to_node": "corridor06_04",
+    "distance": 48.48,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor08_05",
+    "to_node": "corridor08_04",
+    "distance": 7.13,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "intersectionCorridor03_05",
+    "to_node": "Stairs03",
+    "distance": 12.81,
+    "type": "corridor_to_corridor",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "corridor01_02",
+    "to_node": "room_J001",
+    "distance": 4.84,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_003",
+    "to_node": "corridor02_05",
+    "distance": 4.18,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Sanjay_Tiwari_CE",
+    "to_node": "corridor03_09",
+    "distance": 5.03,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Manoj_Gaur",
+    "to_node": "corridor06_17",
+    "distance": 4.15,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_PK_Singhal",
+    "to_node": "corridor01_06",
+    "distance": 4.16,
+    "type": "corridor_to_room",
+    "category": "main_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "Stair02",
+    "to_node": "Corridor14_01",
+    "distance": 6.2,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_05",
+    "to_node": "Corridor15_04",
+    "distance": 33.07,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_20",
+    "to_node": "Corridor14_11",
+    "distance": 16.75,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor16_01",
+    "to_node": "Stair05",
+    "distance": 3.03,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor17_02",
+    "to_node": "Corridor17_03",
+    "distance": 15.07,
+    "type": "corridor_to_corridor",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor11_01",
+    "to_node": "room_J101",
+    "distance": 24.87,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor14_09",
+    "to_node": "room_J110",
+    "distance": 4.56,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor13_03",
+    "to_node": "room_J122",
+    "distance": 4.32,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor15_01",
+    "to_node": "room_J129",
+    "distance": 3.56,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor22_02",
+    "to_node": "room_J139",
+    "distance": 11.57,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor21_04",
+    "to_node": "room_J141",
+    "distance": 8.36,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor21_02",
+    "to_node": "room_PL04",
+    "distance": 30.22,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_R_Jenkin_Suji",
+    "to_node": "Corridor16_03",
+    "distance": 3.87,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Prof_Madhav_Singh",
+    "to_node": "Corridor16_09",
+    "distance": 3.43,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_VP_Shinde",
+    "to_node": "Corridor11_15",
+    "distance": 4.63,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Digital_Circuit_Lab_J133",
+    "to_node": "Corridor18_02",
+    "distance": 3.92,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_22",
+    "to_node": "Corridor23_21",
+    "distance": 35.87,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_07",
+    "to_node": "Corridor23_06",
+    "distance": 17.41,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_04",
+    "to_node": "Corridor23_03",
+    "distance": 52.47,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_01",
+    "to_node": "room_J209",
+    "distance": 52.3,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor08",
+    "to_node": "AI_GF_Stairs01",
+    "distance": 12.83,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor09",
+    "to_node": "room_AI_GF_M001",
+    "distance": 12.83,
+    "type": "corridor_to_room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor03",
+    "to_node": "room_AI_FF_M105",
+    "distance": 12.27,
+    "type": "corridor_to_room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor15",
+    "to_node": "cabin_AI_FF_Dr_Neeraj_Mishra",
+    "distance": 15.33,
+    "type": "corridor_to_room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor12",
+    "to_node": "cabin_AI_FF_Shubha_Mishra",
+    "distance": 13.5,
+    "type": "corridor_to_room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "AI_FF_Stairs02",
+    "to_node": "AI_SF_Stairs02",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Aashi_Singh_Bhadouria",
+    "to_node": "Corridor21_02",
+    "distance": 30.22,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Hardware_Microprocessor_Lab_J150",
+    "to_node": "Corridor20_03",
+    "distance": 6.86,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_16",
+    "to_node": "Corridor23_12",
+    "distance": 66.36,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_06",
+    "to_node": "Corridor23_05",
+    "distance": 29.58,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_03",
+    "to_node": "Corridor23_02",
+    "distance": 31.14,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Varun_Sharma",
+    "to_node": "Corridor23_19",
+    "distance": 12.39,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor03",
+    "to_node": "GF_Corridor04",
+    "distance": 88.26,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor07",
+    "to_node": "GF_Corridor08",
+    "distance": 75.75,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "AI_GF_Stairs01",
+    "to_node": "AI_FF_Stairs01",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor02",
+    "to_node": "FF_Corridor03",
+    "distance": 40.36,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor15",
+    "to_node": "FF_Corridor16",
+    "distance": 10.03,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor13",
+    "to_node": "cabin_AI_FF_Dr_Hardev_Pal",
+    "distance": 13.5,
+    "type": "corridor_to_room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor16",
+    "to_node": "cabin_AI_FF_Dr_Tej_Singh",
+    "distance": 15.33,
+    "type": "corridor_to_room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor03",
+    "to_node": "AI_SF_Stairs02",
+    "distance": 10.41,
+    "type": "corridor_to_corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_11",
+    "to_node": "Corridor23_10",
+    "distance": 51.65,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Yogesh_Himanshu",
+    "to_node": "Corridor23_09",
+    "distance": 12.92,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor05",
+    "to_node": "GF_Corridor06",
+    "distance": 77.74,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor10",
+    "to_node": "GF_Corridor11",
+    "distance": 29.09,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor11",
+    "to_node": "GF_Corridor12",
+    "distance": 58.38,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor07",
+    "to_node": "AI_FF_Stairs01",
+    "distance": 11.85,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor14",
+    "to_node": "cabin_AI_FF_Dr_Bhagat_Raghuwanshi",
+    "distance": 13.5,
+    "type": "corridor_to_room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor02",
+    "to_node": "SF_Corridor03",
+    "distance": 41.16,
+    "type": "corridor_to_corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor07",
+    "to_node": "cabin_AI_SF_Dr_Priyanka_Garg",
+    "distance": 10.04,
+    "type": "corridor_to_room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Ar_Jaspreet_Walia",
+    "to_node": "Corridor22_01",
+    "distance": 5.15,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Exhibition_Hall_J147",
+    "to_node": "Corridor20_07",
+    "distance": 7.83,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_02",
+    "to_node": "Corridor23_01",
+    "distance": 60.64,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_15",
+    "to_node": "Corridor23_13",
+    "distance": 50.68,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_10",
+    "to_node": "room_FemaleWashroom_SF",
+    "distance": 13.01,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Exam_Room_J201",
+    "to_node": "Corridor23_24",
+    "distance": 12.92,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor01",
+    "to_node": "GF_Corridor02",
+    "distance": 38.52,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "AI_FF_Stairs01",
+    "to_node": "AI_GF_Stairs01",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor08",
+    "to_node": "SF_Corridor09",
+    "distance": 75.72,
+    "type": "corridor_to_corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor04",
+    "to_node": "room_AI_SF_M204",
+    "distance": 10.92,
+    "type": "corridor_to_room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor13",
+    "to_node": "cabin_AI_SF_Dr_Sumit_Dhariwal",
+    "distance": 14.54,
+    "type": "corridor_to_room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Ranjeet_Singh",
+    "to_node": "Corridor21_02",
+    "distance": 10.15,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Project_Lab_J148",
+    "to_node": "Corridor20_06",
+    "distance": 6.87,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Research_Lab_J149",
+    "to_node": "Corridor20_04",
+    "distance": 32.46,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_BE_Lab_J137",
+    "to_node": "Corridor17_02",
+    "distance": 2.94,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_17",
+    "to_node": "Corridor23_16",
+    "distance": 13.46,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Stair04_SF",
+    "to_node": "Stair04",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor10",
+    "to_node": "FF_Corridor11",
+    "distance": 58.24,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "AI_FF_Stairs01",
+    "to_node": "AI_SF_Stairs01",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor03",
+    "to_node": "SF_Corridor04",
+    "distance": 152.35,
+    "type": "corridor_to_corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor06",
+    "to_node": "SF_Corridor07",
+    "distance": 24.65,
+    "type": "corridor_to_corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor08",
+    "to_node": "AI_SF_Elevator",
+    "distance": 11.01,
+    "type": "corridor_to_corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "AI_SF_Stairs01",
+    "to_node": "AI_FF_Stairs01",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "AI_SF_Stairs02",
+    "to_node": "AI_FF_Stairs02",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_IT_Dept_J145",
+    "to_node": "Corridor19_03",
+    "distance": 3.95,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_15",
+    "to_node": "room_J204",
+    "distance": 10.57,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Vandana_HOD_ET",
+    "to_node": "Corridor23_08",
+    "distance": 12.91,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Nidhi_Saxena",
+    "to_node": "Corridor23_22",
+    "distance": 13.3,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Shubhi_Kansal",
+    "to_node": "Corridor23_17",
+    "distance": 50.6,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor04",
+    "to_node": "GF_Corridor05",
+    "distance": 63.52,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor06",
+    "to_node": "ai_entry_gf",
+    "distance": 88.4,
+    "type": "corridor_to_entry",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor07",
+    "to_node": "FF_Corridor08",
+    "distance": 44.28,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor04",
+    "to_node": "AI_FF_Stairs02",
+    "distance": 11.93,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor06",
+    "to_node": "room_AI_FF_M102",
+    "distance": 12.42,
+    "type": "corridor_to_room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor04",
+    "to_node": "SF_Corridor05",
+    "distance": 68.86,
+    "type": "corridor_to_corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor09",
+    "to_node": "AI_SF_Stairs01",
+    "distance": 10.29,
+    "type": "corridor_to_corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Manisha_Pathak",
+    "to_node": "Corridor21_02",
+    "distance": 30.22,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Rohit_Agrawal",
+    "to_node": "Corridor21_06",
+    "distance": 5.32,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Data_Science_Lab_J143",
+    "to_node": "Corridor21_02",
+    "distance": 10.15,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_19",
+    "to_node": "Corridor23_18",
+    "distance": 7.5,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_13",
+    "to_node": "room_J205",
+    "distance": 65.1,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Prof_Pooja_Sahoo",
+    "to_node": "Corridor23_07",
+    "distance": 13.05,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor16",
+    "to_node": "cabin_AI_FF_Dr_Pawan_Dubey",
+    "distance": 11.85,
+    "type": "corridor_to_room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "AI_FF_Stairs02",
+    "to_node": "AI_GF_Stairs02",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "AI_FF_Elevator",
+    "to_node": "AI_SF_Elevator",
+    "distance": 0,
+    "type": "lift_to_lift",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Data_Science_Lab_J146",
+    "to_node": "Corridor19_02",
+    "distance": 4,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_25",
+    "to_node": "Stair04_SF",
+    "distance": 18.4,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_11",
+    "to_node": "room_J206",
+    "distance": 13.48,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Karuna_Markam",
+    "to_node": "Corridor23_18",
+    "distance": 49.86,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor13",
+    "to_node": "GF_Corridor12",
+    "distance": 48.26,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor02",
+    "to_node": "room_AI_GF_MaleWC",
+    "distance": 19.43,
+    "type": "corridor_to_room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor12",
+    "to_node": "cabin_AI_FF_Dr_Anu_Sayal",
+    "distance": 11.31,
+    "type": "corridor_to_room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor05",
+    "to_node": "SF_Corridor06",
+    "distance": 22.3,
+    "type": "corridor_to_corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor10",
+    "to_node": "SF_Corridor11",
+    "distance": 85.44,
+    "type": "corridor_to_corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor11",
+    "to_node": "SF_Corridor13",
+    "distance": 44.12,
+    "type": "corridor_to_corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor13",
+    "to_node": "cabin_AI_SF_Dr_Nandkishor_Joshi",
+    "distance": 12.19,
+    "type": "corridor_to_room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor12",
+    "to_node": "cabin_AI_SF_Dr_Vibha_Tiwari",
+    "distance": 15.26,
+    "type": "corridor_to_room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor12",
+    "to_node": "cabin_AI_SF_Ramnaresh_Sharma",
+    "distance": 9.6,
+    "type": "corridor_to_room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_14",
+    "to_node": "Corridor23_15",
+    "distance": 41.64,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Project_Lab_J204",
+    "to_node": "Corridor23_15",
+    "distance": 10.57,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Computer_Lab_J208",
+    "to_node": "Corridor23_02",
+    "distance": 9.25,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor02",
+    "to_node": "GF_Corridor03",
+    "distance": 42.39,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor03",
+    "to_node": "AI_GF_Stairs02",
+    "distance": 12.79,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor01",
+    "to_node": "room_AI_GF_FemWC",
+    "distance": 19.46,
+    "type": "corridor_to_room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor05",
+    "to_node": "room_AI_GF_M003",
+    "distance": 12.03,
+    "type": "corridor_to_room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor15",
+    "to_node": "cabin_AI_GF_Dr_Kaushal_Sengar",
+    "distance": 14.84,
+    "type": "corridor_to_room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor05",
+    "to_node": "room_AI_FF_M103",
+    "distance": 12.27,
+    "type": "corridor_to_room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor01",
+    "to_node": "room_AI_SF_FemWC",
+    "distance": 17.62,
+    "type": "corridor_to_room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor02",
+    "to_node": "room_AI_SF_MaleWC",
+    "distance": 18.26,
+    "type": "corridor_to_room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Programming_Lab_J144",
+    "to_node": "Corridor19_04",
+    "distance": 4.09,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_24",
+    "to_node": "room_J201",
+    "distance": 12.92,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Communication_Lab_J202",
+    "to_node": "Corridor23_23",
+    "distance": 13.18,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor07",
+    "to_node": "AI_GF_Elevator",
+    "distance": 12.83,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "AI_GF_Elevator",
+    "to_node": "AI_FF_Elevator",
+    "distance": 0,
+    "type": "lift_to_lift",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor03",
+    "to_node": "FF_Corridor04",
+    "distance": 2.69,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor14",
+    "to_node": "FF_Corridor15",
+    "distance": 13.75,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor08",
+    "to_node": "room_AI_FF_M101",
+    "distance": 12.42,
+    "type": "corridor_to_room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor07",
+    "to_node": "SF_Corridor08",
+    "distance": 21.57,
+    "type": "corridor_to_corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor03",
+    "to_node": "room_AI_SF_M205",
+    "distance": 13.9,
+    "type": "corridor_to_room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor04",
+    "to_node": "room_AI_SF_M203",
+    "distance": 13.84,
+    "type": "corridor_to_room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor10",
+    "to_node": "cabin_AI_SF_Dr_Abhishek_HOD_CST",
+    "distance": 13.83,
+    "type": "corridor_to_room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "AI_SF_Elevator",
+    "to_node": "AI_FF_Elevator",
+    "distance": 0,
+    "type": "lift_to_lift",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Machine_Learning_Lab_J139",
+    "to_node": "Corridor22_02",
+    "distance": 11.57,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Rahul_Dubey_ET",
+    "to_node": "Corridor23_20",
+    "distance": 25.11,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor09",
+    "to_node": "GF_Corridor10",
+    "distance": 18.31,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor13",
+    "to_node": "cabin_AI_GF_Dr_Murli_Manohar",
+    "distance": 14.56,
+    "type": "corridor_to_room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor13",
+    "to_node": "cabin_AI_GF_Dr_Dhananjay_Aditya",
+    "distance": 11.25,
+    "type": "corridor_to_room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor06",
+    "to_node": "FF_Corridor07",
+    "distance": 75.6,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor12",
+    "to_node": "FF_Corridor11",
+    "distance": 48.07,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor06",
+    "to_node": "AI_FF_Elevator",
+    "distance": 12.42,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor13",
+    "to_node": "cabin_AI_SF_Dr_Sunil_Shukla",
+    "distance": 14.1,
+    "type": "corridor_to_room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Cloud_Computing_Lab_J140",
+    "to_node": "Corridor21_06",
+    "distance": 5.32,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_25",
+    "to_node": "Corridor23_24",
+    "distance": 39.91,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_23",
+    "to_node": "Corridor23_22",
+    "distance": 79.43,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_20",
+    "to_node": "Corridor23_19",
+    "distance": 3.78,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_08",
+    "to_node": "Corridor23_07",
+    "distance": 30.26,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_05",
+    "to_node": "Stair05_SF",
+    "distance": 12.92,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_22",
+    "to_node": "room_J203",
+    "distance": 13.3,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor01",
+    "to_node": "FF_Corridor02",
+    "distance": 38.6,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor10",
+    "to_node": "cabin_AI_FF_Dr_Rajni_HOD_AI",
+    "distance": 12.27,
+    "type": "corridor_to_room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor06",
+    "to_node": "cabin_AI_SF_Dr_Manjree_ProVC",
+    "distance": 12.39,
+    "type": "corridor_to_room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_16",
+    "to_node": "Corridor23_14",
+    "distance": 39.59,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Stair05_SF",
+    "to_node": "Stair05",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_02",
+    "to_node": "room_J208",
+    "distance": 9.25,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor14",
+    "to_node": "GF_Corridor15",
+    "distance": 23.87,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor05",
+    "to_node": "room_AI_GF_M004",
+    "distance": 13.12,
+    "type": "corridor_to_room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "AI_GF_Stairs02",
+    "to_node": "AI_FF_Stairs02",
+    "distance": 0,
+    "type": "stairs_to_stairs",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor09",
+    "to_node": "FF_Corridor10",
+    "distance": 29.03,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor01",
+    "to_node": "room_AI_FF_FemWC",
+    "distance": 18.75,
+    "type": "corridor_to_room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor02",
+    "to_node": "room_AI_FF_MaleWC",
+    "distance": 18.72,
+    "type": "corridor_to_room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor05",
+    "to_node": "room_AI_FF_M104",
+    "distance": 12.61,
+    "type": "corridor_to_room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "AI_FF_Elevator",
+    "to_node": "AI_GF_Elevator",
+    "distance": 0,
+    "type": "lift_to_lift",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Computing_Lab_J141",
+    "to_node": "Corridor21_04",
+    "distance": 8.36,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_21",
+    "to_node": "Corridor23_20",
+    "distance": 11.61,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Prof_DK_Parsediya",
+    "to_node": "Corridor23_06",
+    "distance": 13.04,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor07",
+    "to_node": "room_AI_GF_M003b",
+    "distance": 12.01,
+    "type": "corridor_to_room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor05",
+    "to_node": "FF_Corridor06",
+    "distance": 137.4,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor11",
+    "to_node": "FF_Corridor13",
+    "distance": 12.27,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor01",
+    "to_node": "SF_Corridor02",
+    "distance": 38.81,
+    "type": "corridor_to_corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor05",
+    "to_node": "cabin_AI_SF_Dr_Atul_Chauhan",
+    "distance": 10.04,
+    "type": "corridor_to_room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Sanjay_Jadon",
+    "to_node": "Corridor22_04",
+    "distance": 5.76,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Akansha_Soni",
+    "to_node": "Corridor22_04",
+    "distance": 13.05,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Language_Laboratory",
+    "to_node": "Corridor14_03",
+    "distance": 4.7,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_24",
+    "to_node": "Corridor23_23",
+    "distance": 151.43,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_12",
+    "to_node": "Corridor23_11",
+    "distance": 58.34,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_09",
+    "to_node": "Corridor23_08",
+    "distance": 21.78,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Deepak_Batham",
+    "to_node": "Corridor23_21",
+    "distance": 12.52,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor08",
+    "to_node": "GF_Corridor09",
+    "distance": 44.16,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor12",
+    "to_node": "GF_Corridor14",
+    "distance": 22.49,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor10",
+    "to_node": "room_AI_GF_M007",
+    "distance": 12.11,
+    "type": "corridor_to_room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor11",
+    "to_node": "cabin_AI_GF_Dr_Praveen_Bansal",
+    "distance": 12.01,
+    "type": "corridor_to_room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor04",
+    "to_node": "FF_Corridor05",
+    "distance": 151.15,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor09",
+    "to_node": "cabin_AI_FF_Dr_Archana_Prerna",
+    "distance": 12.42,
+    "type": "corridor_to_room",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor09",
+    "to_node": "SF_Corridor10",
+    "distance": 62.88,
+    "type": "corridor_to_corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor12",
+    "to_node": "SF_Corridor11",
+    "distance": 46.31,
+    "type": "corridor_to_corridor",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor08",
+    "to_node": "room_AI_SF_M202",
+    "distance": 13.83,
+    "type": "corridor_to_room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "SF_Corridor10",
+    "to_node": "room_AI_SF_M201",
+    "distance": 11.01,
+    "type": "corridor_to_room",
+    "category": "ai_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Dr_Kuldeep_Tripathi",
+    "to_node": "Corridor21_06",
+    "distance": 5.32,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "cabin_Machine_Learning_Lab_J142",
+    "to_node": "Corridor21_02",
+    "distance": 30.22,
+    "type": "corridor_to_room",
+    "category": "main_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_18",
+    "to_node": "Corridor23_17",
+    "distance": 15.96,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_10",
+    "to_node": "Corridor23_09",
+    "distance": 44.87,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_05",
+    "to_node": "Corridor23_04",
+    "distance": 4.63,
+    "type": "corridor_to_corridor",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "Corridor23_23",
+    "to_node": "room_J202",
+    "distance": 13.18,
+    "type": "corridor_to_room",
+    "category": "main_sf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor06",
+    "to_node": "GF_Corridor07",
+    "distance": 60.14,
+    "type": "corridor_to_corridor",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor03",
+    "to_node": "room_AI_GF_M005",
+    "distance": 11.94,
+    "type": "corridor_to_room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "GF_Corridor14",
+    "to_node": "cabin_AI_GF_Dr_Bhavna_Rathore",
+    "distance": 14.56,
+    "type": "corridor_to_room",
+    "category": "ai_gf",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor08",
+    "to_node": "FF_Corridor09",
+    "distance": 18.48,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "FF_Corridor13",
+    "to_node": "FF_Corridor14",
+    "distance": 10.49,
+    "type": "corridor_to_corridor",
+    "category": "ai_ff",
+    "__v": 0
+  },
+  {
+    "from_node": "ENTRY03",
+    "to_node": "corridor06_14",
+    "distance": 0,
+    "type": "entry_to_entry",
+    "category": "campus"
+  },
+  {
+    "from_node": "ENTRY01",
+    "to_node": "intersectionAccountDepartment",
+    "distance": 0,
+    "type": "entry_to_entry",
+    "category": "campus"
+  },
+  {
+    "from_node": "ENTRY04",
+    "to_node": "corridor06_03",
+    "distance": 0,
+    "type": "entry_to_entry",
+    "category": "campus"
+  },
+  {
+    "from_node": "intersectionCorridor02_AccountsSection",
+    "to_node": "intersectionAccountDepartment",
+    "distance": 63.91,
+    "type": "corridor_to_corridor",
+    "category": "main_gf"
+  },
+  {
+    "from_node": "MainRoad04",
+    "to_node": "ElectricalEntry",
+    "distance": 34.19,
+    "type": "outdoor",
+    "category": "campus"
+  },
+  {
+    "from_node": "ElectricalEntry",
+    "to_node": "campus_intersectionCorridor01_04",
+    "distance": 65.11,
+    "type": "outdoor",
+    "category": "campus"
+  },
+  {
+    "from_node": "ElectricalEntry",
+    "to_node": "corridor01_10",
+    "distance": 0,
+    "type": "corridor",
+    "category": "campus"
+  }
+]

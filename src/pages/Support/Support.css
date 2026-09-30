@@ -1,0 +1,22 @@
+/* src/pages/Support/Support.css */
+.support-bg {
+  background-color: #050505;
+  color: #ffffff;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.support-glow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 750px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 96, 46, 0.085) 0%, rgba(255, 96, 46, 0) 70%);
+  pointer-events: none;
+  filter: blur(55px);
+  z-index: 0;
+}

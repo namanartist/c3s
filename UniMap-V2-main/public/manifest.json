@@ -1,0 +1,30 @@
+{
+  "name": "UniMap — MITS Gwalior",
+  "short_name": "UniMap",
+  "description": "Campus navigation for MITS Gwalior",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A1931",
+  "theme_color": "#0A1931",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Open Map",
+      "short_name": "Map",
+      "description": "Open the campus navigation map",
+      "url": "/map",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    }
+  ],
+  "categories": ["education", "navigation", "utilities"]
+}

@@ -1,0 +1,16 @@
+{
+  "short_name": "C3S",
+  "name": "C3S - Campus Surveillance & Security System",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": "/student",
+  "display": "standalone",
+  "theme_color": "#0B1020",
+  "background_color": "#0B1020",
+  "description": "High-assurance campus surveillance, gate QR check-in, and emergency SOS dispatch network."
+}

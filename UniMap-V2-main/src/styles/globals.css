@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --bg: #F6FAFD;
+  --bg-card: #FFFFFF;
+  --text-primary: #0A1931;
+  --text-secondary: #1A3D63;
+  --text-muted: #4A7FA7;
+  --border: rgba(10, 25, 49, 0.1);
+  --accent: #4A7FA7;
+  --accent-hover: #1A3D63;
+  --accent-light: rgba(74, 127, 167, 0.1);
+  --route-from: #4A7FA7;
+  --route-to: #D85A30;
+}
+
+.dark {
+  --bg: #0A1931;
+  --bg-card: #1A3D63;
+  --text-primary: #F6FAFD;
+  --text-secondary: #B3CFE5;
+  --text-muted: #4A7FA7;
+  --border: rgba(179, 207, 229, 0.15);
+  --accent: #4A7FA7;
+  --accent-hover: #B3CFE5;
+  --accent-light: rgba(74, 127, 167, 0.1);
+  --route-from: #4A7FA7;
+  --route-to: #D85A30;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+  transition: background 0.2s, color 0.2s;
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* Webkit Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+/* Lenis smooth scrolling rules */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}

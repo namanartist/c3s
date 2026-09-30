@@ -1,0 +1,88 @@
+/* src/pages/Landing/features.css */
+
+.coin-perspective {
+  perspective: 1000px;
+}
+
+.coin-3d {
+  transform: rotateY(26deg) rotateX(10deg);
+  transform-style: preserve-3d;
+  animation: coinFloat 5s ease-in-out infinite;
+}
+
+@keyframes coinFloat {
+  0%, 100% {
+    transform: rotateY(26deg) rotateX(10deg) translateY(0px);
+  }
+  50% {
+    transform: rotateY(22deg) rotateX(6deg) translateY(-8px);
+  }
+}
+
+/* Glassy iOS-like notifications with blur */
+.notification-glass {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15);
+}
+
+/* Card hover animation */
+.feature-grid-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.4s ease;
+}
+
+.feature-grid-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 96, 46, 0.2);
+  box-shadow: 0 20px 40px -15px rgba(255, 96, 46, 0.08);
+}
+
+.feature-glass-card {
+  background: rgba(26, 26, 26, 0.65) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.feature-grid-card .border-glow-inner {
+  height: 100%;
+  width: 100%;
+  overflow: visible;
+}
+
+@media (min-width: 768px) {
+  .card-overlap-a {
+    transform: rotate(2deg) translate(18px, 8px);
+    z-index: 10;
+  }
+  .card-overlap-a:hover {
+    transform: rotate(2deg) translate(18px, -2px);
+    z-index: 30;
+    border-color: rgba(255, 96, 46, 0.25);
+    box-shadow: 0 20px 40px -15px rgba(255, 96, 46, 0.1);
+  }
+
+  .card-overlap-b {
+    transform: rotate(-1.5deg) translate(0px, -6px);
+    z-index: 20;
+  }
+  .card-overlap-b:hover {
+    transform: rotate(-1.5deg) translate(0px, -16px);
+    z-index: 30;
+    border-color: rgba(255, 96, 46, 0.25);
+    box-shadow: 0 20px 40px -15px rgba(255, 96, 46, 0.1);
+  }
+
+  .card-overlap-c {
+    transform: rotate(2deg) translate(-18px, 8px);
+    z-index: 10;
+  }
+  .card-overlap-c:hover {
+    transform: rotate(2deg) translate(-18px, -2px);
+    z-index: 30;
+    border-color: rgba(255, 96, 46, 0.25);
+    box-shadow: 0 20px 40px -15px rgba(255, 96, 46, 0.1);
+  }
+}

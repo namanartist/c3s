@@ -1,0 +1,71 @@
+-- V6__incidents.sql: Emergency SOS, Incidents, Responders, and Timelines
+CREATE TABLE IF NOT EXISTS security_personnel (
+    id UUID PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES users(id) UNIQUE,
+    employee_code VARCHAR(50) NOT NULL UNIQUE,
+    callsign VARCHAR(100) NOT NULL,
+    designation VARCHAR(100) NOT NULL,
+    status VARCHAR(50) NOT NULL DEFAULT 'AVAILABLE', -- AVAILABLE, BUSY, EN_ROUTE, AT_INCIDENT, OFFLINE
+    radio_channel VARCHAR(50),
+    vehicle VARCHAR(100),
+    current_latitude DOUBLE PRECISION,
+    current_longitude DOUBLE PRECISION,
+    last_seen TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS incidents (
+    id UUID PRIMARY KEY,
+    incident_number VARCHAR(50) NOT NULL UNIQUE,
+    reported_by UUID NOT NULL REFERENCES users(id),
+    type VARCHAR(50) NOT NULL, -- MEDICAL, FIRE, THEFT, HARASSMENT, VIOLENCE, UNAUTHORIZED_ACCESS, SUSPICIOUS_ACTIVITY, INFRASTRUCTURE_HAZARD, MISSING_PERSON, SECURITY_BREACH, OTHER
+    priority VARCHAR(50) NOT NULL DEFAULT 'MEDIUM', -- LOW, MEDIUM, HIGH, CRITICAL
+    status VARCHAR(50) NOT NULL DEFAULT 'OPEN', -- OPEN, ACKNOWLEDGED, ASSIGNED, EN_ROUTE, ARRIVED, INVESTIGATING, RESOLVED, CLOSED, CANCELLED
+    latitude DOUBLE PRECISION,
+    longitude DOUBLE PRECISION,
+    location_description TEXT NOT NULL,
+    assigned_responder_id UUID REFERENCES security_personnel(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    resolved_at TIMESTAMP WITH TIME ZONE
+);
+
+CREATE INDEX idx_incidents_status ON incidents(status);
+CREATE INDEX idx_incidents_priority ON incidents(priority);
+
+CREATE TABLE IF NOT EXISTS sos_events (
+    id UUID PRIMARY KEY,
+    incident_id UUID NOT NULL REFERENCES incidents(id) ON DELETE CASCADE,
+    user_id UUID NOT NULL REFERENCES users(id),
+    triggered_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    latitude DOUBLE PRECISION,
+    longitude DOUBLE PRECISION,
+    accuracy DOUBLE PRECISION,
+    status VARCHAR(50) NOT NULL DEFAULT 'TRIGGERED',
+    resolved_at TIMESTAMP WITH TIME ZONE
+);
+
+CREATE TABLE IF NOT EXISTS incident_assignments (
+    id UUID PRIMARY KEY,
+    incident_id UUID NOT NULL REFERENCES incidents(id) ON DELETE CASCADE,
+    responder_id UUID NOT NULL REFERENCES security_personnel(id),
+    assigned_by UUID REFERENCES users(id),
+    assigned_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(50) NOT NULL DEFAULT 'ASSIGNED'
+);
+
+CREATE TABLE IF NOT EXISTS incident_timeline (
+    id UUID PRIMARY KEY,
+    incident_id UUID NOT NULL REFERENCES incidents(id) ON DELETE CASCADE,
+    event VARCHAR(255) NOT NULL,
+    actor_name VARCHAR(255) NOT NULL,
+    detail TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS incident_notes (
+    id UUID PRIMARY KEY,
+    incident_id UUID NOT NULL REFERENCES incidents(id) ON DELETE CASCADE,
+    author_id UUID NOT NULL REFERENCES users(id),
+    note TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);

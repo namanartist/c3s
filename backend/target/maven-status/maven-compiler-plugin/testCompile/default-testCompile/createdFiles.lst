@@ -1,0 +1,5 @@
+com\c3s\movement\MovementServiceTest.class
+com\c3s\auth\AuthServiceTest.class
+com\c3s\sos\SosServiceTest.class
+com\c3s\gates\QrServiceTest.class
+com\c3s\location\GeofenceServiceTest.class

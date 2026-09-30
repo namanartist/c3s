@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.c3s.auth.AuthServiceTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.818 s -- in com.c3s.auth.AuthServiceTest

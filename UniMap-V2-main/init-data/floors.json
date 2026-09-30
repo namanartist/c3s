@@ -1,0 +1,65 @@
+[
+  {
+    "id": "floor_campus_5",
+    "map": "AI_GF",
+    "building": "ai",
+    "floor": 0,
+    "svgUrl": "https://res.cloudinary.com/dph28qrrx/image/upload/v1781595825/AI_GF_Optimized_z78rk2.svg",
+    "label": "AI Building — Floor 0",
+    "__v": 0
+  },
+  {
+    "id": "floor_campus_6",
+    "map": "AI_FF",
+    "building": "ai",
+    "floor": 1,
+    "svgUrl": "https://res.cloudinary.com/dph28qrrx/image/upload/v1781684462/AI_FF_Optimized_fx71hq.svg",
+    "label": "AI Building — Floor 1",
+    "__v": 0
+  },
+  {
+    "id": "floor_campus_4",
+    "map": "Main_SF",
+    "building": "main",
+    "floor": 2,
+    "svgUrl": "https://res.cloudinary.com/dph28qrrx/image/upload/v1780765404/Main_SF_ekgtzg.svg",
+    "label": "Main Building — Floor 2",
+    "__v": 0
+  },
+  {
+    "id": "floor_campus_7",
+    "map": "AI_SF",
+    "building": "ai",
+    "floor": 2,
+    "svgUrl": "https://res.cloudinary.com/dph28qrrx/image/upload/v1781684455/AI_SF_Optimized_wbn68q.svg",
+    "label": "AI Building — Floor 2",
+    "__v": 0
+  },
+  {
+    "id": "floor_campus_2",
+    "map": "Main_GF",
+    "building": "main",
+    "floor": 0,
+    "svgUrl": "https://res.cloudinary.com/dph28qrrx/image/upload/v1786866672/Main_GF_a02sn0.svg",
+    "label": "Main Building — Floor 0",
+    "__v": 0
+  },
+  {
+    "id": "floor_campus_1",
+    "map": "Campus_Map",
+    "building": "campus",
+    "floor": 0,
+    "svgUrl": "https://res.cloudinary.com/dph28qrrx/image/upload/v1786866672/CampusMap_ehqegc.svg",
+    "label": "Campus Map",
+    "__v": 0
+  },
+  {
+    "id": "floor_campus_3",
+    "map": "Main_FF",
+    "building": "main",
+    "floor": 1,
+    "svgUrl": "https://res.cloudinary.com/dph28qrrx/image/upload/v1780765405/Main_FF_nvvdu5.svg",
+    "label": "Main Building — Floor 1",
+    "__v": 0
+  }
+]
