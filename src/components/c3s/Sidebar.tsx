@@ -1,5 +1,5 @@
 // src/components/c3s/Sidebar.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import {
   LayoutDashboard,
   ShieldAlert,
@@ -14,10 +14,12 @@ import {
   Scan,
   Activity,
   Navigation,
-  ShieldCheck
+  ShieldCheck,
+  LogOut
 } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
+import { LogoutConfirmModal } from './LogoutConfirmModal';
 
 interface SidebarProps {
   onCloseMobile?: () => void;
@@ -33,6 +35,7 @@ interface NavItem {
 
 export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
   const { currentRole, currentUser, sosActive, isInsideCampus } = useC3SStore();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const location = useLocation();
 
   // Role-tailored dynamic menu configuration
@@ -191,26 +194,40 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
           </div>
         </div>
 
-        {/* Settings & ID Links */}
+        {/* Settings, ID & Sign Out Links */}
         <div className="flex items-center gap-1">
           <NavLink
             to="/settings"
             onClick={onCloseMobile}
-            className="flex-1 flex items-center justify-center gap-1.5 rounded-xl px-2.5 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 rounded-xl px-2 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] hover:text-slate-900 dark:hover:text-white transition-colors"
+            title="System Settings"
           >
             <Settings className="h-3.5 w-3.5" />
-            <span>Settings</span>
+            <span className="hidden sm:inline">Settings</span>
           </NavLink>
           <NavLink
             to="/profile"
             onClick={onCloseMobile}
-            className="flex-1 flex items-center justify-center gap-1.5 rounded-xl px-2.5 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 rounded-xl px-2 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] hover:text-slate-900 dark:hover:text-white transition-colors"
+            title="Digital ID Pass"
           >
             <ShieldCheck className="h-3.5 w-3.5 text-blue-500" />
-            <span>ID Pass</span>
+            <span className="hidden sm:inline">ID Pass</span>
           </NavLink>
+          <button
+            type="button"
+            onClick={() => setShowLogoutModal(true)}
+            className="flex items-center justify-center rounded-xl p-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors cursor-pointer"
+            title="Sign Out of Terminal"
+            aria-label="Sign Out"
+          >
+            <LogOut className="h-3.5 w-3.5" />
+          </button>
         </div>
       </div>
+
+      {/* Logout Confirmation Modal */}
+      <LogoutConfirmModal isOpen={showLogoutModal} onClose={() => setShowLogoutModal(false)} />
     </aside>
   );
 };

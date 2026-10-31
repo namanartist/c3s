@@ -24,6 +24,7 @@ import { MOCK_MOVEMENTS, type C3SMovementLog } from '@/lib/mock-data/movement';
 import { MOCK_NOTIFICATIONS, type C3SNotification } from '@/lib/mock-data/notifications';
 import { MOCK_RESPONDERS, type C3SResponder } from '@/lib/mock-data/responders';
 import { MOCK_CAMERAS, type C3SCamera } from '@/lib/mock-data/cameras';
+import { type C3SSettings, DEFAULT_SETTINGS } from '@/types/settings';
 
 export interface C3SStoreState {
   // Authentication & Role
@@ -33,6 +34,11 @@ export interface C3SStoreState {
   setRole: (role: C3SRole) => void;
   loginAs: (role: C3SRole) => void;
   logout: () => void;
+  updateProfile: (updates: Partial<C3SUser>) => void;
+
+  // Preferences & System Settings
+  settings: C3SSettings;
+  updateSettings: (updates: Partial<C3SSettings>) => void;
 
   // Campus Presence (Check-in / Check-out)
   isInsideCampus: boolean;
@@ -113,6 +119,8 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
   let initialInside = true;
   let initialGps: 'prompt' | 'granted' | 'denied' = 'granted';
   let initialLocActive = true;
+  let initialSettings: C3SSettings = { ...DEFAULT_SETTINGS };
+  let initialProfile: Partial<C3SUser> = {};
 
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -122,32 +130,67 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
       if (parsed.isInsideCampus !== undefined) initialInside = parsed.isInsideCampus;
       if (parsed.gpsPermission) initialGps = parsed.gpsPermission;
       if (parsed.isLocationActive !== undefined) initialLocActive = parsed.isLocationActive;
+      if (parsed.settings) initialSettings = { ...DEFAULT_SETTINGS, ...parsed.settings };
+      if (parsed.profile) initialProfile = parsed.profile;
     }
   } catch {
     // Ignore storage parse issues
   }
 
-  const defaultUser = MOCK_USERS.find((u) => u.role === initialRole) || MOCK_USERS[0];
+  const defaultUser = {
+    ...(MOCK_USERS.find((u) => u.role === initialRole) || MOCK_USERS[0]),
+    ...initialProfile
+  };
 
   return {
     currentRole: initialRole,
     currentUser: defaultUser,
     isAuthenticated: true,
 
+    settings: initialSettings,
+
+    updateSettings: (updates: Partial<C3SSettings>) => {
+      set((state) => {
+        const nextSettings = { ...state.settings, ...updates };
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...saved, settings: nextSettings }));
+        } catch {}
+        return { settings: nextSettings };
+      });
+    },
+
+    updateProfile: (updates: Partial<C3SUser>) => {
+      set((state) => {
+        const nextUser = { ...state.currentUser, ...updates };
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...saved, profile: updates }));
+        } catch {}
+        return { currentUser: nextUser };
+      });
+    },
+
     setRole: (role: C3SRole) => {
       const matched = MOCK_USERS.find((u) => u.role === role) || MOCK_USERS[0];
-      set({ currentRole: role, currentUser: matched });
+      set({ currentRole: role, currentUser: { ...matched, ...initialProfile } });
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({ currentRole: role }));
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...saved, currentRole: role }));
       } catch {}
     },
 
     loginAs: (role: C3SRole) => {
       const matched = MOCK_USERS.find((u) => u.role === role) || MOCK_USERS[0];
-      set({ currentRole: role, currentUser: matched, isAuthenticated: true });
+      set({ currentRole: role, currentUser: { ...matched, ...initialProfile }, isAuthenticated: true });
     },
 
     logout: () => {
+      try {
+        localStorage.removeItem('c3s-session');
+        localStorage.removeItem('c3s_user_token');
+        sessionStorage.clear();
+      } catch {}
       set({ isAuthenticated: false });
     },
 

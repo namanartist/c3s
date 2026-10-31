@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
-import { Bell, Search, Users, ChevronDown, RefreshCw, ShieldAlert } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import {
+  Bell,
+  Search,
+  Users,
+  ChevronDown,
+  RefreshCw,
+  ShieldAlert,
+  LogOut,
+  Settings,
+  ShieldCheck,
+  CheckCircle2,
+  ExternalLink
+} from 'lucide-react';
 import { useC3SStore } from '@/store/c3sStore';
 import { useSafetyStore } from '@/store/safetyStore';
 import { useCrowdMonitoring } from '@/lib/crowdMonitoringApi';
 import { ROLE_LABELS } from '@/lib/mock-data/users';
 import { RoleSwitcherModal } from './RoleSwitcherModal';
+import { LogoutConfirmModal } from './LogoutConfirmModal';
 import { useNavigate } from 'react-router-dom';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 
@@ -13,17 +26,31 @@ interface TopbarProps {
 }
 
 export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
-  const { currentRole, currentUser, notifications, markNotificationRead } = useC3SStore();
+  const { currentRole, currentUser, notifications, markNotificationRead, isInsideCampus } = useC3SStore();
   const realCrowdCount = useSafetyStore((s) => s.realCrowdCount);
   const { syncCrowdData, isRefreshing } = useCrowdMonitoring();
   const setSosModalOpen = useSafetyStore((s) => s.setSosModalOpen);
   const [showRoleModal, setShowRoleModal] = useState(false);
   const [showNotifDropdown, setShowNotifDropdown] = useState(false);
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const userMenuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   const unreadCount = notifications.filter((n) => !n.read).length;
   const roleMeta = ROLE_LABELS[currentRole];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setShowUserDropdown(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <>
@@ -58,7 +85,7 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
               <div className="flex items-center gap-1.5">
                 <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-white">C3S</span>
                 <span className="hidden sm:inline-block rounded-md bg-blue-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-blue-400 border border-blue-500/20">
-                  C3S
+                  DEFENSE
                 </span>
               </div>
               <p className="hidden md:block text-[11px] text-slate-400 leading-none mt-0.5">Campus Safety & Navigation</p>
@@ -102,7 +129,8 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
             <ShieldAlert className="h-3.5 w-3.5 text-red-500 animate-pulse" />
             <span className="hidden sm:inline">SOS</span>
           </button>
-          {/* Modern Role Switcher Pill */}
+
+          {/* Role Switcher Pill */}
           <button
             onClick={() => setShowRoleModal(true)}
             className="flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-white/[0.03] hover:bg-slate-200 dark:hover:bg-white/[0.07] px-3 py-1.5 text-xs text-slate-700 dark:text-slate-300 transition-all cursor-pointer"
@@ -166,25 +194,123 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
             )}
           </div>
 
-          {/* User Profile Pill */}
-          <div
-            onClick={() => navigate('/profile')}
-            className="flex items-center gap-2 cursor-pointer rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-white/[0.03] p-1.5 pr-2.5 hover:bg-slate-200 dark:hover:bg-white/[0.06] transition-colors"
-          >
-            <img
-              src={currentUser?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80'}
-              alt={currentUser?.name || 'User'}
-              className="h-6 w-6 rounded-lg object-cover"
-            />
-            <div className="hidden lg:block text-left">
-              <p className="text-xs font-medium text-slate-800 dark:text-slate-200 leading-none">{currentUser?.name?.split(' ')[0]}</p>
-            </div>
+          {/* User Profile Pill & Dropdown Menu */}
+          <div className="relative" ref={userMenuRef}>
+            <button
+              onClick={() => setShowUserDropdown(!showUserDropdown)}
+              className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-white/[0.03] p-1.5 pr-2.5 hover:bg-slate-200 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
+              aria-label="User Account Menu"
+            >
+              <img
+                src={currentUser?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80'}
+                alt={currentUser?.name || 'User'}
+                className="h-7 w-7 rounded-lg object-cover ring-1 ring-blue-500/30"
+              />
+              <div className="hidden lg:block text-left">
+                <p className="text-xs font-bold text-slate-800 dark:text-slate-200 leading-none truncate max-w-[100px]">
+                  {currentUser?.name?.split(' ')[0]}
+                </p>
+                <p className="text-[10px] text-blue-500 dark:text-blue-400 font-semibold leading-tight mt-0.5">
+                  {isInsideCampus ? '• Inside' : '• Outside'}
+                </p>
+              </div>
+              <ChevronDown className="h-3 w-3 text-slate-400 hidden sm:block" />
+            </button>
+
+            {/* Comprehensive User Profile Dropdown Menu */}
+            {showUserDropdown && (
+              <div className="absolute right-0 mt-2 w-72 sm:w-80 rounded-2xl border border-slate-200 dark:border-white/[0.1] bg-white dark:bg-[#0E1424] p-3 shadow-2xl backdrop-blur-2xl z-50 animate-in fade-in zoom-in-95">
+                {/* Header Summary */}
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06]">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={currentUser?.avatar}
+                      alt={currentUser?.name}
+                      className="h-11 w-11 rounded-xl object-cover ring-2 ring-blue-500/40"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1.5">
+                        <p className="text-xs font-bold text-slate-900 dark:text-white truncate">{currentUser?.name}</p>
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                      </div>
+                      <p className="font-mono text-[10px] text-slate-500 dark:text-slate-400">{currentUser?.universityId}</p>
+                      <p className="text-[10px] text-slate-400 truncate mt-0.5">{currentUser?.email}</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-3 flex items-center justify-between border-t border-slate-200 dark:border-white/[0.06] pt-2 text-[10px]">
+                    <span className="font-semibold text-slate-500 dark:text-slate-400">Clearance Level:</span>
+                    <span className="font-bold text-blue-600 dark:text-blue-400">{roleMeta?.title || currentRole}</span>
+                  </div>
+                </div>
+
+                {/* Navigation Options */}
+                <div className="mt-2 space-y-1">
+                  <button
+                    onClick={() => {
+                      setShowUserDropdown(false);
+                      navigate('/profile');
+                    }}
+                    className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <ShieldCheck className="h-4 w-4 text-blue-500" />
+                      <span>Digital Campus ID &amp; Profile</span>
+                    </div>
+                    <ExternalLink className="h-3 w-3 text-slate-400" />
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setShowUserDropdown(false);
+                      navigate('/settings');
+                    }}
+                    className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Settings className="h-4 w-4 text-slate-400" />
+                      <span>System Settings &amp; Preferences</span>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setShowUserDropdown(false);
+                      setShowRoleModal(true);
+                    }}
+                    className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Users className="h-4 w-4 text-emerald-400" />
+                      <span>Switch Operational Role</span>
+                    </div>
+                  </button>
+                </div>
+
+                {/* Divider & Sign Out */}
+                <div className="mt-2 pt-2 border-t border-slate-200 dark:border-white/[0.08]">
+                  <button
+                    onClick={() => {
+                      setShowUserDropdown(false);
+                      setShowLogoutModal(true);
+                    }}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-bold rounded-xl text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    <span>Sign Out of Terminal</span>
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </header>
 
       {/* Role Switcher Modal */}
       <RoleSwitcherModal isOpen={showRoleModal} onClose={() => setShowRoleModal(false)} />
+
+      {/* Logout Confirmation Modal */}
+      <LogoutConfirmModal isOpen={showLogoutModal} onClose={() => setShowLogoutModal(false)} />
     </>
   );
 };
