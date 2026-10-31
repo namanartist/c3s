@@ -109,7 +109,7 @@ export default function SystemErrorPage({ error, resetErrorBoundary }: SystemErr
             className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 px-4 py-3 text-xs font-bold text-white shadow-lg shadow-blue-600/30 transition-all cursor-pointer disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-            <span>{isRefreshing ? 'Re-Syncing...' : 'Re-Initialize Terminal'}</span>
+            <span>{isRefreshing ? 'Re-Syncing...' : 'Reload Application'}</span>
           </button>
 
           <button

@@ -58,9 +58,8 @@ const AccessDeniedPage = lazyWithRetry(() => import('@/pages/error/AccessDeniedP
 const SystemErrorPage = lazyWithRetry(() => import('@/pages/error/SystemErrorPage'), 'SystemErrorPage');
 
 const LoadingFallback = () => (
-  <div className="w-screen h-screen flex flex-col items-center justify-center bg-[#0B1020] text-slate-200">
-    <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-500 border-t-transparent shadow-lg shadow-blue-500/20" />
-    <p className="mt-4 font-mono text-xs text-blue-400 tracking-wider">C3S LOADING TACTICAL RADAR...</p>
+  <div className="w-screen h-screen flex flex-col items-center justify-center bg-[#070B14] text-slate-200">
+    <div className="h-8 w-8 animate-spin rounded-full border-2 border-blue-500 border-t-transparent" />
   </div>
 );
 

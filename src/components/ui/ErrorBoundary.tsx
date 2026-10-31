@@ -98,7 +98,7 @@ export class ErrorBoundary extends Component<Props, State> {
             SYNCHRONIZING LATEST DEPLOYMENT BUNDLE...
           </p>
           <p className="mt-1 text-[11px] text-slate-500">
-            Detected updated campus security assets. Re-initializing terminal...
+            Detected updated campus security assets. Reloading application...
           </p>
         </div>
       );
@@ -179,7 +179,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 border border-white/10 font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer"
               >
                 <RefreshCw className="w-4 h-4" />
-                <span>Re-Initialize View</span>
+                <span>Retry View</span>
               </button>
 
               <button
