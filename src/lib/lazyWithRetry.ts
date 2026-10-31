@@ -8,8 +8,8 @@ import React from 'react';
  * "Failed to fetch dynamically imported module: ..."
  * 
  * This wrapper catches that specific deployment mismatch error, purges stale caches,
- * and executes a single clean cache-busting reload so the user seamlessly receives
- * the latest app bundle without crashing or getting stuck.
+ * unregisters any outdated service worker, and executes a clean cache-busting reload
+ * so the user seamlessly receives the latest app bundle without crashing or getting stuck.
  */
 export function lazyWithRetry<T extends React.ComponentType<any>>(
   factory: () => Promise<{ default: T }>,
@@ -17,7 +17,6 @@ export function lazyWithRetry<T extends React.ComponentType<any>>(
 ): React.LazyExoticComponent<T> {
   return React.lazy(async () => {
     const storageKey = `c3s_chunk_reload_${componentName}`;
-    const alreadyReloaded = typeof window !== 'undefined' ? window.sessionStorage.getItem(storageKey) : null;
 
     try {
       const module = await factory();
@@ -33,23 +32,38 @@ export function lazyWithRetry<T extends React.ComponentType<any>>(
         message.includes('Importing a module script failed') ||
         error?.name === 'ChunkLoadError';
 
-      if (isChunkLoadError && typeof window !== 'undefined' && !alreadyReloaded) {
-        console.warn(`[C3S Recovery]: Chunk hash mismatch detected for ${componentName}. Auto-refreshing to load latest deployment assets...`);
-        window.sessionStorage.setItem(storageKey, 'true');
+      if (isChunkLoadError && typeof window !== 'undefined') {
+        const lastReload = Number(window.sessionStorage.getItem(storageKey) || 0);
+        const now = Date.now();
 
-        // Evict any stale service worker or cache storage entries
-        if ('caches' in window) {
-          try {
-            const cacheNames = await window.caches.keys();
-            await Promise.all(cacheNames.map((name) => window.caches.delete(name)));
-          } catch {
-            // non-fatal
+        // Auto-refresh if not already reloaded in the last 10 seconds
+        if (now - lastReload > 10000) {
+          console.warn(`[C3S Recovery]: Chunk hash mismatch detected for ${componentName}. Auto-refreshing to load latest deployment assets...`);
+          window.sessionStorage.setItem(storageKey, String(now));
+
+          // Evict stale service workers and caches
+          if ('serviceWorker' in navigator) {
+            try {
+              const registrations = await navigator.serviceWorker.getRegistrations();
+              await Promise.all(registrations.map((r) => r.unregister()));
+            } catch {
+              // non-fatal
+            }
           }
-        }
 
-        // Force cache-busting reload
-        window.location.reload();
-        return new Promise<{ default: T }>(() => {});
+          if ('caches' in window) {
+            try {
+              const cacheNames = await window.caches.keys();
+              await Promise.all(cacheNames.map((name) => window.caches.delete(name)));
+            } catch {
+              // non-fatal
+            }
+          }
+
+          // Force clean reload
+          window.location.reload();
+          return new Promise<{ default: T }>(() => {});
+        }
       }
 
       console.error(`[C3S Dynamic Import Error]: Could not load ${componentName}:`, error);

@@ -142,6 +142,16 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
 
   const unmountedRef = useRef(false);
   const routeAbortRef = useRef<AbortController | null>(null);
+  const currentLocationRef = useRef(currentLocation);
+  const userGpsCoordsRef = useRef(userGpsCoords);
+
+  useEffect(() => {
+    currentLocationRef.current = currentLocation;
+  }, [currentLocation]);
+
+  useEffect(() => {
+    userGpsCoordsRef.current = userGpsCoords;
+  }, [userGpsCoords]);
 
   // Load datasets from backend APIs
   useEffect(() => {
@@ -794,10 +804,13 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
 
       // 2. Resolve start location (current selection, user GPS, or Main Gate)
       let startNode: any = null;
-      if (currentLocation && nodesMap[currentLocation.id] && currentLocation.id !== bestDestNode.id) {
-        startNode = currentLocation;
-      } else if (userGpsCoords) {
-        const nearestGps = findNearestCampusNode({ lat: userGpsCoords.lat, lon: userGpsCoords.lon }, nodes);
+      const curLoc = currentLocationRef.current;
+      const userGps = userGpsCoordsRef.current;
+
+      if (curLoc && nodesMap[curLoc.id] && curLoc.id !== bestDestNode.id) {
+        startNode = curLoc;
+      } else if (userGps) {
+        const nearestGps = findNearestCampusNode({ lat: userGps.lat, lon: userGps.lon }, nodes);
         if (nearestGps && nearestGps.id !== bestDestNode.id) {
           startNode = nearestGps;
         }
@@ -855,7 +868,7 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
       setActiveStepIndex(0);
       setAutoFitNonce((n) => n + 1);
     },
-    [nodes, nodesMap, currentLocation, userGpsCoords]
+    [nodes, nodesMap]
   );
 
   const handleStartNavigation = useCallback(async () => {

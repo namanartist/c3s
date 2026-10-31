@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ChevronLeft,
@@ -136,6 +136,8 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
     activeMapId,
     setSelectedMapId,
     currentLocation,
+    destination,
+    isNavigating,
     nodes,
     handleDestinationSelect,
   } = useCampusNavigation();
@@ -144,6 +146,14 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
   const proctorMode = isProctorRole();
   const [activeTab, setActiveTab] = useState<SidebarTab>('route');
   const [filterCategory, setFilterCategory] = useState<string>('all');
+
+  // Automatically reveal the navigation drawer and focus the Route tab when navigating (e.g. SOS incident)
+  useEffect(() => {
+    if (isNavigating || destination) {
+      setSidebarOpen(true);
+      setActiveTab('route');
+    }
+  }, [isNavigating, destination]);
 
   const detectedBuilding = userGpsCoords ? detectIndoorBuilding(userGpsCoords) : null;
 

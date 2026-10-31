@@ -1,6 +1,6 @@
-// public/sw.js — Robust C3S Service Worker
-const CACHE_NAME = 'c3s-shell-v3';
-const SHELL_ASSETS = ['/', '/favicon.svg'];
+// public/sw.js — Robust C3S Service Worker with Stale-Chunk Protection
+const CACHE_NAME = 'c3s-shell-v4';
+const SHELL_ASSETS = ['/favicon.svg'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -48,35 +48,33 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Network-first with cache fallback for top-level pages
-  event.respondWith(
-    fetch(event.request)
-      .then((networkResponse) => {
-        if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
-          const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
-          });
-        }
-        return networkResponse;
-      })
-      .catch(async () => {
-        const cachedResponse = await caches.match(event.request);
-        if (cachedResponse) {
-          return cachedResponse;
-        }
+  // HTML Navigation requests: ALWAYS fetch directly from network without caching
+  // This guarantees users never receive outdated HTML referencing purged deployment chunks
+  const isHtml =
+    event.request.mode === 'navigate' ||
+    (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html'));
 
-        // Only return navigation HTML fallback for HTML document requests
-        if (event.request.mode === 'navigate' || event.request.headers.get('accept')?.includes('text/html')) {
-          const fallbackHtml = await caches.match('/');
-          if (fallbackHtml) return fallbackHtml;
-        }
-
-        return new Response('Offline resource unavailable', {
+  if (isHtml) {
+    event.respondWith(
+      fetch(event.request).catch(async () => {
+        const cached = await caches.match('/');
+        if (cached) return cached;
+        return new Response('Network offline. Please check your internet connection.', {
           status: 503,
-          statusText: 'Service Unavailable',
-          headers: new Headers({ 'Content-Type': 'text/plain' })
+          headers: { 'Content-Type': 'text/plain' }
         });
       })
+    );
+    return;
+  }
+
+  // Fallback for static assets (icons, manifest)
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      return fetch(event.request);
+    })
   );
 });

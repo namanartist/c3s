@@ -44,18 +44,25 @@ export function useHumanDetection(
   const updateCameraCrowdMetrics = useSafetyStore((s) => s.updateCameraCrowdMetrics);
   const setRealCrowdCount = useSafetyStore((s) => s.setRealCrowdCount);
   const lastSyncTimeRef = useRef<number>(0);
+  const lastProcessedTimeRef = useRef<number>(0);
+  const cameraMetaRef = useRef<CameraVisionMeta | undefined>(cameraMeta);
+
+  useEffect(() => {
+    cameraMetaRef.current = cameraMeta;
+  }, [cameraMeta]);
 
   const processFrame = useCallback(() => {
     if (!isActive) return;
 
     let detection: DetectionResult | null = null;
+    const currentMeta = cameraMetaRef.current;
 
     if (videoRef?.current && videoRef.current.readyState >= 2 && !videoRef.current.paused) {
       // Real optical canvas analysis on video frames
-      detection = globalVisionEngine.analyzeVideoFrame(videoRef.current, cameraMeta);
-    } else if (cameraMeta?.youtubeEmbedUrl || (!videoRef?.current && cameraMeta?.fightDetected)) {
+      detection = globalVisionEngine.analyzeVideoFrame(videoRef.current, currentMeta);
+    } else if (currentMeta?.youtubeEmbedUrl || (!videoRef?.current && currentMeta?.fightDetected)) {
       // Active telemetry for YouTube streams & incident feeds
-      detection = globalVisionEngine.synthesizeStreamTelemetry(cameraMeta);
+      detection = globalVisionEngine.synthesizeStreamTelemetry(currentMeta);
     }
 
     if (detection) {
@@ -63,9 +70,9 @@ export function useHumanDetection(
 
       // Auto-dispatch emergency response if fight confidence is >= 90%
       if (detection.fight.isFightDetected && detection.fight.confidence >= 90) {
-        const targetCamId = cameraId || cameraMeta?.id || 'cam_cctv_01';
-        const targetCamName = cameraMeta?.name || `CCTV Camera #${targetCamId}`;
-        const targetLocation = cameraMeta?.location || 'Surveillance Zone';
+        const targetCamId = cameraId || currentMeta?.id || 'cam_cctv_01';
+        const targetCamName = currentMeta?.name || `CCTV Camera #${targetCamId}`;
+        const targetLocation = currentMeta?.location || 'Surveillance Zone';
 
         globalFightDispatcher.handleFightDetection({
           cameraId: targetCamId,
@@ -73,7 +80,7 @@ export function useHumanDetection(
           location: targetLocation,
           confidence: Math.round(detection.fight.confidence),
           videoElement: videoRef?.current || null,
-          videoUrl: cameraMeta?.videoUrl,
+          videoUrl: currentMeta?.videoUrl,
           nodeId: targetCamId.includes('gate_1')
             ? 'Main_Gate'
             : targetCamId.includes('gate_2')
@@ -84,9 +91,9 @@ export function useHumanDetection(
         });
       }
 
-      // Periodically sync detection metrics into global store
+      // Periodically sync detection metrics into global store (throttled to 1s)
       const now = performance.now();
-      if (now - lastSyncTimeRef.current >= 800) {
+      if (now - lastSyncTimeRef.current >= 1000) {
         lastSyncTimeRef.current = now;
 
         if (cameraId) {
@@ -105,19 +112,30 @@ export function useHumanDetection(
         }
       }
     }
-  }, [isActive, videoRef, cameraId, cameraMeta, updateCameraCrowdMetrics, setRealCrowdCount]);
+  }, [isActive, videoRef, cameraId, updateCameraCrowdMetrics, setRealCrowdCount]);
 
   useEffect(() => {
     if (!isActive) return;
 
     let animId: number;
-    const loop = () => {
-      processFrame();
+    let isRunning = true;
+
+    // Throttle ML computer vision loop to ~8 FPS (125ms interval)
+    // Prevents 100% CPU lockup and keeps main thread free for 60fps UI rendering
+    const loop = (timestamp: number) => {
+      if (!isRunning) return;
+
+      if (timestamp - lastProcessedTimeRef.current >= 125) {
+        lastProcessedTimeRef.current = timestamp;
+        processFrame();
+      }
+
       animId = requestAnimationFrame(loop);
     };
 
     animId = requestAnimationFrame(loop);
     return () => {
+      isRunning = false;
       cancelAnimationFrame(animId);
     };
   }, [isActive, processFrame]);

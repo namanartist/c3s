@@ -69,6 +69,7 @@ export const QRScanner: React.FC<QRScannerProps> = ({ onScanSuccess, isCheckOut 
   const streamRef = useRef<MediaStream | null>(null);
   const animationFrameRef = useRef<number | null>(null);
   const scanLoopRef = useRef<() => void>(() => {});
+  const lastScanTimeRef = useRef<number>(0);
 
   const activeGate = gates[selectedGateId] || gates['GATE-MAIN'];
 
@@ -184,32 +185,49 @@ export const QRScanner: React.FC<QRScannerProps> = ({ onScanSuccess, isCheckOut 
   // Setup loop function in ref
   useEffect(() => {
     scanLoopRef.current = () => {
-      if (!videoRef.current || !canvasRef.current) return;
+      if (!videoRef.current || !canvasRef.current || scanning) return;
       const video = videoRef.current;
       const canvas = canvasRef.current;
+      const now = performance.now();
 
-      if (video.readyState === video.HAVE_ENOUGH_DATA) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        const ctx = canvas.getContext('2d', { willReadFrequently: true });
-        if (ctx) {
-          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          const code = jsQR(imageData.data, imageData.width, imageData.height, {
-            inversionAttempts: 'dontInvert'
-          });
+      // Throttle CPU-heavy jsQR decode to ~8 FPS (125ms interval) to keep device responsive
+      if (now - lastScanTimeRef.current >= 125) {
+        lastScanTimeRef.current = now;
 
-          if (code && code.data && code.data.includes('C3S-QR')) {
-            handleDecodedToken(code.data);
-            return;
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+          // Downscale to max 360px dimension for lightning-fast QR detection without UI freezing
+          const videoW = video.videoWidth || 640;
+          const videoH = video.videoHeight || 480;
+          const scale = Math.min(1, 360 / Math.max(videoW, videoH));
+          const w = Math.round(videoW * scale);
+          const h = Math.round(videoH * scale);
+
+          if (canvas.width !== w || canvas.height !== h) {
+            canvas.width = w;
+            canvas.height = h;
+          }
+
+          const ctx = canvas.getContext('2d', { willReadFrequently: true });
+          if (ctx) {
+            ctx.drawImage(video, 0, 0, w, h);
+            const imageData = ctx.getImageData(0, 0, w, h);
+            const code = jsQR(imageData.data, imageData.width, imageData.height, {
+              inversionAttempts: 'dontInvert'
+            });
+
+            if (code && code.data && code.data.includes('C3S-QR')) {
+              handleDecodedToken(code.data);
+              return;
+            }
           }
         }
       }
+
       animationFrameRef.current = requestAnimationFrame(() => {
         scanLoopRef.current();
       });
     };
-  }, [handleDecodedToken]);
+  }, [handleDecodedToken, scanning]);
 
   // Start hardware camera
   const startCamera = useCallback(async () => {

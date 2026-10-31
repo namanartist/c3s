@@ -465,6 +465,7 @@ export default function MapBox({
   const is3dMode = useSafetyStore((s) => s.is3dMode);
   const pitch = useSafetyStore((s) => s.pitch);
   const incidents = useSafetyStore((s) => s.incidents);
+  const selectedIncident = useSafetyStore((s) => s.selectedIncident);
   const setSelectedIncident = useSafetyStore((s) => s.setSelectedIncident);
   const safetyAmenities = useSafetyStore((s) => s.safetyAmenities);
   const showSafetyAmenities = useSafetyStore((s) => s.showSafetyAmenities);
@@ -477,10 +478,17 @@ export default function MapBox({
   const advanceResponderStatus = useSafetyStore((s) => s.advanceResponderStatus);
 
   const activeMapIncidents = useMemo(() => {
-    // Hide SOS incidents from public users in standard navigation mode
-    if (activeDashboard === 'nav' && !proctorMode) return [];
-    return incidents.filter((i) => i.map === mapId && i.status !== 'resolved');
-  }, [incidents, mapId, activeDashboard, proctorMode]);
+    return incidents.filter((i) => {
+      if (i.map !== mapId) return false;
+      if (i.status === 'resolved') return false;
+      // Always show if it's the active destination or selected incident
+      if (destination?.incidentId === i.id || destination?.isIncident || selectedIncident?.id === i.id) return true;
+      // Show for security/proctor roles or SOC dashboard mode
+      if (proctorMode || activeDashboard !== 'nav') return true;
+      // Hide unrelated incidents from non-proctor public users
+      return false;
+    });
+  }, [incidents, mapId, activeDashboard, proctorMode, destination, selectedIncident]);
 
   const activeMapAmenities = useMemo(() => {
     return showSafetyAmenities ? safetyAmenities.filter((a) => a.map === mapId) : [];
@@ -1037,39 +1045,39 @@ export default function MapBox({
                     <circle
                       cx="0"
                       cy="0"
-                      r="8"
-                      fill="#ff602e"
+                      r={destination.isIncident ? 14 : 8}
+                      fill={destination.isIncident ? "#ef4444" : "#ff602e"}
                       opacity="0.3"
                     />
                     {!prefersReducedMotion ? (
                       <motion.circle
                         cx="0"
                         cy="0"
-                        r="8"
-                        fill="#ff602e"
+                        r={destination.isIncident ? 14 : 8}
+                        fill={destination.isIncident ? "#ef4444" : "#ff602e"}
                         opacity="0.3"
                         animate={{
-                          scale: [1, 2, 1],
-                          opacity: [0.3, 0, 0.3]
+                          scale: destination.isIncident ? [1, 2.5, 1] : [1, 2, 1],
+                          opacity: destination.isIncident ? [0.6, 0, 0.6] : [0.3, 0, 0.3]
                         }}
                         transition={{
                           repeat: Infinity,
-                          duration: 2
+                          duration: destination.isIncident ? 1.2 : 2
                         }}
                       />
                     ) : null}
                     <circle
                       cx="0"
                       cy="0"
-                      r="3"
-                      fill="#ff602e"
+                      r={destination.isIncident ? 5 : 3}
+                      fill={destination.isIncident ? "#dc2626" : "#ff602e"}
                     />
                     <text
                       x="0"
                       y="-18"
                       textAnchor="middle"
                       fontSize="10"
-                      fill="#7c2d12"
+                      fill={destination.isIncident ? "#dc2626" : "#7c2d12"}
                       fontWeight="bold"
                       className="pointer-events-auto select-none"
                     >

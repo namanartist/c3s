@@ -10,7 +10,6 @@ import { useSafetyStore } from '@/store/safetyStore';
 import { useC3SStore } from '@/store/c3sStore';
 import { useSearchParams } from 'react-router-dom';
 import { SOSSystem } from '@/components/ui/SOSSystem';
-import type { SosIncident } from '@/types/safety';
 
 const RoutePanelLazy = React.lazy(() =>
   import('@/components/route/RoutePanel').then((m) => ({ default: m.RoutePanel }))
@@ -51,33 +50,42 @@ function IncidentMapResolver() {
   const incidents = useSafetyStore((state) => state.incidents);
   const setSelectedIncident = useSafetyStore((state) => state.setSelectedIncident);
   const setActiveDashboard = useSafetyStore((state) => state.setActiveDashboard);
-  const { loading, routeToSosIncident, nodes } = useCampusNavigation();
+  const { loading, routeToSosIncident, handleDestinationSelect, setSelectedMapId, nodes } = useCampusNavigation();
   const handledRef = useRef<string | null>(null);
 
   useEffect(() => {
-    if (loading) return;
+    if (loading || !nodes || nodes.length === 0) return;
+
+    const navKey = `${incidentId || ''}__${toNodeId || ''}`;
+    if (!incidentId && !toNodeId) return;
+    if (handledRef.current === navKey) return;
+    handledRef.current = navKey;
+
+    // Always ensure the interactive navigation UI is visible, not obstructed by the SOC dashboard
+    setActiveDashboard('nav');
 
     // 1. Resolve Incident Navigation if requested (?incident=...)
-    if (incidentId && handledRef.current !== `incident-${incidentId}`) {
-      handledRef.current = `incident-${incidentId}`;
-      setActiveDashboard('soc');
+    if (incidentId) {
       let targetIncident = incidents.find((item) => item.id === incidentId);
 
       if (!targetIncident) {
         const c3s = useC3SStore.getState();
-        const fallbackTargetNode = nodes.find((n) => n.id === c3s.sosNodeId) || nodes[0];
+        const targetNode = (toNodeId ? nodes.find((n) => n.id === toNodeId) : null) ||
+          nodes.find((n) => n.id === c3s.sosNodeId) ||
+          nodes[0];
+
         targetIncident = {
           id: incidentId,
           category: 'security',
           severity: 'critical',
-          title: '🚨 Emergency SOS Location',
-          description: c3s.sosLocation || 'Active Student SOS Broadcast',
-          lat: c3s.latitude || fallbackTargetNode?.lat || 26.230752,
-          lng: c3s.longitude || fallbackTargetNode?.lng || 78.205341,
-          map: fallbackTargetNode?.map || 'Campus_Map',
-          floor: 0,
-          x: fallbackTargetNode?.x ?? 500,
-          y: fallbackTargetNode?.y ?? 350,
+          title: targetNode?.name ? `🚨 SOS: ${targetNode.name}` : '🚨 Emergency SOS Location',
+          description: c3s.sosLocation || `Active Emergency SOS broadcast at ${targetNode?.name || 'Campus'}`,
+          lat: c3s.latitude || targetNode?.lat || 26.230752,
+          lng: c3s.longitude || targetNode?.lng || 78.205341,
+          map: targetNode?.map || 'Campus_Map',
+          floor: (targetNode as any)?.floor ?? 0,
+          x: targetNode?.x ?? 500,
+          y: targetNode?.y ?? 350,
           timestamp: Date.now(),
           status: 'active'
         };
@@ -88,30 +96,40 @@ function IncidentMapResolver() {
       return;
     }
 
-    // 2. Resolve Direct Node Navigation if ?to=nodeId is provided
-    if (toNodeId && nodes.length > 0 && handledRef.current !== `to-${toNodeId}`) {
-      handledRef.current = `to-${toNodeId}`;
+    // 2. Direct Destination Node Navigation (?to=nodeId)
+    if (toNodeId) {
       const destNode = nodes.find((n) => n.id === toNodeId);
       if (destNode) {
-        const pseudoIncident: SosIncident = {
-          id: `target-${destNode.id}`,
-          category: 'infrastructure',
-          severity: 'medium',
-          title: destNode.name || destNode.id,
-          description: `Direct Navigation Target: ${destNode.name || destNode.id}`,
-          lat: destNode.lat || 26.230752,
-          lng: destNode.lng || 78.205341,
+        handleDestinationSelect({
+          id: destNode.id,
+          name: destNode.name || destNode.id,
+          searchName: (destNode.name || destNode.id).toLowerCase(),
           map: destNode.map,
-          floor: 0,
+          floor: (destNode as any)?.floor ?? 0,
+          building: (destNode as any)?.building || 'Campus',
+          category: (destNode as any)?.category || 'Location',
           x: destNode.x,
           y: destNode.y,
-          timestamp: Date.now(),
-          status: 'resolved'
-        };
-        routeToSosIncident(pseudoIncident);
+          lat: destNode.lat,
+          lng: destNode.lng,
+        });
+        if (destNode.map) {
+          setSelectedMapId(destNode.map);
+        }
       }
     }
-  }, [incidentId, toNodeId, incidents, loading, routeToSosIncident, setSelectedIncident, setActiveDashboard, nodes]);
+  }, [
+    incidentId,
+    toNodeId,
+    incidents,
+    loading,
+    nodes,
+    routeToSosIncident,
+    handleDestinationSelect,
+    setSelectedMapId,
+    setSelectedIncident,
+    setActiveDashboard
+  ]);
 
   return null;
 }

@@ -5,9 +5,15 @@ import Lenis from 'lenis';
 /**
  * Custom hook to initialize Lenis smooth scrolling globally and intercept anchor
  * clicks to scroll smoothly with a custom offset.
+ * Bypasses smooth scrolling on full-screen interactive map views to prevent wheel conflicts and UI lag.
  */
 export default function useSmoothScroll(offset = 90) {
   useEffect(() => {
+    // Disable Lenis on interactive map routes to allow direct native zoom & pan
+    if (typeof window !== 'undefined' && window.location.pathname.startsWith('/map')) {
+      return;
+    }
+
     // Initialize Lenis with smooth settings
     const lenis = new Lenis({
       duration: 1.2,
@@ -17,12 +23,24 @@ export default function useSmoothScroll(offset = 90) {
       smoothWheel: true,
       wheelMultiplier: 1.1,
       touchMultiplier: 1.5,
+      // Do not hijack scroll on map elements or interactive canvases
+      prevent: (node) => {
+        if (!node) return false;
+        return (
+          node.hasAttribute('data-lenis-prevent') ||
+          node.closest('[data-lenis-prevent]') !== null ||
+          node.tagName.toLowerCase() === 'svg' ||
+          node.closest('svg') !== null
+        );
+      }
     });
 
-    // Request animation frame loop
+    // Request animation frame loop (pauses when tab is hidden to prevent background CPU spin)
     let rafId: number;
     function raf(time: number) {
-      lenis.raf(time);
+      if (document.visibilityState !== 'hidden') {
+        lenis.raf(time);
+      }
       rafId = requestAnimationFrame(raf);
     }
     rafId = requestAnimationFrame(raf);

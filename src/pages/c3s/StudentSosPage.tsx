@@ -12,7 +12,8 @@ export default function StudentSosPage() {
 
   const handleNavigateToMap = () => {
     if (sosIncidentId) {
-      navigate(`/map?incident=${encodeURIComponent(sosIncidentId)}`);
+      const toParam = sosNodeId ? `&to=${encodeURIComponent(sosNodeId)}` : '';
+      navigate(`/map?incident=${encodeURIComponent(sosIncidentId)}${toParam}`);
     } else if (sosNodeId) {
       navigate(`/map?to=${encodeURIComponent(sosNodeId)}`);
     } else {

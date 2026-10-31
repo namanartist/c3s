@@ -1,6 +1,6 @@
 // src/components/ui/ErrorBoundary.tsx
 import React, { Component, type ErrorInfo, type ReactNode } from 'react';
-import { ShieldAlert, RefreshCw, Home, Trash2, ChevronDown, ChevronUp, AlertTriangle, Terminal } from 'lucide-react';
+import { ShieldAlert, RefreshCw, Home, Trash2, ChevronDown, ChevronUp, Terminal } from 'lucide-react';
 
 interface Props {
   children: ReactNode;
@@ -60,18 +60,22 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleHardReload = async () => {
-    // Clear chunk cache, service worker caches, and reload with fresh cache-buster
+    // Clear chunk cache, unregister service workers, and reload with fresh cache-buster
     if (typeof window !== 'undefined') {
       sessionStorage.removeItem('c3s_auto_chunk_recovery');
-      if ('caches' in window) {
-        try {
+      try {
+        if ('serviceWorker' in navigator) {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(registrations.map((r) => r.unregister()));
+        }
+        if ('caches' in window) {
           const keys = await window.caches.keys();
           await Promise.all(keys.map((k) => window.caches.delete(k)));
-        } catch {
-          // non-fatal
         }
+      } catch {
+        // non-fatal
       }
-      window.location.reload();
+      window.location.href = window.location.pathname + '?_sync=' + Date.now();
     }
   };
 
