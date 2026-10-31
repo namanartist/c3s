@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
 // src/components/safety/IncidentCard.tsx
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Flame,
@@ -25,10 +26,12 @@ import { formatDMS, getGoogleMapsUrl, getOsmUrl } from '@/lib/geoProjection';
 
 export function IncidentCard() {
   const activeDashboard = useSafetyStore((s) => s.activeDashboard);
+  const setActiveDashboard = useSafetyStore((s) => s.setActiveDashboard);
   const selectedIncident = useSafetyStore((s) => s.selectedIncident);
   const setSelectedIncident = useSafetyStore((s) => s.setSelectedIncident);
   const dispatchResponder = useSafetyStore((s) => s.dispatchResponder);
   const advanceResponderStatus = useSafetyStore((s) => s.advanceResponderStatus);
+  const navigate = useNavigate();
 
   const { routeToSosIncident } = useCampusNavigation();
   const [nowTimestamp, setNowTimestamp] = useState(() => Date.now());
@@ -74,7 +77,14 @@ export function IncidentCard() {
 
   const handleRouteToIncident = () => {
     dispatchResponder(selectedIncident.id, 'QRF Tactical Patrol 1');
-    routeToSosIncident(selectedIncident);
+    setActiveDashboard('nav');
+
+    if (typeof window !== 'undefined' && !window.location.pathname.startsWith('/map')) {
+      navigate(`/map?incident=${encodeURIComponent(selectedIncident.id)}`);
+    } else {
+      routeToSosIncident(selectedIncident);
+      setSelectedIncident(null);
+    }
   };
 
   const isResolved = selectedIncident.status === 'resolved';
@@ -300,6 +310,7 @@ export function IncidentCard() {
             {!isResolved ? (
               <>
                 <button
+                  type="button"
                   onClick={handleRouteToIncident}
                   className="flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-red-500/30 active:scale-95 transition-all cursor-pointer"
                 >
@@ -308,6 +319,7 @@ export function IncidentCard() {
                 </button>
 
                 <button
+                  type="button"
                   onClick={() => advanceResponderStatus(selectedIncident.id, 'resolved')}
                   className="py-3 px-3 rounded-2xl bg-slate-800 hover:bg-emerald-950/60 hover:text-emerald-400 text-slate-300 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer border border-slate-700"
                   title="Mark incident as resolved"

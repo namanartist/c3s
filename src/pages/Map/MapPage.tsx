@@ -70,18 +70,32 @@ function IncidentMapResolver() {
 
       if (!targetIncident) {
         const c3s = useC3SStore.getState();
-        const targetNode = (toNodeId ? nodes.find((n) => n.id === toNodeId) : null) ||
-          nodes.find((n) => n.id === c3s.sosNodeId) ||
-          nodes[0];
+        const c3sIncident = c3s.incidents.find((i) => i.id === incidentId);
+
+        let targetNode = toNodeId ? nodes.find((n) => n.id === toNodeId) : null;
+        if (!targetNode && c3sIncident) {
+          if (c3sIncident.location) {
+            const locLow = c3sIncident.location.toLowerCase();
+            targetNode = nodes.find((n) => n.name && locLow.includes(n.name.toLowerCase())) ||
+              nodes.find((n) => (n as any).building && locLow.includes((n as any).building.toLowerCase())) ||
+              null;
+          }
+        }
+
+        if (!targetNode) {
+          targetNode = nodes.find((n) => n.id === c3s.sosNodeId) ||
+            nodes.find((n) => n.id === 'Conclave') ||
+            nodes[0];
+        }
 
         targetIncident = {
           id: incidentId,
-          category: 'security',
-          severity: 'critical',
-          title: targetNode?.name ? `🚨 SOS: ${targetNode.name}` : '🚨 Emergency SOS Location',
-          description: c3s.sosLocation || `Active Emergency SOS broadcast at ${targetNode?.name || 'Campus'}`,
-          lat: c3s.latitude || targetNode?.lat || 26.230752,
-          lng: c3s.longitude || targetNode?.lng || 78.205341,
+          category: c3sIncident?.type?.toLowerCase().includes('medical') ? 'medical' : 'security',
+          severity: c3sIncident?.priority?.toLowerCase() === 'critical' ? 'critical' : 'high',
+          title: c3sIncident?.title ? `🚨 SOS: ${c3sIncident.title}` : (targetNode?.name ? `🚨 SOS: ${targetNode.name}` : '🚨 Emergency SOS Location'),
+          description: c3sIncident?.location || c3s.sosLocation || `Active SOS at ${targetNode?.name || 'Campus'}`,
+          lat: c3sIncident?.latitude || c3s.latitude || targetNode?.lat || 26.230752,
+          lng: c3sIncident?.longitude || c3s.longitude || targetNode?.lng || 78.205341,
           map: targetNode?.map || 'Campus_Map',
           floor: (targetNode as any)?.floor ?? 0,
           x: targetNode?.x ?? 500,

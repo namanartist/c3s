@@ -9,6 +9,7 @@ import type { MapNode, MapEdge, Building, FloorMap } from '@/types';
 import { parseRoomName } from '@/lib/roomParser';
 import { gpsToSvg, findNearestCampusNode, isWithinCampusBounds } from '@/lib/geoProjection';
 import type { SosIncident } from '@/types/safety';
+import { useSafetyStore } from '@/store/safetyStore';
 
 // Module-level caches to avoid multiple fetch requests on StrictMode double-mounting
 let cachedNodes: MapNode[] | null = null;
@@ -788,18 +789,48 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
     (incident: SosIncident) => {
       if (!nodes || nodes.length === 0) return;
 
-      // 1. Find best destination node in the graph on the incident's floor map
-      const mapCandidates = nodes.filter((n) => n.map === incident.map);
-      const pool = mapCandidates.length > 0 ? mapCandidates : nodes;
+      // 0. Ensure active dashboard is 'nav' and navigation drawer is revealed
+      useSafetyStore.getState().setActiveDashboard('nav');
+      setSidebarOpen(true);
 
-      let bestDestNode: MapNode = pool[0];
-      let minDestDist = Infinity;
-      for (const n of pool) {
-        const d = Math.hypot(n.x - incident.x, n.y - incident.y);
-        if (d < minDestDist) {
-          minDestDist = d;
-          bestDestNode = n;
+      // 1. Find best destination node in the graph
+      let bestDestNode: MapNode | null = null;
+
+      // A. Real GPS coordinate lookup if available
+      if (incident.lat != null && incident.lng != null) {
+        bestDestNode = findNearestCampusNode(
+          { lat: incident.lat, lon: incident.lng },
+          nodes,
+          { preferredMap: incident.map }
+        );
+      }
+
+      // B. SVG coordinate distance lookup
+      if (!bestDestNode && incident.x != null && !isNaN(incident.x) && incident.y != null && !isNaN(incident.y)) {
+        const mapCandidates = incident.map ? nodes.filter((n) => n.map === incident.map) : [];
+        const pool = mapCandidates.length > 0 ? mapCandidates : nodes;
+
+        let minDestDist = Infinity;
+        for (const n of pool) {
+          const d = Math.hypot(n.x - incident.x, n.y - incident.y);
+          if (d < minDestDist) {
+            minDestDist = d;
+            bestDestNode = n;
+          }
         }
+      }
+
+      // C. Match by title or description text
+      if (!bestDestNode && (incident.title || incident.description)) {
+        const searchText = `${incident.title} ${incident.description || ''}`.toLowerCase();
+        bestDestNode = nodes.find(
+          (n) => n.name && searchText.includes(n.name.toLowerCase())
+        ) || null;
+      }
+
+      // D. Fallback node
+      if (!bestDestNode) {
+        bestDestNode = nodes.find((n) => n.id === 'Conclave') || nodes[0];
       }
 
       // 2. Resolve start location (current selection, user GPS, or Main Gate)
@@ -816,17 +847,12 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
         }
       }
 
-      if (!startNode) {
+      if (!startNode || startNode.id === bestDestNode.id) {
         const mainGate = nodesMap['Main_Gate'] || nodes.find((n) => n.id === 'Main_Gate');
         if (mainGate && mainGate.id !== bestDestNode.id) {
           startNode = mainGate;
         } else {
-          const alternateGate =
-            nodesMap['New_Gate_Parking'] ||
-            nodesMap['Jubilee_Gate'] ||
-            nodes.find((n) => n.id !== bestDestNode.id) ||
-            nodes[0];
-          startNode = alternateGate;
+          startNode = nodes.find((n) => n.id !== bestDestNode.id) || nodes[0];
         }
       }
 
@@ -835,13 +861,13 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
         name: `🚨 ${incident.title}`,
         searchName: incident.title.toLowerCase(),
         map: bestDestNode.map,
-        floor: incident.floor,
-        building: 'Incident Spot',
+        floor: incident.floor ?? (bestDestNode as any).floor ?? 0,
+        building: (bestDestNode as any).building || 'Incident Spot',
         category: 'Incident',
         x: bestDestNode.x,
         y: bestDestNode.y,
-        lat: incident.lat,
-        lng: incident.lng,
+        lat: incident.lat || bestDestNode.lat,
+        lng: incident.lng || bestDestNode.lng,
         isIncident: true,
         incidentId: incident.id,
       };
@@ -851,9 +877,9 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
         name: startNode.name || 'Your Location',
         searchName: (startNode.name || '').toLowerCase(),
         map: startNode.map,
-        floor: startNode.floor ?? 0,
-        building: startNode.building || 'Campus',
-        category: startNode.category || 'Location',
+        floor: (startNode as any).floor ?? 0,
+        building: (startNode as any).building || 'Campus',
+        category: (startNode as any).category || 'Location',
         x: startNode.x,
         y: startNode.y,
         lat: startNode.lat,
