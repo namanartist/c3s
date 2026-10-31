@@ -10,6 +10,7 @@ import { useSafetyStore } from '@/store/safetyStore';
 import { useC3SStore } from '@/store/c3sStore';
 import { useSearchParams } from 'react-router-dom';
 import { SOSSystem } from '@/components/ui/SOSSystem';
+import { haversineDistanceMeters } from '@/lib/geoProjection';
 
 const RoutePanelLazy = React.lazy(() =>
   import('@/components/route/RoutePanel').then((m) => ({ default: m.RoutePanel }))
@@ -74,7 +75,22 @@ function IncidentMapResolver() {
 
         let targetNode = toNodeId ? nodes.find((n) => n.id === toNodeId) : null;
         if (!targetNode && c3sIncident) {
-          if (c3sIncident.location) {
+          if (c3sIncident.latitude && c3sIncident.longitude) {
+            let minGeo = Infinity;
+            for (const n of nodes) {
+              if (n.lat != null && n.lng != null) {
+                const d = haversineDistanceMeters(
+                  { lat: c3sIncident.latitude, lon: c3sIncident.longitude },
+                  { lat: n.lat, lon: n.lng }
+                );
+                if (d < minGeo) {
+                  minGeo = d;
+                  targetNode = n;
+                }
+              }
+            }
+          }
+          if (!targetNode && c3sIncident.location) {
             const locLow = c3sIncident.location.toLowerCase();
             targetNode = nodes.find((n) => n.name && locLow.includes(n.name.toLowerCase())) ||
               nodes.find((n) => (n as any).building && locLow.includes((n as any).building.toLowerCase())) ||
@@ -94,19 +110,22 @@ function IncidentMapResolver() {
           severity: c3sIncident?.priority?.toLowerCase() === 'critical' ? 'critical' : 'high',
           title: c3sIncident?.title ? `🚨 SOS: ${c3sIncident.title}` : (targetNode?.name ? `🚨 SOS: ${targetNode.name}` : '🚨 Emergency SOS Location'),
           description: c3sIncident?.location || c3s.sosLocation || `Active SOS at ${targetNode?.name || 'Campus'}`,
-          lat: c3sIncident?.latitude || c3s.latitude || targetNode?.lat || 26.230752,
-          lng: c3sIncident?.longitude || c3s.longitude || targetNode?.lng || 78.205341,
+          lat: targetNode?.lat || c3sIncident?.latitude || c3s.latitude || 26.230752,
+          lng: targetNode?.lng || c3sIncident?.longitude || c3s.longitude || 78.205341,
           map: targetNode?.map || 'Campus_Map',
           floor: (targetNode as any)?.floor ?? 0,
           x: targetNode?.x ?? 500,
           y: targetNode?.y ?? 350,
+          nodeId: targetNode?.id,
           timestamp: Date.now(),
           status: 'active'
         };
       }
 
-      setSelectedIncident(targetIncident);
-      routeToSosIncident(targetIncident);
+      if (targetIncident) {
+        setSelectedIncident(targetIncident);
+        routeToSosIncident(targetIncident);
+      }
       return;
     }
 

@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { useC3SStore, type SosNotifiedEntities } from '@/store/c3sStore';
 import { useSafetyStore } from '@/store/safetyStore';
-import { findNearestCampusNode } from '@/lib/geoProjection';
+import { findNearestCampusNode, haversineDistanceMeters } from '@/lib/geoProjection';
 import fallbackData from '@/lib/mock-data/campusDataFallback.json';
 import type { MapNode } from '@/types';
 
@@ -170,19 +170,56 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
     }
 
     // 1. Resolve Location & Nearest Campus Node
-    let resolvedNodeId = 'MainRoad09';
-    let resolvedNodeName = 'Academic Block A Entrance Corridor';
     let resolvedLat = 26.230752;
     let resolvedLng = 78.205341;
+
+    // Grab real GPS location from device if available
+    if (typeof navigator !== 'undefined' && 'geolocation' in navigator) {
+      try {
+        const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, {
+            enableHighAccuracy: true,
+            timeout: 1500,
+            maximumAge: 30000
+          });
+        });
+        resolvedLat = pos.coords.latitude;
+        resolvedLng = pos.coords.longitude;
+      } catch {
+        // Fallback to campus default
+      }
+    }
+
+    let resolvedNodeId = 'MainRoad09';
+    let resolvedNodeName = 'Academic Block A Entrance Corridor';
+    let resolvedMap = 'Campus_Map';
+    let resolvedFloor = 0;
     let resolvedX = 253.0593;
     let resolvedY = 272.7038;
 
     try {
       const nodesList = fallbackData.nodes as unknown as MapNode[];
-      const nearest = findNearestCampusNode({ lat: resolvedLat, lon: resolvedLng }, nodesList);
+      let nearest: MapNode | null = null;
+      let minMeters = Infinity;
+
+      for (const n of nodesList) {
+        if (n.lat != null && n.lng != null) {
+          const d = haversineDistanceMeters(
+            { lat: resolvedLat, lon: resolvedLng },
+            { lat: n.lat, lon: n.lng }
+          );
+          if (d < minMeters) {
+            minMeters = d;
+            nearest = n;
+          }
+        }
+      }
+
       if (nearest) {
         resolvedNodeId = nearest.id;
-        resolvedNodeName = nearest.name || 'Academic Block A Corridor Node';
+        resolvedNodeName = nearest.name || `Campus Node #${nearest.id}`;
+        resolvedMap = nearest.map || 'Campus_Map';
+        resolvedFloor = (nearest as any).floor ?? 0;
         resolvedX = nearest.x;
         resolvedY = nearest.y;
         if (nearest.lat != null && nearest.lng != null) {
@@ -267,8 +304,8 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
       videoUrl: videoBlobUrl,
       lat: resolvedLat,
       lng: resolvedLng,
-      map: 'Campus_Map',
-      floor: 0,
+      map: resolvedMap,
+      floor: resolvedFloor,
       notifiedEntities
     });
 
@@ -278,13 +315,14 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
         category: 'security',
         severity: 'critical',
         title: `EMERGENCY SOS: Student Distress at Node #${resolvedNodeId}`,
-        description: `1-Step 2s Hold SOS triggered. Nearest Guard Vikram Rathore (85m), Faculty Warden Dr. A.K. Verma (35m), and Chief Proctor Prof. S.K. Jain notified. Video & photo evidence recorded.`,
-        map: 'Campus_Map',
-        floor: 0,
+        description: `1-Step 2s Hold SOS triggered at ${resolvedNodeName}. Nearest Guard Vikram Rathore (85m), Faculty Warden Dr. A.K. Verma (35m), and Chief Proctor Prof. S.K. Jain notified.`,
+        map: resolvedMap,
+        floor: resolvedFloor,
         x: resolvedX,
         y: resolvedY,
         lat: resolvedLat,
         lng: resolvedLng,
+        nodeId: resolvedNodeId,
         reportedBy: 'Student (1-Step 2s Hold)',
         phone: '+91 98765 01920',
         responderAssigned: 'Guard 02 (Vikram Rathore - 85m)',

@@ -60,8 +60,8 @@ export function lazyWithRetry<T extends React.ComponentType<any>>(
             }
           }
 
-          // Force clean reload
-          window.location.reload();
+          // Force clean reload with cache-busting sync query
+          window.location.href = window.location.pathname + (window.location.search ? window.location.search + '&' : '?') + '_sync=' + now;
           return new Promise<{ default: T }>(() => {});
         }
       }

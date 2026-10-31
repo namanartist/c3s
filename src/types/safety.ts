@@ -52,6 +52,7 @@ export interface SosIncident {
   responderStatus?: ResponderWorkflowStatus;
   responderEta?: string;
   responderNodeId?: string;
+  nodeId?: string;
   notifiedResponders?: string[];
   evidence?: IncidentEvidence;
   deliveryState?: IncidentDeliveryState;

@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 import { useSafetyStore } from '@/store/safetyStore';
 import { useCampusNavigation } from '@/hooks/useCampusNavigation';
-import { formatDMS, formatDecimal } from '@/lib/geoProjection';
+import { formatDMS, formatDecimal, haversineDistanceMeters } from '@/lib/geoProjection';
 import { classifyIncidentWithLlm, type LlmClassificationResult } from '@/lib/llmIncidentClassifier';
 import type { IncidentCategory, IncidentSeverity } from '@/types/safety';
 

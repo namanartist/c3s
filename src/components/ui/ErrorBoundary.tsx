@@ -48,9 +48,7 @@ export class ErrorBoundary extends Component<Props, State> {
         sessionStorage.setItem('c3s_auto_chunk_recovery', String(now));
         this.setState({ isAutoRecovering: true });
         console.warn('[C3S Error Boundary]: Auto-recovering from stale deployment chunk...');
-        setTimeout(() => {
-          window.location.reload();
-        }, 300);
+        this.handleHardReload();
       }
     }
   }

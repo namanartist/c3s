@@ -7,7 +7,7 @@ import { buildUndirectedEdgeIndex } from '@/lib/navigation_instructions';
 import { buildNavigationStepViewModel } from '@/pages/Map/services/navigationStepService';
 import type { MapNode, MapEdge, Building, FloorMap } from '@/types';
 import { parseRoomName } from '@/lib/roomParser';
-import { gpsToSvg, findNearestCampusNode, isWithinCampusBounds } from '@/lib/geoProjection';
+import { gpsToSvg, findNearestCampusNode, isWithinCampusBounds, haversineDistanceMeters } from '@/lib/geoProjection';
 import type { SosIncident } from '@/types/safety';
 import { useSafetyStore } from '@/store/safetyStore';
 
@@ -793,34 +793,48 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
       useSafetyStore.getState().setActiveDashboard('nav');
       setSidebarOpen(true);
 
-      // 1. Find best destination node in the graph
+      // 1. Find the exact nearest graph node from the location of SOS
       let bestDestNode: MapNode | null = null;
 
-      // A. Real GPS coordinate lookup if available
-      if (incident.lat != null && incident.lng != null) {
-        bestDestNode = findNearestCampusNode(
-          { lat: incident.lat, lon: incident.lng },
-          nodes,
-          { preferredMap: incident.map }
-        );
+      // A. If the incident explicitly references a graph node ID
+      const incNodeId = incident.nodeId || (incident as any).sosNodeId;
+      if (incNodeId && nodesMap[incNodeId]) {
+        bestDestNode = nodesMap[incNodeId];
       }
 
-      // B. SVG coordinate distance lookup
+      // B. If incident has map coordinates (x, y), find nearest node on that map
       if (!bestDestNode && incident.x != null && !isNaN(incident.x) && incident.y != null && !isNaN(incident.y)) {
-        const mapCandidates = incident.map ? nodes.filter((n) => n.map === incident.map) : [];
-        const pool = mapCandidates.length > 0 ? mapCandidates : nodes;
+        const sameMapNodes = incident.map ? nodes.filter((n) => n.map === incident.map) : [];
+        const pool = sameMapNodes.length > 0 ? sameMapNodes : nodes;
 
-        let minDestDist = Infinity;
+        let minEuclideanDist = Infinity;
         for (const n of pool) {
           const d = Math.hypot(n.x - incident.x, n.y - incident.y);
-          if (d < minDestDist) {
-            minDestDist = d;
+          if (d < minEuclideanDist) {
+            minEuclideanDist = d;
             bestDestNode = n;
           }
         }
       }
 
-      // C. Match by title or description text
+      // C. If incident has GPS coordinates (lat, lng), find nearest node by real geo-distance
+      if (!bestDestNode && incident.lat != null && incident.lng != null) {
+        let minGeoDist = Infinity;
+        for (const n of nodes) {
+          if (n.lat != null && n.lng != null) {
+            const d = haversineDistanceMeters(
+              { lat: incident.lat, lon: incident.lng },
+              { lat: n.lat, lon: n.lng }
+            );
+            if (d < minGeoDist) {
+              minGeoDist = d;
+              bestDestNode = n;
+            }
+          }
+        }
+      }
+
+      // D. Fallback by name / location text (e.g. "Academic Block", "Conclave")
       if (!bestDestNode && (incident.title || incident.description)) {
         const searchText = `${incident.title} ${incident.description || ''}`.toLowerCase();
         bestDestNode = nodes.find(
@@ -828,7 +842,7 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
         ) || null;
       }
 
-      // D. Fallback node
+      // E. Safe fallback node
       if (!bestDestNode) {
         bestDestNode = nodes.find((n) => n.id === 'Conclave') || nodes[0];
       }
@@ -841,9 +855,18 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
       if (curLoc && nodesMap[curLoc.id] && curLoc.id !== bestDestNode.id) {
         startNode = curLoc;
       } else if (userGps) {
-        const nearestGps = findNearestCampusNode({ lat: userGps.lat, lon: userGps.lon }, nodes);
-        if (nearestGps && nearestGps.id !== bestDestNode.id) {
-          startNode = nearestGps;
+        let minStartGeoDist = Infinity;
+        for (const n of nodes) {
+          if (n.lat != null && n.lng != null && n.id !== bestDestNode.id) {
+            const d = haversineDistanceMeters(
+              { lat: userGps.lat, lon: userGps.lon },
+              { lat: n.lat, lon: n.lng }
+            );
+            if (d < minStartGeoDist) {
+              minStartGeoDist = d;
+              startNode = n;
+            }
+          }
         }
       }
 
