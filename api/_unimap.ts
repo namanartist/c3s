@@ -1,6 +1,6 @@
 // api/_unimap.ts
 /**
- * Helper to communicate with the internal 'unimap-v2-main' service via Vercel service bindings.
+ * Helper to communicate with the internal 'unimap' service via Vercel service bindings.
  * The bound internal URL is injected at runtime via process.env.UNIMAP_SERVICE_URL.
  */
 export async function fetchFromUniMapService<T>(endpoint: string): Promise<T | null> {

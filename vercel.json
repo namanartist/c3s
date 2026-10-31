@@ -7,13 +7,13 @@
       "bindings": [
         {
           "type": "service",
-          "service": "unimap-v2-main",
+          "service": "unimap",
           "format": "url",
           "env": "UNIMAP_SERVICE_URL"
         }
       ]
     },
-    "unimap-v2-main": {
+    "unimap": {
       "root": "UniMap-V2-main",
       "framework": "vite"
     }
