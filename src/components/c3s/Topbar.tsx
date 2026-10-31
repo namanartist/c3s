@@ -2,21 +2,20 @@ import React, { useState, useRef, useEffect } from 'react';
 import {
   Bell,
   Search,
-  Users,
-  ChevronDown,
+  Shield,
   RefreshCw,
   ShieldAlert,
   LogOut,
   Settings,
   ShieldCheck,
   CheckCircle2,
-  ExternalLink
+  ExternalLink,
+  ChevronDown
 } from 'lucide-react';
 import { useC3SStore } from '@/store/c3sStore';
 import { useSafetyStore } from '@/store/safetyStore';
 import { useCrowdMonitoring } from '@/lib/crowdMonitoringApi';
 import { ROLE_LABELS } from '@/lib/mock-data/users';
-import { RoleSwitcherModal } from './RoleSwitcherModal';
 import { LogoutConfirmModal } from './LogoutConfirmModal';
 import { useNavigate } from 'react-router-dom';
 import ThemeToggle from '@/components/ui/ThemeToggle';
@@ -30,7 +29,6 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
   const realCrowdCount = useSafetyStore((s) => s.realCrowdCount);
   const { syncCrowdData, isRefreshing } = useCrowdMonitoring();
   const setSosModalOpen = useSafetyStore((s) => s.setSosModalOpen);
-  const [showRoleModal, setShowRoleModal] = useState(false);
   const [showNotifDropdown, setShowNotifDropdown] = useState(false);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -88,7 +86,7 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
                   DEFENSE
                 </span>
               </div>
-              <p className="hidden md:block text-[11px] text-slate-400 leading-none mt-0.5">Campus Safety & Navigation</p>
+              <p className="hidden md:block text-[11px] text-slate-400 leading-none mt-0.5">Campus Safety &amp; Navigation</p>
             </div>
           </div>
 
@@ -117,7 +115,7 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
           />
         </div>
 
-        {/* Right Actions: Role Switcher, Notifications, Profile */}
+        {/* Right Actions: Clearance Badge, Notifications, Profile */}
         <div className="flex items-center gap-2 sm:gap-3">
           {/* Quick SOS Trigger Button */}
           <button
@@ -130,16 +128,15 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
             <span className="hidden sm:inline">SOS</span>
           </button>
 
-          {/* Role Switcher Pill */}
-          <button
-            onClick={() => setShowRoleModal(true)}
-            className="flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-white/[0.03] hover:bg-slate-200 dark:hover:bg-white/[0.07] px-3 py-1.5 text-xs text-slate-700 dark:text-slate-300 transition-all cursor-pointer"
+          {/* Institutional Clearance Badge (Static Production Badge) */}
+          <div
+            className="flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-white/[0.03] px-3 py-1.5 text-xs text-slate-700 dark:text-slate-300 select-none"
+            title={`Active Clearance: ${roleMeta?.title || currentRole}`}
           >
-            <Users className="h-3.5 w-3.5 text-blue-400" />
-            <span className="hidden sm:inline text-slate-400">Role:</span>
+            <Shield className="h-3.5 w-3.5 text-blue-500" />
+            <span className="hidden sm:inline text-slate-400">Clearance:</span>
             <span className="font-semibold text-slate-900 dark:text-white">{roleMeta?.title || currentRole}</span>
-            <ChevronDown className="h-3 w-3 text-slate-400 ml-0.5" />
-          </button>
+          </div>
 
           {/* Global Light / Dark Theme Switcher */}
           <ThemeToggle />
@@ -239,7 +236,7 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
                   </div>
 
                   <div className="mt-3 flex items-center justify-between border-t border-slate-200 dark:border-white/[0.06] pt-2 text-[10px]">
-                    <span className="font-semibold text-slate-500 dark:text-slate-400">Clearance Level:</span>
+                    <span className="font-semibold text-slate-500 dark:text-slate-400">Security Clearance:</span>
                     <span className="font-bold text-blue-600 dark:text-blue-400">{roleMeta?.title || currentRole}</span>
                   </div>
                 </div>
@@ -251,7 +248,7 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
                       setShowUserDropdown(false);
                       navigate('/profile');
                     }}
-                    className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors"
+                    className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
                   >
                     <div className="flex items-center gap-2.5">
                       <ShieldCheck className="h-4 w-4 text-blue-500" />
@@ -265,7 +262,7 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
                       setShowUserDropdown(false);
                       navigate('/settings');
                     }}
-                    className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors"
+                    className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
                   >
                     <div className="flex items-center gap-2.5">
                       <Settings className="h-4 w-4 text-slate-400" />
@@ -276,13 +273,13 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
                   <button
                     onClick={() => {
                       setShowUserDropdown(false);
-                      setShowRoleModal(true);
+                      navigate('/login');
                     }}
-                    className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors"
+                    className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
                   >
                     <div className="flex items-center gap-2.5">
-                      <Users className="h-4 w-4 text-emerald-400" />
-                      <span>Switch Operational Role</span>
+                      <Shield className="h-4 w-4 text-emerald-400" />
+                      <span>Switch Account (Login Portal)</span>
                     </div>
                   </button>
                 </div>
@@ -294,7 +291,7 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
                       setShowUserDropdown(false);
                       setShowLogoutModal(true);
                     }}
-                    className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-bold rounded-xl text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors"
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-bold rounded-xl text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors cursor-pointer"
                   >
                     <LogOut className="h-4 w-4" />
                     <span>Sign Out of Terminal</span>
@@ -305,9 +302,6 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
           </div>
         </div>
       </header>
-
-      {/* Role Switcher Modal */}
-      <RoleSwitcherModal isOpen={showRoleModal} onClose={() => setShowRoleModal(false)} />
 
       {/* Logout Confirmation Modal */}
       <LogoutConfirmModal isOpen={showLogoutModal} onClose={() => setShowLogoutModal(false)} />

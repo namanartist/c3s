@@ -1,16 +1,14 @@
 // src/pages/error/AccessDeniedPage.tsx
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Lock, ShieldAlert, Users, Home, ArrowLeft } from 'lucide-react';
+import { Lock, ShieldAlert, LogIn, Home, ArrowLeft } from 'lucide-react';
 import { useC3SStore } from '@/store/c3sStore';
 import { ROLE_LABELS } from '@/lib/mock-data/users';
-import { RoleSwitcherModal } from '@/components/c3s/RoleSwitcherModal';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
 export default function AccessDeniedPage() {
   const navigate = useNavigate();
   const { currentRole, currentUser } = useC3SStore();
-  const [showRoleModal, setShowRoleModal] = useState(false);
   const roleMeta = ROLE_LABELS[currentRole];
 
   usePageMeta('403 — Clearance Level Insufficient', 'C3S Campus Security Restricted Sector.');
@@ -52,7 +50,7 @@ export default function AccessDeniedPage() {
       {/* Main 403 Body */}
       <main className="relative z-10 mx-auto max-w-xl px-4 py-12 w-full space-y-6 text-center">
         <div className="flex justify-center">
-          <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-rose-500/15 border-2 border-rose-500/30 text-rose-500 shadow-2xl shadow-rose-950/60">
+          <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-rose-500/15 border-2 border-rose-500/30 text-rose-500 shadow-2xl shadow-red-950/60">
             <Lock className="h-10 w-10 animate-pulse" />
           </div>
         </div>
@@ -91,13 +89,13 @@ export default function AccessDeniedPage() {
 
         {/* Action Buttons */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-          <button
-            onClick={() => setShowRoleModal(true)}
+          <Link
+            to="/login"
             className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 px-4 py-3 text-xs font-bold text-white shadow-lg shadow-blue-600/30 transition-all cursor-pointer"
           >
-            <Users className="h-4 w-4" />
-            <span>Switch Role Clearance</span>
-          </button>
+            <LogIn className="h-4 w-4" />
+            <span>Sign In with Authorized Account</span>
+          </Link>
 
           <button
             onClick={() => navigate(-1)}
@@ -121,9 +119,6 @@ export default function AccessDeniedPage() {
       <footer className="relative z-10 border-t border-white/[0.08] py-4 text-center text-[11px] text-slate-500 font-mono">
         C3S ACCESS CONTROL PROTOCOL • INSTITUTIONAL PERMISSION VERIFICATION
       </footer>
-
-      {/* Role Switcher Modal */}
-      <RoleSwitcherModal isOpen={showRoleModal} onClose={() => setShowRoleModal(false)} />
     </div>
   );
 }

@@ -29,7 +29,6 @@ import {
 import { useC3SStore } from '@/store/c3sStore';
 import { ROLE_DEFINITIONS, getRoleDefaultPath } from '@/lib/rbac';
 import { type C3SRole } from '@/lib/mock-data/users';
-import { RoleSwitcherModal } from '@/components/c3s/RoleSwitcherModal';
 import { SosModal } from '@/components/safety/SosModal';
 import { Navbar } from '@/components/ui';
 import Footer from '@/components/ui/footer/Footer';
@@ -41,7 +40,6 @@ import './landing.css';
 export default function LandingPage() {
   const navigate = useNavigate();
   const { currentRole, setRole } = useC3SStore();
-  const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
   const [selectedDirectoryTab, setSelectedDirectoryTab] = useState<'academic' | 'facilities' | 'services'>('academic');
 
   const primaryRoleCards: {
@@ -134,7 +132,6 @@ export default function LandingPage() {
   return (
     <div className="relative min-h-screen w-full bg-[#fcfaf6] dark:bg-[#050505] text-neutral-900 dark:text-white antialiased transition-colors selection:bg-[#ff602e] selection:text-white">
       {/* Modals */}
-      <RoleSwitcherModal isOpen={isRoleModalOpen} onClose={() => setIsRoleModalOpen(false)} />
       <SosModal />
 
       {/* Floating Modern Header */}
@@ -215,10 +212,10 @@ export default function LandingPage() {
 
             <button
               type="button"
-              onClick={() => setIsRoleModalOpen(true)}
+              onClick={() => navigate('/login')}
               className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-white/10 hover:border-neutral-400 text-sm font-semibold text-neutral-800 dark:text-neutral-200 transition-all shadow-sm cursor-pointer"
             >
-              <span>Institutional Roster</span>
+              <span>Institutional Sign In</span>
               <ChevronRight size={16} />
             </button>
           </div>
@@ -314,10 +311,10 @@ export default function LandingPage() {
 
               <button
                 type="button"
-                onClick={() => setIsRoleModalOpen(true)}
+                onClick={() => navigate('/login')}
                 className="mt-6 w-full flex items-center justify-center gap-2 rounded-xl border border-neutral-300 dark:border-white/15 text-neutral-900 dark:text-white hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-neutral-900 py-2.5 text-xs sm:text-sm font-bold transition-all cursor-pointer"
               >
-                <span>Switch Institutional View</span>
+                <span>Institutional Portal Access</span>
                 <ChevronRight size={15} />
               </button>
             </div>
