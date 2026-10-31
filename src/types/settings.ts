@@ -62,3 +62,4 @@ export const DEFAULT_SETTINGS: C3SSettings = {
   emergencyContactRelation: 'Parent / Guardian',
   dormitoryAddress: 'Hostel Block-B, Room 312'
 };
+
