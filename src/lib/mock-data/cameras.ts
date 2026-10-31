@@ -12,18 +12,24 @@ export interface C3SCamera {
   aiDetection: boolean;
   lastMotion: string;
   streamUrl: string;
+  youtubeEmbedUrl?: string;
+  videoUrl?: string;
+  fightDetected?: boolean;
+  fightConfidence?: number;
   thumbnailColor: string;
   crowdLabel?: string;
   crowdCount?: number;
   crowdDensity?: 'LOW' | 'MODERATE' | 'HIGH' | 'CRITICAL';
   confidence?: number;
   latencyMs?: number;
+  isLiveCameraSupported?: boolean;
 }
 
 export const MOCK_CAMERAS: C3SCamera[] = [
   {
     id: 'CAM-01',
-    name: 'Main Gate - Pedestrian Entry',
+    name: 'Main Gate - Inbound Turnstiles (Live Webcam & Optical AI)',
+    isLiveCameraSupported: true,
     zone: 'Main Gate',
     location: 'Gate 2 Inbound Turnstiles',
     status: 'ONLINE',
@@ -34,17 +40,20 @@ export const MOCK_CAMERAS: C3SCamera[] = [
     nightVision: true,
     aiDetection: true,
     lastMotion: 'Just now (Student check-in)',
-    streamUrl: '/cctv/sim-feed-01',
+    streamUrl: '/videos/cctv_recorded_incident.mp4',
+    videoUrl: '/videos/cctv_recorded_incident.mp4',
     thumbnailColor: 'from-blue-950 via-slate-900 to-indigo-950',
     crowdLabel: 'Main Gate',
     crowdCount: 4,
-    crowdDensity: 'LOW'
+    crowdDensity: 'LOW',
+    fightDetected: true,
+    fightConfidence: 91
   },
   {
     id: 'CAM-02',
-    name: 'Main Gate - Vehicle Boom Barrier',
+    name: 'Gate 2 Annex - Incident CCTV (Sample Feed)',
     zone: 'Main Gate',
-    location: 'Gate 2 Vehicle Lane',
+    location: 'Gate 2 Perimeter & Warehouse Annex',
     status: 'ONLINE',
     ip: '10.20.101.12',
     resolution: '4K UltraHD',
@@ -52,8 +61,14 @@ export const MOCK_CAMERAS: C3SCamera[] = [
     ptzCapable: true,
     nightVision: true,
     aiDetection: true,
-    lastMotion: '2 mins ago (Delivery van)',
+    lastMotion: 'Incident Review - Physical Altercation Footage',
     streamUrl: '/cctv/sim-feed-02',
+    youtubeEmbedUrl: 'https://www.youtube.com/embed/2vTqzQJkoPE',
+    crowdLabel: 'Gate 2 Annex',
+    crowdCount: 6,
+    crowdDensity: 'HIGH',
+    fightDetected: true,
+    fightConfidence: 96,
     thumbnailColor: 'from-slate-950 via-blue-950 to-slate-900'
   },
   {
@@ -74,19 +89,25 @@ export const MOCK_CAMERAS: C3SCamera[] = [
   },
   {
     id: 'CAM-04',
-    name: 'Academic Block A - Central Atrium',
+    name: 'Academic Block A - Central Corridor (Sample Feed)',
     zone: 'Academic Zone',
-    location: 'Block A Ground Floor Lobby',
+    location: 'Block A Ground Floor Corridor',
     status: 'ONLINE',
     ip: '10.20.103.21',
-    resolution: '1080p FHD',
+    resolution: '1080p FHD (Vertical CCTV)',
     fps: 30,
     ptzCapable: true,
     nightVision: false,
     aiDetection: true,
-    lastMotion: 'Active (Responder en route)',
+    lastMotion: 'Corridor Incident Review - Anti-Bullying Protocol',
     streamUrl: '/cctv/sim-feed-04',
-    thumbnailColor: 'from-blue-900 via-indigo-950 to-black'
+    youtubeEmbedUrl: 'https://www.youtube.com/embed/s4mqtnrJbdM',
+    thumbnailColor: 'from-blue-900 via-rose-950 to-black',
+    crowdLabel: 'Academic Block A Corridor',
+    crowdCount: 5,
+    crowdDensity: 'MODERATE',
+    fightDetected: true,
+    fightConfidence: 94
   },
   {
     id: 'CAM-05',
@@ -138,18 +159,22 @@ export const MOCK_CAMERAS: C3SCamera[] = [
   },
   {
     id: 'CAM-08',
-    name: 'Hostel Block 4 - South Perimeter',
-    zone: 'Residential Zone',
-    location: 'East Boundary Fence',
+    name: 'CAM-08 • Jubilee Gate Checkpoint (Live Hardware Webcam & Fight AI)',
+    zone: 'Jubilee Gate',
+    location: 'Jubilee Gate Inner Checkpost & Hostel Axis',
     status: 'ONLINE',
-    ip: '10.20.106.04',
-    resolution: '1080p FHD',
+    ip: '10.20.106.08',
+    resolution: '1080p FHD Live Optical Feed',
     fps: 30,
     ptzCapable: true,
     nightVision: true,
     aiDetection: true,
-    lastMotion: 'Patrol Guard pass at 20:10',
+    isLiveCameraSupported: true,
+    lastMotion: 'Live Hardware Optical Stream Active',
     streamUrl: '/cctv/sim-feed-08',
-    thumbnailColor: 'from-neutral-900 via-slate-950 to-zinc-900'
+    thumbnailColor: 'from-blue-950 via-slate-900 to-indigo-950',
+    crowdLabel: 'Jubilee Gate',
+    crowdCount: 1,
+    crowdDensity: 'LOW'
   }
 ];

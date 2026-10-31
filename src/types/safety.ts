@@ -10,6 +10,8 @@ export interface IncidentEvidence {
   recordedDurationSeconds?: number;
   photoUrl?: string;
   videoUrl?: string;
+  fightDetected?: boolean;
+  fightConfidence?: number;
   aiClassification?: {
     category: IncidentCategory;
     severity: IncidentSeverity;
@@ -75,6 +77,7 @@ export interface SafetyAmenity {
 export type CrowdDensity = 'low' | 'moderate' | 'high' | 'critical';
 
 export interface CctvCamera {
+  isLiveCameraSupported?: boolean;
   id: string;
   name: string;
   location: string;
@@ -98,6 +101,10 @@ export interface CctvCamera {
   confidence?: number;
   latencyMs?: number;
   streamUrl?: string;
+  youtubeEmbedUrl?: string;
+  videoUrl?: string;
+  fightDetected?: boolean;
+  fightConfidence?: number;
 }
 
 export interface PatrolUnit {

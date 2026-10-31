@@ -24,6 +24,8 @@ import {
 import { Link } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
 import { useSafetyStore } from '@/store/safetyStore';
+import { CampusOsmMap } from '@/components/map/CampusOsmMap';
+import { gpsToSvg, isWithinCampusBounds } from '@/lib/geoProjection';
 
 interface CampusMapProps {
   height?: string;
@@ -59,7 +61,7 @@ export const CampusMap: React.FC<CampusMapProps> = ({
   highlightLocation,
   onSelectZone
 }) => {
-  const { isInsideCampus, isLocationActive, responders } = useC3SStore();
+  const { isInsideCampus, isLocationActive, responders, latitude, longitude, requestGpsPermission } = useC3SStore();
   const cctvCameras = useSafetyStore((s) => s.cctvCameras);
   const incidents = useSafetyStore((s) => s.incidents);
   const setSosModalOpen = useSafetyStore((s) => s.setSosModalOpen);
@@ -67,6 +69,7 @@ export const CampusMap: React.FC<CampusMapProps> = ({
 
   // Map state
   const [activeMapId, setActiveMapId] = useState<'Campus_Map' | 'Main_GF' | 'AI_GF'>('Campus_Map');
+  const [viewMode, setViewMode] = useState<'svg' | 'osm'>('svg');
   const [svgContent, setSvgContent] = useState<string>('');
   const [isLoadingSvg, setIsLoadingSvg] = useState<boolean>(true);
 
@@ -74,6 +77,7 @@ export const CampusMap: React.FC<CampusMapProps> = ({
   const [showCameras, setShowCameras] = useState<boolean>(true);
   const [showResponders, setShowResponders] = useState<boolean>(true);
   const [showIncidents, setShowIncidents] = useState<boolean>(true);
+  const [showWalkways, setShowWalkways] = useState<boolean>(true);
   const [selectedEntity, setSelectedEntity] = useState<string | null>(null);
 
   // Pan & Zoom Camera state
@@ -119,6 +123,9 @@ export const CampusMap: React.FC<CampusMapProps> = ({
 
   // 2. Auto-Zoom & Auto-Follow: Keep camera smoothly centered on user location
   const centerOnUserLocation = useCallback((targetZoom = 2.1) => {
+    if (!isLocationActive && requestGpsPermission) {
+      requestGpsPermission();
+    }
     const el = containerRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -172,6 +179,36 @@ export const CampusMap: React.FC<CampusMapProps> = ({
       y: centerViewportY - userPixelY * zoom,
     });
   }, [userPos, zoom, isAutoTracking]);
+
+  // Sync real device GPS coordinates into CampusMap SVG coordinates
+  useEffect(() => {
+    if (isSimulatingWalk) return;
+    if (latitude && longitude && isLocationActive) {
+      const inside = isWithinCampusBounds({ lat: latitude, lon: longitude });
+      if (inside) {
+        const svg = gpsToSvg({ lat: latitude, lon: longitude });
+        setUserPos({
+          x: Math.max(30, Math.min(1060, svg.x)),
+          y: Math.max(30, Math.min(640, svg.y)),
+        });
+      } else {
+        // Outside campus boundary: snap to Main Gate (Gate 1)
+        setUserPos({ x: 253, y: 606 });
+      }
+    }
+  }, [latitude, longitude, isLocationActive, isSimulatingWalk]);
+
+  // Real Device Compass Heading
+  useEffect(() => {
+    const handleOrientation = (e: DeviceOrientationEvent) => {
+      const h = (e as any).webkitCompassHeading ?? (360 - (e.alpha ?? 0));
+      if (h != null && !isNaN(h)) {
+        setHeading(Math.round(h));
+      }
+    };
+    window.addEventListener('deviceorientation', handleOrientation);
+    return () => window.removeEventListener('deviceorientation', handleOrientation);
+  }, []);
 
   // 3. Movement Simulation Engine (Walking patrol along realistic campus nodes)
   useEffect(() => {
@@ -257,7 +294,7 @@ export const CampusMap: React.FC<CampusMapProps> = ({
   const cameraNodes = useMemo(() => [
     { id: 'CAM-01', name: 'Main Gate 01 Turnstiles', x: 253, y: 590, status: 'ONLINE' },
     { id: 'CAM-02', name: 'South Boulevard Vehicle Lane', x: 330, y: 530, status: 'ONLINE' },
-    { id: 'CAM-03', name: 'West Lawn & Sports Arena', x: 150, y: 220, status: 'ONLINE' },
+    { id: 'CAM-03', name: 'West Lawn & Open Gym', x: 150, y: 220, status: 'ONLINE' },
     { id: 'CAM-04', name: 'Main Academic South Foyer', x: 420, y: 450, status: 'ONLINE' },
     { id: 'CAM-05', name: 'Central Atrium Open Courtyard', x: 510, y: 365, status: 'ONLINE' },
     { id: 'CAM-06', name: 'Central Library & Plaza', x: 510, y: 280, status: 'ONLINE' },
@@ -273,6 +310,37 @@ export const CampusMap: React.FC<CampusMapProps> = ({
     { id: 'G-3', callsign: 'Guard 03 (East Post)', x: 740, y: 310, role: 'Hostel Gate Post' },
     { id: 'G-4', callsign: 'Guard 04 (Main Gate)', x: 265, y: 615, role: 'Entry Control' },
   ], []);
+
+  if (viewMode === 'osm') {
+    return (
+      <div className="relative w-full space-y-2">
+        <div className="flex items-center justify-between px-1">
+          <div className="flex items-center gap-1.5 bg-slate-900/90 rounded-xl border border-slate-800 p-1 shadow-sm">
+            <button
+              type="button"
+              onClick={() => setViewMode('svg')}
+              className="px-2.5 py-1 rounded-lg text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 transition-all cursor-pointer"
+            >
+              ← Vector SVG Map
+            </button>
+            <span className="text-slate-600">|</span>
+            <span className="px-2 py-0.5 rounded-lg text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20">
+              🌐 OpenStreetMap Synced
+            </span>
+          </div>
+        </div>
+        <CampusOsmMap
+          height={height}
+          showControls={showControls}
+          highlightLocation={highlightLocation}
+          onSelectZone={onSelectZone}
+          userPos={userPos}
+          heading={heading}
+          isSimulatingWalk={isSimulatingWalk}
+        />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -297,7 +365,7 @@ export const CampusMap: React.FC<CampusMapProps> = ({
       <div className="absolute top-3 left-3 z-30 flex flex-wrap items-center gap-1.5 pointer-events-auto">
         <div className="flex items-center gap-2 rounded-xl border border-slate-200/90 bg-white/95 px-3 py-1.5 backdrop-blur-md shadow-sm">
           <Compass className="h-3.5 w-3.5 text-blue-600 animate-spin" style={{ animationDuration: '24s' }} />
-          <span className="text-xs font-black tracking-wide text-slate-800 uppercase">UniMap Live</span>
+          <span className="text-xs font-black tracking-wide text-slate-800 uppercase">C3S Live Map</span>
           <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-black text-emerald-700 border border-emerald-200">
             LIGHT THEME
           </span>
@@ -337,6 +405,18 @@ export const CampusMap: React.FC<CampusMapProps> = ({
             }`}
           >
             💻 AI GF
+          </button>
+          <div className="w-[1px] h-4 bg-slate-200 mx-0.5" />
+          <button
+            type="button"
+            onClick={() => setViewMode('osm')}
+            className="px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 text-emerald-700 hover:text-emerald-900 hover:bg-emerald-50 border border-emerald-200/60 bg-emerald-50/50"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span>OSM Sync</span>
           </button>
         </div>
 
@@ -392,6 +472,15 @@ export const CampusMap: React.FC<CampusMapProps> = ({
               }`}
             >
               <Camera className="h-3 w-3" /> CCTV
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowWalkways(!showWalkways)}
+              className={`flex items-center gap-1 rounded-lg px-2 py-1 text-[11px] font-bold transition-colors cursor-pointer ${
+                showWalkways ? 'bg-cyan-50 text-cyan-700 border border-cyan-200' : 'text-slate-500 hover:text-slate-700'
+              }`}
+            >
+              <Footprints className="h-3 w-3" /> Galis & Rasta
             </button>
           </div>
         </div>
@@ -532,6 +621,29 @@ export const CampusMap: React.FC<CampusMapProps> = ({
               <stop offset="100%" stopColor="#0284c7" stopOpacity="0" />
             </radialGradient>
           </defs>
+
+          {/* Walkways, Galis and Internal Rasta Waypoint Track */}
+          {showWalkways && (
+            <g className="walkways-track">
+              <polyline
+                points={CAMPUS_WALK_WAYPOINTS.map((w) => `${w.x},${w.y}`).join(' ')}
+                stroke="#0284c7"
+                strokeWidth="2.5"
+                strokeDasharray="6 4"
+                fill="none"
+                opacity="0.45"
+              />
+              {CAMPUS_WALK_WAYPOINTS.map((w, idx) => (
+                <g
+                  key={`waypoint_${idx}`}
+                  className="cursor-pointer pointer-events-auto"
+                  onClick={() => setSelectedEntity(`Waypoint: ${w.name} (${w.sector})`)}
+                >
+                  <circle cx={w.x} cy={w.y} r="4" fill="#0284c7" stroke="#ffffff" strokeWidth="1.5" />
+                </g>
+              ))}
+            </g>
+          )}
 
           {/* Real CCTV Camera Nodes */}
           {showCameras &&

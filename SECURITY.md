@@ -11,14 +11,14 @@
 
 ## Secret & API Key Management Guidelines
 
-UniMap requires environment variables to connect to database services and external tools. Follow these strict security rules when contributing:
+C3S requires environment variables to connect to database services and external tools. Follow these strict security rules when contributing:
 
 1. **Never Commit Secrets**:
    - Never commit `.env`, connection strings, or credentials to public or private version control.
    - Verify that your secrets exist only in your local `.env` file, which is ignored by `.gitignore`.
 
 2. **MongoDB Connection Security**:
-   - The `MONGO_URL` environment variable should use a restricted database user with read/write access scoped only to the `UniMap` database.
+   - The `MONGO_URL` environment variable should use a restricted database user with read/write access scoped only to the `C3S` database.
    - Avoid using cluster admin accounts for application connections.
 
 3. **Client-Side API Base URLs**:
@@ -29,7 +29,7 @@ UniMap requires environment variables to connect to database services and extern
 
 ## Reporting a Vulnerability
 
-If you discover a potential security vulnerability within UniMap:
+If you discover a potential security vulnerability within C3S:
 
 1. **Do NOT open a public GitHub issue**.
 2. Email details of the vulnerability privately to the project maintainers.

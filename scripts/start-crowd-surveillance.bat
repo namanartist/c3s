@@ -1,6 +1,6 @@
 @echo off
 echo ==========================================================
-echo    UniMap ^<--^> Crowd Monitoring Service Launcher
+echo    C3S ^<--^> Crowd Monitoring Service Launcher
 echo ==========================================================
 set CROWD_DIR=C:\Users\naman\Crowd_monitoring
 set PYTHON_EXE=%CROWD_DIR%\.venv\Scripts\python.exe

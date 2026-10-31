@@ -198,7 +198,7 @@ export async function estimateCrowdCount(params: {
 }
 
 /**
- * React hook that connects UniMap to C:\Users\naman\Crowd_monitoring
+ * React hook that connects C3S to C:\Users\naman\Crowd_monitoring
  * Polling and syncing crowd counts with the global safety and C3S stores.
  */
 export function useCrowdMonitoring(pollIntervalMs = 4000) {

@@ -1,6 +1,6 @@
-# UniMap — Smart Campus Mapping & Navigation
+# C3S — Smart Campus Mapping & Navigation
 
-UniMap is a high-performance, interactive multi-floor campus navigation and spatial pathfinding web application with a Phase 1 Campus Safety and Surveillance backend. Designed for complex multi-building environments, UniMap features non-blocking graph pathfinding, interactive SVG floor maps, turn-by-turn navigation instructions, offline-first SOS queueing, and role-based incident response.
+C3S is a high-performance, interactive multi-floor campus navigation and spatial pathfinding web application with a Phase 1 Campus Safety and Surveillance backend. Designed for complex multi-building environments, C3S features non-blocking graph pathfinding, interactive SVG floor maps, turn-by-turn navigation instructions, offline-first SOS queueing, and role-based incident response.
 
 ---
 
@@ -49,8 +49,8 @@ See [backend/README.md](backend/README.md) for JWT login, REST endpoints, WebSoc
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/dotrwt/UniMap-V2.git
-   cd UniMap-V2
+   git clone https://github.com/mits-gwalior/C3S.git
+   cd C3S-V2
    ```
 
 2. **Install dependencies**:
@@ -67,7 +67,7 @@ See [backend/README.md](backend/README.md) for JWT login, REST endpoints, WebSoc
    ```
 
    ```env
-   MONGO_URL=mongodb://localhost:27017/UniMap
+   MONGO_URL=mongodb://localhost:27017/C3S
    VITE_API_BASE_URL=http://localhost:3000
    ```
 
@@ -75,10 +75,10 @@ See [backend/README.md](backend/README.md) for JWT login, REST endpoints, WebSoc
    Contributors can populate their local MongoDB instance using the JSON datasets provided in `init-data/`:
 
    ```bash
-   mongoimport --uri="mongodb://localhost:27017/UniMap" --collection=buildings --file=init-data/buildings.json --jsonArray
-   mongoimport --uri="mongodb://localhost:27017/UniMap" --collection=floors --file=init-data/floors.json --jsonArray
-   mongoimport --uri="mongodb://localhost:27017/UniMap" --collection=nodes --file=init-data/nodes.json --jsonArray
-   mongoimport --uri="mongodb://localhost:27017/UniMap" --collection=edges --file=init-data/edges.json --jsonArray
+   mongoimport --uri="mongodb://localhost:27017/C3S" --collection=buildings --file=init-data/buildings.json --jsonArray
+   mongoimport --uri="mongodb://localhost:27017/C3S" --collection=floors --file=init-data/floors.json --jsonArray
+   mongoimport --uri="mongodb://localhost:27017/C3S" --collection=nodes --file=init-data/nodes.json --jsonArray
+   mongoimport --uri="mongodb://localhost:27017/C3S" --collection=edges --file=init-data/edges.json --jsonArray
    ```
 
    *For detailed instructions, see [init-data/README.md](init-data/README.md).*
@@ -118,7 +118,7 @@ See [backend/README.md](backend/README.md) for JWT login, REST endpoints, WebSoc
 ## Project Structure
 
 ```text
-UniMap-V2/
+C3S-V2/
 ├── api/                   # Vercel Serverless API functions (nodes, edges, buildings, floors)
 ├── dev-api-server.js      # Local Express/HTTP API server for development
 ├── docs/                  # Architecture, Navigation, Mapping & Data Structure docs
@@ -149,7 +149,7 @@ Contributions from developers, designers, and campus mappers are welcome. Please
 - [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines, branching rules, and PR workflows.
 - [Map Designer Guide](docs/map-design-guide.md) for visual architecture, SVG floor plan guidelines, and map aesthetic standards.
 - [AGENTS.md](AGENTS.md) for guidelines aimed at AI coding agents working on the codebase.
-- [SKILLS.md](SKILLS.md) to explore the technical domain skills required across UniMap modules.
+- [SKILLS.md](SKILLS.md) to explore the technical domain skills required across C3S modules.
 - [Documentation](docs/architecture.md) for deep dives into navigation algorithms and data schemas.
 
 ---

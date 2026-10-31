@@ -1,5 +1,5 @@
 // src/components/ui/MapBox.tsx
-import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { ZoomIn, ZoomOut, RotateCcw, Building2, ChevronUp } from 'lucide-react';
 import { useSpring, animated, to } from '@react-spring/web';
@@ -8,6 +8,8 @@ import type { FloorMap, Building } from '@/types';
 import MainCover from '@/assets/Main_Cover.webp';
 import AICover from '@/assets/AI_Cover.webp';
 import { useCampusNavigation } from '@/hooks/useCampusNavigation';
+
+const CampusGpsMap = lazy(() => import('@/components/map/CampusGpsMap'));
 
 interface Point {
   x: number;
@@ -92,6 +94,8 @@ export default function MapBox({
     isSimulating,
     simulatedNodeId,
     nodesMap,
+    nodes,
+    edges,
     compassHeading,
   } = useCampusNavigation();
 
@@ -287,6 +291,7 @@ export default function MapBox({
     },
     {
       target: containerRef,
+      enabled: mapId !== 'Campus_Map',
       eventOptions: { passive: false },
       drag: {
         from: () => [x.get(), y.get()],
@@ -491,7 +496,20 @@ export default function MapBox({
         ref={containerRef}
         className="relative w-full h-full bg-[#fcfaf6] overflow-hidden"
       >
-        {showFloorPlan && mapSrc ? (
+        {showFloorPlan && mapSrc && mapId === 'Campus_Map' ? (
+          <Suspense fallback={<div className="absolute inset-0 flex items-center justify-center bg-slate-900 text-xs font-semibold text-slate-300">Loading GPS map…</div>}>
+            <CampusGpsMap
+              nodes={nodes}
+              edges={edges}
+              destination={destination}
+              currentLocation={currentLocation}
+              simulatedNodeId={simulatedNodeId}
+              isNavigating={isNavigating}
+              pathPoints={pathPoints}
+              autoFitNonce={autoFitNonce}
+            />
+          </Suspense>
+        ) : showFloorPlan && mapSrc ? (
           <animated.div
             className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing touch-none z-0"
             style={{
@@ -760,7 +778,7 @@ export default function MapBox({
         )}
 
         {/* Floating Map Controls overlay */}
-        {mapId && (
+        {mapId && mapId !== 'Campus_Map' && (
           <div className="absolute left-4 top-[40%] -translate-y-1/2 z-20 flex flex-col items-start gap-3 md:bottom-6 md:right-6 md:top-auto md:translate-y-0 md:left-auto md:flex-row md:items-end pointer-events-none select-none">
             {/* Building & Floor Selector */}
             <div className="flex flex-col items-center bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-black/[0.04] p-1.5 gap-1.5 pointer-events-auto relative md:flex-row">

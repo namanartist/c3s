@@ -1,3 +1,21 @@
+export interface SosNotifiedEntities {
+  guard: { name: string; callsign: string; distance: string; status: string; radio: string };
+  faculty: { name: string; department: string; distance: string; status: string; cabin: string };
+  proctor: { name: string; office: string; status: string; channel: string };
+}
+
+export interface SosPayload {
+  nodeId?: string;
+  location?: string;
+  photoUrl?: string;
+  videoUrl?: string;
+  lat?: number;
+  lng?: number;
+  map?: string;
+  floor?: number;
+  notifiedEntities?: SosNotifiedEntities;
+}
+
 import { create } from 'zustand';
 import { MOCK_USERS, type C3SRole, type C3SUser } from '@/lib/mock-data/users';
 import { MOCK_GATES, type C3SGate } from '@/lib/mock-data/gates';
@@ -43,7 +61,13 @@ export interface C3SStoreState {
   sosAssignedResponder: string;
   sosDistanceMeters: number;
   sosLocation: string;
-  triggerSos: () => void;
+  sosNodeId?: string;
+  sosPhotoUrl?: string;
+  sosVideoUrl?: string;
+  sosLat?: number;
+  sosLng?: number;
+  sosNotifiedEntities?: SosNotifiedEntities;
+  triggerSos: (payload?: SosPayload) => void;
   cancelSos: () => void;
   advanceSosStatus: () => void;
   setSosStatus: (status: IncidentStatus) => void;
@@ -81,6 +105,7 @@ export interface C3SStoreState {
 }
 
 const STORAGE_KEY = 'c3s_security_state_v1';
+let c3sWatchId: number | null = null;
 
 export const useC3SStore = create<C3SStoreState>((set, get) => {
   // Try to load initial persisted state if available
@@ -221,16 +246,63 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
     lastLocationUpdate: 'Just now',
 
     requestGpsPermission: () => {
-      const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      set({
-        gpsPermission: 'granted',
-        isLocationActive: true,
-        lastLocationUpdate: now
-      });
+      if (typeof navigator === 'undefined' || !navigator.geolocation) {
+        set({ gpsPermission: 'denied', isLocationActive: false });
+        return;
+      }
+
+      const updatePos = (pos: GeolocationPosition) => {
+        const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        set({
+          gpsPermission: 'granted',
+          isLocationActive: true,
+          latitude: Number(pos.coords.latitude.toFixed(6)),
+          longitude: Number(pos.coords.longitude.toFixed(6)),
+          gpsAccuracy: Math.round(pos.coords.accuracy ?? 5),
+          lastLocationUpdate: now
+        });
+      };
+
+      navigator.geolocation.getCurrentPosition(
+        updatePos,
+        (err) => {
+          if (err.code === 1) {
+            set({ gpsPermission: 'denied', isLocationActive: false });
+          } else {
+            // Fallback to low accuracy
+            navigator.geolocation.getCurrentPosition(
+              updatePos,
+              () => {
+                set({ isLocationActive: true, lastLocationUpdate: 'Default Gate' });
+              },
+              { enableHighAccuracy: false, timeout: 8000 }
+            );
+          }
+        },
+        { enableHighAccuracy: true, timeout: 5000 }
+      );
+
+      if (c3sWatchId !== null) {
+        navigator.geolocation.clearWatch(c3sWatchId);
+      }
+      c3sWatchId = navigator.geolocation.watchPosition(
+        updatePos,
+        (err) => console.warn('C3S location watch error:', err.message),
+        { enableHighAccuracy: false, maximumAge: 10000, timeout: 15000 }
+      );
     },
 
     toggleLocation: () => {
-      set((state) => ({ isLocationActive: !state.isLocationActive }));
+      const current = get().isLocationActive;
+      if (current) {
+        if (c3sWatchId !== null) {
+          navigator.geolocation.clearWatch(c3sWatchId);
+          c3sWatchId = null;
+        }
+        set({ isLocationActive: false });
+      } else {
+        get().requestGpsPermission();
+      }
     },
 
     // SOS State Machine
@@ -241,23 +313,114 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
     sosAssignedResponder: 'Guard 02 (Vikram Rathore)',
     sosDistanceMeters: 320,
     sosLocation: 'Academic Block A, 2nd Floor',
+    sosNodeId: undefined,
+    sosPhotoUrl: undefined,
+    sosVideoUrl: undefined,
+    sosLat: 26.230752,
+    sosLng: 78.205341,
+    sosNotifiedEntities: undefined,
 
-    triggerSos: () => {
-      const incidentId = 'C3S-INC-00192';
+    triggerSos: (payload?: SosPayload) => {
+      const incidentId = `C3S-SOS-${Math.floor(1000 + Math.random() * 9000)}`;
       const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const nodeId = payload?.nodeId || 'MainRoad09';
+      const location = payload?.location || 'Academic Block A Entrance Corridor';
+      const guardInfo = payload?.notifiedEntities?.guard || {
+        name: 'Guard Vikram Rathore',
+        callsign: 'Guard 02',
+        distance: '85m',
+        status: 'DISPATCHED',
+        radio: 'VHF CH-4'
+      };
+      const facultyInfo = payload?.notifiedEntities?.faculty || {
+        name: 'Dr. A. K. Verma',
+        department: 'Dept. of CSE',
+        distance: '35m',
+        status: 'ALERTED',
+        cabin: 'Cabin 204, Floor 1'
+      };
+      const proctorInfo = payload?.notifiedEntities?.proctor || {
+        name: 'Prof. S. K. Jain',
+        office: 'Chief Proctor Office & Emergency SOC',
+        status: 'MONITORING LIVE FEED',
+        channel: 'VHF CH-0'
+      };
+
+      const newIncident: C3SIncident = {
+        id: incidentId,
+        title: `🚨 EMERGENCY SOS: Student Distress at Node #${nodeId}`,
+        type: 'Security Threat',
+        location: `${location} [Node: ${nodeId}]`,
+        zone: 'Academic Core Sector',
+        reportedAt: now,
+        reportedBy: 'Student Distress Signal (2s Hold)',
+        reportedById: 'STU-DISTRESS-HOLD',
+        reporterPhone: '+91 98765 01920',
+        status: 'ALERT SENT',
+        priority: 'CRITICAL',
+        distanceMeters: parseInt(guardInfo.distance) || 85,
+        assignedResponder: `${guardInfo.callsign} (${guardInfo.name}) & ${facultyInfo.name}`,
+        latitude: payload?.lat || 26.230752,
+        longitude: payload?.lng || 78.205341,
+        timeline: [
+          { time: now, event: `1-Step 2s Hold SOS initiated by student at Node #${nodeId}. Video & photo evidence captured.`, actor: 'System Dispatch' },
+          { time: now, event: `Dispatched Nearest Guard ${guardInfo.name} (${guardInfo.distance}) & Alerted Faculty Warden ${facultyInfo.name} (${facultyInfo.distance}).`, actor: 'Emergency AI Router' },
+          { time: now, event: `Incident telemetry and live camera evidence dispatched to Chief Proctor ${proctorInfo.name}.`, actor: 'Proctorial Mesh' }
+        ],
+        notes: [
+          `Node Location: ${nodeId} - ${location}`,
+          `Evidence: Photo snapshot & video clip attached`,
+          `Notified: Guard (${guardInfo.name} - ${guardInfo.distance}), Faculty (${facultyInfo.name} - ${facultyInfo.distance}), Proctor (${proctorInfo.name})`
+        ]
+      };
+
       set({
         sosActive: true,
         sosIncidentId: incidentId,
         sosStatus: 'ALERT SENT',
         sosRespondersNotified: 3,
-        sosAssignedResponder: 'Guard 02 (Vikram Rathore)',
-        sosDistanceMeters: 320,
+        sosAssignedResponder: `${guardInfo.callsign} (${guardInfo.name}) & ${facultyInfo.name}`,
+        sosDistanceMeters: parseInt(guardInfo.distance) || 85,
+        sosLocation: `${location} [Node: ${nodeId}]`,
+        sosNodeId: nodeId,
+        sosPhotoUrl: payload?.photoUrl,
+        sosVideoUrl: payload?.videoUrl,
+        sosLat: payload?.lat || 26.230752,
+        sosLng: payload?.lng || 78.205341,
+        sosNotifiedEntities: {
+          guard: guardInfo,
+          faculty: facultyInfo,
+          proctor: proctorInfo
+        },
+        incidents: [newIncident, ...get().incidents],
         notifications: [
           {
-            id: `notif-sos-${Date.now()}`,
+            id: `notif-sos-guard-${Date.now()}`,
             category: 'Emergency',
-            title: '🚨 EMERGENCY SOS ACTIVE',
-            message: `SOS Incident ${incidentId} opened at Academic Block A. 3 responders alerted.`,
+            title: '🚨 [GUARD DISPATCH] Nearest Security Alerted',
+            message: `${guardInfo.callsign} (${guardInfo.name}) dispatched to Node #${nodeId} (${location}). Distance: ${guardInfo.distance}. ETA: < 1 min.`,
+            time: now,
+            date: 'Today',
+            priority: 'CRITICAL',
+            read: false,
+            link: '/student/sos'
+          },
+          {
+            id: `notif-sos-faculty-${Date.now() + 1}`,
+            category: 'Emergency',
+            title: '🎓 [FACULTY ALERT] Nearest Faculty Warden Notified',
+            message: `Faculty Warden ${facultyInfo.name} (${facultyInfo.department}, ${facultyInfo.cabin}) alerted. Distance: ${facultyInfo.distance} to Node #${nodeId}.`,
+            time: now,
+            date: 'Today',
+            priority: 'CRITICAL',
+            read: false,
+            link: '/student/sos'
+          },
+          {
+            id: `notif-sos-proctor-${Date.now() + 2}`,
+            category: 'Emergency',
+            title: '⚖️ [PROCTORIAL BOARD] Chief Proctor Notified',
+            message: `Chief Proctor ${proctorInfo.name} & Central Emergency SOC engaged. Node #${nodeId} live telemetry, video & photo broadcast active.`,
             time: now,
             date: 'Today',
             priority: 'CRITICAL',
@@ -270,7 +433,13 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
     },
 
     cancelSos: () => {
-      set({ sosActive: false, sosIncidentId: null, sosStatus: 'RESOLVED' });
+      set({
+        sosActive: false,
+        sosIncidentId: null,
+        sosStatus: 'RESOLVED',
+        sosPhotoUrl: undefined,
+        sosVideoUrl: undefined
+      });
     },
 
     advanceSosStatus: () => {

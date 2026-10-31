@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://unimap.dotrwt.in/sitemap.xml
+Sitemap: /sitemap.xml
 
 # Block AI training bots
 User-agent: GPTBot

@@ -2,7 +2,7 @@
 import type { MapNode } from '@/types';
 
 /**
- * Georeferencing and Coordinate Projection Engine for UniMap
+ * Georeferencing and Coordinate Projection Engine for C3S
  * 
  * Synchronizes real-world WGS84 GPS coordinates (latitude, longitude)
  * with the MITS campus SVG vector map coordinates (x, y).
@@ -101,6 +101,98 @@ export function svgToGps(svg: SvgPoint): GeoPoint {
 
 const TO_RAD = Math.PI / 180;
 
+// Multi-floor affine transformations to Campus Map SVG canvas
+const gfToCampus = {
+  X: [0.9907877085943264, -0.158691572146277, 53.87954672277097],
+  Y: [0.00007081019858534013, 0.8483058951259533, 70.29782674887429],
+};
+
+const ffToGF = {
+  X: [0.9152175152970835, -0.014621067142837148, 105.49871843122277],
+  Y: [-0.008315712372633828, 0.9952873054065864, 24.098547956566012],
+};
+
+const sfScaleX = (673.8134 - 394.4221) / (707.2826 - 28.0434);
+const sfOffsetX = 394.4221 - 28.0434 * sfScaleX;
+const sfOffsetY = 247.1474 - 130.5021;
+
+const aiGfScaleX = (522.8321 - 331.9180) / (753.2538 - 142.4783);
+const aiGfScaleY = (243.9043 - 159.0089) / (361.7772 - 220.2832);
+
+/**
+ * Computes exact OpenStreetMap WGS84 GPS coordinates (latitude, longitude)
+ * for any campus node across any floor using calibrated ground control transformations.
+ */
+export function computeNodeGps(node: MapNode): { lat: number; lng: number } {
+  // Pinned ground-truth gates
+  if (node.id === 'Main_Gate') {
+    return { lat: CAMPUS_CALIBRATION_POINTS.mainGate.geo.lat, lng: CAMPUS_CALIBRATION_POINTS.mainGate.geo.lon };
+  }
+  if (node.id === 'New_Gate_Parking') {
+    return { lat: CAMPUS_CALIBRATION_POINTS.newGateParking.geo.lat, lng: CAMPUS_CALIBRATION_POINTS.newGateParking.geo.lon };
+  }
+  if (node.id === 'Workshop_Gate') {
+    return { lat: CAMPUS_CALIBRATION_POINTS.workshopGate.geo.lat, lng: CAMPUS_CALIBRATION_POINTS.workshopGate.geo.lon };
+  }
+  if (node.id === 'Jubilee_Gate') {
+    return { lat: CAMPUS_CALIBRATION_POINTS.jubileeGate.geo.lat, lng: CAMPUS_CALIBRATION_POINTS.jubileeGate.geo.lon };
+  }
+
+  let cx = node.x;
+  let cy = node.y;
+
+  if (node.map === 'Campus_Map') {
+    const geo = svgToGps({ x: cx, y: cy });
+    return { lat: geo.lat, lng: geo.lon };
+  }
+
+  if (node.map === 'Main_GF') {
+    cx = gfToCampus.X[0] * node.x + gfToCampus.X[1] * node.y + gfToCampus.X[2];
+    cy = gfToCampus.Y[0] * node.x + gfToCampus.Y[1] * node.y + gfToCampus.Y[2];
+    const geo = svgToGps({ x: cx, y: cy });
+    return { lat: geo.lat, lng: geo.lon };
+  }
+
+  if (node.map === 'Main_FF') {
+    const gfx = ffToGF.X[0] * node.x + ffToGF.X[1] * node.y + ffToGF.X[2];
+    const gfy = ffToGF.Y[0] * node.x + ffToGF.Y[1] * node.y + ffToGF.Y[2];
+    cx = gfToCampus.X[0] * gfx + gfToCampus.X[1] * gfy + gfToCampus.X[2];
+    cy = gfToCampus.Y[0] * gfx + gfToCampus.Y[1] * gfy + gfToCampus.Y[2];
+    const geo = svgToGps({ x: cx, y: cy });
+    return { lat: geo.lat, lng: geo.lon };
+  }
+
+  if (node.map === 'Main_SF') {
+    const ffx = sfOffsetX + node.x * sfScaleX;
+    const ffy = sfOffsetY + node.y;
+    const gfx = ffToGF.X[0] * ffx + ffToGF.X[1] * ffy + ffToGF.X[2];
+    const gfy = ffToGF.Y[0] * ffx + ffToGF.Y[1] * ffy + ffToGF.Y[2];
+    cx = gfToCampus.X[0] * gfx + gfToCampus.X[1] * gfy + gfToCampus.X[2];
+    cy = gfToCampus.Y[0] * gfx + gfToCampus.Y[1] * gfy + gfToCampus.Y[2];
+    const geo = svgToGps({ x: cx, y: cy });
+    return { lat: geo.lat, lng: geo.lon };
+  }
+
+  if (node.map === 'AI_GF') {
+    cx = 331.9180 + (node.x - 142.4783) * aiGfScaleX;
+    cy = 159.0089 + (361.7772 - node.y) * aiGfScaleY;
+    const geo = svgToGps({ x: cx, y: cy });
+    return { lat: geo.lat, lng: geo.lon };
+  }
+
+  if (node.map === 'AI_FF' || node.map === 'AI_SF' || node.map === 'AI_TF') {
+    const gfx = node.x + 93.7;
+    const gfy = node.y + 168.1;
+    cx = 331.9180 + (gfx - 142.4783) * aiGfScaleX;
+    cy = 159.0089 + (361.7772 - gfy) * aiGfScaleY;
+    const geo = svgToGps({ x: cx, y: cy });
+    return { lat: geo.lat, lng: geo.lon };
+  }
+
+  const geo = svgToGps({ x: cx, y: cy });
+  return { lat: geo.lat, lng: geo.lon };
+}
+
 /**
  * Returns the resolved { lat, lng } for any map node.
  */
@@ -108,8 +200,7 @@ export function getNodeGps(node: MapNode): { lat: number; lng: number } {
   if (node.lat != null && node.lng != null) {
     return { lat: node.lat, lng: node.lng };
   }
-  const geo = svgToGps({ x: node.x, y: node.y });
-  return { lat: geo.lat, lng: geo.lon };
+  return computeNodeGps(node);
 }
 
 /**
@@ -152,6 +243,57 @@ export function haversineDistanceMeters(p1: GeoPoint, p2: GeoPoint): number {
 }
 
 /**
+ * Known Building Geographic Boundaries for MITS Campus Indoor Geofencing.
+ */
+export interface CampusBuildingBounds {
+  id: string;
+  name: string;
+  defaultMap: string;
+  minLat: number;
+  maxLat: number;
+  minLng: number;
+  maxLng: number;
+}
+
+export const CAMPUS_BUILDING_BOUNDS: CampusBuildingBounds[] = [
+  {
+    id: 'main',
+    name: 'Main Academic Building',
+    defaultMap: 'Main_FF', // First Floor with Classroom 101 (J125) & Classroom 102 (J126)
+    minLat: 26.2295,
+    maxLat: 26.2325,
+    minLng: 78.2043,
+    maxLng: 78.2070,
+  },
+  {
+    id: 'ai',
+    name: 'AI & CSE Complex',
+    defaultMap: 'AI_GF',
+    minLat: 26.2302,
+    maxLat: 26.2310,
+    minLng: 78.2057,
+    maxLng: 78.2066,
+  },
+];
+
+/**
+ * Detects whether GPS coordinates are located inside an enclosed campus building.
+ */
+export function detectIndoorBuilding(geo: GeoPoint): CampusBuildingBounds | null {
+  for (const b of CAMPUS_BUILDING_BOUNDS) {
+    if (
+      geo.lat >= b.minLat &&
+      geo.lat <= b.maxLat &&
+      geo.lon >= b.minLng &&
+      geo.lon <= b.maxLng
+    ) {
+      return b;
+    }
+  }
+  return null;
+}
+
+/**
  * Checks if a given GPS coordinate is within the broader MITS Gwalior campus boundary.
  * Campus bounding box roughly 26.227°N to 26.235°N, 78.201°E to 78.210°E.
  */
@@ -165,16 +307,74 @@ export function isWithinCampusBounds(geo: GeoPoint): boolean {
 }
 
 /**
- * Finds the nearest walkable campus node to a user's real GPS position.
+ * Options for nearest node resolution.
  */
-export function findNearestCampusNode(geo: GeoPoint, nodes: MapNode[]): MapNode | null {
-  const campusNodes = nodes.filter((n) => n.map === 'Campus_Map');
-  if (campusNodes.length === 0) return null;
+export interface NearestNodeOptions {
+  /** If specified, prioritizes nodes residing on this specific floor map */
+  preferredMap?: string;
+  /** Whether to consider indoor room and corridor nodes. Defaults to true. */
+  includeIndoor?: boolean;
+  /** Maximum distance in meters to accept an indoor match before falling back to outdoor campus. Defaults to 65m. */
+  maxIndoorDistanceMeters?: number;
+}
 
+/**
+ * Finds the nearest walkable campus node to a user's real GPS position.
+ * Supports smart indoor room & floor resolution (e.g. Room 101, J126 in Main_FF)
+ * as well as outdoor campus navigation.
+ */
+export function findNearestCampusNode(
+  geo: GeoPoint,
+  nodes: MapNode[],
+  options?: NearestNodeOptions
+): MapNode | null {
+  if (!nodes || nodes.length === 0) return null;
+
+  const includeIndoor = options?.includeIndoor ?? true;
+  const detectedBuilding = detectIndoorBuilding(geo);
+  const preferredMap = options?.preferredMap || detectedBuilding?.defaultMap;
+
+  // 1. If preferredMap is provided or detected (e.g. user is in Main Academic Building -> Main_FF),
+  // check if any node on that map is close (< 45m)
+  if (preferredMap) {
+    const preferredNodes = nodes.filter((n) => n.map === preferredMap && (n.lat != null || n.map === 'Campus_Map'));
+    if (preferredNodes.length > 0) {
+      let bestPrefNode: MapNode | null = null;
+      let bestPrefDist = Infinity;
+      for (const node of preferredNodes) {
+        let nodeGeo: GeoPoint;
+        if (node.lat != null && node.lng != null) {
+          nodeGeo = { lat: node.lat, lon: node.lng };
+        } else {
+          nodeGeo = svgToGps({ x: node.x, y: node.y });
+        }
+        const dist = haversineDistanceMeters(geo, nodeGeo);
+        // Prioritize rooms over corridor nodes
+        const isRoom = node.type === 'room' || node.category === 'room';
+        const effectiveDist = isRoom ? dist * 0.85 : dist;
+        if (effectiveDist < bestPrefDist) {
+          bestPrefDist = effectiveDist;
+          bestPrefNode = node;
+        }
+      }
+      // If within 45 meters on the preferred indoor floor, lock on with precision!
+      if (bestPrefNode && bestPrefDist <= 45) {
+        return bestPrefNode;
+      }
+    }
+  }
+
+  // 2. Search across ALL nodes (indoor & outdoor)
   let bestNode: MapNode | null = null;
   let bestDist = Infinity;
 
-  for (const node of campusNodes) {
+  // Also track best outdoor Campus_Map node as fallback
+  let bestCampusNode: MapNode | null = null;
+  let bestCampusDist = Infinity;
+
+  for (const node of nodes) {
+    if (!includeIndoor && node.map !== 'Campus_Map') continue;
+
     let nodeGeo: GeoPoint;
     if (node.lat != null && node.lng != null) {
       nodeGeo = { lat: node.lat, lon: node.lng };
@@ -183,13 +383,30 @@ export function findNearestCampusNode(geo: GeoPoint, nodes: MapNode[]): MapNode 
     }
 
     const dist = haversineDistanceMeters(geo, nodeGeo);
-    if (dist < bestDist) {
-      bestDist = dist;
+
+    // Track best campus outdoor node
+    if (node.map === 'Campus_Map' && dist < bestCampusDist) {
+      bestCampusDist = dist;
+      bestCampusNode = node;
+    }
+
+    // Bias slightly toward named rooms and landmarks over generic corridor transit dots
+    const isNamedRoom = node.type === 'room' || node.category === 'room' || node.type === 'landmark';
+    const effectiveDist = isNamedRoom ? dist * 0.85 : dist;
+
+    if (effectiveDist < bestDist) {
+      bestDist = effectiveDist;
       bestNode = node;
     }
   }
 
-  return bestNode;
+  // If the best node is indoor and within reasonable distance, return it!
+  if (bestNode && bestDist < (options?.maxIndoorDistanceMeters ?? 65)) {
+    return bestNode;
+  }
+
+  // Fallback to closest outdoor campus node if indoor was too far
+  return bestCampusNode || bestNode;
 }
 
 /**
@@ -198,6 +415,20 @@ export function findNearestCampusNode(geo: GeoPoint, nodes: MapNode[]): MapNode 
 export function getGoogleMapsUrl(lat: number, lon: number, label?: string): string {
   const query = encodeURIComponent(label ? `${lat},${lon} (${label})` : `${lat},${lon}`);
   return `https://www.google.com/maps/search/?api=1&query=${query}`;
+}
+
+/**
+ * Generates an external OpenStreetMap link for a coordinate.
+ */
+export function getOsmUrl(lat: number, lon: number, zoom = 18): string {
+  return `https://www.openstreetmap.org/?mlat=${lat.toFixed(6)}&mlon=${lon.toFixed(6)}#map=${zoom}/${lat.toFixed(6)}/${lon.toFixed(6)}`;
+}
+
+/**
+ * Generates an OpenStreetMap directions link between two coordinates.
+ */
+export function getOsmDirectionsUrl(fromLat: number, fromLon: number, toLat: number, toLon: number): string {
+  return `https://www.openstreetmap.org/directions?engine=fossgis_osrm_foot&route=${fromLat.toFixed(6)}%2C${fromLon.toFixed(6)}%3B${toLat.toFixed(6)}%2C${toLon.toFixed(6)}`;
 }
 
 /**

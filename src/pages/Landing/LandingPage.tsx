@@ -1,76 +1,129 @@
 // src/pages/Landing/LandingPage.tsx
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  Shield,
   Compass,
   Users,
-  Camera,
+  Shield,
   QrCode,
-  ShieldAlert,
-  ArrowRight,
-  ExternalLink,
-  MapPin,
-  CheckCircle2,
-  Clock,
-  Sparkles,
   Radio,
   Sliders,
   GraduationCap,
-  Building2,
-  DoorOpen,
-  PhoneCall,
-  Activity,
-  Layers,
   ChevronRight,
-  Lock
+  ArrowRight,
+  Sparkles,
+  MapPin,
+  ShieldAlert,
+  Navigation,
+  Route,
+  Camera,
+  Bell,
+  CheckCircle2,
+  Building,
+  Layers,
+  Activity,
+  Lock,
+  ArrowUpRight,
+  PhoneCall
 } from 'lucide-react';
 import { useC3SStore } from '@/store/c3sStore';
-import { useSafetyStore } from '@/store/safetyStore';
-import { useCrowdMonitoring, getCrowdBadgeStyle, calculateCrowdDensity } from '@/lib/crowdMonitoringApi';
-import { ROLE_DEFINITIONS, getRoleDefaultPath, getMockUserForRole } from '@/lib/rbac';
+import { ROLE_DEFINITIONS, getRoleDefaultPath } from '@/lib/rbac';
 import { type C3SRole } from '@/lib/mock-data/users';
-import { CampusMap } from '@/components/c3s/CampusMap';
 import { RoleSwitcherModal } from '@/components/c3s/RoleSwitcherModal';
 import { SosModal } from '@/components/safety/SosModal';
-import { useHumanDetection } from '@/hooks/useHumanDetection';
-import { LiveDetectionOverlay } from '@/components/safety/LiveDetectionOverlay';
+import { Navbar } from '@/components/ui';
+import Footer from '@/components/ui/footer/Footer';
+import Hero from './Hero';
+import About from './About';
+import Features from './Features';
+import './landing.css';
 
 export default function LandingPage() {
   const navigate = useNavigate();
-  const { currentRole, setRole, isLocationActive } = useC3SStore();
-  const realCrowdCount = useSafetyStore((s) => s.realCrowdCount);
-  const setSosModalOpen = useSafetyStore((s) => s.setSosModalOpen);
-  const { isOnline, syncCrowdData } = useCrowdMonitoring();
-
+  const { currentRole, setRole } = useC3SStore();
   const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
-  const [currentTime, setCurrentTime] = useState<string>(new Date().toLocaleTimeString());
+  const [selectedDirectoryTab, setSelectedDirectoryTab] = useState<'academic' | 'facilities' | 'services'>('academic');
 
-  // Optical Vision Engine attached to CCTV preview
-  const liveVideoRef = useRef<HTMLVideoElement>(null);
-  const detectionResult = useHumanDetection(liveVideoRef, 'cam_landing_01', true);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date().toLocaleTimeString());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const totalHeadcount = realCrowdCount > 0 ? realCrowdCount : 206;
-  const crowdDensity = calculateCrowdDensity(Math.round(totalHeadcount / 12));
-  const crowdStyle = getCrowdBadgeStyle(crowdDensity);
-
-  const activeRoleDef = ROLE_DEFINITIONS[currentRole];
-  const activeUser = getMockUserForRole(currentRole);
-
-  const primaryRoleCards: { role: C3SRole; icon: React.ElementType; tag: string }[] = [
-    { role: 'STUDENT', icon: GraduationCap, tag: 'Turn-by-Turn Map & SOS' },
-    { role: 'GATE_KEEPER', icon: QrCode, tag: 'Digital Check-in / Out' },
-    { role: 'SECURITY_GUARD', icon: Shield, tag: 'QRF Patrol & SOS Queue' },
-    { role: 'CONTROL_ROOM_OPERATOR', icon: Radio, tag: '12-Cam Optical Matrix' },
-    { role: 'SUPER_ADMIN', icon: Sliders, tag: 'Audit Logs & Policies' }
+  const primaryRoleCards: {
+    role: C3SRole;
+    icon: React.ElementType;
+    tag: string;
+    description: string;
+    highlights: string[];
+    accentColor: string;
+    borderColor: string;
+  }[] = [
+    {
+      role: 'STUDENT',
+      icon: GraduationCap,
+      tag: 'Navigation & Student Safety',
+      description: 'Turn-by-turn indoor routing to any room (101, 102, labs), dynamic QR gate passes, and 1-tap SOS.',
+      highlights: ['Classroom & Lab Finder', 'QR Entry/Exit Pass', 'Instant Emergency Beacon'],
+      accentColor: 'from-blue-600 to-indigo-600',
+      borderColor: 'border-blue-500/30 hover:border-blue-500'
+    },
+    {
+      role: 'GATE_KEEPER',
+      icon: QrCode,
+      tag: 'Access Control',
+      description: 'Ultra-fast QR pass verification, real-time campus occupancy tracking, and instant audit trails.',
+      highlights: ['Sub-second QR Scanner', 'Occupancy Meter', 'Offline Pass Validation'],
+      accentColor: 'from-emerald-600 to-teal-600',
+      borderColor: 'border-emerald-500/30 hover:border-emerald-500'
+    },
+    {
+      role: 'SECURITY_GUARD',
+      icon: Shield,
+      tag: 'Tactical Rapid Response',
+      description: 'Active incident queue, automated shortest safe route to incident coordinates, and team coordination.',
+      highlights: ['Live Incident Queue', 'Direct GPS Route to Alert', 'Intercom & Dispatch'],
+      accentColor: 'from-amber-600 to-orange-600',
+      borderColor: 'border-amber-500/30 hover:border-amber-500'
+    },
+    {
+      role: 'CONTROL_ROOM_OPERATOR',
+      icon: Radio,
+      tag: 'SOC Central Command',
+      description: 'Unified CCTV camera matrix, automated fight & intrusion detection alerts, and incident orchestration.',
+      highlights: ['Live 24/7 CCTV Grid', 'AI Violence Detection', 'Campus Map Threat Overlay'],
+      accentColor: 'from-rose-600 to-red-600',
+      borderColor: 'border-rose-500/30 hover:border-rose-500'
+    },
+    {
+      role: 'SUPER_ADMIN',
+      icon: Sliders,
+      tag: 'Institutional Governance',
+      description: 'Complete role-based access control (RBAC), camera health monitoring, gate logs, and audit reports.',
+      highlights: ['Granular Permissions', 'Gate & Device Management', 'Comprehensive Audit Logs'],
+      accentColor: 'from-purple-600 to-indigo-600',
+      borderColor: 'border-purple-500/30 hover:border-purple-500'
+    }
   ];
+
+  const campusDirectory = {
+    academic: [
+      { name: 'Room 101 (J125)', desc: 'First Floor Central Promenade', map: 'Main_FF', query: '101' },
+      { name: 'Room 102 (J126)', desc: 'First Floor Lecture Block', map: 'Main_FF', query: '102' },
+      { name: 'Colloquium Hall', desc: 'Seminar & Conference Hall', map: 'Main_FF', query: 'colloquium' },
+      { name: 'Drawing Hall (J124)', desc: 'Architecture & Design Studios', map: 'Main_FF', query: 'drawing' },
+      { name: 'BE Computer Lab', desc: 'Software Engineering Labs', map: 'Main_FF', query: 'lab' },
+      { name: 'Mechanical Workshops', desc: 'Fabrication & Machine Labs', map: 'Campus_Map', query: 'workshops' },
+    ],
+    facilities: [
+      { name: 'Central Library', desc: 'Main Campus Reading Complex', map: 'Campus_Map', query: 'library' },
+      { name: 'Campus Canteen', desc: 'Dining & Cafeteria Court', map: 'Campus_Map', query: 'canteen' },
+      { name: 'Main Gate (Gate 1)', desc: 'Primary Campus Entrance', map: 'Campus_Map', query: 'main gate' },
+      { name: 'Jubilee Gate (Gate 2)', desc: 'Secondary Transit Access', map: 'Campus_Map', query: 'jubilee' },
+      { name: 'Central Promenade', desc: 'Main Academic Walkway', map: 'Campus_Map', query: 'main' },
+      { name: 'AI Building Entry', desc: 'Advanced Tech & Computing Block', map: 'Campus_Map', query: 'ai' },
+    ],
+    services: [
+      { name: "Director's Office", desc: 'Administrative Headquarters', map: 'Main_GF', query: 'director' },
+      { name: 'Chief Proctor Office', desc: 'Discipline & Campus Security', map: 'Main_GF', query: 'proctor' },
+      { name: 'First Aid & Health Center', desc: 'Emergency Medical Services', map: 'Campus_Map', query: 'health' },
+      { name: 'Security Control Room', desc: '24/7 Surveillance SOC', map: 'Campus_Map', query: 'control' },
+    ]
+  };
 
   const handleLaunchRole = (role: C3SRole) => {
     setRole(role);
@@ -79,549 +132,315 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="relative min-h-screen w-full bg-[#FFFFFF] text-slate-800 selection:bg-blue-600 selection:text-white font-sans">
+    <div className="relative min-h-screen w-full bg-[#fcfaf6] dark:bg-[#050505] text-neutral-900 dark:text-white antialiased transition-colors selection:bg-[#ff602e] selection:text-white">
       {/* Modals */}
       <RoleSwitcherModal isOpen={isRoleModalOpen} onClose={() => setIsRoleModalOpen(false)} />
       <SosModal />
 
-      {/* Top Institutional Bar */}
-      <div className="border-b border-slate-200 bg-slate-900 text-slate-300 px-4 py-2 text-xs">
-        <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-semibold text-white tracking-wide">
-              MADHAV INSTITUTE OF TECHNOLOGY &amp; SCIENCE • GWALIOR
-            </span>
-            <span className="text-slate-500 hidden md:inline">|</span>
-            <span className="text-slate-400 hidden md:inline font-mono">
-              Estd. 1957 • Autonomous &amp; NAAC A++ Accredited
-            </span>
+      {/* Floating Modern Header */}
+      <Navbar />
+
+      {/* Hero Section */}
+      <Hero />
+
+      {/* Live Campus Telemetry Strip */}
+      <section className="relative w-full border-y border-neutral-200/80 dark:border-white/10 bg-white/60 dark:bg-[#0a0a0a]/60 backdrop-blur-xl py-8 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+          <div className="flex flex-col items-center">
+            <div className="flex items-center gap-1.5 text-2xl sm:text-3xl font-black text-neutral-900 dark:text-white">
+              <span>40</span>
+              <span className="text-blue-600 dark:text-blue-400">+</span>
+            </div>
+            <p className="mt-1 text-xs sm:text-sm font-semibold text-neutral-500 dark:text-neutral-400">
+              Mapped Blocks & Wings
+            </p>
           </div>
 
-          <div className="flex items-center gap-4 font-mono text-[11px]">
-            <div className="flex items-center gap-1.5 text-emerald-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span>DEFENSE GRID: SECURE</span>
+          <div className="flex flex-col items-center">
+            <div className="flex items-center gap-1.5 text-2xl sm:text-3xl font-black text-neutral-900 dark:text-white">
+              <span className="text-emerald-500">&lt;</span>
+              <span>3</span>
+              <span className="text-xs font-bold text-neutral-400">SEC</span>
             </div>
-            <span className="text-slate-600">|</span>
-            <span className="text-cyan-400 flex items-center gap-1">
-              <Clock className="w-3 h-3" />
-              {currentTime} IST
-            </span>
+            <p className="mt-1 text-xs sm:text-sm font-semibold text-neutral-500 dark:text-neutral-400">
+              Emergency SOS Response
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center">
+            <div className="flex items-center gap-1.5 text-2xl sm:text-3xl font-black text-neutral-900 dark:text-white">
+              <span>100</span>
+              <span className="text-[#ff602e]">%</span>
+            </div>
+            <p className="mt-1 text-xs sm:text-sm font-semibold text-neutral-500 dark:text-neutral-400">
+              Corridor Safety Coverage
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center">
+            <div className="flex items-center gap-1.5 text-2xl sm:text-3xl font-black text-neutral-900 dark:text-white">
+              <span>±0.8</span>
+              <span className="text-xs font-bold text-neutral-400">METERS</span>
+            </div>
+            <p className="mt-1 text-xs sm:text-sm font-semibold text-neutral-500 dark:text-neutral-400">
+              Multi-Floor Vector Accuracy
+            </p>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Main Sticky Navigation Header */}
-      <header className="sticky top-0 z-40 border-b border-slate-200/90 bg-white/95 px-4 sm:px-6 py-3.5 backdrop-blur-md shadow-xs">
-        <div className="mx-auto max-w-7xl flex items-center justify-between gap-4">
-          {/* Logo & Platform Name */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform font-black text-sm">
-              C3S
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-base font-black tracking-tight text-slate-900 uppercase">
-                  UniMap <span className="text-blue-600">//</span> C3S
-                </span>
-                <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-black text-blue-700 border border-blue-200">
-                  V2.4 OPERATIONAL
+      {/* Core Capabilities Bento Grid */}
+      <Features />
+
+      {/* Interactive Role-Based Workspaces */}
+      <section id="portals" className="relative w-full px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+        <div className="max-w-6xl mx-auto">
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-3.5 py-1 rounded-full mb-4">
+                <Users size={14} className="text-blue-600 dark:text-blue-400" />
+                <span className="text-[11px] uppercase tracking-wider font-extrabold text-blue-600 dark:text-blue-400">
+                  Role-Based Workspaces
                 </span>
               </div>
-              <p className="text-xs text-slate-500 font-medium">Campus Safety &amp; Vector Navigation Network</p>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white leading-[1.06]">
+                Purpose-built portals for every stakeholder
+              </h2>
+              <p className="mt-4 text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                Whether you are a student finding a classroom, a security officer responding to an alert,
+                or a gate keeper verifying credentials, your workspace is optimized for speed and clarity.
+              </p>
             </div>
-          </Link>
 
-          {/* Center Navigation Links (Clean Handcoded Craft) */}
-          <nav className="hidden lg:flex items-center gap-1 bg-slate-100/80 p-1 rounded-2xl border border-slate-200/80 text-xs font-bold text-slate-600">
-            <Link to="/map" className="px-3.5 py-1.5 rounded-xl hover:text-slate-900 hover:bg-white transition-all">
-              3D Vector Map
-            </Link>
-            <Link to="/student" className="px-3.5 py-1.5 rounded-xl hover:text-slate-900 hover:bg-white transition-all">
-              Student Suite
-            </Link>
-            <Link to="/gate-keeper" className="px-3.5 py-1.5 rounded-xl hover:text-slate-900 hover:bg-white transition-all">
-              Gate Kiosk
-            </Link>
-            <Link to="/security" className="px-3.5 py-1.5 rounded-xl hover:text-slate-900 hover:bg-white transition-all">
-              Patrol QRF
-            </Link>
-            <Link to="/control-room" className="px-3.5 py-1.5 rounded-xl hover:text-slate-900 hover:bg-white transition-all">
-              SOC Command
-            </Link>
-            <Link to="/admin" className="px-3.5 py-1.5 rounded-xl hover:text-slate-900 hover:bg-white transition-all">
-              Admin Audit
-            </Link>
-          </nav>
-
-          {/* Right Action Stack: Active Role Pill & SOS Trigger */}
-          <div className="flex items-center gap-2.5">
-            {/* Active Role Pill with 1-Click Switcher */}
             <button
               type="button"
               onClick={() => setIsRoleModalOpen(true)}
-              className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50/50 px-3 py-2 text-xs font-bold text-slate-700 transition shadow-xs cursor-pointer"
-              title="Click to switch active role and permissions"
+              className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-white/10 hover:border-neutral-400 text-sm font-semibold text-neutral-800 dark:text-neutral-200 transition-all shadow-sm cursor-pointer"
             >
-              <span className={`w-2 h-2 rounded-full ${activeRoleDef.badgeBg.replace('bg-', 'bg-') || 'bg-blue-600'}`} />
-              <div className="text-left hidden sm:block">
-                <div className="text-[10px] text-slate-400 uppercase font-mono leading-none">ROLE:</div>
-                <div className="text-xs font-black text-slate-900 leading-tight">{activeRoleDef.shortLabel}</div>
-              </div>
-              <span className="text-[10px] font-bold text-blue-600 ml-1">Switch ▾</span>
+              <span>Institutional Roster</span>
+              <ChevronRight size={16} />
             </button>
-
-            {/* Instant Emergency SOS Trigger */}
-            <button
-              type="button"
-              onClick={() => setSosModalOpen(true)}
-              className="flex items-center gap-2 rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 px-4 py-2.5 text-xs font-black uppercase tracking-wider text-white shadow-md shadow-red-500/25 active:scale-95 transition-all cursor-pointer animate-pulse border border-red-400/40"
-              title="Broadcast 1-tap SOS: Auto-records video evidence & alerts QRF"
-            >
-              <ShieldAlert className="h-4 w-4" />
-              <span className="hidden sm:inline">1-TAP SOS</span>
-            </button>
-
-            <Link
-              to="/login"
-              className="hidden md:flex items-center gap-1.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-2.5 text-xs font-black transition cursor-pointer"
-            >
-              <span>Sign In</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
-        </div>
-      </header>
-
-      {/* Hero Section (Bespoke Handcoded Craftsmanship) */}
-      <section className="relative overflow-hidden border-b border-slate-200/80 bg-gradient-to-b from-[#F8FAFC] via-[#FFFFFF] to-[#F8FAFC] pt-12 pb-16 px-4 sm:px-6 lg:px-8">
-        {/* Subtle Architectural Grid */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-40"
-          style={{
-            backgroundImage:
-              'linear-gradient(to right, #E2E8F0 1px, transparent 1px), linear-gradient(to bottom, #E2E8F0 1px, transparent 1px)',
-            backgroundSize: '32px 32px'
-          }}
-        />
-
-        <div className="relative z-10 mx-auto max-w-7xl">
-          <div className="text-center max-w-4xl mx-auto">
-            {/* Top Institutional Badge */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3.5 py-1 text-xs font-bold text-blue-700 shadow-xs mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-              <span>Next-Generation Autonomous Campus Operating System</span>
-            </div>
-
-            {/* Main Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.08]">
-              Institutional Safety, Real-Time Crowd Telemetry &amp; Turn-by-Turn Indoor Navigation
-            </h1>
-
-            {/* Subheading */}
-            <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed font-normal">
-              A unified, offline-first platform designed specifically for <strong className="text-slate-900 font-bold">MITS Gwalior</strong>.
-              Seamlessly integrates client-side vector Dijkstra indoor pathfinding, edge computer vision crowd sensing, and 1-tap multimodal SOS dispatch.
-            </p>
-
-            {/* Primary Action Buttons */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5">
-              <Link
-                to="/map"
-                className="flex items-center gap-2.5 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-98 px-6 py-3.5 text-xs sm:text-sm font-black uppercase tracking-wider text-white shadow-lg shadow-blue-500/25 transition-all cursor-pointer"
-              >
-                <Compass className="w-4 h-4" />
-                <span>Launch Interactive 3D Map</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-
-              <button
-                type="button"
-                onClick={() => handleLaunchRole('STUDENT')}
-                className="flex items-center gap-2 rounded-2xl border border-slate-300 bg-white hover:bg-slate-50 active:scale-98 px-5 py-3.5 text-xs sm:text-sm font-bold text-slate-800 transition shadow-xs cursor-pointer"
-              >
-                <GraduationCap className="w-4 h-4 text-blue-600" />
-                <span>Student Command Portal</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleLaunchRole('CONTROL_ROOM_OPERATOR')}
-                className="flex items-center gap-2 rounded-2xl border border-slate-300 bg-white hover:bg-slate-50 active:scale-98 px-5 py-3.5 text-xs sm:text-sm font-bold text-slate-800 transition shadow-xs cursor-pointer"
-              >
-                <Radio className="w-4 h-4 text-rose-600" />
-                <span>SOC Surveillance Console</span>
-              </button>
-            </div>
           </div>
 
-          {/* Handcoded Live Telemetry Stat Strip */}
-          <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3.5 max-w-5xl mx-auto">
-            {/* Metric 1 */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-slate-500 font-medium">Live Headcount</span>
-                <span className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase ${crowdStyle.bg}`}>
-                  {crowdStyle.label}
-                </span>
-              </div>
-              <div className="mt-2 flex items-baseline gap-1.5">
-                <span className="text-2xl sm:text-3xl font-black text-slate-900 font-mono tracking-tight">
-                  {totalHeadcount}
-                </span>
-                <span className="text-xs text-slate-500 font-medium font-mono">PERSONS</span>
-              </div>
-              <p className="mt-1 text-[11px] text-slate-400 font-mono">Optical AI Sensing</p>
-            </div>
-
-            {/* Metric 2 */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-slate-500 font-medium">Physical Gates</span>
-                <span className="text-emerald-600 font-bold font-mono">3 / 3 ACTIVE</span>
-              </div>
-              <div className="mt-2 flex items-baseline gap-1.5">
-                <span className="text-2xl sm:text-3xl font-black text-slate-900 font-mono tracking-tight">
-                  1,480
-                </span>
-                <span className="text-xs text-slate-500 font-medium font-mono">CHECK-INS</span>
-              </div>
-              <p className="mt-1 text-[11px] text-slate-400 font-mono">Daily QR Registry</p>
-            </div>
-
-            {/* Metric 3 */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-slate-500 font-medium">Optical CCTV Nodes</span>
-                <span className="text-blue-600 font-bold font-mono">100% ONLINE</span>
-              </div>
-              <div className="mt-2 flex items-baseline gap-1.5">
-                <span className="text-2xl sm:text-3xl font-black text-slate-900 font-mono tracking-tight">
-                  12
-                </span>
-                <span className="text-xs text-slate-500 font-medium font-mono">STREAMS</span>
-              </div>
-              <p className="mt-1 text-[11px] text-slate-400 font-mono">Real-time Vision Bboxes</p>
-            </div>
-
-            {/* Metric 4 */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-slate-500 font-medium">Emergency QRF SLA</span>
-                <span className="text-rose-600 font-bold font-mono">&lt; 90s</span>
-              </div>
-              <div className="mt-2 flex items-baseline gap-1.5">
-                <span className="text-2xl sm:text-3xl font-black text-slate-900 font-mono tracking-tight">
-                  4
-                </span>
-                <span className="text-xs text-slate-500 font-medium font-mono">PATROL UNITS</span>
-              </div>
-              <p className="mt-1 text-[11px] text-slate-400 font-mono">Auto Video Evidence</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Live System Dual Showcase: Real Interactive Map & Real Optical Human Vision Stream */}
-      <section className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-blue-600" />
-              <span className="text-xs font-mono font-black uppercase tracking-wider text-blue-600">
-                LIVE PRODUCTION SYSTEMS
-              </span>
-            </div>
-            <h2 className="mt-1.5 text-2xl sm:text-3xl font-black tracking-tight text-slate-900">
-              Interactive Campus Vector Map &amp; Real-Time Optical AI Stream
-            </h2>
-            <p className="mt-1 text-xs sm:text-sm text-slate-500 max-w-2xl">
-              Experience the actual live components: clean architectural light vector maps with movement tracking, side-by-side with real computer vision human detection.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Link
-              to="/map"
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200 hover:bg-blue-100 transition shadow-xs"
-            >
-              <span>Explore Full Turn-by-Turn Map</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          {/* Left: Real Interactive Campus Map */}
-          <div className="lg:col-span-7 bg-white rounded-3xl border border-slate-200 p-5 shadow-xl">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-              <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-xl bg-blue-50 text-blue-600 border border-blue-200">
-                  <Compass className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-black text-slate-900 uppercase tracking-tight">
-                    MITS Campus Master Vector Map
-                  </h3>
-                  <p className="text-[11px] text-slate-500 font-mono">
-                    Apple/Google Maps Architectural Light Theme • Auto-Follow Enabled
-                  </p>
-                </div>
-              </div>
-
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                LIVE VECTOR SVG
-              </span>
-            </div>
-
-            <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
-              <CampusMap height="h-72 sm:h-96" highlightLocation="Academic Block A" />
-            </div>
-
-            <div className="mt-3 flex items-center justify-between text-xs text-slate-500 font-mono pt-1">
-              <span>Main Gate 01 • Jubilee Gate 04 • Workshop Gate 03</span>
-              <span className="text-blue-600 font-bold">Try [Simulate Walk] or [Auto-Track]</span>
-            </div>
-          </div>
-
-          {/* Right: Real Optical AI Surveillance Stream */}
-          <div className="lg:col-span-5 bg-white rounded-3xl border border-slate-200 p-5 shadow-xl flex flex-col justify-between">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-              <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-xl bg-cyan-50 text-cyan-600 border border-cyan-200">
-                  <Camera className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-black text-slate-900 uppercase tracking-tight">
-                    Live Optical AI Crowd Stream
-                  </h3>
-                  <p className="text-[11px] text-slate-500 font-mono">
-                    Sector: Academic Courtyard • 24 FPS Differencing
-                  </p>
-                </div>
-              </div>
-
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-blue-50 text-blue-700 border border-blue-200">
-                HEADCOUNT: {detectionResult.count}
-              </span>
-            </div>
-
-            {/* Video Viewport with Real Bounding Box Overlay */}
-            <div className="relative mt-4 h-72 sm:h-96 w-full rounded-2xl bg-black overflow-hidden border border-slate-800 shadow-inner">
-              <video
-                ref={liveVideoRef}
-                src="/videos/crowd.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover"
-              />
-              <LiveDetectionOverlay detection={detectionResult} />
-            </div>
-
-            <div className="mt-3 flex items-center justify-between text-xs text-slate-500 font-mono pt-1">
-              <span>Vision Engine: <strong className="text-emerald-600 font-bold">Active Optical Bboxes</strong></span>
-              <Link to="/control-room/cameras" className="text-blue-600 font-bold hover:underline flex items-center gap-1">
-                <span>View All 12 Cams</span>
-                <ChevronRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Role-Based Access Control (RBAC) Dedicated Suite Matrix */}
-      <section className="py-14 px-4 sm:px-6 lg:px-8 bg-[#F8FAFC] border-t border-b border-slate-200">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-10">
-            <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3.5 py-1 text-xs font-bold text-slate-700 shadow-xs mb-3">
-              <Users className="w-3.5 h-3.5 text-blue-600" />
-              <span>Granular Role-Based Access Control (RBAC)</span>
-            </div>
-            <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-slate-900">
-              One Unified Campus. Dedicated Operational Consoles.
-            </h2>
-            <p className="mt-2 text-xs sm:text-sm text-slate-500">
-              Choose an operational tier below. Clicking any role instantly activates the authenticated session and routes directly to the dedicated workspace.
-            </p>
-          </div>
-
-          {/* 5 Primary Operational Role Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {primaryRoleCards.map(({ role, icon: IconComponent, tag }) => {
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {primaryRoleCards.map(({ role, icon: IconComponent, tag, description, highlights, borderColor }) => {
               const def = ROLE_DEFINITIONS[role];
-              const user = getMockUserForRole(role);
               const isCurrent = currentRole === role;
 
               return (
                 <div
                   key={role}
-                  className={`flex flex-col justify-between rounded-3xl border bg-white p-5 shadow-md transition-all hover:shadow-xl hover:-translate-y-1 ${
+                  className={`group relative rounded-[28px] border p-6 bg-white/80 dark:bg-[#0c0d0e]/80 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between ${
                     isCurrent
-                      ? 'border-blue-600 ring-2 ring-blue-500/20 shadow-blue-500/10'
-                      : 'border-slate-200 hover:border-blue-300'
+                      ? 'border-blue-500 shadow-xl shadow-blue-500/10'
+                      : `${borderColor} shadow-sm hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/40`
                   }`}
                 >
                   <div>
-                    {/* Role Icon & Current Badge */}
-                    <div className="flex items-center justify-between">
-                      <div className={`p-3 rounded-2xl ${def.badgeBg} ${def.badgeText} border ${def.badgeBorder}`}>
-                        <IconComponent className="w-6 h-6" />
+                    {/* Header: Icon & Badge */}
+                    <div className="flex items-start justify-between">
+                      <div className="w-12 h-12 rounded-2xl bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 flex items-center justify-center text-neutral-900 dark:text-white group-hover:scale-105 transition-transform">
+                        <IconComponent size={22} className="text-blue-600 dark:text-blue-400" />
                       </div>
-                      {isCurrent && (
-                        <span className="flex items-center gap-1 rounded-full bg-blue-600 px-2 py-0.5 text-[9px] font-black text-white shadow-xs">
-                          <CheckCircle2 className="w-3 h-3" /> ACTIVE
+                      {isCurrent ? (
+                        <span className="inline-flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/30">
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+                          Current Role
+                        </span>
+                      ) : (
+                        <span className="text-[10px] uppercase font-bold text-neutral-400 tracking-wider">
+                          Ready
                         </span>
                       )}
                     </div>
 
-                    <span className="mt-4 inline-block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
-                      {tag}
-                    </span>
-
-                    <h3 className="mt-1 text-base font-black text-slate-900">
-                      {def.shortLabel}
-                    </h3>
-
-                    <p className="mt-2 text-xs text-slate-500 leading-relaxed">
-                      {def.desc}
-                    </p>
-                  </div>
-
-                  <div className="mt-6 pt-4 border-t border-slate-100">
-                    <div className="text-[11px] font-mono text-slate-600 mb-3">
-                      <div className="font-bold truncate text-slate-800">{user.name}</div>
-                      <div className="text-slate-400">{user.universityId}</div>
+                    {/* Role Title & Description */}
+                    <div className="mt-5">
+                      <span className="text-[10px] uppercase tracking-wider font-extrabold text-neutral-400 dark:text-neutral-500">
+                        {tag}
+                      </span>
+                      <h3 className="mt-1 text-xl font-bold text-neutral-900 dark:text-white">
+                        {def.shortLabel}
+                      </h3>
+                      <p className="mt-2 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                        {description}
+                      </p>
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={() => handleLaunchRole(role)}
-                      className="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-blue-600 active:scale-98 text-white font-black text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-xs"
-                    >
-                      <span>Launch Workspace</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
+                    {/* Feature Highlights */}
+                    <div className="mt-4 pt-4 border-t border-neutral-100 dark:border-white/5 space-y-2">
+                      {highlights.map((item) => (
+                        <div key={item} className="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400">
+                          <CheckCircle2 size={13} className="text-emerald-500 shrink-0" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
+
+                  {/* Launch Button */}
+                  <button
+                    type="button"
+                    onClick={() => handleLaunchRole(role)}
+                    className="mt-6 w-full flex items-center justify-center gap-2 rounded-xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 hover:bg-blue-600 dark:hover:bg-blue-600 dark:hover:text-white py-2.5 text-xs sm:text-sm font-bold transition-all shadow-sm cursor-pointer"
+                  >
+                    <span>Launch {def.shortLabel}</span>
+                    <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
+                  </button>
                 </div>
               );
             })}
-          </div>
 
-          <div className="mt-8 text-center">
-            <button
-              type="button"
-              onClick={() => setIsRoleModalOpen(true)}
-              className="inline-flex items-center gap-2 text-xs font-bold text-blue-600 hover:text-blue-800 transition cursor-pointer"
-            >
-              <span>View All 10 Administrative &amp; Faculty Tiers (HOD, Dean, Coordinator, Proctor)</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Engineering Foundations & Institutional Principles */}
-      <section className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">
-            Handcoded Architecture. Zero Third-Party Cloud Bloat.
-          </h2>
-          <p className="mt-2 text-xs sm:text-sm text-slate-500">
-            Every layer of C3S is engineered to run offline-first with sub-millisecond responsiveness on standard campus infrastructure.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Arch Card 1 */}
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center mb-4">
-              <Compass className="w-5 h-5" />
-            </div>
-            <h3 className="text-base font-black text-slate-900">Async Dijkstra Pathfinding</h3>
-            <p className="mt-2 text-xs text-slate-500 leading-relaxed">
-              Custom min-heap priority queue graph solver that yields to the main thread via requestAnimationFrame. Computes multi-floor traversals across 7 vector SVG maps without freezing the UI.
-            </p>
-          </div>
-
-          {/* Arch Card 2 */}
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="w-10 h-10 rounded-2xl bg-rose-50 text-rose-600 border border-rose-200 flex items-center justify-center mb-4">
-              <ShieldAlert className="w-5 h-5" />
-            </div>
-            <h3 className="text-base font-black text-slate-900">Zero-Touch Multimodal SOS</h3>
-            <p className="mt-2 text-xs text-slate-500 leading-relaxed">
-              1-tap activation triggers instant camera and microphone capture. Records 4-second HD video evidence and GPS coordinates, executes AI triage, and auto-dispatches with zero clicks required from a person in distress.
-            </p>
-          </div>
-
-          {/* Arch Card 3 */}
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center mb-4">
-              <Camera className="w-5 h-5" />
-            </div>
-            <h3 className="text-base font-black text-slate-900">Edge Optical Vision Telemetry</h3>
-            <p className="mt-2 text-xs text-slate-500 leading-relaxed">
-              Privacy-first silhouette clustering and frame differencing directly from HTML5 video buffers. Generates normalized person bounding boxes and real headcount without sending biometric facial data to external servers.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Institutional Footer */}
-      <footer className="border-t border-slate-200 bg-slate-950 text-slate-300 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-white font-black text-xs">
-                MITS
+            {/* Custom Administration / Proctor Card */}
+            <div className="group relative rounded-[28px] border border-dashed border-neutral-300 dark:border-white/15 p-6 bg-white/40 dark:bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 flex items-center justify-center text-neutral-800 dark:text-neutral-200">
+                  <ShieldAlert size={22} className="text-[#ff602e]" />
+                </div>
+                <div className="mt-5">
+                  <span className="text-[10px] uppercase tracking-wider font-extrabold text-neutral-400 dark:text-neutral-500">
+                    Proctorial Board & HOD
+                  </span>
+                  <h3 className="mt-1 text-xl font-bold text-neutral-900 dark:text-white">
+                    Dean & Proctorial Console
+                  </h3>
+                  <p className="mt-2 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    Exclusive command views for Academic Deans, Department Heads, and the Chief Proctorial Board for disciplinary oversight and emergency broadcasts.
+                  </p>
+                </div>
               </div>
-              <span className="text-sm font-black tracking-wider text-white uppercase">
-                MADHAV INSTITUTE OF TECHNOLOGY &amp; SCIENCE
-              </span>
+
+              <button
+                type="button"
+                onClick={() => setIsRoleModalOpen(true)}
+                className="mt-6 w-full flex items-center justify-center gap-2 rounded-xl border border-neutral-300 dark:border-white/15 text-neutral-900 dark:text-white hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-neutral-900 py-2.5 text-xs sm:text-sm font-bold transition-all cursor-pointer"
+              >
+                <span>Switch Institutional View</span>
+                <ChevronRight size={15} />
+              </button>
             </div>
-            <p className="mt-3 text-xs text-slate-400 max-w-sm leading-relaxed">
-              Race Course Road, Gola ka Mandir, Gwalior, Madhya Pradesh 474005.
-              Autonomous institute established in 1957, affiliated to RGPV Bhopal.
+          </div>
+        </div>
+      </section>
+
+      {/* Campus Quick Directory & Landmark Finder */}
+      <section className="relative w-full px-4 sm:px-6 lg:px-8 py-16 bg-neutral-100/60 dark:bg-[#08090a]/60 border-y border-neutral-200/80 dark:border-white/5">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white">
+                Campus Directory & Landmark Finder
+              </h2>
+              <p className="mt-1 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400">
+                Instantly jump to verified nodes with live indoor coordinates.
+              </p>
+            </div>
+
+            {/* Directory Tabs */}
+            <div className="flex items-center gap-2 bg-white dark:bg-white/5 p-1 rounded-xl border border-neutral-200 dark:border-white/10 shadow-xs self-start sm:self-auto">
+              <button
+                type="button"
+                onClick={() => setSelectedDirectoryTab('academic')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  selectedDirectoryTab === 'academic'
+                    ? 'bg-blue-600 text-white shadow-xs'
+                    : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
+                }`}
+              >
+                Academic Wings
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedDirectoryTab('facilities')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  selectedDirectoryTab === 'facilities'
+                    ? 'bg-blue-600 text-white shadow-xs'
+                    : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
+                }`}
+              >
+                Key Facilities
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedDirectoryTab('services')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  selectedDirectoryTab === 'services'
+                    ? 'bg-blue-600 text-white shadow-xs'
+                    : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
+                }`}
+              >
+                Admin & Emergency
+              </button>
+            </div>
+          </div>
+
+          {/* Directory Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {campusDirectory[selectedDirectoryTab].map((item) => (
+              <Link
+                key={item.name}
+                to={`/map?dest=${encodeURIComponent(item.query)}&map=${item.map}`}
+                className="group flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-[#0e0f10] border border-neutral-200/80 dark:border-white/10 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/5 transition-all"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-white/5 text-blue-600 dark:text-blue-400 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                    <MapPin size={18} />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-neutral-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      {item.name}
+                    </h4>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400">{item.desc}</p>
+                  </div>
+                </div>
+                <ArrowUpRight size={16} className="text-neutral-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Institutional Mission & About Section */}
+      <About />
+
+      {/* Emergency Action Banner */}
+      <section className="relative w-full px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-6xl mx-auto rounded-3xl bg-gradient-to-r from-neutral-900 via-neutral-950 to-blue-950 text-white p-8 sm:p-12 border border-white/10 shadow-2xl relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#ff602e]/10 blur-[100px] pointer-events-none" />
+          <div className="max-w-xl z-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/20 border border-red-500/30 text-red-400 text-xs font-bold mb-4">
+              <Radio size={14} className="animate-pulse" />
+              <span>Campus Security Hotline: +91 751 240 9300</span>
+            </div>
+            <h3 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
+              Instant Help, Anytime, Anywhere on Campus
+            </h3>
+            <p className="mt-3 text-sm text-neutral-400 leading-relaxed">
+              In any emergency, tap the SOS button on your student portal. Your exact room and floor coordinates are instantly transmitted to active security patrols.
             </p>
-            <div className="mt-4 flex items-center gap-4 text-xs font-mono text-slate-400">
-              <span>Security SOC: +91 751 2409300</span>
-              <span>•</span>
-              <span className="text-rose-400 font-bold">Helpline: 112 / 108</span>
-            </div>
           </div>
 
-          <div>
-            <h4 className="text-xs font-black uppercase tracking-wider text-white">System Consoles</h4>
-            <ul className="mt-3 space-y-2 text-xs text-slate-400">
-              <li><Link to="/map" className="hover:text-white transition">Interactive Campus Map</Link></li>
-              <li><Link to="/student" className="hover:text-white transition">Student Safety Portal</Link></li>
-              <li><Link to="/gate-keeper" className="hover:text-white transition">Gate Checkpoint Kiosk</Link></li>
-              <li><Link to="/security" className="hover:text-white transition">QRF Patrol Response</Link></li>
-              <li><Link to="/control-room" className="hover:text-white transition">Central Control Room</Link></li>
-              <li><Link to="/admin" className="hover:text-white transition">Super Admin Console</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-xs font-black uppercase tracking-wider text-white">Emergency Services</h4>
-            <ul className="mt-3 space-y-2 text-xs text-slate-400 font-mono">
-              <li className="flex justify-between"><span>Campus Security:</span> <strong className="text-white">+91 751 2409300</strong></li>
-              <li className="flex justify-between"><span>National Police:</span> <strong className="text-white">112</strong></li>
-              <li className="flex justify-between"><span>Ambulance:</span> <strong className="text-white">108</strong></li>
-              <li className="flex justify-between"><span>Women Helpline:</span> <strong className="text-white">1090</strong></li>
-              <li className="flex justify-between"><span>Fire &amp; Rescue:</span> <strong className="text-white">101</strong></li>
-            </ul>
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto z-10">
+            <Link to="/student" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm transition-all shadow-lg shadow-red-600/30 cursor-pointer">
+                <Radio size={16} />
+                <span>Open Emergency SOS</span>
+              </button>
+            </Link>
+            <Link to="/map" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-white font-bold text-sm transition-all cursor-pointer">
+                <Compass size={16} />
+                <span>View Campus Grid</span>
+              </button>
+            </Link>
           </div>
         </div>
+      </section>
 
-        <div className="mt-10 pt-6 border-t border-slate-800 max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
-          <span>© 2026 MITS Gwalior. Built with React 19, TypeScript, Vite &amp; Tailwind CSS.</span>
-          <span className="font-mono text-[11px] text-slate-400">UniMap V2 • C3S Campus Defense Network</span>
-        </div>
-      </footer>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

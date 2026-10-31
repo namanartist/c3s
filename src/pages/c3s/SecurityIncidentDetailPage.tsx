@@ -5,7 +5,7 @@ import { IncidentTimeline } from '@/components/c3s/IncidentTimeline';
 import { CampusMap } from '@/components/c3s/CampusMap';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
-import { ShieldAlert, MapPin, User, Clock, Phone, ArrowLeft, Plus } from 'lucide-react';
+import { ArrowLeft, Navigation } from 'lucide-react';
 
 export default function SecurityIncidentDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -43,7 +43,16 @@ export default function SecurityIncidentDetailPage() {
               <h1 className="mt-1 text-2xl sm:text-3xl font-black text-white">{incident.title}</h1>
               <p className="mt-1 text-xs text-slate-400">Type: {incident.type} • Reported: {incident.reportedAt}</p>
             </div>
-            <StatusBadge status={incident.status} size="lg" pulse />
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => navigate(`/map?incident=${encodeURIComponent(incident.id)}`)}
+                className="flex items-center gap-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 px-4 py-2.5 text-xs font-bold text-white shadow-md active:scale-95 transition-all"
+              >
+                <Navigation className="h-4 w-4" />
+                <span>Navigate to Incident</span>
+              </button>
+              <StatusBadge status={incident.status} size="lg" pulse />
+            </div>
           </div>
 
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3 text-xs">

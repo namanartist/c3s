@@ -95,12 +95,12 @@ export default function SupportForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-[640px] bg-[#121212]/90 backdrop-blur-xl border border-white/[0.06] rounded-[28px] p-6 md:p-8 flex flex-col gap-6 shadow-[0_24px_50px_-12px_rgba(0,0,0,0.5)]"
+      className="w-full max-w-[640px] bg-white/95 dark:bg-[#121212]/90 backdrop-blur-xl border border-slate-200 dark:border-white/[0.06] rounded-[28px] p-6 md:p-8 flex flex-col gap-6 shadow-xl dark:shadow-[0_24px_50px_-12px_rgba(0,0,0,0.5)] transition-colors"
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         {/* Name input */}
         <div className="flex flex-col text-left">
-          <label htmlFor="name" className="text-xs font-semibold text-neutral-400 mb-2">
+          <label htmlFor="name" className="text-xs font-semibold text-slate-700 dark:text-neutral-400 mb-2">
             Name
           </label>
           <input
@@ -109,7 +109,7 @@ export default function SupportForm() {
             placeholder="Rahul"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full bg-[#1b1b1b] border border-white/[0.04] rounded-[14px] px-4 py-3.5 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-[#ff602e]/30 focus:ring-1 focus:ring-[#ff602e]/30 transition-all duration-200"
+            className="w-full bg-slate-50 dark:bg-[#1b1b1b] border border-slate-200 dark:border-white/[0.04] rounded-[14px] px-4 py-3.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-neutral-600 focus:outline-none focus:border-[#ff602e]/30 focus:ring-1 focus:ring-[#ff602e]/30 transition-all duration-200"
             required
             disabled={status.loading}
           />
@@ -117,7 +117,7 @@ export default function SupportForm() {
 
         {/* Email input */}
         <div className="flex flex-col text-left">
-          <label htmlFor="email" className="text-xs font-semibold text-neutral-400 mb-2">
+          <label htmlFor="email" className="text-xs font-semibold text-slate-700 dark:text-neutral-400 mb-2">
             Email
           </label>
           <input
@@ -126,7 +126,7 @@ export default function SupportForm() {
             placeholder="rahul@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full bg-[#1b1b1b] border border-white/[0.04] rounded-[14px] px-4 py-3.5 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-[#ff602e]/30 focus:ring-1 focus:ring-[#ff602e]/30 transition-all duration-200"
+            className="w-full bg-slate-50 dark:bg-[#1b1b1b] border border-slate-200 dark:border-white/[0.04] rounded-[14px] px-4 py-3.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-neutral-600 focus:outline-none focus:border-[#ff602e]/30 focus:ring-1 focus:ring-[#ff602e]/30 transition-all duration-200"
             required
             disabled={status.loading}
           />
@@ -135,7 +135,7 @@ export default function SupportForm() {
 
       {/* Use case textarea */}
       <div className="flex flex-col text-left">
-        <label htmlFor="useCase" className="text-xs font-semibold text-neutral-400 mb-2">
+        <label htmlFor="useCase" className="text-xs font-semibold text-slate-700 dark:text-neutral-400 mb-2">
           Describe your use case
         </label>
         <textarea
@@ -144,7 +144,7 @@ export default function SupportForm() {
           rows={5}
           value={useCase}
           onChange={(e) => setUseCase(e.target.value)}
-          className="w-full bg-[#1b1b1b] border border-white/[0.04] rounded-[14px] px-4 py-3.5 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-[#ff602e]/30 focus:ring-1 focus:ring-[#ff602e]/30 transition-all duration-200 resize-none min-h-[130px]"
+          className="w-full bg-slate-50 dark:bg-[#1b1b1b] border border-slate-200 dark:border-white/[0.04] rounded-[14px] px-4 py-3.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-neutral-600 focus:outline-none focus:border-[#ff602e]/30 focus:ring-1 focus:ring-[#ff602e]/30 transition-all duration-200 resize-none min-h-[130px]"
           required
           disabled={status.loading}
         />
@@ -166,7 +166,7 @@ export default function SupportForm() {
       <button
         type="submit"
         disabled={status.loading}
-        className="w-full bg-white hover:bg-neutral-100 disabled:bg-neutral-400 active:scale-[0.99] text-black font-semibold text-[13px] py-4 rounded-[14px] transition-all duration-200 cursor-pointer shadow-md mt-2 flex items-center justify-center gap-2"
+        className="w-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-neutral-100 dark:text-black disabled:opacity-50 active:scale-[0.99] font-semibold text-[13px] py-4 rounded-[14px] transition-all duration-200 cursor-pointer shadow-md mt-2 flex items-center justify-center gap-2"
       >
         {status.loading ? (
           <>

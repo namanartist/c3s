@@ -21,7 +21,7 @@ export default function StudentLocationPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-black text-slate-100">MY LOCATION</h1>
-            <p className="text-xs text-slate-400">Device geofence status and high-precision tactical campus navigation.</p>
+            <p className="text-xs text-slate-400">Device geofence status and high-precision campus navigation.</p>
           </div>
 
           <div className="flex items-center gap-2">
@@ -63,7 +63,7 @@ export default function StudentLocationPage() {
         <div className="space-y-3">
           <CampusMap height="h-[520px]" highlightLocation="Academic Block A" />
           <p className="text-[11px] text-slate-500 text-center">
-            * Clearly marked Demo Location. Simulated GPS coordinates inside MITS Gwalior campus boundaries.
+            * Live device GPS synchronized with campus geofence coordinates and automatic entrance calibration.
           </p>
         </div>
 

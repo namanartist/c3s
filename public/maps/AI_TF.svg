@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 719.4 220.32" width="719.4" height="220.32">
+  <defs>
+    <style>
+      .canvas-bg { fill: #F8FAFC; }
+      .floor-slab { fill: #FFFFFF; stroke: #475569; stroke-width: 2.5; }
+      .floor-inner { fill: #F8FAFC; stroke: #CBD5E1; stroke-width: 1.5; }
+      .floor-header { fill: #0F172A; }
+      .header-text { fill: #F8FAFC; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 1px; }
+
+      .path-casing { stroke: #CBD5E1; opacity: 0.8; }
+      .path-main { stroke: #FFFFFF; }
+
+      .room-box { fill: #FFFFFF; stroke: #3B82F6; stroke-width: 1.8; }
+      .room-title { fill: #0F172A; font-family: system-ui, -apple-system, sans-serif; font-size: 8px; font-weight: 800; }
+
+      .stair-box { fill: #EFF6FF; stroke: #2563EB; stroke-width: 1.8; }
+      .lift-box { fill: #FAF5FF; stroke: #7C3AED; stroke-width: 1.8; }
+
+      /* Dark Mode Overrides */
+      :is(.dark) .canvas-bg { fill: #0B1120; }
+      :is(.dark) .floor-slab { fill: #0F172A; stroke: #38BDF8; stroke-width: 2; }
+      :is(.dark) .floor-inner { fill: #1E293B; stroke: #334155; }
+      :is(.dark) .floor-header { fill: #1E293B; }
+      :is(.dark) .header-text { fill: #38BDF8; }
+
+      :is(.dark) .path-casing { stroke: #1E293B; }
+      :is(.dark) .path-main { stroke: #334155; }
+
+      :is(.dark) .room-box { fill: #0F172A; stroke: #38BDF8; }
+      :is(.dark) .room-title { fill: #F1F5F9; }
+
+      :is(.dark) .stair-box { fill: #172554; stroke: #3B82F6; }
+      :is(.dark) .lift-box { fill: #2E1065; stroke: #8B5CF6; }
+    </style>
+      <style>
+      .map-node-group { display: none !important; }
+    </style>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="719.4" height="220.32" class="canvas-bg"/>
+
+  <!-- Architectural Floor Slab -->
+  <g>
+    <rect x="13.7" y="15.2" width="681.5" height="177.3" rx="18" class="floor-slab" />
+    <rect x="19.7" y="21.2" width="669.5" height="165.3" rx="14" class="floor-inner" />
+    
+    <!-- Floor Banner Badge -->
+    <rect x="29.7" y="31.2" width="310" height="34" rx="8" class="floor-header" />
+    <text x="41.7" y="53.2" class="header-text">AI &amp; CSE BUILDING // FLOOR 3 (F3)</text>
+  </g>
+
+  <!-- Hallway Walkway Corridors -->
+  <g id="hallways">
+    <line x1="49.7" y1="102.8" x2="630.0" y2="102.8" class="path-casing" stroke-width="16" stroke-linecap="round" />
+    <line x1="49.7" y1="102.8" x2="630.0" y2="102.8" class="path-main" stroke-width="8" stroke-linecap="round" />
+
+    <!-- Branch paths to rooms & stairs -->
+    <line x1="50.0" y1="102.8" x2="50.0" y2="85.0" class="path-main" stroke-width="6" stroke-linecap="round" />
+    <line x1="131.28" y1="102.8" x2="131.28" y2="92.52" class="path-main" stroke-width="6" stroke-linecap="round" />
+    <line x1="200.0" y1="102.8" x2="200.0" y2="55.0" class="path-main" stroke-width="6" stroke-linecap="round" />
+    <line x1="350.0" y1="102.8" x2="350.0" y2="55.0" class="path-main" stroke-width="6" stroke-linecap="round" />
+    <line x1="419.76" y1="102.8" x2="419.76" y2="91.8" class="path-main" stroke-width="6" stroke-linecap="round" />
+    <line x1="495.12" y1="102.8" x2="495.12" y2="92.52" class="path-main" stroke-width="6" stroke-linecap="round" />
+    <line x1="550.0" y1="102.8" x2="550.0" y2="55.0" class="path-main" stroke-width="6" stroke-linecap="round" />
+    <line x1="630.0" y1="102.8" x2="630.0" y2="55.0" class="path-main" stroke-width="6" stroke-linecap="round" />
+  </g>
+
+  <!-- Classrooms, Labs and Facilities (Interactive Nodes) -->
+  <g id="rooms">
+    <!-- Restroom (F3) -->
+    <g id="node_room_AI_TF_Restroom" transform="translate(50.0, 85.0)" class="map-node-group cursor-pointer">
+      <rect x="-24" y="-14" width="48" height="28" rx="6" class="room-box" stroke="#0D9488" />
+      <circle cx="0" cy="-2" r="3" fill="#0D9488" />
+      <text x="0" y="8" class="room-title" text-anchor="middle">Restroom</text>
+    </g>
+
+    <!-- Stairs 02 (West) -->
+    <g id="node_AI_TF_Stairs02" transform="translate(131.28, 92.52)" class="map-node-group cursor-pointer">
+      <rect x="-24" y="-14" width="48" height="28" rx="6" class="stair-box" />
+      <circle cx="0" cy="-2" r="3" fill="#2563EB" />
+      <text x="0" y="8" class="room-title" text-anchor="middle">Stairs 02</text>
+    </g>
+
+    <!-- Room 301: AI & Robotics Lab -->
+    <g id="node_room_AI_TF_301_Robotics" transform="translate(200.0, 55.0)" class="map-node-group cursor-pointer">
+      <rect x="-42" y="-18" width="84" height="36" rx="8" class="room-box" stroke="#2563EB" />
+      <circle cx="0" cy="-4" r="3.5" fill="#2563EB" />
+      <text x="0" y="7" class="room-title" text-anchor="middle">Lab 301 (Robotics)</text>
+      <text x="0" y="15" fill="#64748B" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" font-weight="600" text-anchor="middle">AI Hardware Lab</text>
+    </g>
+
+    <!-- Room 302: Deep Learning Lab -->
+    <g id="node_room_AI_TF_302_DeepLearning" transform="translate(350.0, 55.0)" class="map-node-group cursor-pointer">
+      <rect x="-42" y="-18" width="84" height="36" rx="8" class="room-box" stroke="#7C3AED" />
+      <circle cx="0" cy="-4" r="3.5" fill="#7C3AED" />
+      <text x="0" y="7" class="room-title" text-anchor="middle">Lab 302 (Deep Learning)</text>
+      <text x="0" y="15" fill="#64748B" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" font-weight="600" text-anchor="middle">GPU Compute Cluster</text>
+    </g>
+
+    <!-- Elevator (Center) -->
+    <g id="node_AI_TF_Elevator" transform="translate(419.76, 91.8)" class="map-node-group cursor-pointer">
+      <rect x="-24" y="-14" width="48" height="28" rx="6" class="lift-box" />
+      <circle cx="0" cy="-2" r="3" fill="#7C3AED" />
+      <text x="0" y="8" class="room-title" text-anchor="middle">Elevator</text>
+    </g>
+
+    <!-- Stairs 01 (East) -->
+    <g id="node_AI_TF_Stairs01" transform="translate(495.12, 92.52)" class="map-node-group cursor-pointer">
+      <rect x="-24" y="-14" width="48" height="28" rx="6" class="stair-box" />
+      <circle cx="0" cy="-2" r="3" fill="#2563EB" />
+      <text x="0" y="8" class="room-title" text-anchor="middle">Stairs 01</text>
+    </g>
+
+    <!-- Room 303: AI Seminar Hall -->
+    <g id="node_room_AI_TF_303_Seminar" transform="translate(550.0, 55.0)" class="map-node-group cursor-pointer">
+      <rect x="-42" y="-18" width="84" height="36" rx="8" class="room-box" stroke="#D97706" />
+      <circle cx="0" cy="-4" r="3.5" fill="#D97706" />
+      <text x="0" y="7" class="room-title" text-anchor="middle">Room 303 (Seminar)</text>
+      <text x="0" y="15" fill="#64748B" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" font-weight="600" text-anchor="middle">Presentation Hall</text>
+    </g>
+
+    <!-- HOD Office - Dr. Dheeraj Kumar Dixit -->
+    <g id="node_cabin_AI_TF_HOD_Dixit" transform="translate(630.0, 55.0)" class="map-node-group cursor-pointer">
+      <rect x="-42" y="-18" width="84" height="36" rx="8" class="room-box" stroke="#059669" />
+      <circle cx="0" cy="-4" r="3.5" fill="#059669" />
+      <text x="0" y="7" class="room-title" text-anchor="middle">Dr. Dheeraj K. Dixit</text>
+      <text x="0" y="15" fill="#047857" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" font-weight="700" text-anchor="middle">HOD Math &amp; Computing</text>
+    </g>
+  </g>
+
+  <!-- Watermark badge -->
+  <g transform="translate(25, 205)">
+    <text x="0" y="0" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700">C3S // MITS GWALIOR • AI BUILDING LEVEL 3</text>
+  </g>
+</svg>
+

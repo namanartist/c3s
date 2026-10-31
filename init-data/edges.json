@@ -5503,5 +5503,12 @@
     "distance": 0,
     "type": "corridor",
     "category": "campus"
+  },
+  {
+    "from_node": "ENTRY07",
+    "to_node": "corridor10_01",
+    "distance": 8,
+    "type": "entry_to_entry",
+    "category": "campus"
   }
 ]

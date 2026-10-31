@@ -24,15 +24,17 @@ import { isProctorRole } from '@/lib/viewerRole';
 import { useCampusNavigation } from '@/hooks/useCampusNavigation';
 import { parseRoomName } from '@/lib/roomParser';
 import { formatTime, formatDistance } from '@/lib/routeBuilder';
-import { formatDMS, formatDecimal, getGoogleMapsUrl } from '@/lib/geoProjection';
+import { formatDMS, formatDecimal, getGoogleMapsUrl, getOsmUrl } from '@/lib/geoProjection';
 
 export interface RoutePanelProps { }
 
 const POPULAR_SPOTS = [
-  { id: 'room_J101', name: 'Colloquium', map: 'Main_FF', x: 341.3025, y: 489.9517, building: 'Main', floor: 1, category: 'Academic', desc: 'Conference Hall', color: 'bg-yellow-500/10 text-yellow-600', icon: BookOpen },
-  { id: 'room_J001', name: 'Conclave', map: 'Main_GF', x: 406.8033, y: 487.5583, building: 'Main', floor: 0, category: 'Academic', desc: 'Seminar Room', color: 'bg-orange-500/10 text-orange-600', icon: School },
-  { id: 'room_J102', name: 'SH-7', map: 'Main_FF', x: 156.9493, y: 469.9952, building: 'Main', floor: 1, category: 'Academic', desc: 'Lecture Hall 7', color: 'bg-cyan-500/10 text-cyan-600', icon: Flame },
-  { id: 'Jubilee_Gate', name: 'Jubilee Gate', map: 'Campus_Map', x: 749.9669, y: 127.5277, building: 'Campus', floor: 0, category: 'Gate', desc: 'Main Campus Entrance', color: 'bg-blue-500/10 text-blue-600', icon: Compass }
+  { id: 'room_J125', name: 'Classroom 101 (J125)', map: 'Main_FF', x: 133.6177, y: 337.6854, building: 'Main', floor: 1, category: 'Academic', desc: 'First Floor Room 101', color: 'bg-emerald-500/10 text-emerald-600', icon: School },
+  { id: 'room_J126', name: 'Classroom 102 (J126)', map: 'Main_FF', x: 176.6123, y: 337.5387, building: 'Main', floor: 1, category: 'Academic', desc: 'First Floor Room 102', color: 'bg-blue-500/10 text-blue-600', icon: School },
+  { id: 'room_J101', name: 'Colloquium Hall (J101)', map: 'Main_FF', x: 341.3025, y: 489.9517, building: 'Main', floor: 1, category: 'Academic', desc: 'Conference Hall', color: 'bg-yellow-500/10 text-yellow-600', icon: BookOpen },
+  { id: 'room_J001', name: 'Conclave (J001)', map: 'Main_GF', x: 406.8033, y: 487.5583, building: 'Main', floor: 0, category: 'Academic', desc: 'Seminar Room', color: 'bg-orange-500/10 text-orange-600', icon: School },
+  { id: 'room_J102', name: 'SH-7 (J102)', map: 'Main_FF', x: 156.9493, y: 469.9952, building: 'Main', floor: 1, category: 'Academic', desc: 'Lecture Hall 7', color: 'bg-cyan-500/10 text-cyan-600', icon: Flame },
+  { id: 'Jubilee_Gate', name: 'Jubilee Gate', map: 'Campus_Map', x: 749.9669, y: 127.5277, building: 'Campus', floor: 0, category: 'Gate', desc: 'Main Campus Entrance', color: 'bg-purple-500/10 text-purple-600', icon: Compass }
 ];
 
 export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
@@ -200,7 +202,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
     return (
       <div
         data-lenis-prevent
-        className={`fixed bottom-0 left-0 right-0 bg-white rounded-t-[32px] shadow-[0_-10px_30px_rgba(0,0,0,0.08)] border-t border-black/5 z-30 transition-transform duration-300 ease-out flex flex-col ${isBottomSheetExpanded ? 'translate-y-0 h-[80vh]' : 'translate-y-[calc(80vh-140px)] h-[80vh]'
+        className={`fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 rounded-t-[32px] shadow-[0_-10px_30px_rgba(0,0,0,0.08)] border-t border-slate-200 dark:border-white/10 z-30 transition-colors transition-transform duration-300 ease-out flex flex-col ${isBottomSheetExpanded ? 'translate-y-0 h-[80vh]' : 'translate-y-[calc(80vh-140px)] h-[80vh]'
           }`}
       >
         {/* Drag Handle */}
@@ -210,7 +212,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
           onTouchEnd={handleTouchEnd}
           className="w-full py-3 flex justify-center cursor-pointer select-none shrink-0"
         >
-          <div className="w-10 h-1 bg-gray-300 rounded-full" />
+          <div className="w-10 h-1 bg-gray-300 dark:bg-slate-700 rounded-full" />
         </div>
 
         {isNavigating ? (
@@ -273,7 +275,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
               <div className="px-6 pb-4 flex items-center justify-between shrink-0">
                 <div className="flex-1">
                   <div className="flex items-baseline gap-1.5">
-                    <span className="text-xl font-black text-gray-900">
+                    <span className="text-xl font-black text-gray-900 dark:text-white">
                       {isComputingRoute ? 'Computing...' : formatTime(routeDuration)}
                     </span>
                     {!isComputingRoute && (
@@ -282,9 +284,14 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
                       </span>
                     )}
                   </div>
-                  <p className="text-xs font-bold text-emerald-600 mt-0.5">
-                    {accessibleOnly ? 'Step-free route via lifts & ramps' : 'Fastest route via indoor paths'}
-                  </p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
+                      {accessibleOnly ? '♿ Step-Free Route' : '🚶 Walkways, Galis & Corridors'}
+                    </span>
+                    <span className="text-[10px] font-medium text-slate-400">
+                      {navigationSteps.length} {navigationSteps.length === 1 ? 'segment' : 'segments'}
+                    </span>
+                  </div>
                 </div>
                 <button
                   onClick={handleExitNavigation}
@@ -308,7 +315,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
                   <span>{isSimulating ? 'Simulating Walk (Click to Pause)' : 'Simulate Walk / Turn-by-Turn'}</span>
                 </button>
 
-                <div className="flex items-center justify-between bg-[#fcfaf6] border border-black/[0.03] rounded-2xl p-4 shadow-sm select-none">
+                <div className="flex items-center justify-between bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-white/10 rounded-2xl p-4 shadow-sm select-none">
                   <div className="flex items-center gap-2.5">
                     <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
                       <Accessibility className="w-4.5 h-4.5" />
@@ -379,7 +386,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
                             {isLast ? <MapPin className="w-4 h-4" /> : renderDirectionIcon(step.direction)}
                           </div>
                           <div>
-                            <p className="text-sm font-bold text-gray-900 leading-snug">
+                            <p className="text-sm font-bold text-gray-900 dark:text-white leading-snug">
                               {step.instruction}
                             </p>
                             <p className="text-xs font-semibold text-gray-400 mt-0.5">
@@ -433,7 +440,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
             >
               <div className="flex flex-col min-w-0">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-lg font-black text-gray-900">
+                  <span className="text-lg font-black text-gray-900 dark:text-white">
                     {isComputingRoute ? 'Computing...' : formatTime(routeDuration)}
                   </span>
                   {!isComputingRoute && (
@@ -477,7 +484,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
               <div className="px-6 pb-4 flex items-center justify-between shrink-0">
                 <div className="flex-1">
                   <div className="flex items-baseline gap-1.5">
-                    <span className="text-xl font-black text-gray-900">
+                    <span className="text-xl font-black text-gray-900 dark:text-white">
                       {isComputingRoute ? 'Computing...' : formatTime(routeDuration)}
                     </span>
                     {!isComputingRoute && (
@@ -486,15 +493,20 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
                       </span>
                     )}
                   </div>
-                  <p className="text-xs font-bold text-emerald-600 mt-0.5">
-                    {accessibleOnly ? 'Step-free route via lifts & ramps' : 'Fastest route via indoor paths'}
-                  </p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
+                      {accessibleOnly ? '♿ Step-Free Route' : '🚶 Walkways, Galis & Corridors'}
+                    </span>
+                    <span className="text-[10px] font-medium text-slate-400">
+                      {navigationSteps.length} {navigationSteps.length === 1 ? 'segment' : 'segments'}
+                    </span>
+                  </div>
                 </div>
               </div>
 
               {/* Step-Free Toggle Option */}
               <div className="px-6 pb-4 shrink-0">
-                <div className="flex items-center justify-between bg-[#fcfaf6] border border-black/[0.03] rounded-2xl p-4 shadow-sm select-none">
+                <div className="flex items-center justify-between bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-white/10 rounded-2xl p-4 shadow-sm select-none">
                   <div className="flex items-center gap-2.5">
                     <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
                       <Accessibility className="w-4.5 h-4.5" />
@@ -585,7 +597,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
                   <span className="text-[9px] font-black uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">
                     {destination.category}
                   </span>
-                  <h3 className="text-lg font-black text-gray-900 mt-2 truncate">{destination.name}</h3>
+                  <h3 className="text-lg font-black text-gray-900 dark:text-white mt-2 truncate">{destination.name}</h3>
                   <p className="text-xs font-bold text-gray-400 mt-1">
                     {destination.building} • Floor {destination.floor === 0 ? 'G' : `F${destination.floor}`}
                   </p>
@@ -600,20 +612,20 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
               </div>
 
               <div className="flex-1 overflow-y-auto py-4 space-y-3">
-                <div className="bg-[#fcfaf6] border border-black/[0.03] rounded-2xl p-4 flex items-start gap-3.5">
+                <div className="bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-white/10 rounded-2xl p-4 flex items-start gap-3.5">
                   <School className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-xs font-bold text-gray-900">Location Details</h4>
+                    <h4 className="text-xs font-bold text-gray-900 dark:text-white">Location Details</h4>
                     <p className="text-[10px] text-gray-500 mt-1 leading-relaxed">
                       This {destination.category.toLowerCase()} is located in the {destination.building} on Floor {destination.floor === 0 ? 'Ground' : destination.floor}.
                     </p>
                   </div>
                 </div>
 
-                <div className="bg-[#fcfaf6] border border-black/[0.03] rounded-2xl p-4 flex items-start gap-3.5">
+                <div className="bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-white/10 rounded-2xl p-4 flex items-start gap-3.5">
                   <Compass className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-xs font-bold text-gray-900">Entrance Route</h4>
+                    <h4 className="text-xs font-bold text-gray-900 dark:text-white">Entrance Route</h4>
                     <p className="text-[10px] text-gray-500 mt-1 leading-relaxed">
                       Accessible via campus pathways and stairs/lift connections.
                     </p>
@@ -621,20 +633,32 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
                 </div>
 
                 {destination.lat != null && destination.lng != null && (
-                  <div className="bg-[#fcfaf6] border border-black/[0.03] rounded-2xl p-4 flex items-start gap-3.5">
+                  <div className="bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-white/10 rounded-2xl p-4 flex items-start gap-3.5">
                     <Globe className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
-                        <h4 className="text-xs font-bold text-gray-900">GPS Coordinates</h4>
-                        <a
-                          href={getGoogleMapsUrl(destination.lat, destination.lng, destination.name)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[10px] font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1"
-                        >
-                          <span>Google Maps</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
+                        <h4 className="text-xs font-bold text-gray-900 dark:text-white">GPS Coordinates</h4>
+                        <div className="flex items-center gap-2">
+                          <a
+                            href={getOsmUrl(destination.lat, destination.lng)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[10px] font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-0.5"
+                          >
+                            <span>OpenStreetMap</span>
+                            <ExternalLink className="w-2.5 h-2.5" />
+                          </a>
+                          <span className="text-gray-300">•</span>
+                          <a
+                            href={getGoogleMapsUrl(destination.lat, destination.lng, destination.name)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[10px] font-bold text-blue-600 hover:text-blue-700 flex items-center gap-0.5"
+                          >
+                            <span>Google Maps</span>
+                            <ExternalLink className="w-2.5 h-2.5" />
+                          </a>
+                        </div>
                       </div>
                       <p className="text-[11px] font-mono font-semibold text-gray-800 mt-1">
                         {formatDMS(destination.lat, destination.lng)}
@@ -667,7 +691,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
               onClick={() => setIsBottomSheetExpanded(true)}
               className="pb-3 select-none shrink-0 cursor-pointer"
             >
-              <h3 className="text-base font-black text-gray-900 uppercase tracking-wider">Explore Campus</h3>
+              <h3 className="text-base font-black text-gray-900 dark:text-white uppercase tracking-wider">Explore Campus</h3>
               <p className="text-[11px] font-bold text-gray-400 mt-0.5">Select a destination to plan your route</p>
             </div>
 
@@ -684,7 +708,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
                       <Icon className="w-4 h-4" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h4 className="text-xs font-bold text-gray-900 truncate">{loc.name}</h4>
+                      <h4 className="text-xs font-bold text-gray-900 dark:text-white truncate">{loc.name}</h4>
                       <p className="text-[10px] text-gray-400 mt-0.5 truncate">{loc.desc}</p>
                     </div>
                     <span className="text-[9px] font-bold uppercase tracking-wider text-gray-400 bg-gray-50 px-2 py-1 rounded-md">
@@ -707,7 +731,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
       {isNavigating && (
         <div className="border-t border-gray-100 pt-4 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
+            <h3 className="text-base font-bold text-gray-900 dark:text-white flex items-center gap-2">
               <Navigation className="w-4.5 h-4.5 text-blue-600" />
               Navigation
             </h3>
@@ -766,14 +790,14 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
-                        <span className={`text-[10px] font-bold uppercase tracking-wider ${isActive ? 'text-blue-600' : 'text-gray-400'}`}>
+                        <span className={`text-[10px] font-bold uppercase tracking-wider ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400 dark:text-slate-400'}`}>
                           {title}
                         </span>
-                        <span className="text-[9px] font-bold text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded uppercase">
+                        <span className="text-[9px] font-bold text-gray-400 bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-300 px-1.5 py-0.5 rounded uppercase">
                           {getMapDisplayName(step.map)}
                         </span>
                       </div>
-                      <p className="text-xs font-bold text-gray-900 mt-0.5">
+                      <p className="text-xs font-bold text-gray-900 dark:text-white mt-0.5">
                         {desc}
                       </p>
                     </div>
@@ -785,7 +809,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
 
           {/* Active Step walking instructions */}
           {navigationSteps[activeStepIndex] && (
-            <div className="bg-[#fcfaf6] border border-black/[0.03] rounded-2xl p-4 space-y-3.5">
+            <div className="bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-white/10 rounded-2xl p-4 space-y-3.5">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">
                   Walking Instructions
@@ -833,8 +857,107 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
         </div>
       )}
 
-      {/* Welcome Guide & Popular spots (only visible when not navigating) */}
-      {!isNavigating && (
+      {/* Route Preview Mode on Desktop (When origin and destination are selected, but navigation hasn't started) */}
+      {!isNavigating && isRouteActive && (
+        <div className="border-t border-gray-100 dark:border-white/10 pt-4 space-y-3.5">
+          {/* Route Summary Card */}
+          <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-500/10 via-indigo-500/5 to-transparent border border-blue-200/80 dark:border-blue-500/20 space-y-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-xl font-black text-slate-900 dark:text-white">
+                    {isComputingRoute ? 'Computing...' : formatTime(routeDuration)}
+                  </span>
+                  {!isComputingRoute && (
+                    <span className="text-xs font-bold text-slate-400">
+                      ({formatDistance(routeDistance)})
+                    </span>
+                  )}
+                </div>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
+                    {accessibleOnly ? '♿ Step-Free' : '🚶 Galis & Corridors'}
+                  </span>
+                  <span className="text-[10px] font-medium text-slate-400">
+                    {navigationSteps.length} {navigationSteps.length === 1 ? 'floor' : 'floors'}
+                  </span>
+                </div>
+              </div>
+
+              <button
+                onClick={handleStartNavigation}
+                disabled={isComputingRoute}
+                className="h-10 px-4 rounded-xl bg-[#ff602e] hover:bg-[#ff7b52] text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md shadow-orange-500/20 active:scale-95 cursor-pointer disabled:opacity-50"
+              >
+                <Navigation className="w-3.5 h-3.5 fill-white" />
+                <span>Start</span>
+              </button>
+            </div>
+
+            {/* Origin & Destination badges */}
+            <div className="space-y-1.5 pt-1 border-t border-blue-100 dark:border-white/5 text-xs">
+              <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                <span className="font-semibold truncate">{currentLocation.name}</span>
+                <span className="text-[9px] text-slate-400 uppercase font-mono ml-auto shrink-0">
+                  {currentLocation.map ? currentLocation.map.replace('_', ' ') : 'Campus'}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+                <span className="w-2 h-2 rounded-full bg-[#ff602e] shrink-0" />
+                <span className="font-semibold truncate">{destination.name}</span>
+                <span className="text-[9px] text-slate-400 uppercase font-mono ml-auto shrink-0">
+                  {destination.map ? destination.map.replace('_', ' ') : 'Campus'}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Floor Steps Preview */}
+          {navigationSteps.length > 0 && (
+            <div className="space-y-2">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                Multi-Floor Route Preview
+              </span>
+              <div className="flex flex-col gap-1.5">
+                {navigationSteps.map((step, idx) => {
+                  const isActive = idx === activeStepIndex;
+                  const { title, desc } = getStepLabel(step, idx);
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveStepIndex(idx)}
+                      className={`w-full text-left p-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
+                        isActive
+                          ? 'bg-blue-50/80 dark:bg-blue-950/40 border-blue-300 dark:border-blue-700 shadow-sm'
+                          : 'bg-white dark:bg-slate-900 border-slate-200/80 dark:border-white/5 hover:bg-slate-50'
+                      }`}
+                    >
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2">
+                          <span className={`text-[10px] font-black uppercase ${isActive ? 'text-blue-600' : 'text-slate-500'}`}>
+                            {title}
+                          </span>
+                          <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 uppercase">
+                            {getMapDisplayName(step.map)}
+                          </span>
+                        </div>
+                        <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5 truncate">
+                          {desc}
+                        </p>
+                      </div>
+                      <ArrowRight className="w-3.5 h-3.5 text-slate-400 shrink-0 ml-2" />
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Welcome Guide & Popular spots (only visible when no route is active) */}
+      {!isNavigating && !isRouteActive && (
         <>
           {/* Campus Safety Emergency Quick Banner */}
           {isProctorRole() && <div className="bg-gradient-to-r from-red-500/10 via-rose-500/10 to-red-500/5 border border-red-200/80 rounded-2xl p-4 flex items-center justify-between gap-3 select-none">
@@ -868,7 +991,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
               <Compass className="w-5 h-5 animate-pulse" />
             </div>
             <div className="flex-1 min-w-0">
-              <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider">Campus Explorer</h4>
+              <h4 className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-wider">Campus Explorer</h4>
               <p className="text-[10px] text-gray-500 leading-normal mt-1">
                 Search rooms, pan the map freely, or select popular highlights below to quickly preview indoor routing and navigation.
               </p>
@@ -885,17 +1008,17 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
                   <button
                     key={loc.id}
                     onClick={() => handleDestinationSelect(loc)}
-                    className="bg-white/90 hover:bg-blue-50/40 border border-slate-200/80 hover:border-blue-400 rounded-2xl p-3.5 shadow-sm flex items-center gap-3.5 transition-all duration-200 text-left active:scale-[0.98] group pointer-events-auto cursor-pointer"
+                    className="bg-white/90 dark:bg-slate-850/90 hover:bg-blue-50/40 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-white/10 hover:border-blue-400 dark:hover:border-blue-500/50 rounded-2xl p-3.5 shadow-sm flex items-center gap-3.5 transition-all duration-200 text-left active:scale-[0.98] group pointer-events-auto cursor-pointer"
                   >
                     <div className={`w-9 h-9 rounded-xl ${loc.color} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform`}>
                       <Icon className="w-4.5 h-4.5" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h4 className="text-xs font-bold text-gray-900 group-hover:text-blue-600 transition-colors truncate">{loc.name}</h4>
+                      <h4 className="text-xs font-bold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors truncate">{loc.name}</h4>
                       <p className="text-[10px] text-gray-400 mt-0.5 truncate">{loc.desc}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <span className="text-[9px] font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-2 py-1 rounded-md">
+                      <span className="text-[9px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-md">
                         {loc.building} • F{loc.floor}
                       </span>
                     </div>

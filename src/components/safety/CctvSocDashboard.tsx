@@ -16,11 +16,11 @@ import { useCampusNavigation } from '@/hooks/useCampusNavigation';
 import { formatDMS } from '@/lib/geoProjection';
 import {
   useCrowdMonitoring,
-  getCameraVideoFeedUrl,
   getCrowdBadgeStyle
 } from '@/lib/crowdMonitoringApi';
 import { useHumanDetection } from '@/hooks/useHumanDetection';
 import { LiveDetectionOverlay } from '@/components/safety/LiveDetectionOverlay';
+import { LiveWebcamFeed } from '@/components/safety/LiveWebcamFeed';
 
 export function CctvSocDashboard() {
   const cctvCameras = useSafetyStore((s) => s.cctvCameras);
@@ -40,19 +40,14 @@ export function CctvSocDashboard() {
 
   const focusedCamera = cctvCameras.find((c) => c.id === activeCamId) || cctvCameras[0];
   const activeIncidents = incidents.filter((i) => i.status !== 'resolved');
-  const alertCameras = cctvCameras.filter((camera) => camera.status === 'alert').length;
   const onlineCameras = cctvCameras.filter((camera) => camera.status === 'online').length;
 
   // Crowd Monitoring & Human Vision AI
-  const { health, isOnline, isRefreshing, syncCrowdData } = useCrowdMonitoring();
-  const [streamMode, setStreamMode] = useState<'stream' | 'hud'>('stream');
+  const { health, isOnline, syncCrowdData } = useCrowdMonitoring();
+  const [streamMode, setStreamMode] = useState<'stream' | 'hud' | 'webcam'>('stream');
   const [feedError, setFeedError] = useState(false);
   const mainVideoRef = useRef<HTMLVideoElement>(null);
-  const liveDetection = useHumanDetection(mainVideoRef, focusedCamera?.id, streamMode === 'stream');
-
-  useEffect(() => {
-    setFeedError(false);
-  }, [activeCamId]);
+  const liveDetection = useHumanDetection(mainVideoRef, focusedCamera?.id, streamMode === 'stream', focusedCamera);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -60,6 +55,12 @@ export function CctvSocDashboard() {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    if (focusedCamera?.id === 'cam_jubilee' || focusedCamera?.id === 'CAM-08') {
+      setStreamMode('webcam');
+    }
+  }, [focusedCamera?.id]);
 
   const handleDispatchIncident = (inc: typeof incidents[0]) => {
     updateIncidentStatus(inc.id, 'responding', 'QRF Unit 1 Dispatched');
@@ -232,24 +233,56 @@ export function CctvSocDashboard() {
               <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px] pointer-events-none z-10 opacity-60" />
 
               {/* Viewport Content: Live Stream or Blueprint HUD */}
-              {streamMode === 'stream' ? (
+              {streamMode === 'webcam' ? (
                 <div
                   className="w-full h-full relative flex items-center justify-center overflow-hidden transition-transform duration-300"
                   style={{
                     transform: `scale(${zoomLevel}) translateX(${ptzPan * 20}px)`
                   }}
                 >
-                  <video
-                    ref={mainVideoRef}
-                    src={focusedCamera.id.includes('2') || focusedCamera.id.includes('4') || focusedCamera.id.includes('6') ? '/videos/crowd2.mp4' : '/videos/crowd.mp4'}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover"
+                  <LiveWebcamFeed
+                    cameraId={focusedCamera.id}
+                    camera={focusedCamera}
+                    onFallbackToRecorded={() => setStreamMode('stream')}
                   />
-                  <LiveDetectionOverlay detection={liveDetection} />
                 </div>
+              ) : streamMode === 'stream' ? (
+                focusedCamera.youtubeEmbedUrl ? (
+                  <div
+                    className="w-full h-full relative flex items-center justify-center overflow-hidden transition-transform duration-300 bg-black"
+                    style={{
+                      transform: `scale(${zoomLevel}) translateX(${ptzPan * 20}px)`
+                    }}
+                  >
+                    <iframe
+                      src={`${focusedCamera.youtubeEmbedUrl}?autoplay=1&mute=0&rel=0`}
+                      title={focusedCamera.name}
+                      className="w-full h-full border-0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    />
+                    <LiveDetectionOverlay detection={liveDetection} />
+                  </div>
+                ) : (
+                  <div
+                    className="w-full h-full relative flex items-center justify-center overflow-hidden transition-transform duration-300"
+                    style={{
+                      transform: `scale(${zoomLevel}) translateX(${ptzPan * 20}px)`
+                    }}
+                  >
+                    <video
+                      ref={mainVideoRef}
+                      src={focusedCamera.videoUrl || (focusedCamera.id.includes('2') || focusedCamera.id.includes('4') || focusedCamera.id.includes('6') ? '/videos/crowd2.mp4' : '/videos/crowd.mp4')}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                    <LiveDetectionOverlay detection={liveDetection} />
+                  </div>
+                )
               ) : (
                 <div
                   className="w-full h-full relative flex items-center justify-center p-8 transition-transform duration-300"
@@ -327,9 +360,20 @@ export function CctvSocDashboard() {
               {/* Top Right Mode Switchers */}
               <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
                 <button
+                  onClick={() => setStreamMode('webcam')}
+                  className={`px-3 py-1 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    streamMode === 'webcam'
+                      ? 'bg-red-600 text-white shadow-lg shadow-red-500/40'
+                      : 'bg-black/60 border border-white/10 text-neutral-300 hover:bg-black/80'
+                  }`}
+                >
+                  <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                  <span>LIVE WEBCAM</span>
+                </button>
+                <button
                   onClick={() => {
-                    setStreamMode((m) => (m === 'stream' ? 'hud' : 'stream'));
-                    if (streamMode === 'hud') setFeedError(false);
+                    setStreamMode('stream');
+                    setFeedError(false);
                   }}
                   className={`px-3 py-1 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${
                     streamMode === 'stream' && !feedError
@@ -337,7 +381,17 @@ export function CctvSocDashboard() {
                       : 'bg-black/60 border border-white/10 text-neutral-300 hover:bg-black/80'
                   }`}
                 >
-                  {streamMode === 'stream' && !feedError ? 'VIDEO FEED' : 'BLUEPRINT RADAR'}
+                  RECORDED
+                </button>
+                <button
+                  onClick={() => setStreamMode('hud')}
+                  className={`px-3 py-1 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${
+                    streamMode === 'hud'
+                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
+                      : 'bg-black/60 border border-white/10 text-neutral-300 hover:bg-black/80'
+                  }`}
+                >
+                  BLUEPRINT
                 </button>
                 <button
                   onClick={() => setIsNightVision(!isNightVision)}
@@ -379,6 +433,12 @@ export function CctvSocDashboard() {
                   <span>Latency:</span>
                   <span className="text-cyan-400 font-bold">
                     {focusedCamera.latencyMs || 38} ms
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-[11px] text-neutral-400 pt-1 border-t border-white/10">
+                  <span>Fight Status:</span>
+                  <span className={`font-bold ${focusedCamera.fightDetected || liveDetection.fight.isFightDetected ? 'text-red-400 animate-pulse' : 'text-emerald-400'}`}>
+                    {focusedCamera.fightDetected || liveDetection.fight.isFightDetected ? `🚨 ${focusedCamera.fightConfidence || Math.round(liveDetection.fight.confidence)}% FIGHT CONF` : 'SECURE (0%)'}
                   </span>
                 </div>
               </div>
@@ -431,24 +491,37 @@ export function CctvSocDashboard() {
               return (
                 <button
                   key={cam.id}
-                  onClick={() => setActiveCamId(cam.id)}
+                  onClick={() => { setActiveCamId(cam.id); setFeedError(false); }}
                   className={`relative p-2.5 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between overflow-hidden group ${
                     isSelected
                       ? 'bg-blue-950/80 border-blue-500 ring-2 ring-blue-500/30 shadow-lg'
                       : 'bg-neutral-900/80 border-white/10 hover:border-white/25 hover:bg-neutral-800/80'
                   }`}
                 >
-                  <video
-                    src={cam.id.includes('2') || cam.id.includes('4') || cam.id.includes('6') ? '/videos/crowd2.mp4' : '/videos/crowd.mp4'}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:opacity-40 transition-opacity pointer-events-none"
-                  />
+                  {cam.youtubeEmbedUrl ? (
+                    <iframe
+                      src={`${cam.youtubeEmbedUrl}?autoplay=1&mute=1&controls=0&loop=1&playlist=${(cam.youtubeEmbedUrl || "").split("embed/")[1] || ""}`}
+                      title={cam.name}
+                      className="absolute inset-0 w-full h-full border-0 pointer-events-none opacity-40 group-hover:opacity-75 transition-opacity"
+                    />
+                  ) : (
+                    <video
+                      src={cam.videoUrl || (cam.id.includes('2') || cam.id.includes('4') || cam.id.includes('6') ? '/videos/crowd2.mp4' : '/videos/crowd.mp4')}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:opacity-40 transition-opacity pointer-events-none"
+                    />
+                  )}
                   <div className="relative z-10 flex items-center justify-between w-full">
-                    <span className="text-[10px] font-black uppercase font-mono text-neutral-400">
-                      {cam.id.replace('cam_', 'CAM ')}
+                    <span className="text-[10px] font-black uppercase font-mono text-neutral-400 flex items-center gap-1">
+                      <span>{cam.id.replace('cam_', 'CAM ')}</span>
+                      {cam.fightDetected && (
+                        <span className="rounded bg-red-600 px-1 py-0.2 text-[8px] font-bold text-white">
+                          FIGHT {cam.fightConfidence || 92}%
+                        </span>
+                      )}
                     </span>
                     <span className="flex items-center gap-1">
                       <span className="text-[10px] font-mono text-neutral-300 font-bold">

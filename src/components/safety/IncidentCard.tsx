@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 // src/components/safety/IncidentCard.tsx
 import { motion, AnimatePresence } from 'motion/react';
 import {
@@ -20,17 +21,22 @@ import {
 } from 'lucide-react';
 import { useSafetyStore } from '@/store/safetyStore';
 import { useCampusNavigation } from '@/hooks/useCampusNavigation';
-import { formatDMS, getGoogleMapsUrl } from '@/lib/geoProjection';
+import { formatDMS, getGoogleMapsUrl, getOsmUrl } from '@/lib/geoProjection';
 
 export function IncidentCard() {
   const activeDashboard = useSafetyStore((s) => s.activeDashboard);
   const selectedIncident = useSafetyStore((s) => s.selectedIncident);
   const setSelectedIncident = useSafetyStore((s) => s.setSelectedIncident);
-  const updateIncidentStatus = useSafetyStore((s) => s.updateIncidentStatus);
   const dispatchResponder = useSafetyStore((s) => s.dispatchResponder);
   const advanceResponderStatus = useSafetyStore((s) => s.advanceResponderStatus);
 
   const { routeToSosIncident } = useCampusNavigation();
+  const [nowTimestamp, setNowTimestamp] = useState(() => Date.now());
+
+  useEffect(() => {
+    const interval = setInterval(() => setNowTimestamp(Date.now()), 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Hide confidential SOS details from public users in nav mode
   if (activeDashboard === 'nav' || !selectedIncident) return null;
@@ -62,7 +68,7 @@ export function IncidentCard() {
   };
 
   const timeAgo = () => {
-    const mins = Math.max(1, Math.round((Date.now() - selectedIncident.timestamp) / 60000));
+    const mins = Math.max(1, Math.round((nowTimestamp - selectedIncident.timestamp) / 60000));
     return `${mins}m ago`;
   };
 
@@ -73,7 +79,6 @@ export function IncidentCard() {
 
   const isResolved = selectedIncident.status === 'resolved';
   const isEnRoute = selectedIncident.responderStatus === 'enroute';
-  const isOnScene = selectedIncident.responderStatus === 'on_scene';
 
   return (
     <AnimatePresence>
@@ -151,32 +156,51 @@ export function IncidentCard() {
 
           {/* Auto-Captured Evidence: Photo Snapshot & Video Clip */}
           {selectedIncident.evidence && (selectedIncident.evidence.photoUrl || selectedIncident.evidence.videoUrl) && (
-            <div className="space-y-1.5">
-              <p className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">
-                AUTO-CAPTURED EVIDENCE CLIP
-              </p>
-              <div className="relative rounded-2xl overflow-hidden border border-slate-700 bg-black aspect-video max-h-40 flex items-center justify-center">
-                {selectedIncident.evidence.videoUrl ? (
-                  <video
-                    src={selectedIncident.evidence.videoUrl}
-                    controls
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover"
-                  />
-                ) : selectedIncident.evidence.photoUrl ? (
-                  <img
-                    src={selectedIncident.evidence.photoUrl}
-                    alt="Incident snapshot"
-                    className="w-full h-full object-cover"
-                  />
-                ) : null}
-                <div className="absolute top-2 left-2 flex items-center gap-1 rounded bg-black/70 px-2 py-0.5 text-[9px] font-mono text-emerald-400 border border-white/10">
-                  <Camera className="w-3 h-3" />
-                  <span>STUDENT CAMERA (LIVE)</span>
-                </div>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <p className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                  <Camera className="w-3 h-3 text-emerald-400" />
+                  Auto-Captured Evidence
+                </p>
+                {selectedIncident.evidence.fightConfidence && (
+                  <span className="text-[10px] font-mono bg-red-950 text-red-300 border border-red-800 px-1.5 py-0.5 rounded">
+                    Kaggle RWF-2000: {selectedIncident.evidence.fightConfidence}%
+                  </span>
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {selectedIncident.evidence.photoUrl && (
+                  <div className="relative rounded-xl overflow-hidden border border-slate-700 bg-black aspect-video flex items-center justify-center">
+                    <img
+                      src={selectedIncident.evidence.photoUrl}
+                      alt="Incident Snapshot"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-1.5 left-1.5 flex items-center gap-1 rounded bg-black/75 px-1.5 py-0.5 text-[9px] font-mono text-emerald-400 border border-white/10">
+                      <Camera className="w-2.5 h-2.5" />
+                      <span>PHOTO EVIDENCE</span>
+                    </div>
+                  </div>
+                )}
+
+                {selectedIncident.evidence.videoUrl && (
+                  <div className="relative rounded-xl overflow-hidden border border-slate-700 bg-black aspect-video flex items-center justify-center">
+                    <video
+                      src={selectedIncident.evidence.videoUrl}
+                      controls
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-1.5 left-1.5 flex items-center gap-1 rounded bg-black/75 px-1.5 py-0.5 text-[9px] font-mono text-cyan-400 border border-white/10">
+                      <Video className="w-2.5 h-2.5" />
+                      <span>CCTV CLIP</span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -188,15 +212,27 @@ export function IncidentCard() {
                 <MapPin className="w-3.5 h-3.5 text-red-400" />
                 {selectedIncident.map.replace('_', ' ')} • Floor {selectedIncident.floor === 0 ? 'Ground' : selectedIncident.floor}
               </span>
-              <a
-                href={getGoogleMapsUrl(selectedIncident.lat, selectedIncident.lng, selectedIncident.title)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[10px] font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-0.5"
-              >
-                <span>Satellite</span>
-                <ExternalLink className="w-2.5 h-2.5" />
-              </a>
+              <div className="flex items-center gap-2">
+                <a
+                  href={getOsmUrl(selectedIncident.lat, selectedIncident.lng)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[10px] font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-0.5"
+                >
+                  <span>OSM</span>
+                  <ExternalLink className="w-2.5 h-2.5" />
+                </a>
+                <span className="text-slate-600">•</span>
+                <a
+                  href={getGoogleMapsUrl(selectedIncident.lat, selectedIncident.lng, selectedIncident.title)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[10px] font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-0.5"
+                >
+                  <span>Satellite</span>
+                  <ExternalLink className="w-2.5 h-2.5" />
+                </a>
+              </div>
             </div>
 
             <div className="text-[11px] font-mono text-slate-400">
@@ -236,6 +272,26 @@ export function IncidentCard() {
                   On Scene
                 </button>
               )}
+            </div>
+          )}
+
+          {/* Notified Responders: Guard, Faculty, Proctor */}
+          {selectedIncident.notifiedResponders && selectedIncident.notifiedResponders.length > 0 && (
+            <div className="p-2.5 rounded-xl border border-emerald-500/30 bg-emerald-950/20 text-xs">
+              <div className="text-[10px] font-mono uppercase text-emerald-400 font-bold mb-1 flex items-center gap-1">
+                <UserCheck className="w-3 h-3" />
+                Auto-Dispatched Responders
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {selectedIncident.notifiedResponders.map((resp, idx) => (
+                  <span
+                    key={idx}
+                    className="px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-[11px] text-emerald-300 font-medium"
+                  >
+                    {resp}
+                  </span>
+                ))}
+              </div>
             </div>
           )}
 

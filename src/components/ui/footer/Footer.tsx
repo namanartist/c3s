@@ -139,6 +139,7 @@ export default function Footer() {
                 <Link to="/" className="hover:text-white transition-colors w-fit">Home</Link>
                 <Link to="/map" className="hover:text-white transition-colors w-fit">Map</Link>
                 <Link to="/support" className="hover:text-white transition-colors w-fit">Support</Link>
+                <Link to="/developers" className="hover:text-white transition-colors w-fit">Developers</Link>
                 <Link to="/404" className="hover:text-white transition-colors w-fit">404</Link>
               </div>
               <p className="text-xs text-neutral-400 max-w-sm leading-relaxed">
@@ -152,7 +153,7 @@ export default function Footer() {
                 <span className="text-sm font-normal text-neutral-300">Stay in touch</span>
                 <div className="flex gap-4 items-center">
                   <a
-                    href="https://x.com/dotrwt"
+                    href="https://web.mitsgwalior.in"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-neutral-400 hover:text-white transition-colors"
@@ -178,14 +179,12 @@ export default function Footer() {
                 </div>
               </div>
               <div className="mt-6 md:mt-auto">
-                <a
-                  href="https://dotrwt.in"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-neutral-400 hover:text-white transition-colors text-xs font-normal"
+                <Link
+                  to="/developers"
+                  className="text-neutral-400 hover:text-white transition-colors text-xs font-normal flex items-center gap-1"
                 >
-                  developed by dotrwt
-                </a>
+                  Developed by Naman Lahariya (Campus Creator) &amp; MITS C3S Team →
+                </Link>
               </div>
             </div>
           </div>

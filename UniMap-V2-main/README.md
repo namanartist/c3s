@@ -35,7 +35,7 @@ UniMap is a high-performance, interactive multi-floor campus navigation and spat
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/dotrwt/UniMap-V2.git
+   git clone https://github.com/mits-gwalior/C3S.git
    cd UniMap-V2
    ```
 

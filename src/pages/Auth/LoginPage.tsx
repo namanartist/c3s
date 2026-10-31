@@ -17,6 +17,7 @@ import {
 import type { UserRole } from '@/types/safety';
 import { useSessionStore } from '@/store/sessionStore';
 import { loginSafety } from '@/lib/safetyApi';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 interface RoleOption {
   id: UserRole;
@@ -149,18 +150,19 @@ export default function LoginPage() {
   const currentRoleObj = roles.find((r) => r.id === role) || roles[0];
 
   return (
-    <main className="min-h-screen bg-[#070b14] bg-cyber-grid text-white flex flex-col justify-between p-6 select-none relative overflow-hidden">
+    <main className="min-h-screen bg-slate-50 dark:bg-[#070b14] dark:bg-cyber-grid text-slate-900 dark:text-white flex flex-col justify-between p-6 select-none relative overflow-hidden transition-colors duration-200">
       {/* Top Header Navigation */}
       <header className="max-w-6xl mx-auto w-full flex items-center justify-between z-10">
         <Link
           to="/"
-          className="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-white transition"
+          className="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition"
         >
           <ChevronLeft className="w-4 h-4" />
-          <span>Back to UniMap Home</span>
+          <span>Back to C3S Home</span>
         </Link>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">
             C3S AUTH GATEWAY v2.4
@@ -172,32 +174,41 @@ export default function LoginPage() {
       <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center my-auto py-8 z-10">
         {/* Left Side: Brand & Identity */}
         <section className="lg:col-span-6 space-y-6">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-12 h-12 rounded-2xl bg-white overflow-hidden p-1 shadow-lg shadow-blue-500/20">
+              <img src="/c3s_logo.png" alt="C3S Logo" className="w-full h-full object-contain" />
+            </div>
+            <div>
+              <span className="text-xl font-black text-slate-900 dark:text-white tracking-tight">C3S</span>
+              <p className="text-[11px] text-blue-400 font-bold uppercase tracking-wider">Campus Surveillance &amp; Safety</p>
+            </div>
+          </div>
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-600/15 border border-blue-500/30 text-blue-400 text-xs font-black uppercase tracking-wider">
             <ShieldCheck className="w-4 h-4 text-blue-400" />
             <span>MITS Gwalior Security Grid</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-[1.05]">
+          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.05]">
             One Campus. <br />
             <span className="bg-gradient-to-r from-blue-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent">
               Unified Security & Gate Control.
             </span>
           </h1>
 
-          <p className="text-sm text-slate-400 max-w-lg leading-relaxed font-medium">
+          <p className="text-sm text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed font-medium">
             Authenticate to access your role-specific C3S workstation. Validates daily rotating gate QR tokens, manages campus occupancy, and dispatches turn-by-turn emergency responders.
           </p>
 
-          <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10 max-w-md">
-            <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/5">
+          <div className="grid grid-cols-3 gap-3 pt-4 border-t border-slate-200 dark:border-white/10 max-w-md">
+            <div className="p-3 rounded-2xl bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 shadow-xs dark:shadow-none">
               <div className="text-lg font-black text-cyan-400 font-mono">3 Gates</div>
               <div className="text-[10px] text-slate-400 mt-0.5">Physical QR Checkpoints</div>
             </div>
-            <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/5">
+            <div className="p-3 rounded-2xl bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 shadow-xs dark:shadow-none">
               <div className="text-lg font-black text-emerald-400 font-mono">2,480+</div>
               <div className="text-[10px] text-slate-400 mt-0.5">Campus Population</div>
             </div>
-            <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/5">
+            <div className="p-3 rounded-2xl bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 shadow-xs dark:shadow-none">
               <div className="text-lg font-black text-indigo-400 font-mono">&lt; 90s</div>
               <div className="text-[10px] text-slate-400 mt-0.5">Emergency QRF ETA</div>
             </div>
@@ -208,15 +219,15 @@ export default function LoginPage() {
         <section className="lg:col-span-6">
           <form
             onSubmit={handleSubmit}
-            className="glass-card rounded-[32px] p-7 sm:p-9 shadow-2xl relative overflow-hidden"
+            className="rounded-[32px] p-7 sm:p-9 shadow-xl dark:shadow-2xl relative overflow-hidden border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-slate-950/80 backdrop-blur-xl transition-colors"
           >
             {/* Ambient Top Light */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
 
             <div className="flex items-center justify-between mb-6 relative z-10">
               <div>
-                <h2 className="text-xl font-black text-white">Select Your Campus Role</h2>
-                <p className="text-xs text-slate-400 mt-0.5">Instant one-click demo login available</p>
+                <h2 className="text-xl font-black text-slate-900 dark:text-white">Select Your Campus Role</h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Instant one-click demo login available</p>
               </div>
               <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-white/10 text-cyan-400 border border-white/10 font-bold uppercase">
                 {currentRoleObj.badge}
@@ -236,12 +247,12 @@ export default function LoginPage() {
                     className={`p-3 rounded-2xl border text-left transition-all relative overflow-hidden ${
                       isSelected
                         ? 'border-blue-500 bg-blue-600/20 text-white shadow-lg shadow-blue-600/25'
-                        : 'border-white/10 bg-white/[0.02] text-slate-300 hover:bg-white/[0.06]'
+                        : 'border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/[0.02] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06]'
                     }`}
                   >
                     <div
                       className={`w-7 h-7 rounded-xl flex items-center justify-center mb-2 ${
-                        isSelected ? 'bg-blue-600 text-white' : 'bg-white/10 text-slate-400'
+                        isSelected ? 'bg-blue-600 text-white' : 'bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-slate-400'
                       }`}
                     >
                       <Icon className="w-4 h-4" />
@@ -267,7 +278,7 @@ export default function LoginPage() {
                     onChange={(e) => setName(e.target.value)}
                     required
                     placeholder="Enter full name"
-                    className="w-full glass-input rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-500 outline-none"
+                    className="w-full rounded-xl pl-10 pr-4 py-2.5 text-xs border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-900 focus:border-blue-500 placeholder-slate-500 outline-none"
                   />
                 </div>
               </div>
@@ -284,7 +295,7 @@ export default function LoginPage() {
                     onChange={(e) => setIdentifier(e.target.value)}
                     required
                     placeholder="e.g. 2026CS104 or admin@mits.edu"
-                    className="w-full glass-input rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-500 outline-none font-mono"
+                    className="w-full rounded-xl pl-10 pr-4 py-2.5 text-xs border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-900 focus:border-blue-500 placeholder-slate-500 outline-none font-mono"
                   />
                 </div>
               </div>
@@ -300,7 +311,7 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full glass-input rounded-xl pl-10 pr-4 py-2.5 text-xs text-white outline-none"
+                    className="w-full rounded-xl pl-10 pr-4 py-2.5 text-xs border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-900 focus:border-blue-500 outline-none"
                   />
                 </div>
               </div>

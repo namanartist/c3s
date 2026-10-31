@@ -41,7 +41,7 @@ export const GateMapOverlay: React.FC<GateMapOverlayProps> = ({
     if (onSelectGate) {
       onSelectGate(gate);
     } else {
-      // Set destination in UniMap for turn-by-turn routing
+      // Set destination in C3S for turn-by-turn routing
       handleDestinationSelect({
         id: gate.id,
         name: gate.name,

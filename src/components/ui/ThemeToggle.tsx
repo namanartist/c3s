@@ -1,44 +1,39 @@
 // src/components/ui/ThemeToggle.tsx
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { Sun, Moon } from 'lucide-react';
+import { useThemeStore } from '@/store/themeStore';
 
-/** A button component that toggles the global application theme between light and dark modes. */
-export default function ThemeToggle() {
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('unimap-theme');
-      if (stored === 'dark') {
-        return 'dark';
-      }
-      if (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark';
-      }
-    }
-    return 'light';
-  });
+interface ThemeToggleProps {
+  className?: string;
+  showLabel?: boolean;
+}
 
-  useEffect(() => {
-    const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-      localStorage.setItem('unimap-theme', 'dark');
-    } else {
-      root.classList.remove('dark');
-      localStorage.setItem('unimap-theme', 'light');
-    }
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
-  };
+/** A universal button component that toggles the global application theme between light and dark modes. */
+export default function ThemeToggle({ className = '', showLabel = false }: ThemeToggleProps) {
+  const { theme, toggleTheme } = useThemeStore();
 
   return (
     <button
+      type="button"
       onClick={toggleTheme}
-      className="w-9 h-9 flex items-center justify-center rounded-lg bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors"
+      className={`group flex items-center gap-2 rounded-xl p-2 text-xs font-semibold transition-all cursor-pointer ${
+        theme === 'dark'
+          ? 'bg-white/[0.06] hover:bg-white/[0.12] text-amber-300 border border-white/10'
+          : 'bg-slate-100 hover:bg-slate-200 text-blue-600 border border-slate-300'
+      } ${className}`}
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+      title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
     >
-      {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+      {theme === 'light' ? (
+        <Moon className="w-4 h-4 transition-transform group-hover:-rotate-12 text-slate-700" />
+      ) : (
+        <Sun className="w-4 h-4 transition-transform group-hover:rotate-45 text-amber-400" />
+      )}
+      {showLabel && (
+        <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300">
+          {theme === 'light' ? 'Dark' : 'Light'}
+        </span>
+      )}
     </button>
   );
 }

@@ -2,7 +2,8 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import unimapLogo from '@/assets/Logo_navbar.png';
+import c3sLogo from '@/assets/c3s_logo.png';
+import ThemeToggle from './ThemeToggle';
 
 /** A sticky top navigation bar component providing page links and theme settings. */
 export default function Navbar() {
@@ -20,22 +21,22 @@ export default function Navbar() {
 
   if (isLanding || isSupport || is404) {
     return (
-      <nav className={`fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between w-[94%] max-w-2xl px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-xl shadow-black/20 ${isSupport ? 'bg-[#121212] border border-white/10' : 'glass-capsule'
-        }`}>
+      <nav className="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between w-[94%] max-w-2xl px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-xl bg-white/80 dark:bg-slate-950/80 backdrop-blur-2xl border border-slate-200 dark:border-white/10 shadow-slate-200/50 dark:shadow-black/40 transition-colors">
         <Link to="/" className="flex items-center gap-2 cursor-pointer hover:opacity-85 transition-opacity group flex-shrink-0">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden flex items-center justify-center bg-blue-600 flex-shrink-0">
-            <img src={unimapLogo} alt="C3S Logo" className="w-full h-full object-contain rounded-full p-0.1" />
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg overflow-hidden flex items-center justify-center bg-white shadow-sm flex-shrink-0 p-0.5">
+            <img src={c3sLogo} alt="C3S Logo" className="w-full h-full object-contain rounded-full p-0.1" />
           </div>
-          <span className="text-xs sm:text-sm font-black text-white tracking-wider">C3S</span>
+          <span className="text-xs sm:text-sm font-black text-slate-900 dark:text-white tracking-wider">C3S</span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-6 text-xs font-semibold text-neutral-400">
-          <Link to="/" className={`hover:text-white transition-colors ${isLanding ? 'text-white' : ''}`}>Home</Link>
-          <Link to="/support" className={`hover:text-white transition-colors ${isSupport ? 'text-white' : ''}`}>Support</Link>
+        <div className="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-600 dark:text-neutral-400">
+          <Link to="/" className={`hover:text-blue-600 dark:hover:text-white transition-colors ${isLanding ? 'text-blue-600 dark:text-white font-bold' : ''}`}>Home</Link>
+          <Link to="/support" className={`hover:text-blue-600 dark:hover:text-white transition-colors ${isSupport ? 'text-blue-600 dark:text-white font-bold' : ''}`}>Support</Link>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
-          <Link to="/support" className={`md:hidden text-xs font-semibold text-neutral-300 hover:text-white transition-colors px-1 ${isSupport ? 'text-white' : ''}`}>
+        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          <ThemeToggle />
+          <Link to="/support" className={`md:hidden text-xs font-semibold text-neutral-300 hover:text-blue-600 dark:hover:text-white transition-colors px-1 ${isSupport ? 'text-blue-600 dark:text-white font-bold' : ''}`}>
             Support
           </Link>
           <Link to="/proctor" className="flex-shrink-0">
@@ -54,8 +55,8 @@ export default function Navbar() {
       <div className="flex items-center justify-between w-full">
         {/* Left: Logo */}
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-9 h-9 rounded-full overflow-hidden flex items-center justify-center bg-blue-600">
-            <img src={unimapLogo} alt="C3S Logo" className="w-full h-full object-contain rounded-full p-0.5" />
+          <div className="w-9 h-9 rounded-lg overflow-hidden flex items-center justify-center bg-white shadow-sm p-0.5">
+            <img src={c3sLogo} alt="C3S Logo" className="w-full h-full object-contain rounded-full p-0.5" />
           </div>
           <span className="text-[17px] font-black text-[var(--text-primary)] tracking-wide">C3S</span>
         </Link>
@@ -92,7 +93,8 @@ export default function Navbar() {
         </div>
 
         {/* Right: Actions */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <ThemeToggle />
           <Link
             to="/map"
             className="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-lg bg-[var(--accent)] text-white text-sm font-medium hover:bg-[var(--accent-hover)] transition-colors"

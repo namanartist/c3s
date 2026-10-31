@@ -1,5 +1,5 @@
 // src/pages/Student/StudentDashboard.tsx
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   ShieldAlert,
@@ -49,6 +49,8 @@ export default function StudentDashboard() {
   const userMovementHistory = useGateStore((s) => s.userMovementHistory);
   const gates = useGateStore((s) => s.gates);
   const isLocationActive = useGateStore((s) => s.isLocationActive);
+  const startLocationTracking = useGateStore((s) => s.startLocationTracking);
+  const stopLocationTracking = useGateStore((s) => s.stopLocationTracking);
   const consistencyAlert = useGateStore((s) => s.consistencyAlert);
   const dismissConsistencyAlert = useGateStore((s) => s.dismissConsistencyAlert);
 
@@ -69,6 +71,12 @@ export default function StudentDashboard() {
   const chunksRef = useRef<Blob[]>([]);
 
   const latestMovement = userMovementHistory[0];
+
+  useEffect(() => {
+    if (movementStatus === 'INSIDE' && !isLocationActive) {
+      startLocationTracking();
+    }
+  }, [movementStatus, isLocationActive, startLocationTracking]);
 
   // Press & Hold Handlers
   const handleSosStart = () => {
@@ -331,16 +339,27 @@ export default function StudentDashboard() {
 
                 {/* Live GPS Geofence Pill */}
                 <div className="pt-2 flex flex-wrap items-center gap-2 text-xs">
-                  <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black/40 border border-white/10 text-slate-200">
-                    <Compass className="w-3.5 h-3.5 text-cyan-400" />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (isLocationActive) {
+                        stopLocationTracking();
+                      } else {
+                        startLocationTracking();
+                      }
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black/40 hover:bg-black/60 border border-white/10 text-slate-200 transition-all cursor-pointer"
+                    title={isLocationActive ? 'Location tracking active (Tap to pause)' : 'Tap to start live location tracking'}
+                  >
+                    <Compass className={`w-3.5 h-3.5 ${isLocationActive ? 'text-cyan-400 animate-spin' : 'text-slate-400'}`} />
                     <span>
                       {isLocationActive ? (
                         <>GPS Active • <b className="text-emerald-400">Inside Perimeter</b></>
                       ) : (
-                        'GPS Standby'
+                        'GPS Standby (Tap to Activate)'
                       )}
                     </span>
-                  </span>
+                  </button>
                   {userGpsCoords && (
                     <span className="font-mono text-[11px] text-slate-400 bg-black/40 px-2.5 py-1.5 rounded-xl border border-white/10">
                       {formatDMS(userGpsCoords.lat, userGpsCoords.lon)}

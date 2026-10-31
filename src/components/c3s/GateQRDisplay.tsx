@@ -1,105 +1,138 @@
-import React, { useState } from 'react';
-import { RefreshCw, Clock, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { RefreshCw, Clock, ShieldCheck, CheckCircle2, Download, Copy, Maximize2 } from 'lucide-react';
+import QRCode from 'qrcode';
 import { useC3SStore } from '@/store/c3sStore';
+import { useGateStore } from '@/store/gateStore';
+import type { GateId } from '@/types/gate';
 
 export const GateQRDisplay: React.FC = () => {
   const { gates, selectedGateId, setSelectedGateId, regenerateGateQr } = useC3SStore();
+  const { getGateQr, rotateGateQr } = useGateStore();
+
+  const [qrDataUrl, setQrDataUrl] = useState<string>('');
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [fullscreen, setFullscreen] = useState(false);
 
   const currentGate = gates.find((g) => g.id === selectedGateId) || gates[0];
+
+  // Derive active token from store or gateStore
+  const gateId = (currentGate.id.startsWith('GATE-') ? currentGate.id : `GATE-${currentGate.id.toUpperCase().replace('GATE_', '')}`) as GateId;
+  const activeTokenObj = getGateQr(gateId) || { token: currentGate.qrToken };
+  const tokenString = activeTokenObj.token || currentGate.qrToken;
+
+  useEffect(() => {
+    let isMounted = true;
+    QRCode.toDataURL(tokenString, {
+      width: 340,
+      margin: 2,
+      color: {
+        dark: '#030712',
+        light: '#ffffff'
+      },
+      errorCorrectionLevel: 'H'
+    })
+      .then((url) => {
+        if (isMounted) setQrDataUrl(url);
+      })
+      .catch((err) => {
+        console.error('Failed to generate real QR code:', err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [tokenString]);
 
   const handleRegenerate = () => {
     setIsRegenerating(true);
     setTimeout(() => {
+      rotateGateQr(gateId, 'Gate Keeper Lead', 'Routine gate rotation / refresh');
       regenerateGateQr(currentGate.id);
       setIsRegenerating(false);
-    }, 600);
+    }, 500);
   };
 
   const handleCopy = () => {
-    navigator.clipboard?.writeText(currentGate.qrToken);
+    navigator.clipboard?.writeText(tokenString);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleDownload = () => {
+    if (!qrDataUrl) return;
+    const a = document.createElement('a');
+    a.href = qrDataUrl;
+    a.download = `C3S_${currentGate.name.replace(/\s+/g, '_')}_QR.png`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
   return (
-    <div className="flex flex-col items-center rounded-3xl border border-slate-800 bg-slate-900/90 p-6 sm:p-8 backdrop-blur-xl shadow-2xl text-center max-w-xl mx-auto">
+    <div className={`flex flex-col items-center rounded-3xl border border-slate-800 bg-slate-900/95 p-6 sm:p-8 backdrop-blur-xl shadow-2xl text-center max-w-xl mx-auto transition-all ${fullscreen ? 'fixed inset-4 z-50 max-w-none justify-center' : ''}`}>
       <div className="mb-6 w-full flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-800 pb-5">
         <div className="text-left">
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">DAILY GATE TERMINAL</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">AUTHORITATIVE GATE TERMINAL</p>
           <h2 className="text-2xl font-black text-slate-100 uppercase">{currentGate.name}</h2>
         </div>
 
-        <div className="relative">
-          <select
-            value={selectedGateId}
-            onChange={(e) => setSelectedGateId(e.target.value)}
-            className="cursor-pointer appearance-none rounded-xl border border-slate-700 bg-slate-800 px-4 py-2.5 pr-9 text-xs font-bold text-slate-200 shadow-sm focus:border-blue-500 focus:outline-none"
+        <div className="flex items-center gap-2">
+          <div className="relative">
+            <select
+              value={selectedGateId}
+              onChange={(e) => setSelectedGateId(e.target.value)}
+              className="cursor-pointer appearance-none rounded-xl border border-slate-700 bg-slate-800 px-4 py-2.5 pr-9 text-xs font-bold text-slate-200 shadow-sm focus:border-blue-500 focus:outline-none"
+            >
+              {gates.map((gate) => (
+                <option key={gate.id} value={gate.id}>
+                  {gate.name} ({gate.code})
+                </option>
+              ))}
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">▼</div>
+          </div>
+
+          <button
+            onClick={() => setFullscreen(!fullscreen)}
+            className="p-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors"
+            title="Toggle Fullscreen Kiosk Mode"
           >
-            {gates.map((gate) => (
-              <option key={gate.id} value={gate.id}>
-                {gate.name} ({gate.code})
-              </option>
-            ))}
-          </select>
-          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">▼</div>
+            <Maximize2 className="h-4 w-4" />
+          </button>
         </div>
       </div>
 
-      <div className="relative flex flex-col items-center justify-center rounded-2xl border-2 border-blue-500/40 bg-white p-6 shadow-2xl shadow-blue-950/40 transition-transform hover:scale-[1.02]">
+      {/* Real Generated QR Code Card */}
+      <div className="relative flex flex-col items-center justify-center rounded-2xl border-4 border-blue-500/30 bg-white p-5 shadow-2xl shadow-blue-950/60 transition-transform hover:scale-[1.01]">
         <div className={`relative transition-opacity ${isRegenerating ? 'opacity-30' : 'opacity-100'}`}>
-          <svg className="h-64 w-64 text-slate-950" viewBox="0 0 100 100" fill="currentColor">
-            <rect x="5" y="5" width="26" height="26" fill="black" rx="2" />
-            <rect x="9" y="9" width="18" height="18" fill="white" rx="1" />
-            <rect x="13" y="13" width="10" height="10" fill="black" />
-
-            <rect x="69" y="5" width="26" height="26" fill="black" rx="2" />
-            <rect x="73" y="9" width="18" height="18" fill="white" rx="1" />
-            <rect x="77" y="13" width="10" height="10" fill="black" />
-
-            <rect x="5" y="69" width="26" height="26" fill="black" rx="2" />
-            <rect x="9" y="73" width="18" height="18" fill="white" rx="1" />
-            <rect x="13" y="77" width="10" height="10" fill="black" />
-
-            <rect x="35" y="10" width="5" height="5" />
-            <rect x="45" y="10" width="5" height="5" />
-            <rect x="55" y="10" width="5" height="5" />
-            <rect x="40" y="20" width="10" height="5" />
-            <rect x="55" y="20" width="5" height="10" />
-
-            <rect x="10" y="40" width="8" height="5" />
-            <rect x="25" y="40" width="12" height="6" />
-            <rect x="42" y="38" width="16" height="16" fill="#2563eb" rx="2" />
-            <path d="M 50,42 L 55,45 L 55,50 C 55,53 50,56 50,56 C 50,56 45,53 45,50 L 45,45 Z" fill="white" />
-
-            <rect x="65" y="40" width="10" height="6" />
-            <rect x="80" y="40" width="10" height="6" />
-            <rect x="35" y="60" width="10" height="8" />
-            <rect x="50" y="65" width="15" height="6" />
-            <rect x="70" y="60" width="8" height="12" />
-            <rect x="85" y="70" width="6" height="15" />
-            <rect x="38" y="78" width="20" height="6" />
-            <rect x="65" y="80" width="15" height="8" />
-          </svg>
+          {qrDataUrl ? (
+            <img
+              src={qrDataUrl}
+              alt={`${currentGate.name} Real QR Code`}
+              className="h-64 w-64 rounded-lg object-contain shadow-sm select-none"
+            />
+          ) : (
+            <div className="flex h-64 w-64 items-center justify-center text-xs font-mono text-slate-500">
+              Generating High-Density QR...
+            </div>
+          )}
         </div>
-        <div className="mt-3 flex items-center gap-1.5 text-xs font-mono font-bold text-slate-800">
-          <ShieldCheck className="h-3.5 w-3.5 text-blue-600" />
-          {currentGate.qrToken.slice(0, 24)}...
+
+        <div className="mt-3 flex items-center gap-1.5 text-xs font-mono font-bold text-slate-900">
+          <ShieldCheck className="h-4 w-4 text-blue-600 shrink-0" />
+          <span className="truncate max-w-[220px]">{tokenString}</span>
         </div>
       </div>
 
       <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs font-medium">
         <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-emerald-400">
           <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
-          QR STATUS: 🟢 ACTIVE
+          CRYPTOGRAPHIC TOKEN ACTIVE
         </div>
         <div className="flex items-center gap-1.5 text-slate-300">
           <Clock className="h-3.5 w-3.5 text-slate-400" />
-          <span>29 SEPTEMBER 2026</span>
-        </div>
-        <div className="text-slate-400">
-          Expires: <span className="font-bold text-slate-200">11:59 PM</span>
+          <span>DAILY ROTATION AT 00:00 UTC</span>
         </div>
       </div>
 
@@ -122,17 +155,24 @@ export const GateQRDisplay: React.FC = () => {
         <button
           onClick={handleRegenerate}
           disabled={isRegenerating}
-          className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-800 px-5 py-3 text-xs font-bold text-slate-200 transition-all hover:bg-slate-700 active:scale-95 disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-800 px-4 py-3 text-xs font-bold text-slate-200 transition-all hover:bg-slate-700 active:scale-95 disabled:opacity-50"
         >
           <RefreshCw className={`h-4 w-4 ${isRegenerating ? 'animate-spin' : ''}`} />
-          {isRegenerating ? 'Generating New Token...' : 'Regenerate Demo QR'}
+          {isRegenerating ? 'Regenerating QR...' : 'Rotate Daily Key'}
         </button>
         <button
           onClick={handleCopy}
-          className="flex w-full items-center justify-center gap-2 rounded-xl border border-blue-500/30 bg-blue-500/10 px-5 py-3 text-xs font-bold text-blue-400 transition-all hover:bg-blue-500/20 active:scale-95"
+          className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-800/80 px-4 py-3 text-xs font-bold text-slate-300 transition-all hover:bg-slate-700 active:scale-95"
         >
-          {copied ? <CheckCircle2 className="h-4 w-4 text-emerald-400" /> : <ShieldCheck className="h-4 w-4" />}
-          {copied ? 'Copied Token!' : 'Copy Hash'}
+          {copied ? <CheckCircle2 className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+          {copied ? 'Copied Token!' : 'Copy Token'}
+        </button>
+        <button
+          onClick={handleDownload}
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-xs font-bold text-white shadow-md shadow-blue-600/30 transition-all hover:bg-blue-500 active:scale-95"
+        >
+          <Download className="h-4 w-4" />
+          Download QR
         </button>
       </div>
     </div>

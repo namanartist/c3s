@@ -5,7 +5,7 @@ const Navbar: React.FC = () => {
     <header className="navbar">
       <div className="navbar__brand">
         <span className="material-symbols-outlined navbar__icon">map</span>
-        <span className="navbar__title">UniMap</span>
+        <span className="navbar__title">C3S</span>
       </div>
       <button className="navbar__settings-btn" aria-label="Settings">
         <span className="material-symbols-outlined">settings</span>

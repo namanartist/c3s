@@ -1,14 +1,14 @@
 // src/components/ui/MapBox.tsx
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { ZoomIn, ZoomOut, RotateCcw, Building2, ChevronUp, Navigation, LocateFixed, Radio, ShieldCheck } from 'lucide-react';
+import { ZoomIn, ZoomOut, RotateCcw, Building2, ChevronUp, Navigation, LocateFixed, Radio, ShieldCheck, Footprints, X, MapPin, Layers, Compass } from 'lucide-react';
 import { useSpring, animated, to } from '@react-spring/web';
 import { useGesture } from '@use-gesture/react';
 import type { FloorMap, Building, MapNode } from '@/types';
 import MainCover from '@/assets/Main_Cover.webp';
 import AICover from '@/assets/AI_Cover.webp';
 import { useCampusNavigation } from '@/hooks/useCampusNavigation';
-import { formatDMS } from '@/lib/geoProjection';
+import { formatDMS, getOsmUrl } from '@/lib/geoProjection';
 import { useSafetyStore } from '@/store/safetyStore';
 import { SafetyThemeControls } from '@/components/safety/SafetyThemeControls';
 import { IncidentCard } from '@/components/safety/IncidentCard';
@@ -18,6 +18,7 @@ import { GateMapOverlay } from '@/components/safety/GateMapOverlay';
 import { StudentGateScannerModal } from '@/components/safety/StudentGateScannerModal';
 import { CameraDetailModal } from '@/components/safety/CameraDetailModal';
 import { NodeDetailDrawer } from '@/components/map/NodeDetailDrawer';
+import { getMapLocationTags } from '@/lib/mapLabels';
 
 interface Point {
   x: number;
@@ -50,6 +51,7 @@ const fallbackMapViewBoxes: Record<string, SvgViewBox> = {
   AI_GF: { minX: 0, minY: 0, width: 842, height: 595 },
   AI_FF: { minX: 0, minY: 0, width: 705.6, height: 283.32 },
   AI_SF: { minX: 0, minY: 0, width: 719.4, height: 220.32 },
+  AI_TF: { minX: 0, minY: 0, width: 719.4, height: 220.32 },
 };
 
 /**
@@ -146,14 +148,23 @@ export default function MapBox({
     isSimulating,
     simulatedNodeId,
     nodesMap,
+    edges,
     compassHeading,
     userGpsCoords,
     userSvgCoords,
     isGpsActive,
+    isOutsideCampus,
+    gpsError,
     enableGps,
     disableGps,
     gpsAccuracy,
+    handleCurrentLocationSelect,
+    handleDestinationSelect,
   } = useCampusNavigation();
+
+  // Galis & Rasta (Pathways and Nodes Network) State
+  const [showGalisNetwork, setShowGalisNetwork] = useState(true);
+  const [selectedMapNode, setSelectedMapNode] = useState<MapNode | null>(null);
 
   const [canZoomIn, setCanZoomIn] = useState(true);
   const [canZoomOut, setCanZoomOut] = useState(true);
@@ -243,6 +254,13 @@ export default function MapBox({
   const [autoFollowUser, setAutoFollowUser] = useState(false);
 
   const handleCenterOnStudent = useCallback(() => {
+    if (!isGpsActive) {
+      enableGps();
+    }
+    if (mapId !== 'Campus_Map' && onMapChange) {
+      onMapChange('Campus_Map');
+    }
+    setAutoFollowUser(true);
     if (!userSvgCoords) return;
     const el = containerRef.current;
     if (!el) return;
@@ -256,8 +274,7 @@ export default function MapBox({
       zoom: targetZ,
       config: { tension: 180, friction: 26 },
     });
-    setAutoFollowUser(true);
-  }, [userSvgCoords, springApi]);
+  }, [userSvgCoords, springApi, isGpsActive, enableGps, mapId, onMapChange]);
 
   // Smoothly auto-follow user position as they move when auto-follow is active
   useEffect(() => {
@@ -413,6 +430,37 @@ export default function MapBox({
     config: { tension: 300, friction: 20 }
   });
 
+  // Active map nodes & edges for Galis & Rasta network
+  const currentMapNodes = useMemo(() => {
+    if (!mapId) return [];
+    return nodes.filter((n) => n.map === mapId);
+  }, [nodes, mapId]);
+
+  // Dynamic Zoom-Responsive Location Tags (Uncluttered LOD + Spread Expansion)
+  const mapLocationTags = useMemo(() => {
+    return getMapLocationTags(nodes, mapId);
+  }, [nodes, mapId]);
+
+  const currentMapEdges = useMemo(() => {
+    if (!mapId) return [];
+    const edgeList: Array<{ id: string; x1: number; y1: number; x2: number; y2: number; type?: string }> = [];
+    edges.forEach((edge, idx) => {
+      const fromNode = nodesMap[edge.from_node];
+      const toNode = nodesMap[edge.to_node];
+      if (fromNode && toNode && fromNode.map === mapId && toNode.map === mapId) {
+        edgeList.push({
+          id: `edge_${idx}_${edge.from_node}_${edge.to_node}`,
+          x1: fromNode.x,
+          y1: fromNode.y,
+          x2: toNode.x,
+          y2: toNode.y,
+          type: edge.type,
+        });
+      }
+    });
+    return edgeList;
+  }, [edges, nodesMap, mapId]);
+
   const activeTheme = useSafetyStore((s) => s.activeTheme);
   const is3dMode = useSafetyStore((s) => s.is3dMode);
   const pitch = useSafetyStore((s) => s.pitch);
@@ -531,15 +579,20 @@ export default function MapBox({
       svgEl.setAttribute('height', '100%');
       svgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
       svgEl.setAttribute('shape-rendering', 'geometricPrecision');
-      svgEl.style.backfaceVisibility = 'hidden';
-      svgEl.style.webkitBackfaceVisibility = 'hidden';
+      svgEl.setAttribute('text-rendering', 'geometricPrecision');
+      svgEl.setAttribute('image-rendering', 'crisp-edges');
+      svgEl.style.removeProperty('backface-visibility');
+      svgEl.style.removeProperty('-webkit-backface-visibility');
 
-      const elements = svgEl.querySelectorAll('path, line, polyline, rect');
+      const elements = svgEl.querySelectorAll('path, line, polyline, rect, polygon, circle');
       elements.forEach((el) => {
-        const val = el.getAttribute('shape-rendering');
-        if (val === 'crispEdges' || val === 'optimizeSpeed') {
-          el.removeAttribute('shape-rendering');
-        }
+        el.setAttribute('shape-rendering', 'geometricPrecision');
+      });
+
+      const textEls = svgEl.querySelectorAll('text, tspan');
+      textEls.forEach((el) => {
+        el.setAttribute('text-rendering', 'geometricPrecision');
+        el.setAttribute('shape-rendering', 'geometricPrecision');
       });
     }
   }, [svgContent]);
@@ -705,16 +758,14 @@ export default function MapBox({
                 return `translate(${px}px, ${py}px) scale(${z})`;
               }),
               transformOrigin: '50% 50%',
-              willChange: 'transform',
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
+              imageRendering: 'crisp-edges',
               filter:
                 activeTheme === 'dark'
-                  ? 'invert(0.88) hue-rotate(180deg) contrast(1.2)'
+                  ? 'invert(0.9) hue-rotate(180deg) contrast(1.15) brightness(1.05)'
                   : activeTheme === 'safety'
                     ? 'invert(0.8) hue-rotate(160deg) contrast(1.15)'
                     : undefined,
-              transition: 'filter 0.4s ease'
+              transition: 'filter 0.3s ease'
             }}
           >
             <div className="relative w-full h-full">
@@ -737,8 +788,8 @@ export default function MapBox({
                 style={{
                   mixBlendMode: 'normal',
                   shapeRendering: 'geometricPrecision',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
+                  textRendering: 'geometricPrecision',
+                  imageRendering: 'crisp-edges',
                 }}
               >
                 <defs>
@@ -750,7 +801,93 @@ export default function MapBox({
                 </defs>
                 {proctorMode && <ProctorMapOverlay nodes={nodes} mapId={mapId} zoom={zoom} />}
                 <GateMapOverlay mapId={mapId} zoom={zoom} />
-                {isNavigating && pathPoints && (
+
+                {/* SVG Galis & Rasta (Pathways and Pedestrian Corridors) Network */}
+                {showGalisNetwork && (
+                  <g className="galis-rasta-network pointer-events-none">
+                    {/* Galis & Rasta Vector Edge Segments */}
+                    {currentMapEdges.map((edge) => (
+                      <line
+                        key={edge.id}
+                        x1={edge.x1}
+                        y1={edge.y1}
+                        x2={edge.x2}
+                        y2={edge.y2}
+                        stroke={
+                          edge.type === 'staircase' || edge.type === 'elevator'
+                            ? '#a855f7'
+                            : edge.type === 'entry_to_entry'
+                            ? '#10b981'
+                            : '#38bdf8'
+                        }
+                        strokeWidth="1.6"
+                        strokeDasharray={edge.type === 'entry_to_entry' ? '4 3' : '3 3'}
+                        opacity={0.4}
+                        strokeLinecap="round"
+                      />
+                    ))}
+
+                    {/* Interactive Walkable Waypoints & Landmark Nodes */}
+                    {currentMapNodes.map((n) => {
+                      const isSelected = selectedMapNode?.id === n.id;
+                      const isStart = currentLocation?.id === n.id;
+                      const isDest = destination?.id === n.id;
+                      const isHighlighted = isSelected || isStart || isDest;
+                      const isGaliOrCorridor = n.category === 'corridor' || n.category === 'pathway' || n.category === 'entry';
+                      const isStairs = n.category === 'stairs' || n.category === 'lift';
+
+                      return (
+                        <animated.g
+                          key={`gali_node_${n.id}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedMapNode(n);
+                          }}
+                          className="pointer-events-auto cursor-pointer"
+                          style={{
+                            transform: to([zoom], (z) => `translate(${n.x}px, ${n.y}px) scale(${1 / z})`),
+                          }}
+                        >
+                          {/* Pulsing ring on selected/active node */}
+                          {isHighlighted && (
+                            <circle
+                              cx="0"
+                              cy="0"
+                              r={16}
+                              fill="none"
+                              stroke={isStart ? '#10b981' : isDest ? '#f97316' : '#38bdf8'}
+                              strokeWidth="2"
+                              strokeDasharray="4 2"
+                              opacity={0.8}
+                            />
+                          )}
+                          <circle
+                            cx="0"
+                            cy="0"
+                            r={isHighlighted ? 7 : isGaliOrCorridor ? 4.5 : isStairs ? 4.5 : 3.5}
+                            fill={
+                              isStart
+                                ? '#10b981'
+                                : isDest
+                                ? '#f97316'
+                                : isSelected
+                                ? '#38bdf8'
+                                : isStairs
+                                ? '#a855f7'
+                                : isGaliOrCorridor
+                                ? '#0284c7'
+                                : '#64748b'
+                            }
+                            stroke="#ffffff"
+                            strokeWidth={isHighlighted ? 2 : 1}
+                            opacity={isHighlighted ? 1 : 0.75}
+                          />
+                        </animated.g>
+                      );
+                    })}
+                  </g>
+                )}
+                {(isNavigating || (currentLocation && destination)) && pathPoints && (
                   <motion.g
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -788,6 +925,108 @@ export default function MapBox({
                     )}
                   </motion.g>
                 )}
+
+                {/* Dynamic Zoom-Responsive Location Tags (Uncluttered LOD + Spread Expansion) */}
+                {mapLocationTags.map((tag) => {
+                  const isStart = currentLocation?.id === tag.id;
+                  const isDest = destination?.id === tag.id;
+                  const isSelected = selectedMapNode?.id === tag.id;
+                  const isPriority = isStart || isDest || isSelected;
+
+                  const pillWidth = Math.max(46, Math.min(94, tag.shortLabel.length * 5.6 + 20));
+                  const halfW = pillWidth / 2;
+
+                  return (
+                    <animated.g
+                      key={`loc_tag_${tag.id}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedMapNode(tag.node);
+                        setSelectedNodeForDetail(tag.node);
+                      }}
+                      className="pointer-events-auto cursor-pointer group"
+                      style={{
+                        transform: to([zoom], (z) => {
+                          if (!isPriority) {
+                            if (tag.tier === 2 && z < 1.25) return 'scale(0)';
+                            if (tag.tier === 3 && z < 2.0) return 'scale(0)';
+                          }
+
+                          // Dynamic Distance Expansion on Zoom:
+                          const spreadFactor = Math.max(0, z - 1) * 8.5;
+                          const currentX = tag.x + tag.spreadX * spreadFactor;
+                          const currentY = tag.y + tag.spreadY * spreadFactor;
+
+                          const scale = isPriority
+                            ? 1.05 / Math.pow(z, 0.35)
+                            : Math.min(1.0, Math.max(0.65, 1 / Math.pow(z, 0.42)));
+
+                          return `translate(${currentX}px, ${currentY}px) scale(${scale})`;
+                        }),
+                      }}
+                    >
+                      {/* Highlighted Pulse Ring */}
+                      {isPriority && (
+                        <circle
+                          cx="0"
+                          cy="0"
+                          r={halfW + 5}
+                          fill="none"
+                          stroke={isStart ? '#10b981' : isDest ? '#f97316' : '#3b82f6'}
+                          strokeWidth="2"
+                          strokeDasharray="4 2"
+                          opacity={0.8}
+                        />
+                      )}
+
+                      {/* Pill Badge Container */}
+                      <g transform="translate(0, -6)">
+                        {/* Soft Drop Shadow */}
+                        <rect
+                          x={-halfW}
+                          y="-10"
+                          width={pillWidth}
+                          height="20"
+                          rx="10"
+                          fill="#0F172A"
+                          opacity="0.14"
+                          transform="translate(0, 1.5)"
+                        />
+                        {/* Capsule Background */}
+                        <rect
+                          x={-halfW}
+                          y="-10"
+                          width={pillWidth}
+                          height="20"
+                          rx="10"
+                          fill={isPriority ? (isStart ? '#065F46' : isDest ? '#9A3412' : '#0F172A') : tag.bg}
+                          stroke={isPriority ? '#FFFFFF' : tag.border}
+                          strokeWidth={isPriority ? 1.8 : 1.2}
+                        />
+                        {/* Category Indicator Dot */}
+                        <circle
+                          cx={-halfW + 8}
+                          cy="0"
+                          r="2.8"
+                          fill={isPriority ? '#FFFFFF' : tag.color}
+                        />
+                        {/* Label text */}
+                        <text
+                          x={-halfW + 15}
+                          y="2.8"
+                          fill={isPriority ? '#FFFFFF' : tag.textColor}
+                          fontSize="7.5"
+                          fontWeight="800"
+                          fontFamily="system-ui, -apple-system, sans-serif"
+                          letterSpacing="0.2"
+                          className="select-none pointer-events-none"
+                        >
+                          {tag.shortLabel}
+                        </text>
+                      </g>
+                    </animated.g>
+                  );
+                })}
 
                 {shouldShowDestination && destination.x !== undefined && destination.y !== undefined && (
                   <animated.g
@@ -890,7 +1129,7 @@ export default function MapBox({
                 )}
 
                 {/* High-Precision Apple/Google Maps Location Puck */}
-                {userSvgCoords && (
+                {userSvgCoords && (mapId === 'Campus_Map' || (currentLocation && currentLocation.map === mapId)) && (
                   <animated.g
                     style={{
                       transform: to([zoom], (z) => `translate(${userSvgCoords.x}px, ${userSvgCoords.y}px) scale(${1 / z})`),
@@ -1097,45 +1336,6 @@ export default function MapBox({
                   </g>
                 ))}
 
-                {/* Interactive Campus Nodes ("Open Node" Feature) */}
-                {activeMapNodes.map((n) => {
-                  const isSelected = selectedNodeForDetail?.id === n.id;
-                  return (
-                    <animated.g
-                      key={`interactive_node_${n.id}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedNodeForDetail(n);
-                      }}
-                      className="pointer-events-auto cursor-pointer"
-                      style={{
-                        transform: to([zoom], (z) => `translate(${n.x}px, ${n.y}px) scale(${1 / z})`),
-                      }}
-                    >
-                      <circle
-                        cx="0"
-                        cy="0"
-                        r={isSelected ? 10 : 6}
-                        fill={isSelected ? '#38bdf8' : '#0284c7'}
-                        opacity={isSelected ? 0.95 : 0.3}
-                        stroke={isSelected ? '#ffffff' : '#38bdf8'}
-                        strokeWidth={isSelected ? 2.5 : 1}
-                      />
-                      {isSelected && (
-                        <circle
-                          cx="0"
-                          cy="0"
-                          r="16"
-                          fill="none"
-                          stroke="#38bdf8"
-                          strokeWidth="1.5"
-                          strokeDasharray="4 2"
-                        />
-                      )}
-                    </animated.g>
-                  );
-                })}
-
                 {isSimulating && simulatedNode && simulatedNode.map === mapId && (
                   <animated.g
                     style={{
@@ -1234,12 +1434,12 @@ export default function MapBox({
         {mapId && (
           <div className="absolute right-4 bottom-6 z-20 flex flex-col items-end gap-3 pointer-events-none select-none">
             {/* Building & Floor Selector (Horizontal Pill Bar) */}
-            <div className="flex items-center bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-200/90 p-1.5 gap-1.5 pointer-events-auto relative">
+            <div className="flex items-center bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-200/90 dark:border-white/10 p-1.5 gap-1.5 pointer-events-auto relative transition-colors">
               {/* Building Dropdown Trigger */}
               <div className="relative">
                 <button
                   onClick={() => setIsBuildingDropdownOpen(!isBuildingDropdownOpen)}
-                  className="px-3 h-9 rounded-xl flex items-center gap-1.5 text-xs font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-all cursor-pointer"
+                  className="px-3 h-9 rounded-xl flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-white/10 hover:text-blue-600 dark:hover:text-blue-400 transition-all cursor-pointer"
                 >
                   <Building2 className="w-4 h-4 text-blue-600 shrink-0" />
                   <span className="truncate max-w-[110px] sm:max-w-none">{activeBuildingName}</span>
@@ -1247,13 +1447,13 @@ export default function MapBox({
                 </button>
 
                 {isBuildingDropdownOpen && (
-                  <div className="absolute bottom-full right-0 mb-2 w-48 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-200/90 p-1.5 flex flex-col gap-1 z-30 animate-in fade-in zoom-in-95">
+                  <div className="absolute bottom-full right-0 mb-2 w-48 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-200/90 dark:border-white/10 p-1.5 flex flex-col gap-1 z-30 animate-in fade-in zoom-in-95 transition-colors">
                     <button
                       onClick={() => handleSelectBuilding('campus')}
                       className={`w-full text-left px-3 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer ${
                         mapId === 'Campus_Map'
                           ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25'
-                          : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+                          : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white'
                       }`}
                     >
                       🗺️ Campus Master Map
@@ -1265,7 +1465,7 @@ export default function MapBox({
                         className={`w-full text-left px-3 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer ${
                           activeBuildingId === b.id
                             ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25'
-                            : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+                            : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white'
                         }`}
                       >
                         {b.id === 'main' ? '🏛️' : '💻'} {b.name}
@@ -1278,7 +1478,7 @@ export default function MapBox({
               {/* Floor Buttons (Segmented Pills) */}
               {buildingFloors.length > 0 && (
                 <>
-                  <div className="h-5 w-[1px] bg-slate-200" />
+                  <div className="h-5 w-[1px] bg-slate-200 dark:bg-white/10" />
                   <div className="flex items-center gap-1">
                     {buildingFloors.map((f) => {
                       const isActive = f.map === mapId;
@@ -1290,7 +1490,7 @@ export default function MapBox({
                           className={`w-9 h-9 rounded-xl flex items-center justify-center text-xs font-black transition-all cursor-pointer ${
                             isActive
                               ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
-                              : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                              : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white'
                           }`}
                           title={f.label}
                         >
@@ -1304,10 +1504,10 @@ export default function MapBox({
             </div>
 
             {/* Zoom & Recenter Control Stack */}
-            <div className="flex flex-col bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-200/90 p-1.5 gap-1 pointer-events-auto">
+            <div className="flex flex-col bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-200/90 dark:border-white/10 p-1.5 gap-1 pointer-events-auto transition-colors">
               <button
                 onClick={handleZoomIn}
-                className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-all cursor-pointer"
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-white/10 hover:text-blue-600 dark:hover:text-blue-400 transition-all cursor-pointer"
                 disabled={!canZoomIn}
                 title="Zoom In"
               >
@@ -1316,31 +1516,43 @@ export default function MapBox({
 
               <button
                 onClick={handleZoomOut}
-                className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-all cursor-pointer"
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-white/10 hover:text-blue-600 dark:hover:text-blue-400 transition-all cursor-pointer"
                 disabled={!canZoomOut}
                 title="Zoom Out"
               >
                 <ZoomOut className="w-4.5 h-4.5" />
               </button>
 
-              <div className="h-[1px] bg-slate-200 mx-1" />
+              <div className="h-[1px] bg-slate-200 dark:bg-white/10 mx-1" />
 
               <button
                 onClick={handleResetZoom}
-                className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-all cursor-pointer"
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-white/10 hover:text-blue-600 dark:hover:text-blue-400 transition-all cursor-pointer"
                 title="Reset Zoom & Center"
               >
                 <RotateCcw className="w-4 h-4" />
               </button>
 
-              <div className="h-[1px] bg-slate-200 mx-1" />
+              <div className="h-[1px] bg-slate-200 dark:bg-white/10 mx-1" />
 
               <button
-                onClick={isGpsActive ? disableGps : enableGps}
+                type="button"
+                onClick={() => {
+                  if (isGpsActive) {
+                    disableGps();
+                    setAutoFollowUser(false);
+                  } else {
+                    enableGps();
+                    if (mapId !== 'Campus_Map' && onMapChange) {
+                      onMapChange('Campus_Map');
+                    }
+                    setAutoFollowUser(true);
+                  }
+                }}
                 className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer ${
                   isGpsActive
                     ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25'
-                    : 'text-slate-700 hover:bg-blue-50 hover:text-blue-600'
+                    : 'text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-white/10 hover:text-blue-600 dark:hover:text-blue-400'
                 }`}
                 title={isGpsActive ? 'Disable Live GPS Tracking' : 'Enable Live GPS Tracking'}
               >
@@ -1358,14 +1570,29 @@ export default function MapBox({
                 className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer ${
                   autoFollowUser
                     ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
-                    : 'text-cyan-600 hover:bg-cyan-50 hover:text-cyan-700'
+                    : 'text-cyan-600 dark:text-cyan-400 hover:bg-cyan-50 dark:hover:bg-white/10 hover:text-cyan-700 dark:hover:text-cyan-300'
                 }`}
                 title={autoFollowUser ? 'Auto-Follow & Zoom Active (Tap to Pause)' : 'Center on My Location & Auto-Zoom'}
               >
                 <LocateFixed className={`w-4.5 h-4.5 ${autoFollowUser ? 'text-white animate-pulse' : 'text-cyan-600'}`} />
               </button>
 
-              <div className="h-[1px] bg-slate-200 mx-1" />
+              <div className="h-[1px] bg-slate-200 dark:bg-white/10 mx-1" />
+
+              <button
+                type="button"
+                onClick={() => setShowGalisNetwork((prev) => !prev)}
+                className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer ${
+                  showGalisNetwork
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25'
+                    : 'text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-white/10 hover:text-blue-600 dark:hover:text-blue-400'
+                }`}
+                title={showGalisNetwork ? 'Hide Walkways & Galis Network' : 'Show Walkways & Galis Network'}
+              >
+                <Footprints className="w-4 h-4" />
+              </button>
+
+              <div className="h-[1px] bg-slate-200 dark:bg-white/10 mx-1" />
 
               <button
                 type="button"
@@ -1376,6 +1603,21 @@ export default function MapBox({
                 <span className="text-[9px] font-black tracking-wider">SOS</span>
               </button>
             </div>
+          </div>
+        )}
+
+        {/* Live GPS Status & Perimeter Alert Banner */}
+        {isGpsActive && isOutsideCampus && (
+          <div className="absolute top-20 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 rounded-full border border-amber-500/40 bg-slate-900/90 px-4 py-2 text-xs font-bold text-amber-300 shadow-2xl backdrop-blur-md pointer-events-auto">
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+            <span>Outside MITS campus perimeter • Snapped to Main Gate (Gate 1)</span>
+          </div>
+        )}
+
+        {isGpsActive && gpsError && (
+          <div className="absolute top-20 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 rounded-full border border-rose-500/40 bg-slate-900/90 px-4 py-2 text-xs font-bold text-rose-300 shadow-2xl backdrop-blur-md pointer-events-auto">
+            <span className="w-2 h-2 rounded-full bg-rose-400 animate-ping" />
+            <span>{gpsError}</span>
           </div>
         )}
 
@@ -1404,6 +1646,66 @@ export default function MapBox({
         {/* SOS Emergency Broadcast Modal (Universal) */}
         <SosModal />
 
+        {/* Tactical Node Selection Action Card (Start / Go Here) */}
+        {selectedMapNode && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-sm bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 rounded-2xl shadow-2xl p-4 pointer-events-auto"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold shrink-0">
+                  <MapPin className="w-5 h-5" />
+                </div>
+                <div className="min-w-0">
+                  <h4 className="text-sm font-bold text-slate-900 dark:text-white leading-tight truncate">
+                    {selectedMapNode.name || selectedMapNode.id}
+                  </h4>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 truncate">
+                      {selectedMapNode.map ? selectedMapNode.map.replace('_', ' ') : 'Campus'}
+                    </span>
+                    <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold uppercase shrink-0">
+                      {selectedMapNode.category || selectedMapNode.type || 'Path'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => setSelectedMapNode(null)}
+                className="w-7 h-7 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center transition-colors cursor-pointer shrink-0"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 mt-3.5">
+              <button
+                onClick={() => {
+                  handleCurrentLocationSelect(selectedMapNode);
+                  setSelectedMapNode(null);
+                }}
+                className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 text-xs font-bold border border-emerald-200 dark:border-emerald-800/60 transition-all cursor-pointer shadow-sm active:scale-95"
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                Start Here
+              </button>
+              <button
+                onClick={() => {
+                  handleDestinationSelect(selectedMapNode);
+                  setSelectedMapNode(null);
+                }}
+                className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#ff602e] hover:bg-[#ff7b52] text-white text-xs font-bold transition-all cursor-pointer shadow-md shadow-orange-500/20 active:scale-95"
+              >
+                <MapPin className="w-3.5 h-3.5 fill-white" />
+                Go Here
+              </button>
+            </div>
+          </motion.div>
+        )}
+
         {/* Interactive Node Details Drawer ("Open Node") */}
         <NodeDetailDrawer />
 
@@ -1415,7 +1717,7 @@ export default function MapBox({
 
         {/* Real-world GPS Georeference Badge */}
         {mapId === 'Campus_Map' && (
-          <div className="absolute bottom-5 left-5 z-20 pointer-events-auto hidden sm:flex items-center gap-2 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-black/5 dark:border-white/10 px-3 py-1.5 rounded-xl shadow-md text-[11px] font-medium text-gray-700 dark:text-gray-200 select-none">
+          <div className="absolute bottom-5 left-5 z-20 pointer-events-auto hidden sm:flex items-center gap-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 px-3.5 py-2 rounded-2xl shadow-xl text-[11px] font-medium text-slate-800 dark:text-slate-200 select-none transition-colors">
             <div className={`w-2 h-2 rounded-full ${isGpsActive ? 'bg-blue-500 animate-pulse' : 'bg-emerald-500'}`} />
             <span className="font-mono font-semibold">
               {userGpsCoords
@@ -1425,6 +1727,19 @@ export default function MapBox({
             <span className="text-[10px] text-gray-400">
               {userGpsCoords ? '(Live GPS)' : '(Main Gate)'}
             </span>
+            <a
+              href={getOsmUrl(
+                userGpsCoords ? userGpsCoords.lat : 26.232611,
+                userGpsCoords ? userGpsCoords.lon : 78.205222
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-1 text-[10px] font-bold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 flex items-center gap-0.5"
+              title="Open in OpenStreetMap"
+            >
+              <span>OSM</span>
+              <span className="text-[9px]">↗</span>
+            </a>
           </div>
         )}
       </div>

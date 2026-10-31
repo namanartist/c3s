@@ -8,7 +8,9 @@
       "y": 272.7038,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23126158,
+      "lng": 78.20647003
     },
     {
       "id": "AiRoad08",
@@ -18,7 +20,9 @@
       "y": 128.1183,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22988414,
+      "lng": 78.20596662
     },
     {
       "id": "MainBuilRoad08",
@@ -28,7 +32,9 @@
       "y": 556.0163,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23146571,
+      "lng": 78.20418118
     },
     {
       "id": "corridor03_05",
@@ -38,7 +44,9 @@
       "y": 363.5879,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23154276,
+      "lng": 78.20588208
     },
     {
       "id": "corridor08_03",
@@ -48,7 +56,9 @@
       "y": 80.0169,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2297525,
+      "lng": 78.2057026
     },
     {
       "id": "corridor09_03",
@@ -58,7 +68,9 @@
       "y": 80.6019,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2299568,
+      "lng": 78.20596638
     },
     {
       "id": "intersectionCorridor08_10",
@@ -68,7 +80,9 @@
       "y": 59.633,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22970933,
+      "lng": 78.205802
     },
     {
       "id": "intersectionCorridor04_05",
@@ -78,7 +92,9 @@
       "y": 346.9444,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2318205,
+      "lng": 78.20637421
     },
     {
       "id": "room_SH12",
@@ -88,7 +104,9 @@
       "y": 306.273,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23167627,
+      "lng": 78.20649624
     },
     {
       "id": "room_J040",
@@ -98,7 +116,9 @@
       "y": 60.3264,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22967258,
+      "lng": 78.20574843
     },
     {
       "id": "cabin_Prof_Khushboo_Agarwal",
@@ -108,7 +128,9 @@
       "y": 274.6766,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23042626,
+      "lng": 78.20509682
     },
     {
       "id": "cabin_J025_Chemical_Dept",
@@ -118,7 +140,9 @@
       "y": 356.5498,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2317364,
+      "lng": 78.20619023
     },
     {
       "id": "cabin_Dr_Sulochana_Wadhwani",
@@ -128,7 +152,9 @@
       "y": 478.5736,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23239093,
+      "lng": 78.20611536
     },
     {
       "id": "Corridor11_01",
@@ -138,7 +164,9 @@
       "y": 465.9191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23180772,
+      "lng": 78.20530089
     },
     {
       "id": "Corridor12_08",
@@ -148,7 +176,9 @@
       "y": 286.4408,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23104352,
+      "lng": 78.20566818
     },
     {
       "id": "Corridor13_02",
@@ -158,7 +188,9 @@
       "y": 397.5713,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2317485,
+      "lng": 78.20573758
     },
     {
       "id": "Corridor16_20b",
@@ -168,7 +200,9 @@
       "y": 216.2017,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23149965,
+      "lng": 78.20677898
     },
     {
       "id": "Corridor18_03",
@@ -178,7 +212,9 @@
       "y": 293.4191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23078547,
+      "lng": 78.2052854
     },
     {
       "id": "room_J103",
@@ -188,7 +224,9 @@
       "y": 470.1908,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23222726,
+      "lng": 78.20580608
     },
     {
       "id": "room_J114",
@@ -198,7 +236,9 @@
       "y": 247.3756,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2311862,
+      "lng": 78.20614383
     },
     {
       "id": "room_J119",
@@ -208,7 +248,9 @@
       "y": 383.1256,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23141628,
+      "lng": 78.20542048
     },
     {
       "id": "room_J126",
@@ -218,7 +260,9 @@
       "y": 337.5387,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23166147,
+      "lng": 78.2060763
     },
     {
       "id": "room_J129",
@@ -228,7 +272,9 @@
       "y": 336.805,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23125414,
+      "lng": 78.20556021
     },
     {
       "id": "room_J144",
@@ -238,7 +284,9 @@
       "y": 179.0661,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23035081,
+      "lng": 78.20558631
     },
     {
       "id": "cabin_Dr_Vijay_S_Sharma",
@@ -248,7 +296,9 @@
       "y": 256.18,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23159022,
+      "lng": 78.20659516
     },
     {
       "id": "cabin_Ar_Jaspreet_Walia",
@@ -258,7 +308,9 @@
       "y": 30.2096,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22968186,
+      "lng": 78.20584594
     },
     {
       "id": "Corridor23_09",
@@ -268,7 +320,9 @@
       "y": 149.0239,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23049874,
+      "lng": 78.20512631
     },
     {
       "id": "Corridor23_10",
@@ -278,7 +332,9 @@
       "y": 149.1186,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23053522,
+      "lng": 78.20517233
     },
     {
       "id": "Corridor23_22",
@@ -288,7 +344,9 @@
       "y": 149.0239,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23074788,
+      "lng": 78.20544535
     },
     {
       "id": "JubileeRoad04",
@@ -298,7 +356,9 @@
       "y": 207.4864,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22994043,
+      "lng": 78.20532423
     },
     {
       "id": "JubileeRoad11",
@@ -308,7 +368,9 @@
       "y": 411.4294,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2306939,
+      "lng": 78.20447284
     },
     {
       "id": "AiRoad03",
@@ -318,7 +380,9 @@
       "y": 128.3859,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23042348,
+      "lng": 78.20667223
     },
     {
       "id": "AiRoad05",
@@ -328,7 +392,9 @@
       "y": 128.2881,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23020128,
+      "lng": 78.20638142
     },
     {
       "id": "MainBuilRoad06",
@@ -338,7 +404,9 @@
       "y": 556.0163,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23170726,
+      "lng": 78.20449829
     },
     {
       "id": "Canteen01",
@@ -348,7 +416,9 @@
       "y": 527.7772,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23150039,
+      "lng": 78.20448157
     },
     {
       "id": "Library02",
@@ -358,7 +428,9 @@
       "y": 369.3398,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23070268,
+      "lng": 78.20486421
     },
     {
       "id": "ENTRY01",
@@ -372,7 +444,9 @@
         "node": "intersectionCorridor02_AccountsSection"
       },
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23154209,
+      "lng": 78.20502812
     },
     {
       "id": "ENTRY07",
@@ -386,7 +460,9 @@
         "node": "ai_entry_gf"
       },
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22998988,
+      "lng": 78.20588812
     },
     {
       "id": "Workshops",
@@ -396,7 +472,9 @@
       "y": 113.6069,
       "type": "room",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23026284,
+      "lng": 78.20659472
     },
     {
       "id": "corridor08_01",
@@ -406,7 +484,9 @@
       "y": 163.28,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23006375,
+      "lng": 78.20547376
     },
     {
       "id": "LabCorridor02_03",
@@ -416,7 +496,9 @@
       "y": 295.3639,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23072262,
+      "lng": 78.20532756
     },
     {
       "id": "intersectionCorridor02_AccountsSection",
@@ -426,7 +508,9 @@
       "y": 474.733,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23167563,
+      "lng": 78.20520552
     },
     {
       "id": "intersectionCorridor06_Connector",
@@ -436,7 +520,9 @@
       "y": 271.2946,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23061628,
+      "lng": 78.20537222
     },
     {
       "id": "intersectionCorrdior07_09",
@@ -446,7 +532,9 @@
       "y": 204.6392,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2304201,
+      "lng": 78.20562499
     },
     {
       "id": "Stairs01",
@@ -460,7 +548,9 @@
         "node": "Stair01"
       },
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23168289,
+      "lng": 78.20521646
     },
     {
       "id": "room_J001",
@@ -470,7 +560,9 @@
       "y": 487.5583,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23183883,
+      "lng": 78.20532161
     },
     {
       "id": "room_J006",
@@ -480,7 +572,9 @@
       "y": 500.6985,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2324227,
+      "lng": 78.20598766
     },
     {
       "id": "room_J044",
@@ -490,7 +584,9 @@
       "y": 120.8834,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22989184,
+      "lng": 78.20557266
     },
     {
       "id": "room_PL1",
@@ -500,7 +596,9 @@
       "y": 330.9995,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23059515,
+      "lng": 78.20488732
     },
     {
       "id": "room_IQAC",
@@ -510,7 +608,9 @@
       "y": 478.7,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2320068,
+      "lng": 78.20561
     },
     {
       "id": "cabin_Dr_Sanjay_Tiwari_CE",
@@ -520,7 +620,9 @@
       "y": 282.2293,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23124937,
+      "lng": 78.20611978
     },
     {
       "id": "cabin_Prof_Aditya_Agarwal",
@@ -530,7 +632,9 @@
       "y": 360.2609,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2315195,
+      "lng": 78.205877
     },
     {
       "id": "cabin_Prof_Anish_Jacob",
@@ -540,7 +644,9 @@
       "y": 460.9037,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23191608,
+      "lng": 78.20562713
     },
     {
       "id": "cabin_Dept_Architecture",
@@ -550,7 +656,9 @@
       "y": 57.5972,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22984508,
+      "lng": 78.20599583
     },
     {
       "id": "Corridor11_06",
@@ -560,7 +668,9 @@
       "y": 465.9191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23206406,
+      "lng": 78.20562914
     },
     {
       "id": "Corridor12_02",
@@ -570,7 +680,9 @@
       "y": 443.5658,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23163236,
+      "lng": 78.20524395
     },
     {
       "id": "Corridor12_09",
@@ -580,7 +692,9 @@
       "y": 251.6963,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23091329,
+      "lng": 78.20576195
     },
     {
       "id": "Corridor13_01",
@@ -590,7 +704,9 @@
       "y": 443.093,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23191913,
+      "lng": 78.20561472
     },
     {
       "id": "Corridor15_04",
@@ -600,7 +716,9 @@
       "y": 333.3322,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23139612,
+      "lng": 78.20576806
     },
     {
       "id": "Corridor15_10",
@@ -610,7 +728,9 @@
       "y": 333.3575,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23179827,
+      "lng": 78.20628284
     },
     {
       "id": "Corridor16_11",
@@ -620,7 +740,9 @@
       "y": 251.5169,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23069889,
+      "lng": 78.20548874
     },
     {
       "id": "Corridor20_08",
@@ -630,7 +752,9 @@
       "y": 35.3539,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22969159,
+      "lng": 78.20581982
     },
     {
       "id": "Corridor21_08",
@@ -640,7 +764,9 @@
       "y": 35.954,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22981474,
+      "lng": 78.20597303
     },
     {
       "id": "room_J107",
@@ -650,7 +776,9 @@
       "y": 406.7995,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23213203,
+      "lng": 78.20615951
     },
     {
       "id": "room_J110",
@@ -660,7 +788,9 @@
       "y": 298.3104,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23172525,
+      "lng": 78.20645215
     },
     {
       "id": "room_J118",
@@ -670,7 +800,9 @@
       "y": 322.9137,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23119115,
+      "lng": 78.20558372
     },
     {
       "id": "cabin_Dr_Vikas_Mahor",
@@ -680,7 +812,9 @@
       "y": 247.2452,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23043276,
+      "lng": 78.20517998
     },
     {
       "id": "cabin_Dr_R_Jenkin_Suji",
@@ -690,7 +824,9 @@
       "y": 254.9408,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23042023,
+      "lng": 78.20510624
     },
     {
       "id": "cabin_Prof_Madhav_Singh",
@@ -700,7 +836,9 @@
       "y": 254.9408,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23067015,
+      "lng": 78.20542626
     },
     {
       "id": "Corridor23_04",
@@ -710,7 +848,9 @@
       "y": 149.0239,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23041526,
+      "lng": 78.20501942
     },
     {
       "id": "JubileeRoad03",
@@ -720,7 +860,9 @@
       "y": 180.8533,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22984175,
+      "lng": 78.20543505
     },
     {
       "id": "AiRoad06",
@@ -730,7 +872,9 @@
       "y": 128.1183,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23009549,
+      "lng": 78.20624407
     },
     {
       "id": "MainBuilRoad04",
@@ -740,7 +884,9 @@
       "y": 556.0163,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23183719,
+      "lng": 78.20466885
     },
     {
       "id": "Canteen02",
@@ -750,7 +896,9 @@
       "y": 497.8995,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23138146,
+      "lng": 78.20459508
     },
     {
       "id": "ENTRY04",
@@ -764,7 +912,9 @@
         "node": "intersectionLibraryPath_Corridor06"
       },
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23043924,
+      "lng": 78.20513941
     },
     {
       "id": "corridor01_04",
@@ -774,7 +924,9 @@
       "y": 482.8975,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23193576,
+      "lng": 78.20548457
     },
     {
       "id": "corridor01_08",
@@ -784,7 +936,9 @@
       "y": 482.9223,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23221821,
+      "lng": 78.20585526
     },
     {
       "id": "corridor04_05",
@@ -794,7 +948,9 @@
       "y": 367.2754,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2318963,
+      "lng": 78.20631806
     },
     {
       "id": "corridor06_13",
@@ -804,7 +960,9 @@
       "y": 271.4114,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23116459,
+      "lng": 78.2060913
     },
     {
       "id": "corridor06_14",
@@ -814,7 +972,9 @@
       "y": 271.3527,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23131451,
+      "lng": 78.2062886
     },
     {
       "id": "intersectionCorridor09_10",
@@ -824,7 +984,9 @@
       "y": 59.7423,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22984821,
+      "lng": 78.20598352
     },
     {
       "id": "intersectionCorridor01_02",
@@ -834,7 +996,9 @@
       "y": 482.7163,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23170585,
+      "lng": 78.20518407
     },
     {
       "id": "Stairs05",
@@ -848,7 +1012,9 @@
         "node": "Stair05"
       },
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23035519,
+      "lng": 78.20508229
     },
     {
       "id": "Stairs07",
@@ -862,7 +1028,9 @@
         "node": "Stair07"
       },
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22981661,
+      "lng": 78.20588083
     },
     {
       "id": "cabin_Dr_Anjula_Gaur",
@@ -872,7 +1040,9 @@
       "y": 375.2918,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23157564,
+      "lng": 78.20583563
     },
     {
       "id": "Corridor11_11",
@@ -882,7 +1052,9 @@
       "y": 465.9191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23234444,
+      "lng": 78.20598818
     },
     {
       "id": "Corridor12_06",
@@ -892,7 +1064,9 @@
       "y": 333.2457,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23121906,
+      "lng": 78.20554197
     },
     {
       "id": "Corridor20_03",
@@ -902,7 +1076,9 @@
       "y": 142.8648,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23005069,
+      "lng": 78.20547347
     },
     {
       "id": "Corridor21_03",
@@ -912,7 +1088,9 @@
       "y": 94.2568,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23007533,
+      "lng": 78.20586952
     },
     {
       "id": "Stair03",
@@ -926,7 +1104,9 @@
         "node": "Stairs03"
       },
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23147607,
+      "lng": 78.20595431
     },
     {
       "id": "room_J101",
@@ -936,7 +1116,9 @@
       "y": 489.9517,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23191035,
+      "lng": 78.20525209
     },
     {
       "id": "room_J104",
@@ -946,7 +1128,9 @@
       "y": 470.1908,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23236515,
+      "lng": 78.20598266
     },
     {
       "id": "room_J132",
@@ -956,7 +1140,9 @@
       "y": 247.2452,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23068288,
+      "lng": 78.20550027
     },
     {
       "id": "room_J134",
@@ -966,7 +1152,9 @@
       "y": 308.7167,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23084262,
+      "lng": 78.20524387
     },
     {
       "id": "room_J140",
@@ -976,7 +1164,9 @@
       "y": 44.9408,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22988896,
+      "lng": 78.20600068
     },
     {
       "id": "room_FemaleWashroom_FF",
@@ -986,7 +1176,9 @@
       "y": 328.5387,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23157497,
+      "lng": 78.20603303
     },
     {
       "id": "cabin_Prof_Pavitra_Pathak",
@@ -996,7 +1188,9 @@
       "y": 247.2452,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23068288,
+      "lng": 78.20550027
     },
     {
       "id": "cabin_Dr_JK_Muthele",
@@ -1006,7 +1200,9 @@
       "y": 474.4501,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23241712,
+      "lng": 78.20601727
     },
     {
       "id": "cabin_Ranjeev_Kumar_Singh",
@@ -1016,7 +1212,9 @@
       "y": 99.6542,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2298734,
+      "lng": 78.20557047
     },
     {
       "id": "cabin_Dr_Sanjiv_Sharma",
@@ -1026,7 +1224,9 @@
       "y": 83.9735,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23009189,
+      "lng": 78.20596784
     },
     {
       "id": "JubileeRoad08",
@@ -1036,7 +1236,9 @@
       "y": 319.106,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23035371,
+      "lng": 78.20485945
     },
     {
       "id": "JubileeRoad12",
@@ -1046,7 +1248,9 @@
       "y": 439.5299,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23079747,
+      "lng": 78.2043552
     },
     {
       "id": "AiRoad04",
@@ -1056,7 +1260,9 @@
       "y": 128.2881,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2303223,
+      "lng": 78.20654029
     },
     {
       "id": "Canteen05",
@@ -1066,7 +1272,9 @@
       "y": 454.1957,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23111062,
+      "lng": 78.20463394
     },
     {
       "id": "Canteen07",
@@ -1076,7 +1284,9 @@
       "y": 426.5109,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23093321,
+      "lng": 78.20465089
     },
     {
       "id": "mainentryroad03",
@@ -1086,7 +1296,9 @@
       "y": 510.7392,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23161156,
+      "lng": 78.20478127
     },
     {
       "id": "corridor03_02",
@@ -1096,7 +1308,9 @@
       "y": 425.1145,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23177239,
+      "lng": 78.2057125
     },
     {
       "id": "corridor04_07",
@@ -1106,7 +1320,9 @@
       "y": 353.4052,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23184449,
+      "lng": 78.20635623
     },
     {
       "id": "corridor08_02",
@@ -1116,7 +1332,9 @@
       "y": 120.7851,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22990524,
+      "lng": 78.205591
     },
     {
       "id": "corridor10_02",
@@ -1126,7 +1344,9 @@
       "y": 59.4517,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22979648,
+      "lng": 78.20591782
     },
     {
       "id": "intersectionConnector_Corridor07",
@@ -1136,7 +1356,9 @@
       "y": 204.7515,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23036773,
+      "lng": 78.20555537
     },
     {
       "id": "intersectionCorridor03_05",
@@ -1146,7 +1368,9 @@
       "y": 353.0099,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23150307,
+      "lng": 78.20591095
     },
     {
       "id": "room_J010",
@@ -1156,7 +1380,9 @@
       "y": 353.4052,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23185102,
+      "lng": 78.20636481
     },
     {
       "id": "room_J023",
@@ -1166,7 +1392,9 @@
       "y": 329.8484,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23142648,
+      "lng": 78.20598773
     },
     {
       "id": "room_J037",
@@ -1176,7 +1404,9 @@
       "y": 81.0137,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22997411,
+      "lng": 78.20598595
     },
     {
       "id": "room_PL5",
@@ -1186,7 +1416,9 @@
       "y": 321.1725,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23082634,
+      "lng": 78.20526613
     },
     {
       "id": "cabin_Project_Research_Lab",
@@ -1196,7 +1428,9 @@
       "y": 253.8019,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23053728,
+      "lng": 78.20540243
     },
     {
       "id": "cabin_J022_Prof_Bhadoria",
@@ -1206,7 +1440,9 @@
       "y": 389.3722,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23164935,
+      "lng": 78.2058246
     },
     {
       "id": "cabin_J021_Chemical_Eng",
@@ -1216,7 +1452,9 @@
       "y": 425.1145,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2317824,
+      "lng": 78.20572564
     },
     {
       "id": "cabin_Dr_Manoj_Gaur",
@@ -1226,7 +1464,9 @@
       "y": 267.3203,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23155512,
+      "lng": 78.20663541
     },
     {
       "id": "cabin_Dr_Shishir_Dixit_HOD",
@@ -1236,7 +1476,9 @@
       "y": 460.7165,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23225278,
+      "lng": 78.20607068
     },
     {
       "id": "cabin_Dr_Monica_Bhadoriya",
@@ -1246,7 +1488,9 @@
       "y": 367.1069,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23188536,
+      "lng": 78.20630499
     },
     {
       "id": "cabin_Dr_Anjali_Patil",
@@ -1256,7 +1500,9 @@
       "y": 53.0112,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22980256,
+      "lng": 78.20597512
     },
     {
       "id": "Corridor11_12",
@@ -1266,7 +1512,9 @@
       "y": 465.9191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23234955,
+      "lng": 78.20599472
     },
     {
       "id": "Corridor11_15",
@@ -1276,7 +1524,9 @@
       "y": 465.9191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23242781,
+      "lng": 78.20609494
     },
     {
       "id": "Corridor15_07",
@@ -1286,7 +1536,9 @@
       "y": 333.4254,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23163369,
+      "lng": 78.20607159
     },
     {
       "id": "Corridor16_06",
@@ -1296,7 +1548,9 @@
       "y": 251.1588,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23052556,
+      "lng": 78.20526948
     },
     {
       "id": "Corridor16_10",
@@ -1306,7 +1560,9 @@
       "y": 251.5169,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23067061,
+      "lng": 78.20545253
     },
     {
       "id": "Corridor16_21",
@@ -1316,7 +1572,9 @@
       "y": 251.2218,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23161551,
+      "lng": 78.20666473
     },
     {
       "id": "Corridor20_05",
@@ -1326,7 +1584,9 @@
       "y": 90.4211,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22985412,
+      "lng": 78.20561501
     },
     {
       "id": "Corridor21_07",
@@ -1336,7 +1596,9 @@
       "y": 39.1988,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22983634,
+      "lng": 78.20597635
     },
     {
       "id": "room_J105",
@@ -1346,7 +1608,9 @@
       "y": 483.6908,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23244065,
+      "lng": 78.20597811
     },
     {
       "id": "room_J109",
@@ -1356,7 +1620,9 @@
       "y": 334.2941,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23186026,
+      "lng": 78.2063552
     },
     {
       "id": "room_J133",
@@ -1366,7 +1632,9 @@
       "y": 277.3756,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.230733,
+      "lng": 78.20533851
     },
     {
       "id": "room_J141",
@@ -1376,7 +1644,9 @@
       "y": 58.4408,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22995781,
+      "lng": 78.2059876
     },
     {
       "id": "room_PL03",
@@ -1386,7 +1656,9 @@
       "y": 142.7669,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23027201,
+      "lng": 78.2057576
     },
     {
       "id": "cabin_Dr_Hemant_Choubey",
@@ -1396,7 +1668,9 @@
       "y": 236.829,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23058536,
+      "lng": 78.2054535
     },
     {
       "id": "cabin_Dr_Nitin_Upadhyay",
@@ -1406,7 +1680,9 @@
       "y": 216.2714,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23151196,
+      "lng": 78.20679423
     },
     {
       "id": "cabin_Dr_Chandra_S_Malvi",
@@ -1416,7 +1692,9 @@
       "y": 219.2669,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23149728,
+      "lng": 78.20675297
     },
     {
       "id": "Corridor23_01",
@@ -1426,7 +1704,9 @@
       "y": 293.2684,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2309559,
+      "lng": 78.20463006
     },
     {
       "id": "Corridor23_06",
@@ -1436,7 +1716,9 @@
       "y": 149.0239,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2304428,
+      "lng": 78.20505469
     },
     {
       "id": "Corridor23_21",
@@ -1446,7 +1728,9 @@
       "y": 149.1543,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23071948,
+      "lng": 78.20540801
     },
     {
       "id": "MainRoad01",
@@ -1456,7 +1740,9 @@
       "y": 556.0163,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23239641,
+      "lng": 78.20540299
     },
     {
       "id": "MainRoad08",
@@ -1466,7 +1752,9 @@
       "y": 300.3454,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2313723,
+      "lng": 78.20636593
     },
     {
       "id": "Canteen08",
@@ -1476,7 +1764,9 @@
       "y": 404.231,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23084287,
+      "lng": 78.20473337
     },
     {
       "id": "mainentryroad04",
@@ -1486,7 +1776,9 @@
       "y": 533.3777,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23170224,
+      "lng": 78.20469601
     },
     {
       "id": "corridor04_02",
@@ -1496,7 +1788,9 @@
       "y": 430.8671,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23213357,
+      "lng": 78.2061427
     },
     {
       "id": "corridor06_17",
@@ -1506,7 +1800,9 @@
       "y": 271.463,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23157099,
+      "lng": 78.20662453
     },
     {
       "id": "LabCorridor01_02",
@@ -1516,7 +1812,9 @@
       "y": 307.8077,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23050881,
+      "lng": 78.20495152
     },
     {
       "id": "intersectionAccountDepartment",
@@ -1526,7 +1824,9 @@
       "y": 475.0009,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23154209,
+      "lng": 78.20502812
     },
     {
       "id": "Stairs06",
@@ -1540,7 +1840,9 @@
         "node": "Stair06"
       },
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23016327,
+      "lng": 78.20534312
     },
     {
       "id": "room_SH6",
@@ -1550,7 +1852,9 @@
       "y": 267.2642,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23093234,
+      "lng": 78.20581809
     },
     {
       "id": "room_J031",
@@ -1560,7 +1864,9 @@
       "y": 331.3926,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2308572,
+      "lng": 78.2052284
     },
     {
       "id": "cabin_Dr_Sanjay_Tiwari_HOD",
@@ -1570,7 +1876,9 @@
       "y": 356.4095,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23146241,
+      "lng": 78.20583153
     },
     {
       "id": "Corridor11_09",
@@ -1580,7 +1888,9 @@
       "y": 465.9191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23221038,
+      "lng": 78.20581651
     },
     {
       "id": "Corridor13_06",
@@ -1590,7 +1900,9 @@
       "y": 322.6365,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23146753,
+      "lng": 78.20593971
     },
     {
       "id": "Corridor14_06",
@@ -1600,7 +1912,9 @@
       "y": 355.6365,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23193106,
+      "lng": 78.20628582
     },
     {
       "id": "Corridor14_07",
@@ -1610,7 +1924,9 @@
       "y": 348.6908,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23190541,
+      "lng": 78.20630506
     },
     {
       "id": "Corridor14_08",
@@ -1620,7 +1936,9 @@
       "y": 333.7072,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23184901,
+      "lng": 78.20634519
     },
     {
       "id": "Corridor15_01",
@@ -1630,7 +1948,9 @@
       "y": 333.2457,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23124093,
+      "lng": 78.20556998
     },
     {
       "id": "Corridor15_02",
@@ -1640,7 +1960,9 @@
       "y": 333.3322,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2313019,
+      "lng": 78.2056474
     },
     {
       "id": "Corridor15_03",
@@ -1650,7 +1972,9 @@
       "y": 333.3322,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23136688,
+      "lng": 78.20573062
     },
     {
       "id": "Corridor16_01",
@@ -1660,7 +1984,9 @@
       "y": 250.9626,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23036357,
+      "lng": 78.20506351
     },
     {
       "id": "Corridor16_09",
@@ -1670,7 +1996,9 @@
       "y": 251.5217,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23065781,
+      "lng": 78.20543611
     },
     {
       "id": "Corridor16_20",
@@ -1680,7 +2008,9 @@
       "y": 251.1093,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2315722,
+      "lng": 78.20661012
     },
     {
       "id": "Corridor17_02",
@@ -1690,7 +2020,9 @@
       "y": 279.1365,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23046943,
+      "lng": 78.2049878
     },
     {
       "id": "room_J115",
@@ -1700,7 +2032,9 @@
       "y": 247.4408,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23107315,
+      "lng": 78.20599857
     },
     {
       "id": "room_J121",
@@ -1710,7 +2044,9 @@
       "y": 443.0278,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23192728,
+      "lng": 78.20562565
     },
     {
       "id": "cabin_Aashi_Singh_Bhadouria",
@@ -1720,7 +2056,9 @@
       "y": 121.0101,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23022695,
+      "lng": 78.20586305
     },
     {
       "id": "Corridor23_14",
@@ -1730,7 +2068,9 @@
       "y": 188.8181,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23082604,
+      "lng": 78.20524703
     },
     {
       "id": "MainRoad11",
@@ -1740,7 +2080,9 @@
       "y": 179.3451,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23088763,
+      "lng": 78.20682165
     },
     {
       "id": "MainBuilRoad02",
@@ -1750,7 +2092,9 @@
       "y": 556.0163,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23215282,
+      "lng": 78.2050832
     },
     {
       "id": "MainBuilRoad07",
@@ -1760,7 +2104,9 @@
       "y": 556.0163,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23161279,
+      "lng": 78.20437427
     },
     {
       "id": "Library04",
@@ -1770,7 +2116,9 @@
       "y": 300.5072,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23042696,
+      "lng": 78.20512345
     },
     {
       "id": "Library05",
@@ -1780,7 +2128,9 @@
       "y": 300.5924,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23034282,
+      "lng": 78.20501222
     },
     {
       "id": "ENTRY03",
@@ -1794,7 +2144,9 @@
         "node": "intersectionCorridor06_MechDeprt"
       },
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23131451,
+      "lng": 78.2062886
     },
     {
       "id": "corridor02_03",
@@ -1804,7 +2156,9 @@
       "y": 389.5968,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23135798,
+      "lng": 78.2054403
     },
     {
       "id": "corridor03_06",
@@ -1814,7 +2168,9 @@
       "y": 360.2609,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23152994,
+      "lng": 78.20589071
     },
     {
       "id": "corridor03_08",
@@ -1824,7 +2180,9 @@
       "y": 304.881,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23132338,
+      "lng": 78.20604353
     },
     {
       "id": "corridor06_08",
@@ -1834,7 +2192,9 @@
       "y": 271.1672,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23074454,
+      "lng": 78.2055416
     },
     {
       "id": "corridor07_01",
@@ -1844,7 +2204,9 @@
       "y": 204.7515,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23028844,
+      "lng": 78.20545126
     },
     {
       "id": "intersectionCorridor01_04",
@@ -1854,7 +2216,9 @@
       "y": 482.7163,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23232723,
+      "lng": 78.206
     },
     {
       "id": "room_J045",
@@ -1864,7 +2228,9 @@
       "y": 163.1677,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23004938,
+      "lng": 78.20545575
     },
     {
       "id": "room_DirectorsOffice",
@@ -1874,7 +2240,9 @@
       "y": 425.1018,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23138259,
+      "lng": 78.20520076
     },
     {
       "id": "cabin_Prof_Parul_Saxena",
@@ -1884,7 +2252,9 @@
       "y": 274.9012,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23067396,
+      "lng": 78.20542033
     },
     {
       "id": "Corridor11_04",
@@ -1894,7 +2264,9 @@
       "y": 465.9191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23200469,
+      "lng": 78.20555312
     },
     {
       "id": "Corridor11_05",
@@ -1904,7 +2276,9 @@
       "y": 465.9191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23203674,
+      "lng": 78.20559416
     },
     {
       "id": "Corridor14_10",
@@ -1914,7 +2288,9 @@
       "y": 274.7099,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23162798,
+      "lng": 78.20650456
     },
     {
       "id": "Corridor16_12",
@@ -1924,7 +2300,9 @@
       "y": 251.5169,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23076113,
+      "lng": 78.20556845
     },
     {
       "id": "Stair04",
@@ -1938,7 +2316,9 @@
         "node": "Stairs04"
       },
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23089624,
+      "lng": 78.20577423
     },
     {
       "id": "room_J102",
@@ -1948,7 +2328,9 @@
       "y": 469.9952,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23219645,
+      "lng": 78.20576811
     },
     {
       "id": "cabin_Dr_VP_Shinde",
@@ -1958,7 +2340,9 @@
       "y": 461.2887,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23241071,
+      "lng": 78.20610777
     },
     {
       "id": "cabin_Dr_Akhilesh_Tiwari",
@@ -1968,7 +2352,9 @@
       "y": 100.9531,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23011385,
+      "lng": 78.20586863
     },
     {
       "id": "cabin_Dr_Rohit_Agrawal",
@@ -1978,7 +2364,9 @@
       "y": 44.9408,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22988896,
+      "lng": 78.20600068
     },
     {
       "id": "Corridor23_25",
@@ -1988,7 +2376,9 @@
       "y": 148.9031,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23096548,
+      "lng": 78.2057249
     },
     {
       "id": "MainRoad12",
@@ -1998,7 +2388,9 @@
       "y": 128.4756,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23068386,
+      "lng": 78.20701324
     },
     {
       "id": "JubileeRoad01",
@@ -2008,7 +2400,9 @@
       "y": 128.1183,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22964647,
+      "lng": 78.20565461
     },
     {
       "id": "AiRoad09",
@@ -2018,7 +2412,9 @@
       "y": 128.1183,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22976233,
+      "lng": 78.2058067
     },
     {
       "id": "corridor02_02",
@@ -2028,7 +2424,9 @@
       "y": 401.4313,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23140225,
+      "lng": 78.20540781
     },
     {
       "id": "corridor03_01",
@@ -2038,7 +2436,9 @@
       "y": 460.9037,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23190607,
+      "lng": 78.20561399
     },
     {
       "id": "corridor06_09",
@@ -2048,7 +2448,9 @@
       "y": 271.5881,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23083271,
+      "lng": 78.20565416
     },
     {
       "id": "LabCorridor02_02",
@@ -2058,7 +2460,9 @@
       "y": 321.2989,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23081958,
+      "lng": 78.20525629
     },
     {
       "id": "room_LT2",
@@ -2068,7 +2472,9 @@
       "y": 267.7135,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2304255,
+      "lng": 78.20514913
     },
     {
       "id": "room_J042",
@@ -2078,7 +2484,9 @@
       "y": 80.0029,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22974008,
+      "lng": 78.2056864
     },
     {
       "id": "cabin_Ar_Namita_Pranshi",
@@ -2088,7 +2496,9 @@
       "y": 64.6727,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2299078,
+      "lng": 78.206024
     },
     {
       "id": "Corridor11_14",
@@ -2098,7 +2508,9 @@
       "y": 474.4626,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23240605,
+      "lng": 78.20600301
     },
     {
       "id": "Corridor12_04",
@@ -2108,7 +2520,9 @@
       "y": 383.3539,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23140684,
+      "lng": 78.20540669
     },
     {
       "id": "Corridor13_05",
@@ -2118,7 +2532,9 @@
       "y": 333.3322,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23150771,
+      "lng": 78.20591096
     },
     {
       "id": "Corridor14_03",
@@ -2128,7 +2544,9 @@
       "y": 418.8974,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23216819,
+      "lng": 78.20611509
     },
     {
       "id": "Corridor15_05",
@@ -2138,7 +2556,9 @@
       "y": 333.3322,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23146085,
+      "lng": 78.20585096
     },
     {
       "id": "Corridor21_02",
@@ -2148,7 +2568,9 @@
       "y": 136.0246,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23023189,
+      "lng": 78.20575679
     },
     {
       "id": "Stair05",
@@ -2162,7 +2584,9 @@
         "node": "Stairs05"
       },
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23035221,
+      "lng": 78.2050717
     },
     {
       "id": "room_J117",
@@ -2172,7 +2596,9 @@
       "y": 286.4735,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23105456,
+      "lng": 78.20568207
     },
     {
       "id": "room_J123",
@@ -2182,7 +2608,9 @@
       "y": 346.5061,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23156549,
+      "lng": 78.20588615
     },
     {
       "id": "room_J125",
@@ -2192,7 +2620,9 @@
       "y": 337.6854,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23174619,
+      "lng": 78.20618369
     },
     {
       "id": "room_J136",
@@ -2202,7 +2632,9 @@
       "y": 247.2452,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2305109,
+      "lng": 78.20528004
     },
     {
       "id": "room_J137",
@@ -2212,7 +2644,9 @@
       "y": 279.0713,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23047494,
+      "lng": 78.20499534
     },
     {
       "id": "cabin_Dr_Prateek_Bhadauria",
@@ -2222,7 +2656,9 @@
       "y": 254.9408,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23040731,
+      "lng": 78.20508969
     },
     {
       "id": "cabin_Er_Vivek_Sharma",
@@ -2232,7 +2668,9 @@
       "y": 461.1582,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2320189,
+      "lng": 78.205607
     },
     {
       "id": "Corridor23_11",
@@ -2242,7 +2680,9 @@
       "y": 148.9348,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23057613,
+      "lng": 78.20522608
     },
     {
       "id": "MainRoad02",
@@ -2252,7 +2692,9 @@
       "y": 514.5462,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2322303,
+      "lng": 78.20555918
     },
     {
       "id": "MainRoad03",
@@ -2262,7 +2704,9 @@
       "y": 476.8343,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23207924,
+      "lng": 78.20570121
     },
     {
       "id": "MainRoad10",
@@ -2272,7 +2716,9 @@
       "y": 220.9538,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23105429,
+      "lng": 78.20666494
     },
     {
       "id": "JubileeRoad05",
@@ -2282,7 +2728,9 @@
       "y": 248.0843,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23009088,
+      "lng": 78.20515536
     },
     {
       "id": "JubileeRoad16",
@@ -2292,7 +2740,9 @@
       "y": 556.0163,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23122675,
+      "lng": 78.20386749
     },
     {
       "id": "MainBuilRoad01",
@@ -2302,7 +2752,9 @@
       "y": 556.0163,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23228322,
+      "lng": 78.2052544
     },
     {
       "id": "AiBuilding_Entry",
@@ -2316,7 +2768,9 @@
         "node": "ai_entry_gf"
       },
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23034862,
+      "lng": 78.20651554
     },
     {
       "id": "corridor01_03",
@@ -2326,7 +2780,9 @@
       "y": 482.7163,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2318767,
+      "lng": 78.20540841
     },
     {
       "id": "corridor04_01",
@@ -2336,7 +2792,9 @@
       "y": 460.8147,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23224566,
+      "lng": 78.20606059
     },
     {
       "id": "corridor04_03",
@@ -2346,7 +2804,9 @@
       "y": 401.3471,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23202326,
+      "lng": 78.20622389
     },
     {
       "id": "corridor05_01",
@@ -2356,7 +2816,9 @@
       "y": 352.8224,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23136394,
+      "lng": 78.20572971
     },
     {
       "id": "corridor05_05",
@@ -2366,7 +2828,9 @@
       "y": 353.1121,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23158925,
+      "lng": 78.20602332
     },
     {
       "id": "corridor06_06",
@@ -2376,7 +2840,9 @@
       "y": 271.5434,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23066207,
+      "lng": 78.20543043
     },
     {
       "id": "corridor06_15",
@@ -2386,7 +2852,9 @@
       "y": 271.2628,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23134254,
+      "lng": 78.20632609
     },
     {
       "id": "corridor09_04",
@@ -2396,7 +2864,9 @@
       "y": 76.1008,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22993998,
+      "lng": 78.20597876
     },
     {
       "id": "LabCorridor02_01",
@@ -2406,7 +2876,9 @@
       "y": 327.4758,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23084257,
+      "lng": 78.20523918
     },
     {
       "id": "intersectionLabCorridor_06",
@@ -2416,7 +2888,9 @@
       "y": 271.463,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23063335,
+      "lng": 78.20539334
     },
     {
       "id": "room_J028",
@@ -2426,7 +2900,9 @@
       "y": 267.2642,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23081701,
+      "lng": 78.20566665
     },
     {
       "id": "room_PL2",
@@ -2436,7 +2912,9 @@
       "y": 307.8639,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23051659,
+      "lng": 78.20496131
     },
     {
       "id": "room_MaleWashroom",
@@ -2446,7 +2924,9 @@
       "y": 389.5684,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23136645,
+      "lng": 78.20545163
     },
     {
       "id": "cabin_Dr_Anshu_Chaturvedi",
@@ -2456,7 +2936,9 @@
       "y": 274.9012,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23068744,
+      "lng": 78.20543805
     },
     {
       "id": "cabin_IC_Lab",
@@ -2466,7 +2948,9 @@
       "y": 267.3079,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2311487,
+      "lng": 78.20610184
     },
     {
       "id": "cabin_Directors_Office",
@@ -2476,7 +2960,9 @@
       "y": 425.1018,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23137137,
+      "lng": 78.20518602
     },
     {
       "id": "Corridor11_16",
@@ -2486,7 +2972,9 @@
       "y": 489.9191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23189768,
+      "lng": 78.20523611
     },
     {
       "id": "Corridor14_05",
@@ -2496,7 +2984,9 @@
       "y": 370.8322,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23198816,
+      "lng": 78.20624499
     },
     {
       "id": "Corridor16_22",
@@ -2506,7 +2996,9 @@
       "y": 251.1778,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23162344,
+      "lng": 78.20667521
     },
     {
       "id": "Corridor21_01",
@@ -2516,7 +3008,9 @@
       "y": 165.0939,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23034085,
+      "lng": 78.20567834
     },
     {
       "id": "Stair06",
@@ -2530,7 +3024,9 @@
         "node": "Stairs06"
       },
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23016599,
+      "lng": 78.20534895
     },
     {
       "id": "room_J127",
@@ -2540,7 +3036,9 @@
       "y": 337.5713,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23141188,
+      "lng": 78.20575646
     },
     {
       "id": "room_PL04",
@@ -2550,7 +3048,9 @@
       "y": 121.0101,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23022695,
+      "lng": 78.20586305
     },
     {
       "id": "cabin_Dr_Sanjeev_Khanna",
@@ -2560,7 +3060,9 @@
       "y": 348.6908,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23189584,
+      "lng": 78.2062928
     },
     {
       "id": "Corridor23_19",
@@ -2570,7 +3072,9 @@
       "y": 149.2847,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23070758,
+      "lng": 78.20539179
     },
     {
       "id": "JubileeRoad06",
@@ -2580,7 +3084,9 @@
       "y": 282.4701,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23021822,
+      "lng": 78.20501221
     },
     {
       "id": "JubileeRoad13",
@@ -2590,7 +3096,9 @@
       "y": 473.5489,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23092282,
+      "lng": 78.20421275
     },
     {
       "id": "AiRoad01",
@@ -2600,7 +3108,9 @@
       "y": 128.3533,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23061287,
+      "lng": 78.20692115
     },
     {
       "id": "AiRoad07",
@@ -2610,7 +3120,9 @@
       "y": 128.2555,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23000984,
+      "lng": 78.20613039
     },
     {
       "id": "mainentryroad01",
@@ -2620,7 +3132,9 @@
       "y": 501.087,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2316522,
+      "lng": 78.20492173
     },
     {
       "id": "Jubilee_Gate",
@@ -2630,7 +3144,9 @@
       "y": 127.5277,
       "type": "gate",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22963889,
+      "lng": 78.20563889
     },
     {
       "id": "corridor01_02",
@@ -2640,7 +3156,9 @@
       "y": 482.7163,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23182083,
+      "lng": 78.20533504
     },
     {
       "id": "corridor01_06",
@@ -2650,7 +3168,9 @@
       "y": 482.7163,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23206701,
+      "lng": 78.2056583
     },
     {
       "id": "corridor02_06",
@@ -2660,7 +3180,9 @@
       "y": 281.9907,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23095565,
+      "lng": 78.20573594
     },
     {
       "id": "corridor03_03",
@@ -2670,7 +3192,9 @@
       "y": 389.4283,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2316391,
+      "lng": 78.20581071
     },
     {
       "id": "corridor03_07",
@@ -2680,7 +3204,9 @@
       "y": 329.8484,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23141664,
+      "lng": 78.20597481
     },
     {
       "id": "corridor06_02",
@@ -2690,7 +3216,9 @@
       "y": 271.463,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23041659,
+      "lng": 78.20510872
     },
     {
       "id": "corridor06_05",
@@ -2700,7 +3228,9 @@
       "y": 271.3002,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23055819,
+      "lng": 78.2052959
     },
     {
       "id": "corridor09_06",
@@ -2710,7 +3240,9 @@
       "y": 66.3858,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22988574,
+      "lng": 78.20598192
     },
     {
       "id": "intersectionCorrdior02_06",
@@ -2720,7 +3252,9 @@
       "y": 271.6315,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23091701,
+      "lng": 78.20576452
     },
     {
       "id": "Stairs02",
@@ -2734,7 +3268,9 @@
         "node": "Stair02"
       },
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23230538,
+      "lng": 78.20604329
     },
     {
       "id": "Stairs03",
@@ -2748,7 +3284,9 @@
         "node": "Stair03"
       },
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23147619,
+      "lng": 78.20595946
     },
     {
       "id": "room_J004",
@@ -2758,7 +3296,9 @@
       "y": 487.446,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23223507,
+      "lng": 78.20584276
     },
     {
       "id": "room_J008",
@@ -2768,7 +3308,9 @@
       "y": 401.2488,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23203079,
+      "lng": 78.20623453
     },
     {
       "id": "room_Library",
@@ -2778,7 +3320,9 @@
       "y": 416.0328,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23090033,
+      "lng": 78.20463696
     },
     {
       "id": "cabin_Dr_RS_Jadon",
@@ -2788,7 +3332,9 @@
       "y": 267.7135,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23044239,
+      "lng": 78.2051713
     },
     {
       "id": "cabin_J014_CAD_CAM_Lab",
@@ -2798,7 +3344,9 @@
       "y": 267.1519,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23129867,
+      "lng": 78.20629996
     },
     {
       "id": "Corridor16_19",
@@ -2808,7 +3356,9 @@
       "y": 251.3382,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23148777,
+      "lng": 78.20650028
     },
     {
       "id": "Corridor22_03",
@@ -2818,7 +3368,9 @@
       "y": 35.954,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22977214,
+      "lng": 78.20591848
     },
     {
       "id": "room_J112",
@@ -2828,7 +3380,9 @@
       "y": 247.5061,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2314734,
+      "lng": 78.20651063
     },
     {
       "id": "room_J122",
@@ -2838,7 +3392,9 @@
       "y": 370.8974,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23165691,
+      "lng": 78.20582032
     },
     {
       "id": "room_J142",
@@ -2848,7 +3404,9 @@
       "y": 121.0101,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23022695,
+      "lng": 78.20586305
     },
     {
       "id": "room_MaleWashroom_FF",
@@ -2858,7 +3416,9 @@
       "y": 337.5387,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23164911,
+      "lng": 78.20606049
     },
     {
       "id": "cabin_Dr_Akansha_Soni",
@@ -2868,7 +3428,9 @@
       "y": 34.9921,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22982829,
+      "lng": 78.20599759
     },
     {
       "id": "Corridor23_07",
@@ -2878,7 +3440,9 @@
       "y": 149.0239,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23045683,
+      "lng": 78.20507265
     },
     {
       "id": "Main_Gate",
@@ -2888,7 +3452,9 @@
       "y": 606.1033,
       "type": "gate",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23261111,
+      "lng": 78.20522222
     },
     {
       "id": "Library_Campus",
@@ -2898,7 +3464,9 @@
       "y": 393.3739,
       "type": "room",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23081517,
+      "lng": 78.20479498
     },
     {
       "id": "corridor01_05",
@@ -2908,7 +3476,9 @@
       "y": 482.7163,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23202181,
+      "lng": 78.20559895
     },
     {
       "id": "corridor05_02",
@@ -2918,7 +3488,9 @@
       "y": 352.8224,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23139261,
+      "lng": 78.20576734
     },
     {
       "id": "corridor06_11",
@@ -2928,7 +3500,9 @@
       "y": 271.463,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2309481,
+      "lng": 78.20580663
     },
     {
       "id": "corridor06_12",
@@ -2938,7 +3512,9 @@
       "y": 271.5287,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23108936,
+      "lng": 78.20599162
     },
     {
       "id": "corridor09_02",
@@ -2948,7 +3524,9 @@
       "y": 117.8347,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23009587,
+      "lng": 78.2058639
     },
     {
       "id": "room_LT1",
@@ -2958,7 +3536,9 @@
       "y": 267.2642,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23072996,
+      "lng": 78.20555234
     },
     {
       "id": "room_J003",
@@ -2968,7 +3548,9 @@
       "y": 487.446,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2321467,
+      "lng": 78.20572672
     },
     {
       "id": "room_J026",
@@ -2978,7 +3560,9 @@
       "y": 356.4095,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23137683,
+      "lng": 78.20571915
     },
     {
       "id": "cabin_Dr_Manish_Dixit",
@@ -2988,7 +3572,9 @@
       "y": 253.8019,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23056241,
+      "lng": 78.20543542
     },
     {
       "id": "cabin_Prof_Vedansh",
@@ -2998,7 +3584,9 @@
       "y": 263.8387,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23158467,
+      "lng": 78.20670087
     },
     {
       "id": "cabin_Prof_RP_Kori",
@@ -3008,7 +3596,9 @@
       "y": 225.6764,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23146827,
+      "lng": 78.20684024
     },
     {
       "id": "Corridor11_02",
@@ -3018,7 +3608,9 @@
       "y": 465.9191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23171615,
+      "lng": 78.20518362
     },
     {
       "id": "Corridor11_07",
@@ -3028,7 +3620,9 @@
       "y": 465.8311,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2320825,
+      "lng": 78.20565341
     },
     {
       "id": "Corridor11_13",
@@ -3038,7 +3632,9 @@
       "y": 465.9191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23237403,
+      "lng": 78.20602607
     },
     {
       "id": "Corridor14_02",
@@ -3048,7 +3644,9 @@
       "y": 443.2887,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23225962,
+      "lng": 78.20604926
     },
     {
       "id": "Corridor14_04",
@@ -3058,7 +3656,9 @@
       "y": 406.7995,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23212309,
+      "lng": 78.20614806
     },
     {
       "id": "Corridor16_03",
@@ -3068,7 +3668,9 @@
       "y": 251.0728,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23040612,
+      "lng": 78.20511717
     },
     {
       "id": "Corridor16_07",
@@ -3078,7 +3680,9 @@
       "y": 251.5217,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2306269,
+      "lng": 78.20539652
     },
     {
       "id": "Corridor16_13",
@@ -3088,7 +3692,9 @@
       "y": 251.6963,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23083132,
+      "lng": 78.20565699
     },
     {
       "id": "Corridor17_03",
@@ -3098,7 +3704,9 @@
       "y": 294.2017,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23052565,
+      "lng": 78.20494682
     },
     {
       "id": "Corridor19_05",
@@ -3108,7 +3716,9 @@
       "y": 183.2682,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23040898,
+      "lng": 78.20562929
     },
     {
       "id": "Corridor20_06",
@@ -3118,7 +3728,9 @@
       "y": 58.8322,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22973571,
+      "lng": 78.20570027
     },
     {
       "id": "Stair01",
@@ -3132,7 +3744,9 @@
         "node": "Stairs01"
       },
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23168477,
+      "lng": 78.20522505
     },
     {
       "id": "room_J111",
@@ -3142,7 +3756,9 @@
       "y": 247.6365,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23156008,
+      "lng": 78.20662063
     },
     {
       "id": "room_J124",
@@ -3152,7 +3768,9 @@
       "y": 310.3919,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23143012,
+      "lng": 78.20598362
     },
     {
       "id": "room_J145",
@@ -3162,7 +3780,9 @@
       "y": 179.1582,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2302914,
+      "lng": 78.20550954
     },
     {
       "id": "cabin_Manisha_Pathak",
@@ -3172,7 +3792,9 @@
       "y": 121.0101,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23022695,
+      "lng": 78.20586305
     },
     {
       "id": "cabin_Dr_Ranjeet_Singh",
@@ -3182,7 +3804,9 @@
       "y": 142.7669,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23027201,
+      "lng": 78.2057576
     },
     {
       "id": "cabin_Dr_Sanjay_Jadon",
@@ -3192,7 +3816,9 @@
       "y": 30.2096,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22978412,
+      "lng": 78.2059769
     },
     {
       "id": "Corridor23_23",
@@ -3202,7 +3828,9 @@
       "y": 149.0239,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23081184,
+      "lng": 78.20552726
     },
     {
       "id": "JubileeRoad14",
@@ -3212,7 +3840,9 @@
       "y": 506.394,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23104389,
+      "lng": 78.20407526
     },
     {
       "id": "Canteen04",
@@ -3222,7 +3852,9 @@
       "y": 479.0435,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23120823,
+      "lng": 78.20453784
     },
     {
       "id": "corridor01_01",
@@ -3232,7 +3864,9 @@
       "y": 482.7163,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23175289,
+      "lng": 78.20524584
     },
     {
       "id": "corridor02_04",
@@ -3242,7 +3876,9 @@
       "y": 359.2723,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23124436,
+      "lng": 78.2055233
     },
     {
       "id": "corridor06_04",
@@ -3252,7 +3888,9 @@
       "y": 271.4681,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23045676,
+      "lng": 78.20516143
     },
     {
       "id": "corridor06_07",
@@ -3262,7 +3900,9 @@
       "y": 271.463,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23067706,
+      "lng": 78.20545074
     },
     {
       "id": "corridor06_10",
@@ -3272,7 +3912,9 @@
       "y": 271.463,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23088789,
+      "lng": 78.20572757
     },
     {
       "id": "LabCorridor01_01",
@@ -3282,7 +3924,9 @@
       "y": 327.3635,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23058157,
+      "lng": 78.20489732
     },
     {
       "id": "intersectionCorridor01_03",
@@ -3292,7 +3936,9 @@
       "y": 482.7163,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23198754,
+      "lng": 78.20555396
     },
     {
       "id": "intersectionCorridor04_06",
@@ -3302,7 +3948,9 @@
       "y": 271.6315,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2315396,
+      "lng": 78.20658202
     },
     {
       "id": "room_J002",
@@ -3312,7 +3960,9 @@
       "y": 487.446,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2319524,
+      "lng": 78.20547159
     },
     {
       "id": "room_J024",
@@ -3322,7 +3972,9 @@
       "y": 359.4374,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23159225,
+      "lng": 78.20597884
     },
     {
       "id": "cabin_MOOC_Center",
@@ -3332,7 +3984,9 @@
       "y": 267.2642,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23087221,
+      "lng": 78.20573913
     },
     {
       "id": "Corridor13_03",
@@ -3342,7 +3996,9 @@
       "y": 371.4191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23165048,
+      "lng": 78.20580817
     },
     {
       "id": "Corridor13_08",
@@ -3352,7 +4008,9 @@
       "y": 284.3622,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23132411,
+      "lng": 78.20604306
     },
     {
       "id": "Corridor16_17",
@@ -3362,7 +4020,9 @@
       "y": 251.6963,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23130446,
+      "lng": 78.20626286
     },
     {
       "id": "Corridor18_01",
@@ -3372,7 +4032,9 @@
       "y": 264.2381,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23067609,
+      "lng": 78.20536416
     },
     {
       "id": "Corridor18_02",
@@ -3382,7 +4044,9 @@
       "y": 277.2778,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23072497,
+      "lng": 78.20532896
     },
     {
       "id": "Corridor19_03",
@@ -3392,7 +4056,9 @@
       "y": 183.1035,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23030619,
+      "lng": 78.20549889
     },
     {
       "id": "Corridor19_04",
@@ -3402,7 +4068,9 @@
       "y": 183.1527,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2303666,
+      "lng": 78.20557589
     },
     {
       "id": "Corridor21_05",
@@ -3412,7 +4080,9 @@
       "y": 52.2452,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22991786,
+      "lng": 78.20598291
     },
     {
       "id": "Corridor22_04",
@@ -3422,7 +4092,9 @@
       "y": 35.954,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22980642,
+      "lng": 78.20596238
     },
     {
       "id": "Stair02",
@@ -3436,7 +4108,9 @@
         "node": "Stairs02"
       },
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23231429,
+      "lng": 78.20603467
     },
     {
       "id": "Stair07",
@@ -3450,7 +4124,9 @@
         "node": "Stairs07"
       },
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22981719,
+      "lng": 78.20588604
     },
     {
       "id": "room_J131",
@@ -3460,7 +4136,9 @@
       "y": 247.1148,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23074508,
+      "lng": 78.2055809
     },
     {
       "id": "room_J139",
@@ -3470,7 +4148,9 @@
       "y": 24.0273,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22971097,
+      "lng": 78.20592958
     },
     {
       "id": "room_J146",
@@ -3480,7 +4160,9 @@
       "y": 179.2072,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23021488,
+      "lng": 78.20541119
     },
     {
       "id": "cabin_Dr_Ravindra_Narwaria",
@@ -3490,7 +4172,9 @@
       "y": 254.9408,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23068349,
+      "lng": 78.20544335
     },
     {
       "id": "Corridor23_16",
@@ -3500,7 +4184,9 @@
       "y": 149.2239,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23067762,
+      "lng": 78.20535389
     },
     {
       "id": "Corridor23_17",
@@ -3510,7 +4196,9 @@
       "y": 148.8883,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2306872,
+      "lng": 78.20536867
     },
     {
       "id": "MainRoad07",
@@ -3520,7 +4208,9 @@
       "y": 323.2473,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23146404,
+      "lng": 78.20627967
     },
     {
       "id": "JubileeRoad07",
@@ -3530,7 +4220,9 @@
       "y": 300.5924,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23028545,
+      "lng": 78.20493692
     },
     {
       "id": "JubileeRoad09",
@@ -3540,7 +4232,9 @@
       "y": 347.1576,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23045698,
+      "lng": 78.20474186
     },
     {
       "id": "AiRoad02",
@@ -3550,7 +4244,9 @@
       "y": 128.3859,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23053698,
+      "lng": 78.20682123
     },
     {
       "id": "MainBuilRoad09",
@@ -3560,7 +4256,9 @@
       "y": 556.0163,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23135602,
+      "lng": 78.20403719
     },
     {
       "id": "Library01",
@@ -3570,7 +4268,9 @@
       "y": 393.3739,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23079895,
+      "lng": 78.20477369
     },
     {
       "id": "corridor01_07",
@@ -3580,7 +4280,9 @@
       "y": 482.794,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23212984,
+      "lng": 78.2057402
     },
     {
       "id": "corridor01_09",
@@ -3590,7 +4292,9 @@
       "y": 482.8389,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23235451,
+      "lng": 78.20603486
     },
     {
       "id": "corridor02_01",
@@ -3600,7 +4304,9 @@
       "y": 453.1899,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23159516,
+      "lng": 78.20526481
     },
     {
       "id": "corridor05_06",
@@ -3610,7 +4316,9 @@
       "y": 353.1448,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23172368,
+      "lng": 78.2061996
     },
     {
       "id": "corridor06_01",
@@ -3620,7 +4328,9 @@
       "y": 271.4199,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23040183,
+      "lng": 78.20508967
     },
     {
       "id": "corridor08_04",
@@ -3630,7 +4340,9 @@
       "y": 76.1008,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22973833,
+      "lng": 78.20571398
     },
     {
       "id": "corridor08_05",
@@ -3640,7 +4352,9 @@
       "y": 70.5997,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22972733,
+      "lng": 78.20574166
     },
     {
       "id": "intersectionLibraryPath_Corridor06",
@@ -3650,7 +4364,9 @@
       "y": 271.463,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23033628,
+      "lng": 78.20500327
     },
     {
       "id": "room_J013",
@@ -3660,7 +4376,9 @@
       "y": 267.1519,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23132738,
+      "lng": 78.20633766
     },
     {
       "id": "room_J036",
@@ -3670,7 +4388,9 @@
       "y": 56.418,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22988825,
+      "lng": 78.20606155
     },
     {
       "id": "room_J038",
@@ -3680,7 +4400,9 @@
       "y": 163.3924,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23028145,
+      "lng": 78.20575876
     },
     {
       "id": "room_FacultyRC",
@@ -3690,7 +4412,9 @@
       "y": 401.3612,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2314105,
+      "lng": 78.20541918
     },
     {
       "id": "cabin_Prof_Jaimala_Jha",
@@ -3700,7 +4424,9 @@
       "y": 267.7135,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2303894,
+      "lng": 78.20510173
     },
     {
       "id": "cabin_Prof_Mahesh_Parmar",
@@ -3710,7 +4436,9 @@
       "y": 274.6766,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23041301,
+      "lng": 78.20507942
     },
     {
       "id": "cabin_003",
@@ -3720,7 +4448,9 @@
       "y": 318.084,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23109931,
+      "lng": 78.20564821
     },
     {
       "id": "cabin_Dr_CS_Malvi_HOD_Mech",
@@ -3730,7 +4460,9 @@
       "y": 243.6752,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23150938,
+      "lng": 78.2067564
     },
     {
       "id": "cabin_Dynamics_Machine_Lab",
@@ -3740,7 +4472,9 @@
       "y": 205.9434,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23138136,
+      "lng": 78.2068772
     },
     {
       "id": "Corridor11_03",
@@ -3750,7 +4484,9 @@
       "y": 465.9191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23189834,
+      "lng": 78.20541693
     },
     {
       "id": "Corridor12_07",
@@ -3760,7 +4496,9 @@
       "y": 323.093,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23118091,
+      "lng": 78.20556926
     },
     {
       "id": "Corridor14_01",
@@ -3770,7 +4508,9 @@
       "y": 454.7669,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23230289,
+      "lng": 78.2060186
     },
     {
       "id": "Corridor15_08",
@@ -3780,7 +4520,9 @@
       "y": 333.2319,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23164532,
+      "lng": 78.20608793
     },
     {
       "id": "Corridor16_16",
@@ -3790,7 +4532,9 @@
       "y": 251.6963,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23108942,
+      "lng": 78.20598749
     },
     {
       "id": "Corridor16_25",
@@ -3800,7 +4544,9 @@
       "y": 223.9626,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23152815,
+      "lng": 78.20675728
     },
     {
       "id": "Corridor19_02",
@@ -3810,7 +4556,9 @@
       "y": 183.202,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23022947,
+      "lng": 78.20539992
     },
     {
       "id": "Corridor20_02",
@@ -3820,7 +4568,9 @@
       "y": 160.2861,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23011651,
+      "lng": 78.2054271
     },
     {
       "id": "Corridor20_04",
@@ -3830,7 +4580,9 @@
       "y": 99.9191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22988972,
+      "lng": 78.20558938
     },
     {
       "id": "room_J150",
@@ -3840,7 +4592,9 @@
       "y": 142.8648,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23003726,
+      "lng": 78.20545626
     },
     {
       "id": "cabin_Dr_Nidhi_Humnekar",
@@ -3850,7 +4604,9 @@
       "y": 256.18,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23165166,
+      "lng": 78.20667385
     },
     {
       "id": "Corridor23_08",
@@ -3860,7 +4616,9 @@
       "y": 149.0239,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23048119,
+      "lng": 78.20510385
     },
     {
       "id": "Corridor23_12",
@@ -3870,7 +4628,9 @@
       "y": 149.0239,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23062344,
+      "lng": 78.205286
     },
     {
       "id": "Corridor23_15",
@@ -3880,7 +4640,9 @@
       "y": 230.4586,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23098212,
+      "lng": 78.20513464
     },
     {
       "id": "MainRoad06",
@@ -3890,7 +4652,9 @@
       "y": 366.5517,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2316375,
+      "lng": 78.20611657
     },
     {
       "id": "JubileeRoad02",
@@ -3900,7 +4664,9 @@
       "y": 151.5788,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22973332,
+      "lng": 78.2055569
     },
     {
       "id": "JubileeRoad15",
@@ -3910,7 +4676,9 @@
       "y": 538.1142,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23116076,
+      "lng": 78.20394242
     },
     {
       "id": "MainBuilRoad05",
@@ -3920,7 +4688,9 @@
       "y": 556.0163,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23179293,
+      "lng": 78.20461075
     },
     {
       "id": "corridor01_10",
@@ -3930,7 +4700,9 @@
       "y": 482.7163,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.232408,
+      "lng": 78.20610604
     },
     {
       "id": "corridor02_05",
@@ -3940,7 +4712,9 @@
       "y": 318.084,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23109052,
+      "lng": 78.20563666
     },
     {
       "id": "corridor03_09",
@@ -3950,7 +4724,9 @@
       "y": 282.3276,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23123914,
+      "lng": 78.2061056
     },
     {
       "id": "corridor06_16",
@@ -3960,7 +4736,9 @@
       "y": 271.395,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23149457,
+      "lng": 78.2065247
     },
     {
       "id": "corridor09_05",
@@ -3970,7 +4748,9 @@
       "y": 69.8824,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22990621,
+      "lng": 78.20598203
     },
     {
       "id": "corridor10_01",
@@ -3980,7 +4760,9 @@
       "y": 59.4517,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22977724,
+      "lng": 78.20589255
     },
     {
       "id": "intersectionCorridor02_DirectorsOffice",
@@ -3990,7 +4772,9 @@
       "y": 425.2141,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23149067,
+      "lng": 78.20534181
     },
     {
       "id": "intersectionCorrdor02_05",
@@ -4000,7 +4784,9 @@
       "y": 352.6147,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23121978,
+      "lng": 78.20554199
     },
     {
       "id": "intersectionLabCorridor01_06",
@@ -4010,7 +4796,9 @@
       "y": 271.463,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23037277,
+      "lng": 78.20505118
     },
     {
       "id": "intersectionCorridor07_08",
@@ -4020,7 +4808,9 @@
       "y": 204.3541,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23021738,
+      "lng": 78.20536099
     },
     {
       "id": "room_LadiesWashroom",
@@ -4030,7 +4820,9 @@
       "y": 356.9616,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23180647,
+      "lng": 78.20627908
     },
     {
       "id": "cabin_Dr_RK_Gupta",
@@ -4040,7 +4832,9 @@
       "y": 267.2642,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23066309,
+      "lng": 78.20546454
     },
     {
       "id": "cabin_004",
@@ -4050,7 +4844,9 @@
       "y": 282.0328,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23096492,
+      "lng": 78.20574778
     },
     {
       "id": "cabin_Dr_Jyoti_Vimal",
@@ -4060,7 +4856,9 @@
       "y": 237.1258,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23151104,
+      "lng": 78.20680872
     },
     {
       "id": "cabin_Prof_Bhupendra_Pandey",
@@ -4070,7 +4868,9 @@
       "y": 208.6389,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23140536,
+      "lng": 78.20688808
     },
     {
       "id": "Corridor11_08",
@@ -4080,7 +4880,9 @@
       "y": 465.9191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2321814,
+      "lng": 78.2057794
     },
     {
       "id": "Corridor12_03",
@@ -4090,7 +4892,9 @@
       "y": 406.3756,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23149314,
+      "lng": 78.20534455
     },
     {
       "id": "Corridor13_04",
@@ -4100,7 +4904,9 @@
       "y": 346.6365,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23155749,
+      "lng": 78.20587493
     },
     {
       "id": "Corridor13_07",
@@ -4110,7 +4916,9 @@
       "y": 310.2452,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23142143,
+      "lng": 78.20597359
     },
     {
       "id": "Corridor13_09",
@@ -4120,7 +4928,9 @@
       "y": 251.6989,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23120197,
+      "lng": 78.2061316
     },
     {
       "id": "Corridor15_06",
@@ -4130,7 +4940,9 @@
       "y": 333.1535,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23159207,
+      "lng": 78.20602033
     },
     {
       "id": "Corridor16_04",
@@ -4140,7 +4952,9 @@
       "y": 250.9626,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23044669,
+      "lng": 78.20516995
     },
     {
       "id": "Corridor16_14",
@@ -4150,7 +4964,9 @@
       "y": 251.5902,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2308854,
+      "lng": 78.20572703
     },
     {
       "id": "Corridor22_02",
@@ -4160,7 +4976,9 @@
       "y": 35.6001,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22975454,
+      "lng": 78.20589859
     },
     {
       "id": "room_J106",
@@ -4170,7 +4988,9 @@
       "y": 443.3376,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23226899,
+      "lng": 78.2060609
     },
     {
       "id": "room_J130",
@@ -4180,7 +5000,9 @@
       "y": 245.8756,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23086398,
+      "lng": 78.20574245
     },
     {
       "id": "room_J138",
@@ -4190,7 +5012,9 @@
       "y": 305.3539,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23056745,
+      "lng": 78.20491672
     },
     {
       "id": "room_J148",
@@ -4200,7 +5024,9 @@
       "y": 59.1256,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22972337,
+      "lng": 78.20568227
     },
     {
       "id": "cabin_Dr_Laxmi_HOD_EE",
@@ -4210,7 +5036,9 @@
       "y": 247.2452,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23037846,
+      "lng": 78.20511046
     },
     {
       "id": "cabin_Dr_Barkha_Tiwari",
@@ -4220,7 +5048,9 @@
       "y": 256.18,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23165166,
+      "lng": 78.20667385
     },
     {
       "id": "cabin_Dr_Minakshi_Dahiya",
@@ -4230,7 +5060,9 @@
       "y": 256.18,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23163428,
+      "lng": 78.20665159
     },
     {
       "id": "cabin_Dr_Arzoo_Choubey",
@@ -4240,7 +5072,9 @@
       "y": 355.5115,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2319214,
+      "lng": 78.20627439
     },
     {
       "id": "cabin_Dr_DK_Jain",
@@ -4250,7 +5084,9 @@
       "y": 461.1582,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23206524,
+      "lng": 78.20566635
     },
     {
       "id": "cabin_Dr_SK_Bharadwaj",
@@ -4260,7 +5096,9 @@
       "y": 470.3376,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23244463,
+      "lng": 78.20608334
     },
     {
       "id": "Corridor23_03",
@@ -4270,7 +5108,9 @@
       "y": 201.4913,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23061198,
+      "lng": 78.20487788
     },
     {
       "id": "Corridor23_18",
@@ -4280,7 +5120,9 @@
       "y": 149.0239,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23070056,
+      "lng": 78.20538476
     },
     {
       "id": "Corridor23_24",
@@ -4290,7 +5132,9 @@
       "y": 149.0301,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23093381,
+      "lng": 78.2056834
     },
     {
       "id": "Stair04_SF",
@@ -4304,7 +5148,9 @@
         "node": "Stair04"
       },
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23089624,
+      "lng": 78.20577423
     },
     {
       "id": "MainRoad04",
@@ -4314,7 +5160,9 @@
       "y": 436.2092,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23191652,
+      "lng": 78.20585422
     },
     {
       "id": "Canteen06",
@@ -4324,7 +5172,9 @@
       "y": 426.731,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23100274,
+      "lng": 78.20474018
     },
     {
       "id": "Library03",
@@ -4334,7 +5184,9 @@
       "y": 337.8398,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2305765,
+      "lng": 78.20498285
     },
     {
       "id": "mainentryroad02",
@@ -4344,7 +5196,9 @@
       "y": 502.4565,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23160146,
+      "lng": 78.20484276
     },
     {
       "id": "corridor04_04",
@@ -4354,7 +5208,9 @@
       "y": 373.7612,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23191982,
+      "lng": 78.20629929
     },
     {
       "id": "corridor04_06",
@@ -4364,7 +5220,9 @@
       "y": 365.338,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23188926,
+      "lng": 78.20632365
     },
     {
       "id": "corridor05_04",
@@ -4374,7 +5232,9 @@
       "y": 353.0099,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23156825,
+      "lng": 78.20599653
     },
     {
       "id": "intersectionCorridor06_MechDeprt",
@@ -4384,7 +5244,9 @@
       "y": 271.463,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23162797,
+      "lng": 78.20669934
     },
     {
       "id": "room_J039",
@@ -4394,7 +5256,9 @@
       "y": 123.1296,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23012888,
+      "lng": 78.2058667
     },
     {
       "id": "cabin_J005_BEEE_Lab",
@@ -4404,7 +5268,9 @@
       "y": 487.5022,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23234855,
+      "lng": 78.20599135
     },
     {
       "id": "cabin_Dr_Vijay_Bhuria",
@@ -4414,7 +5280,9 @@
       "y": 491.7898,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23240012,
+      "lng": 78.20602622
     },
     {
       "id": "Corridor12_01",
@@ -4424,7 +5292,9 @@
       "y": 455.036,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23167553,
+      "lng": 78.20521322
     },
     {
       "id": "Corridor14_09",
@@ -4434,7 +5304,9 @@
       "y": 298.3104,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23171633,
+      "lng": 78.20644072
     },
     {
       "id": "Corridor15_09",
@@ -4444,7 +5316,9 @@
       "y": 333.3322,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23173025,
+      "lng": 78.20619593
     },
     {
       "id": "Corridor16_02",
@@ -4454,7 +5328,9 @@
       "y": 251.1143,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23039297,
+      "lng": 78.20510002
     },
     {
       "id": "Corridor17_01",
@@ -4464,7 +5340,9 @@
       "y": 265.4164,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23041775,
+      "lng": 78.20502451
     },
     {
       "id": "Corridor21_04",
@@ -4474,7 +5352,9 @@
       "y": 58.6365,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22994218,
+      "lng": 78.20596613
     },
     {
       "id": "Corridor22_01",
@@ -4484,7 +5364,9 @@
       "y": 35.3539,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22970171,
+      "lng": 78.20583279
     },
     {
       "id": "room_J113",
@@ -4494,7 +5376,9 @@
       "y": 247.5061,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23138786,
+      "lng": 78.20640108
     },
     {
       "id": "cabin_Dr_Anand_Pawar",
@@ -4504,7 +5388,9 @@
       "y": 256.18,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23159022,
+      "lng": 78.20659516
     },
     {
       "id": "cabin_Dr_Kuldeep_Tiwari",
@@ -4514,7 +5400,9 @@
       "y": 474.4501,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23241712,
+      "lng": 78.20601727
     },
     {
       "id": "cabin_Dr_Kuldeep_Tripathi",
@@ -4524,7 +5412,9 @@
       "y": 44.9408,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22988896,
+      "lng": 78.20600068
     },
     {
       "id": "MainRoad05",
@@ -4534,7 +5424,9 @@
       "y": 403.9212,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23178718,
+      "lng": 78.20597583
     },
     {
       "id": "JubileeRoad10",
@@ -4544,7 +5436,9 @@
       "y": 383.5734,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23059121,
+      "lng": 78.20458942
     },
     {
       "id": "MainBuilRoad03",
@@ -4554,7 +5448,9 @@
       "y": 556.0163,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23200591,
+      "lng": 78.20489035
     },
     {
       "id": "Canteen03",
@@ -4564,7 +5460,9 @@
       "y": 479.2147,
       "type": "corridor",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23130688,
+      "lng": 78.20466579
     },
     {
       "id": "campus_intersectionCorridor01_04",
@@ -4574,7 +5472,9 @@
       "y": 436.2092,
       "type": "intersection",
       "category": "campus",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2317808,
+      "lng": 78.20567605
     },
     {
       "id": "corridor03_04",
@@ -4584,7 +5484,9 @@
       "y": 375.3212,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2315864,
+      "lng": 78.20584954
     },
     {
       "id": "corridor06_03",
@@ -4594,7 +5496,9 @@
       "y": 271.3378,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23043924,
+      "lng": 78.20513941
     },
     {
       "id": "intersectionCorridor03_06",
@@ -4604,7 +5508,9 @@
       "y": 271.6315,
       "type": "intersection",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2311991,
+      "lng": 78.20613493
     },
     {
       "id": "Stairs04",
@@ -4618,7 +5524,9 @@
         "node": "Stair04"
       },
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23089837,
+      "lng": 78.20577825
     },
     {
       "id": "cabin_Dr_Smita_Parte",
@@ -4628,7 +5536,9 @@
       "y": 267.7135,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23040413,
+      "lng": 78.20512107
     },
     {
       "id": "cabin_Dr_Pratesh_Jayaswal",
@@ -4638,7 +5548,9 @@
       "y": 267.1519,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23118601,
+      "lng": 78.20615204
     },
     {
       "id": "cabin_J012_Fluid_Lab",
@@ -4648,7 +5560,9 @@
       "y": 267.1519,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2314784,
+      "lng": 78.20653596
     },
     {
       "id": "Corridor12_05",
@@ -4658,7 +5572,9 @@
       "y": 370.8322,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23135985,
+      "lng": 78.20544041
     },
     {
       "id": "Corridor14_11",
@@ -4668,7 +5584,9 @@
       "y": 251.1093,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2315394,
+      "lng": 78.20656811
     },
     {
       "id": "Corridor16_15",
@@ -4678,7 +5596,9 @@
       "y": 251.6963,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23100286,
+      "lng": 78.20587664
     },
     {
       "id": "Corridor16_18",
@@ -4688,7 +5608,9 @@
       "y": 251.3294,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2314027,
+      "lng": 78.20639142
     },
     {
       "id": "Corridor16_23",
@@ -4698,7 +5620,9 @@
       "y": 250.9626,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23162949,
+      "lng": 78.20668458
     },
     {
       "id": "Corridor19_01",
@@ -4708,7 +5632,9 @@
       "y": 183.1035,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23020203,
+      "lng": 78.20536552
     },
     {
       "id": "Corridor20_07",
@@ -4718,7 +5644,9 @@
       "y": 53.4517,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22971554,
+      "lng": 78.20571479
     },
     {
       "id": "Corridor21_06",
@@ -4728,7 +5656,9 @@
       "y": 48.7887,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22989621,
+      "lng": 78.20598111
     },
     {
       "id": "room_J120",
@@ -4738,7 +5668,9 @@
       "y": 443.1908,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2316418,
+      "lng": 78.20525886
     },
     {
       "id": "room_J128",
@@ -4748,7 +5680,9 @@
       "y": 337.5713,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23138277,
+      "lng": 78.20571918
     },
     {
       "id": "room_J135",
@@ -4758,7 +5692,9 @@
       "y": 247.2452,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23060959,
+      "lng": 78.20540643
     },
     {
       "id": "room_J143",
@@ -4768,7 +5704,9 @@
       "y": 142.7669,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23027201,
+      "lng": 78.2057576
     },
     {
       "id": "room_J147",
@@ -4778,7 +5716,9 @@
       "y": 53.3539,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22969985,
+      "lng": 78.20569543
     },
     {
       "id": "room_Language_Lab",
@@ -4788,7 +5728,9 @@
       "y": 418.93,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2321775,
+      "lng": 78.20612677
     },
     {
       "id": "cabin_Dr_Amit_Aherwar",
@@ -4798,7 +5740,9 @@
       "y": 236.8584,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23156322,
+      "lng": 78.20670549
     },
     {
       "id": "cabin_Dr_Divya_Chaturvedi",
@@ -4808,7 +5752,9 @@
       "y": 256.18,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23163428,
+      "lng": 78.20665159
     },
     {
       "id": "Corridor23_02",
@@ -4818,7 +5764,9 @@
       "y": 232.6326,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23072865,
+      "lng": 78.20479376
     },
     {
       "id": "Corridor23_05",
@@ -4828,7 +5776,9 @@
       "y": 149.0239,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23041899,
+      "lng": 78.20502419
     },
     {
       "id": "Corridor23_20",
@@ -4838,7 +5788,9 @@
       "y": 149.2239,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23071039,
+      "lng": 78.20539585
     },
     {
       "id": "corridor04_08",
@@ -4848,7 +5800,9 @@
       "y": 306.2494,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23166915,
+      "lng": 78.20648707
     },
     {
       "id": "corridor05_03",
@@ -4858,7 +5812,9 @@
       "y": 352.8818,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23144916,
+      "lng": 78.20584114
     },
     {
       "id": "corridor09_01",
@@ -4868,7 +5824,9 @@
       "y": 156.9111,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23024213,
+      "lng": 78.20575675
     },
     {
       "id": "corridor10_03",
@@ -4878,7 +5836,9 @@
       "y": 59.4248,
       "type": "corridor",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22982607,
+      "lng": 78.20595687
     },
     {
       "id": "room_J009",
@@ -4888,7 +5848,9 @@
       "y": 365.31,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23189549,
+      "lng": 78.20633204
     },
     {
       "id": "cabin_Girls_Common_Room",
@@ -4898,7 +5860,9 @@
       "y": 267.7135,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23054475,
+      "lng": 78.20530571
     },
     {
       "id": "cabin_Dr_SK_Jain",
@@ -4908,7 +5872,9 @@
       "y": 363.5879,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23155304,
+      "lng": 78.20589557
     },
     {
       "id": "cabin_Dr_PK_Singhal",
@@ -4918,7 +5884,9 @@
       "y": 478.5596,
       "type": "room",
       "category": "main_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23205133,
+      "lng": 78.20566954
     },
     {
       "id": "Corridor11_10",
@@ -4928,7 +5896,9 @@
       "y": 465.9191,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2322935,
+      "lng": 78.20592294
     },
     {
       "id": "Corridor16_05",
@@ -4938,7 +5908,9 @@
       "y": 251.1143,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23048658,
+      "lng": 78.2052199
     },
     {
       "id": "Corridor16_08",
@@ -4948,7 +5920,9 @@
       "y": 251.3294,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23063971,
+      "lng": 78.20541437
     },
     {
       "id": "Corridor16_24",
@@ -4958,7 +5932,9 @@
       "y": 237.1691,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23157778,
+      "lng": 78.2067218
     },
     {
       "id": "Corridor16_27",
@@ -4968,7 +5944,9 @@
       "y": 220.1148,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23151426,
+      "lng": 78.20676834
     },
     {
       "id": "Corridor20_01",
@@ -4978,7 +5956,9 @@
       "y": 179.2561,
       "type": "corridor",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23018736,
+      "lng": 78.20537558
     },
     {
       "id": "room_J108",
@@ -4988,7 +5968,9 @@
       "y": 370.8322,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23199721,
+      "lng": 78.20625658
     },
     {
       "id": "room_J116",
@@ -4998,7 +5980,9 @@
       "y": 247.4408,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23098686,
+      "lng": 78.20588807
     },
     {
       "id": "room_J149",
@@ -5008,7 +5992,9 @@
       "y": 120.6582,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22991857,
+      "lng": 78.2054708
     },
     {
       "id": "cabin_Dr_Shailendra_Singh",
@@ -5018,7 +6004,9 @@
       "y": 238.3104,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23060969,
+      "lng": 78.20547356
     },
     {
       "id": "cabin_Dr_Kumar_Gaurav",
@@ -5028,7 +6016,9 @@
       "y": 238.3104,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23060969,
+      "lng": 78.20547356
     },
     {
       "id": "cabin_Prof_Vaibhav_Shivhare",
@@ -5038,7 +6028,9 @@
       "y": 220.7669,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23152881,
+      "lng": 78.20678209
     },
     {
       "id": "cabin_Dr_Surendra_Chourasiya",
@@ -5048,7 +6040,9 @@
       "y": 223.7244,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23151399,
+      "lng": 78.20674094
     },
     {
       "id": "cabin_Dr_DK_Mishra",
@@ -5058,7 +6052,9 @@
       "y": 470.3376,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23244463,
+      "lng": 78.20608334
     },
     {
       "id": "cabin_Dr_Punit_Johari",
@@ -5068,7 +6064,9 @@
       "y": 90.4211,
       "type": "room",
       "category": "main_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.22981639,
+      "lng": 78.2055667
     },
     {
       "id": "Corridor23_13",
@@ -5078,7 +6076,9 @@
       "y": 281.138,
       "type": "corridor",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23117208,
+      "lng": 78.20499786
     },
     {
       "id": "room_J203",
@@ -5088,7 +6088,9 @@
       "y": 135.7195,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23069795,
+      "lng": 78.20548119
     },
     {
       "id": "cabin_Prof_Pooja_Sahoo",
@@ -5098,7 +6100,9 @@
       "y": 162.0673,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2305054,
+      "lng": 78.20503704
     },
     {
       "id": "cabin_Dr_Rahul_Dubey_ET",
@@ -5108,7 +6112,9 @@
       "y": 124.1108,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23061642,
+      "lng": 78.20546383
     },
     {
       "id": "cabin_Project_Lab_J204",
@@ -5118,7 +6124,9 @@
       "y": 230.4586,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23099063,
+      "lng": 78.20514554
     },
     {
       "id": "FF_Corridor04",
@@ -5128,7 +6136,9 @@
       "y": 104.3704,
       "type": "corridor",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23079863,
+      "lng": 78.20640478
     },
     {
       "id": "room_AI_FF_MaleWC",
@@ -5138,7 +6148,9 @@
       "y": 85.653,
       "type": "room",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23087221,
+      "lng": 78.20640002
     },
     {
       "id": "SF_Corridor10",
@@ -5148,7 +6160,9 @@
       "y": 102.8052,
       "type": "corridor",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23051875,
+      "lng": 78.20602889
     },
     {
       "id": "cabin_AI_SF_Dr_Sunil_Shukla",
@@ -5158,7 +6172,9 @@
       "y": 151.4128,
       "type": "room",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23035406,
+      "lng": 78.20607589
     },
     {
       "id": "cabin_Dr_Deepak_Batham",
@@ -5168,7 +6184,9 @@
       "y": 161.676,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23076638,
+      "lng": 78.20537416
     },
     {
       "id": "GF_Corridor04",
@@ -5178,7 +6196,9 @@
       "y": 273.3913,
       "type": "corridor",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23073865,
+      "lng": 78.20633101
     },
     {
       "id": "AI_GF_Stairs01",
@@ -5192,7 +6212,9 @@
         "node": "AI_FF_Stairs01"
       },
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2305854,
+      "lng": 78.20606036
     },
     {
       "id": "room_AI_GF_M007",
@@ -5202,7 +6224,9 @@
       "y": 285.4979,
       "type": "room",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23048388,
+      "lng": 78.20606213
     },
     {
       "id": "cabin_AI_GF_Dr_Bhavna_Rathore",
@@ -5212,7 +6236,9 @@
       "y": 295.8859,
       "type": "room",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23039126,
+      "lng": 78.20599679
     },
     {
       "id": "AI_FF_Stairs01",
@@ -5226,7 +6252,9 @@
         "node": "AI_GF_Stairs01"
       },
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23058524,
+      "lng": 78.20606047
     },
     {
       "id": "cabin_AI_FF_Shubha_Mishra",
@@ -5236,7 +6264,9 @@
       "y": 56.3052,
       "type": "room",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23056366,
+      "lng": 78.20583605
     },
     {
       "id": "SF_Corridor03",
@@ -5246,7 +6276,9 @@
       "y": 102.8052,
       "type": "corridor",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23080326,
+      "lng": 78.20640238
     },
     {
       "id": "SF_Corridor05",
@@ -5256,7 +6288,9 @@
       "y": 102.8052,
       "type": "corridor",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23065633,
+      "lng": 78.20620949
     },
     {
       "id": "SF_Corridor08",
@@ -5266,7 +6300,9 @@
       "y": 102.8052,
       "type": "corridor",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23061081,
+      "lng": 78.20614974
     },
     {
       "id": "AI_SF_Stairs02",
@@ -5280,7 +6316,9 @@
         "node": "AI_FF_Stairs02"
       },
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23082691,
+      "lng": 78.20637773
     },
     {
       "id": "Stair05_SF",
@@ -5294,7 +6332,9 @@
         "node": "Stair05"
       },
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2303703,
+      "lng": 78.20505867
     },
     {
       "id": "GF_Corridor09",
@@ -5304,7 +6344,9 @@
       "y": 273.3913,
       "type": "corridor",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23052523,
+      "lng": 78.20605084
     },
     {
       "id": "room_AI_GF_FemWC",
@@ -5314,7 +6356,9 @@
       "y": 253.96,
       "type": "room",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23089705,
+      "lng": 78.20643374
     },
     {
       "id": "room_J202",
@@ -5324,7 +6368,9 @@
       "y": 135.85,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2307623,
+      "lng": 78.20556262
     },
     {
       "id": "cabin_Prof_DK_Parsediya",
@@ -5334,7 +6380,9 @@
       "y": 162.0673,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23049175,
+      "lng": 78.20501956
     },
     {
       "id": "cabin_Dr_Nidhi_Saxena",
@@ -5344,7 +6392,9 @@
       "y": 135.7195,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23069795,
+      "lng": 78.20548119
     },
     {
       "id": "cabin_Dr_Varun_Sharma",
@@ -5354,7 +6404,9 @@
       "y": 161.676,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23075395,
+      "lng": 78.20535825
     },
     {
       "id": "cabin_AI_GF_Dr_Kaushal_Sengar",
@@ -5364,7 +6416,9 @@
       "y": 320.3082,
       "type": "room",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23035222,
+      "lng": 78.20607777
     },
     {
       "id": "AI_FF_Stairs02",
@@ -5378,7 +6432,9 @@
         "node": "AI_GF_Stairs02"
       },
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23082732,
+      "lng": 78.20637781
     },
     {
       "id": "room_FemaleWashroom_SF",
@@ -5388,7 +6444,9 @@
       "y": 136.1108,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2304863,
+      "lng": 78.20520723
     },
     {
       "id": "cabin_Dr_Yogesh_Himanshu",
@@ -5398,7 +6456,9 @@
       "y": 136.1108,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23044991,
+      "lng": 78.20516063
     },
     {
       "id": "GF_Corridor12",
@@ -5408,7 +6468,9 @@
       "y": 273.3913,
       "type": "corridor",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23045496,
+      "lng": 78.2059586
     },
     {
       "id": "FF_Corridor14",
@@ -5418,7 +6480,9 @@
       "y": 127.1259,
       "type": "corridor",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23040242,
+      "lng": 78.20600786
     },
     {
       "id": "room_AI_FF_FemWC",
@@ -5428,7 +6492,9 @@
       "y": 85.653,
       "type": "room",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23089711,
+      "lng": 78.20643271
     },
     {
       "id": "SF_Corridor01",
@@ -5438,7 +6504,9 @@
       "y": 102.8052,
       "type": "corridor",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23085638,
+      "lng": 78.20647211
     },
     {
       "id": "cabin_AI_SF_Dr_Atul_Chauhan",
@@ -5448,7 +6516,9 @@
       "y": 92.7617,
       "type": "room",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23068047,
+      "lng": 78.2061868
     },
     {
       "id": "cabin_AI_SF_Dr_Vibha_Tiwari",
@@ -5458,7 +6528,9 @@
       "y": 56.9314,
       "type": "room",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23056178,
+      "lng": 78.20583697
     },
     {
       "id": "cabin_AI_SF_Ramnaresh_Sharma",
@@ -5468,7 +6540,9 @@
       "y": 51.2183,
       "type": "room",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23059096,
+      "lng": 78.20584435
     },
     {
       "id": "cabin_Dr_Shubhi_Kansal",
@@ -5478,7 +6552,9 @@
       "y": 98.2847,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23049752,
+      "lng": 78.20550524
     },
     {
       "id": "GF_Corridor15",
@@ -5488,7 +6564,9 @@
       "y": 319.7564,
       "type": "corridor",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23034369,
+      "lng": 78.20606359
     },
     {
       "id": "cabin_AI_GF_Dr_Murli_Manohar",
@@ -5498,7 +6576,9 @@
       "y": 224.7811,
       "type": "room",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23056215,
+      "lng": 78.20583611
     },
     {
       "id": "SF_Corridor07",
@@ -5508,7 +6588,9 @@
       "y": 102.8052,
       "type": "corridor",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23062514,
+      "lng": 78.20616855
     },
     {
       "id": "SF_Corridor13",
@@ -5518,7 +6600,9 @@
       "y": 146.9273,
       "type": "corridor",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23035596,
+      "lng": 78.20605409
     },
     {
       "id": "room_J209",
@@ -5528,7 +6612,9 @@
       "y": 345.5681,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23115198,
+      "lng": 78.20448897
     },
     {
       "id": "cabin_Computer_Lab_J208",
@@ -5538,7 +6624,9 @@
       "y": 232.5918,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23073595,
+      "lng": 78.20480341
     },
     {
       "id": "GF_Corridor14",
@@ -5548,7 +6636,9 @@
       "y": 295.8859,
       "type": "corridor",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23040093,
+      "lng": 78.20600948
     },
     {
       "id": "FF_Corridor01",
@@ -5558,7 +6648,9 @@
       "y": 104.3704,
       "type": "corridor",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23085287,
+      "lng": 78.20647598
     },
     {
       "id": "FF_Corridor02",
@@ -5568,7 +6660,9 @@
       "y": 104.3704,
       "type": "corridor",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23082723,
+      "lng": 78.20644231
     },
     {
       "id": "FF_Corridor16",
@@ -5578,7 +6672,9 @@
       "y": 150.9008,
       "type": "corridor",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23034528,
+      "lng": 78.20606158
     },
     {
       "id": "room_AI_FF_M102",
@@ -5588,7 +6684,9 @@
       "y": 116.64,
       "type": "room",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23057764,
+      "lng": 78.20618111
     },
     {
       "id": "SF_Corridor02",
@@ -5598,7 +6696,9 @@
       "y": 102.8052,
       "type": "corridor",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2308306,
+      "lng": 78.20643827
     },
     {
       "id": "SF_Corridor04",
@@ -5608,7 +6708,9 @@
       "y": 102.8052,
       "type": "corridor",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23070207,
+      "lng": 78.20626953
     },
     {
       "id": "room_AI_SF_M203",
@@ -5618,7 +6720,9 @@
       "y": 116.64,
       "type": "room",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23066867,
+      "lng": 78.2063006
     },
     {
       "id": "room_J204",
@@ -5628,7 +6732,9 @@
       "y": 230.4586,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23099063,
+      "lng": 78.20514554
     },
     {
       "id": "room_J206",
@@ -5638,7 +6744,9 @@
       "y": 135.4586,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2305254,
+      "lng": 78.20526219
     },
     {
       "id": "GF_Corridor01",
@@ -5648,7 +6756,9 @@
       "y": 273.3913,
       "type": "corridor",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23085101,
+      "lng": 78.20647853
     },
     {
       "id": "room_AI_GF_M004",
@@ -5658,7 +6768,9 @@
       "y": 260.2826,
       "type": "room",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23072835,
+      "lng": 78.20624651
     },
     {
       "id": "cabin_AI_GF_Dr_Dhananjay_Aditya",
@@ -5668,7 +6780,9 @@
       "y": 220.2832,
       "type": "room",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23058937,
+      "lng": 78.20584748
     },
     {
       "id": "FF_Corridor03",
@@ -5678,7 +6792,9 @@
       "y": 104.3704,
       "type": "corridor",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23080042,
+      "lng": 78.20640712
     },
     {
       "id": "FF_Corridor06",
@@ -5688,7 +6804,9 @@
       "y": 104.22,
       "type": "corridor",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23060733,
+      "lng": 78.20615283
     },
     {
       "id": "FF_Corridor09",
@@ -5698,7 +6816,9 @@
       "y": 104.22,
       "type": "corridor",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23051543,
+      "lng": 78.20603219
     },
     {
       "id": "FF_Corridor10",
@@ -5708,7 +6828,9 @@
       "y": 104.3704,
       "type": "corridor",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23049579,
+      "lng": 78.20600722
     },
     {
       "id": "room_AI_FF_M101",
@@ -5718,7 +6840,9 @@
       "y": 91.8,
       "type": "room",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23055756,
+      "lng": 78.20602024
     },
     {
       "id": "cabin_AI_FF_Dr_Tej_Singh",
@@ -5728,7 +6852,9 @@
       "y": 151.1614,
       "type": "room",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23035483,
+      "lng": 78.20607554
     },
     {
       "id": "room_AI_SF_M201",
@@ -5738,7 +6864,9 @@
       "y": 91.8,
       "type": "room",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2305452,
+      "lng": 78.20600402
     },
     {
       "id": "cabin_AI_SF_Dr_Manjree_ProVC",
@@ -5748,7 +6876,9 @@
       "y": 115.1965,
       "type": "room",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23061173,
+      "lng": 78.20621805
     },
     {
       "id": "cabin_Dr_Karuna_Markam",
@@ -5758,7 +6888,9 @@
       "y": 99.1652,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23051367,
+      "lng": 78.20551932
     },
     {
       "id": "GF_Corridor11",
@@ -5768,7 +6900,9 @@
       "y": 273.3913,
       "type": "corridor",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23049374,
+      "lng": 78.20600951
     },
     {
       "id": "cabin_AI_GF_Dr_Praveen_Bansal",
@@ -5778,7 +6912,9 @@
       "y": 285.4,
       "type": "room",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23046488,
+      "lng": 78.20603665
     },
     {
       "id": "cabin_AI_FF_Dr_Hardev_Pal",
@@ -5788,7 +6924,9 @@
       "y": 116.64,
       "type": "room",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23041865,
+      "lng": 78.20597239
     },
     {
       "id": "room_J201",
@@ -5798,7 +6936,9 @@
       "y": 136.1108,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23088554,
+      "lng": 78.20571847
     },
     {
       "id": "GF_Corridor07",
@@ -5808,7 +6948,9 @@
       "y": 273.3913,
       "type": "corridor",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23060487,
+      "lng": 78.2061554
     },
     {
       "id": "room_AI_GF_M005",
@@ -5818,7 +6960,9 @@
       "y": 285.2209,
       "type": "room",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23076991,
+      "lng": 78.20643612
     },
     {
       "id": "FF_Corridor05",
@@ -5828,7 +6972,9 @@
       "y": 104.3704,
       "type": "corridor",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23069824,
+      "lng": 78.20627298
     },
     {
       "id": "cabin_AI_SF_Dr_Abhishek_HOD_CST",
@@ -5838,7 +6984,9 @@
       "y": 116.64,
       "type": "room",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2304855,
+      "lng": 78.20606015
     },
     {
       "id": "room_J205",
@@ -5848,7 +6996,9 @@
       "y": 346.2413,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23141611,
+      "lng": 78.20482215
     },
     {
       "id": "cabin_Dr_Vandana_HOD_ET",
@@ -5858,7 +7008,9 @@
       "y": 136.1108,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23043279,
+      "lng": 78.2051387
     },
     {
       "id": "GF_Corridor03",
@@ -5868,7 +7020,9 @@
       "y": 273.3913,
       "type": "corridor",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23079727,
+      "lng": 78.20640798
     },
     {
       "id": "AI_FF_Elevator",
@@ -5882,7 +7036,9 @@
         "node": "AI_GF_Elevator"
       },
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23063702,
+      "lng": 78.20612456
     },
     {
       "id": "room_AI_FF_M104",
@@ -5892,7 +7048,9 @@
       "y": 91.8,
       "type": "room",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23072909,
+      "lng": 78.20624541
     },
     {
       "id": "SF_Corridor09",
@@ -5902,7 +7060,9 @@
       "y": 102.8052,
       "type": "corridor",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23056052,
+      "lng": 78.20608372
     },
     {
       "id": "room_AI_SF_FemWC",
@@ -5912,7 +7072,9 @@
       "y": 85.1965,
       "type": "room",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23089835,
+      "lng": 78.20643186
     },
     {
       "id": "cabin_AI_SF_Dr_Priyanka_Garg",
@@ -5922,7 +7084,9 @@
       "y": 92.7617,
       "type": "room",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23064928,
+      "lng": 78.20614585
     },
     {
       "id": "cabin_AI_SF_Dr_Sumit_Dhariwal",
@@ -5932,7 +7096,9 @@
       "y": 141.2183,
       "type": "room",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23037856,
+      "lng": 78.20605285
     },
     {
       "id": "cabin_Communication_Lab_J202",
@@ -5942,7 +7108,9 @@
       "y": 135.85,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2307623,
+      "lng": 78.20556262
     },
     {
       "id": "GF_Corridor02",
@@ -5952,7 +7120,9 @@
       "y": 273.3913,
       "type": "corridor",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23082543,
+      "lng": 78.20644494
     },
     {
       "id": "GF_Corridor06",
@@ -5962,7 +7132,9 @@
       "y": 273.3913,
       "type": "corridor",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23064482,
+      "lng": 78.20620784
     },
     {
       "id": "GF_Corridor08",
@@ -5972,7 +7144,9 @@
       "y": 273.3913,
       "type": "corridor",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23055456,
+      "lng": 78.20608935
     },
     {
       "id": "GF_Corridor13",
@@ -5982,7 +7156,9 @@
       "y": 225.1304,
       "type": "corridor",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23057098,
+      "lng": 78.20584959
     },
     {
       "id": "FF_Corridor07",
@@ -5992,7 +7168,9 @@
       "y": 104.3704,
       "type": "corridor",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23055676,
+      "lng": 78.20608725
     },
     {
       "id": "FF_Corridor11",
@@ -6002,7 +7180,9 @@
       "y": 104.3704,
       "type": "corridor",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23045711,
+      "lng": 78.20595643
     },
     {
       "id": "SF_Corridor06",
@@ -6012,7 +7192,9 @@
       "y": 102.8052,
       "type": "corridor",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23064152,
+      "lng": 78.20619004
     },
     {
       "id": "room_AI_SF_M202",
@@ -6022,7 +7204,9 @@
       "y": 116.64,
       "type": "room",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23057756,
+      "lng": 78.206181
     },
     {
       "id": "GF_Corridor05",
@@ -6032,7 +7216,9 @@
       "y": 273.3913,
       "type": "corridor",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23069645,
+      "lng": 78.20627563
     },
     {
       "id": "GF_Corridor10",
@@ -6042,7 +7228,9 @@
       "y": 273.3913,
       "type": "corridor",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23051306,
+      "lng": 78.20603488
     },
     {
       "id": "FF_Corridor08",
@@ -6052,7 +7240,9 @@
       "y": 104.22,
       "type": "corridor",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23052771,
+      "lng": 78.2060483
     },
     {
       "id": "FF_Corridor15",
@@ -6062,7 +7252,9 @@
       "y": 140.8709,
       "type": "corridor",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23036939,
+      "lng": 78.20603892
     },
     {
       "id": "cabin_AI_FF_Dr_Neeraj_Mishra",
@@ -6072,7 +7264,9 @@
       "y": 140.8709,
       "type": "room",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23037956,
+      "lng": 78.20605228
     },
     {
       "id": "cabin_AI_FF_Dr_Bhagat_Raghuwanshi",
@@ -6082,7 +7276,9 @@
       "y": 127.1259,
       "type": "room",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23039345,
+      "lng": 78.20599609
     },
     {
       "id": "cabin_AI_FF_Dr_Anu_Sayal",
@@ -6092,7 +7288,9 @@
       "y": 50.8558,
       "type": "room",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23059231,
+      "lng": 78.20584415
     },
     {
       "id": "AI_SF_Elevator",
@@ -6106,7 +7304,9 @@
         "node": "AI_FF_Elevator"
       },
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23063702,
+      "lng": 78.20612456
     },
     {
       "id": "room_AI_SF_MaleWC",
@@ -6116,7 +7316,9 @@
       "y": 84.5443,
       "type": "room",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23087449,
+      "lng": 78.206397
     },
     {
       "id": "AI_GF_Elevator",
@@ -6130,7 +7332,9 @@
         "node": "AI_FF_Elevator"
       },
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23063551,
+      "lng": 78.20612614
     },
     {
       "id": "room_AI_GF_M001",
@@ -6140,7 +7344,9 @@
       "y": 260.56,
       "type": "room",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23055598,
+      "lng": 78.20602174
     },
     {
       "id": "room_AI_GF_MaleWC",
@@ -6150,7 +7356,9 @@
       "y": 253.96,
       "type": "room",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23087194,
+      "lng": 78.20640078
     },
     {
       "id": "room_AI_FF_M103",
@@ -6160,7 +7368,9 @@
       "y": 116.64,
       "type": "room",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23066875,
+      "lng": 78.20630071
     },
     {
       "id": "AI_SF_Stairs01",
@@ -6174,7 +7384,9 @@
         "node": "AI_FF_Stairs01"
       },
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23058524,
+      "lng": 78.20606047
     },
     {
       "id": "room_AI_SF_M205",
@@ -6184,7 +7396,9 @@
       "y": 116.64,
       "type": "room",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23077093,
+      "lng": 78.20643485
     },
     {
       "id": "AI_GF_Stairs02",
@@ -6198,7 +7412,9 @@
         "node": "AI_FF_Stairs02"
       },
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23082669,
+      "lng": 78.20637791
     },
     {
       "id": "ai_entry_gf",
@@ -6212,7 +7428,9 @@
         "node": "AiBuilding_Entry"
       },
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23043358,
+      "lng": 78.20640912
     },
     {
       "id": "room_AI_GF_M003b",
@@ -6222,7 +7440,9 @@
       "y": 285.4,
       "type": "room",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23057607,
+      "lng": 78.20618262
     },
     {
       "id": "cabin_AI_FF_Dr_Archana_Prerna",
@@ -6232,7 +7452,9 @@
       "y": 116.64,
       "type": "room",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23048558,
+      "lng": 78.20606025
     },
     {
       "id": "SF_Corridor11",
@@ -6242,7 +7464,9 @@
       "y": 102.8052,
       "type": "corridor",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.230462,
+      "lng": 78.20595439
     },
     {
       "id": "SF_Corridor12",
@@ -6252,7 +7476,9 @@
       "y": 56.5009,
       "type": "corridor",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23057294,
+      "lng": 78.20584929
     },
     {
       "id": "room_AI_SF_M204",
@@ -6262,7 +7488,9 @@
       "y": 91.92,
       "type": "room",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.2307288,
+      "lng": 78.20624568
     },
     {
       "id": "cabin_AI_SF_Dr_Nandkishor_Joshi",
@@ -6272,7 +7500,9 @@
       "y": 156.5346,
       "type": "room",
       "category": "ai_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23033785,
+      "lng": 78.20608234
     },
     {
       "id": "room_J208",
@@ -6282,7 +7512,9 @@
       "y": 232.5918,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23073595,
+      "lng": 78.20480341
     },
     {
       "id": "cabin_Exam_Room_J201",
@@ -6292,7 +7524,9 @@
       "y": 136.1108,
       "type": "room",
       "category": "main_sf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23088554,
+      "lng": 78.20571847
     },
     {
       "id": "room_AI_GF_M003",
@@ -6302,7 +7536,9 @@
       "y": 285.4,
       "type": "room",
       "category": "ai_gf",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23066718,
+      "lng": 78.20630222
     },
     {
       "id": "FF_Corridor12",
@@ -6312,7 +7548,9 @@
       "y": 56.3052,
       "type": "corridor",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23057262,
+      "lng": 78.20584782
     },
     {
       "id": "FF_Corridor13",
@@ -6322,7 +7560,9 @@
       "y": 116.64,
       "type": "corridor",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23042762,
+      "lng": 78.20598416
     },
     {
       "id": "room_AI_FF_M105",
@@ -6332,7 +7572,9 @@
       "y": 116.64,
       "type": "room",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23077093,
+      "lng": 78.20643485
     },
     {
       "id": "cabin_AI_FF_Dr_Rajni_HOD_AI",
@@ -6342,7 +7584,9 @@
       "y": 116.64,
       "type": "room",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23046654,
+      "lng": 78.20603526
     },
     {
       "id": "cabin_AI_FF_Dr_Pawan_Dubey",
@@ -6352,7 +7596,9 @@
       "y": 157.3922,
       "type": "room",
       "category": "ai_ff",
-      "__v": 0
+      "__v": 0,
+      "lat": 26.23033626,
+      "lng": 78.2060849
     },
     {
       "id": "ElectricalEntry",
@@ -6361,7 +7607,191 @@
       "x": 280.5616,
       "y": 415.89,
       "type": "entry",
-      "category": "campus"
+      "category": "campus",
+      "lat": 26.23177668,
+      "lng": 78.20585403
+    },
+    {
+      "id": "AI_TF_Stairs01",
+      "name": "Stairs 01 (F3)",
+      "map": "AI_TF",
+      "x": 495.12,
+      "y": 92.52,
+      "type": "stairs",
+      "connects_to": {
+        "map": "AI_SF",
+        "node": "AI_SF_Stairs01"
+      },
+      "category": "ai_tf",
+      "__v": 0
+    },
+    {
+      "id": "AI_TF_Stairs02",
+      "name": "Stairs 02 (F3)",
+      "map": "AI_TF",
+      "x": 131.28,
+      "y": 92.52,
+      "type": "stairs",
+      "connects_to": {
+        "map": "AI_SF",
+        "node": "AI_SF_Stairs02"
+      },
+      "category": "ai_tf",
+      "__v": 0
+    },
+    {
+      "id": "AI_TF_Elevator",
+      "name": "Elevator (F3)",
+      "map": "AI_TF",
+      "x": 419.76,
+      "y": 91.8,
+      "type": "lift",
+      "connects_to": {
+        "map": "AI_SF",
+        "node": "AI_SF_Elevator"
+      },
+      "category": "ai_tf",
+      "__v": 0
+    },
+    {
+      "id": "TF_Corridor01",
+      "name": "TF Corridor Node 01",
+      "map": "AI_TF",
+      "x": 49.7,
+      "y": 102.8,
+      "type": "corridor",
+      "category": "ai_tf",
+      "__v": 0
+    },
+    {
+      "id": "TF_Corridor02",
+      "name": "TF Corridor Node 02",
+      "map": "AI_TF",
+      "x": 130,
+      "y": 102.8,
+      "type": "corridor",
+      "category": "ai_tf",
+      "__v": 0
+    },
+    {
+      "id": "TF_Corridor03",
+      "name": "TF Corridor Node 03",
+      "map": "AI_TF",
+      "x": 200,
+      "y": 102.8,
+      "type": "corridor",
+      "category": "ai_tf",
+      "__v": 0
+    },
+    {
+      "id": "TF_Corridor04",
+      "name": "TF Corridor Node 04",
+      "map": "AI_TF",
+      "x": 282,
+      "y": 102.8,
+      "type": "corridor",
+      "category": "ai_tf",
+      "__v": 0
+    },
+    {
+      "id": "TF_Corridor05",
+      "name": "TF Corridor Node 05",
+      "map": "AI_TF",
+      "x": 350.8,
+      "y": 102.8,
+      "type": "corridor",
+      "category": "ai_tf",
+      "__v": 0
+    },
+    {
+      "id": "TF_Corridor06",
+      "name": "TF Corridor Node 06",
+      "map": "AI_TF",
+      "x": 419.4,
+      "y": 102.8,
+      "type": "corridor",
+      "category": "ai_tf",
+      "__v": 0
+    },
+    {
+      "id": "TF_Corridor07",
+      "name": "TF Corridor Node 07",
+      "map": "AI_TF",
+      "x": 495.1,
+      "y": 102.8,
+      "type": "corridor",
+      "category": "ai_tf",
+      "__v": 0
+    },
+    {
+      "id": "TF_Corridor08",
+      "name": "TF Corridor Node 08",
+      "map": "AI_TF",
+      "x": 558,
+      "y": 102.8,
+      "type": "corridor",
+      "category": "ai_tf",
+      "__v": 0
+    },
+    {
+      "id": "TF_Corridor09",
+      "name": "TF Corridor Node 09",
+      "map": "AI_TF",
+      "x": 630,
+      "y": 102.8,
+      "type": "corridor",
+      "category": "ai_tf",
+      "__v": 0
+    },
+    {
+      "id": "room_AI_TF_301_Robotics",
+      "name": "AI & Robotics Lab (Room 301)",
+      "map": "AI_TF",
+      "x": 200,
+      "y": 55,
+      "type": "room",
+      "category": "lab",
+      "__v": 0
+    },
+    {
+      "id": "room_AI_TF_302_DeepLearning",
+      "name": "Deep Learning Lab (Room 302)",
+      "map": "AI_TF",
+      "x": 350,
+      "y": 55,
+      "type": "room",
+      "category": "lab",
+      "__v": 0
+    },
+    {
+      "id": "room_AI_TF_303_Seminar",
+      "name": "AI Seminar Hall (Room 303)",
+      "map": "AI_TF",
+      "x": 550,
+      "y": 55,
+      "type": "room",
+      "category": "auditorium",
+      "__v": 0
+    },
+    {
+      "id": "cabin_AI_TF_HOD_Dixit",
+      "name": "Dr. Dheeraj Kumar Dixit (HOD Office)",
+      "map": "AI_TF",
+      "x": 630,
+      "y": 55,
+      "type": "room",
+      "category": "faculty",
+      "__v": 0
+    },
+    {
+      "id": "room_AI_TF_Restroom",
+      "name": "Restroom (F3)",
+      "map": "AI_TF",
+      "x": 50,
+      "y": 85,
+      "type": "room",
+      "category": "washroom",
+      "__v": 0
     }
   ],
   "edges": [
@@ -11869,6 +13299,165 @@
       "distance": 0,
       "type": "corridor",
       "category": "campus"
+    },
+    {
+      "id": "edge_tf_c1_c2",
+      "from_node": "TF_Corridor01",
+      "to_node": "TF_Corridor02",
+      "distance": 80,
+      "type": "corridor",
+      "category": "ai_tf"
+    },
+    {
+      "id": "edge_tf_c2_c3",
+      "from_node": "TF_Corridor02",
+      "to_node": "TF_Corridor03",
+      "distance": 70,
+      "type": "corridor",
+      "category": "ai_tf"
+    },
+    {
+      "id": "edge_tf_c3_c4",
+      "from_node": "TF_Corridor03",
+      "to_node": "TF_Corridor04",
+      "distance": 82,
+      "type": "corridor",
+      "category": "ai_tf"
+    },
+    {
+      "id": "edge_tf_c4_c5",
+      "from_node": "TF_Corridor04",
+      "to_node": "TF_Corridor05",
+      "distance": 68,
+      "type": "corridor",
+      "category": "ai_tf"
+    },
+    {
+      "id": "edge_tf_c5_c6",
+      "from_node": "TF_Corridor05",
+      "to_node": "TF_Corridor06",
+      "distance": 68,
+      "type": "corridor",
+      "category": "ai_tf"
+    },
+    {
+      "id": "edge_tf_c6_c7",
+      "from_node": "TF_Corridor06",
+      "to_node": "TF_Corridor07",
+      "distance": 76,
+      "type": "corridor",
+      "category": "ai_tf"
+    },
+    {
+      "id": "edge_tf_c7_c8",
+      "from_node": "TF_Corridor07",
+      "to_node": "TF_Corridor08",
+      "distance": 63,
+      "type": "corridor",
+      "category": "ai_tf"
+    },
+    {
+      "id": "edge_tf_c8_c9",
+      "from_node": "TF_Corridor08",
+      "to_node": "TF_Corridor09",
+      "distance": 72,
+      "type": "corridor",
+      "category": "ai_tf"
+    },
+    {
+      "id": "edge_tf_c1_wc",
+      "from_node": "TF_Corridor01",
+      "to_node": "room_AI_TF_Restroom",
+      "distance": 18,
+      "type": "corridor",
+      "category": "ai_tf"
+    },
+    {
+      "id": "edge_tf_c2_st2",
+      "from_node": "TF_Corridor02",
+      "to_node": "AI_TF_Stairs02",
+      "distance": 10,
+      "type": "stairs",
+      "category": "ai_tf"
+    },
+    {
+      "id": "edge_tf_c3_r301",
+      "from_node": "TF_Corridor03",
+      "to_node": "room_AI_TF_301_Robotics",
+      "distance": 48,
+      "type": "corridor",
+      "category": "ai_tf"
+    },
+    {
+      "id": "edge_tf_c5_r302",
+      "from_node": "TF_Corridor05",
+      "to_node": "room_AI_TF_302_DeepLearning",
+      "distance": 48,
+      "type": "corridor",
+      "category": "ai_tf"
+    },
+    {
+      "id": "edge_tf_c6_lift",
+      "from_node": "TF_Corridor06",
+      "to_node": "AI_TF_Elevator",
+      "distance": 11,
+      "type": "lift",
+      "category": "ai_tf"
+    },
+    {
+      "id": "edge_tf_c7_st1",
+      "from_node": "TF_Corridor07",
+      "to_node": "AI_TF_Stairs01",
+      "distance": 10,
+      "type": "stairs",
+      "category": "ai_tf"
+    },
+    {
+      "id": "edge_tf_c8_r303",
+      "from_node": "TF_Corridor08",
+      "to_node": "room_AI_TF_303_Seminar",
+      "distance": 48,
+      "type": "corridor",
+      "category": "ai_tf"
+    },
+    {
+      "id": "edge_tf_c9_hod",
+      "from_node": "TF_Corridor09",
+      "to_node": "cabin_AI_TF_HOD_Dixit",
+      "distance": 48,
+      "type": "corridor",
+      "category": "ai_tf"
+    },
+    {
+      "id": "edge_v_ai_st1_sf_tf",
+      "from_node": "AI_SF_Stairs01",
+      "to_node": "AI_TF_Stairs01",
+      "distance": 20,
+      "type": "stairs",
+      "category": "vertical"
+    },
+    {
+      "id": "edge_v_ai_st2_sf_tf",
+      "from_node": "AI_SF_Stairs02",
+      "to_node": "AI_TF_Stairs02",
+      "distance": 20,
+      "type": "stairs",
+      "category": "vertical"
+    },
+    {
+      "id": "edge_v_ai_lift_sf_tf",
+      "from_node": "AI_SF_Elevator",
+      "to_node": "AI_TF_Elevator",
+      "distance": 15,
+      "type": "lift",
+      "category": "vertical"
+    },
+    {
+      "from_node": "ENTRY07",
+      "to_node": "corridor10_01",
+      "distance": 8,
+      "type": "entry_to_entry",
+      "category": "campus"
     }
   ],
   "buildings": [
@@ -11966,6 +13555,15 @@
       "label": "Main Building — Floor 1",
       "__v": 0,
       "cloudUrl": "https://res.cloudinary.com/dph28qrrx/image/upload/v1780765405/Main_FF_nvvdu5.svg"
+    },
+    {
+      "id": "floor_ai_tf",
+      "map": "AI_TF",
+      "building": "ai",
+      "floor": 3,
+      "svgUrl": "/maps/AI_TF.svg",
+      "label": "AI Building — Floor 3",
+      "__v": 0
     }
   ]
 }

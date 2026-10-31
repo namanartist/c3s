@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import { Shield, Bell, Search, Users, ChevronDown, Radio, Sparkles, LogOut, CheckCircle2, RefreshCw } from 'lucide-react';
+import { Bell, Search, Users, ChevronDown, RefreshCw, ShieldAlert } from 'lucide-react';
 import { useC3SStore } from '@/store/c3sStore';
 import { useSafetyStore } from '@/store/safetyStore';
 import { useCrowdMonitoring } from '@/lib/crowdMonitoringApi';
 import { ROLE_LABELS } from '@/lib/mock-data/users';
 import { RoleSwitcherModal } from './RoleSwitcherModal';
 import { useNavigate } from 'react-router-dom';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 interface TopbarProps {
   onToggleSidebar?: () => void;
 }
 
 export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
-  const { currentRole, currentUser, notifications, markNotificationRead, logout } = useC3SStore();
+  const { currentRole, currentUser, notifications, markNotificationRead } = useC3SStore();
   const realCrowdCount = useSafetyStore((s) => s.realCrowdCount);
   const { syncCrowdData, isRefreshing } = useCrowdMonitoring();
+  const setSosModalOpen = useSafetyStore((s) => s.setSosModalOpen);
   const [showRoleModal, setShowRoleModal] = useState(false);
   const [showNotifDropdown, setShowNotifDropdown] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -25,102 +27,121 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
 
   return (
     <>
-      <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-slate-800/80 bg-[#0B1020]/90 px-4 sm:px-6 backdrop-blur-xl">
+      <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-slate-200 dark:border-white/[0.08] bg-white/90 dark:bg-[#090D16]/90 px-4 sm:px-6 backdrop-blur-2xl transition-colors">
         {/* Brand / Logo */}
         <div className="flex items-center gap-3">
           {onToggleSidebar && (
             <button
               onClick={onToggleSidebar}
-              className="lg:hidden rounded-xl border border-slate-800 p-2 text-slate-400 hover:bg-slate-800"
+              className="lg:hidden rounded-xl border border-slate-200 dark:border-white/[0.08] p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04] transition-colors"
+              aria-label="Toggle Navigation"
             >
-              ☰
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
             </button>
           )}
 
           <div
-            onClick={() => navigate('/')}
-            className="flex items-center gap-2.5 cursor-pointer group"
-            title="Return to MITS C3S Institutional Overview"
+            onClick={() => navigate('/student')}
+            className="flex items-center gap-2.5 cursor-pointer group select-none"
+            title="C3S Campus Command"
           >
-            <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-blue-700 via-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-900/30 group-hover:scale-105 transition-transform">
-              <Shield className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+            <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-white overflow-hidden shadow-md shadow-blue-600/30 group-hover:scale-105 transition-transform p-0.5">
+              <img src="/c3s_logo.png" alt="C3S Logo" className="h-full w-full object-contain" />
+              <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-base font-black tracking-wider text-slate-100 uppercase">C3S</span>
-                <span className="hidden sm:inline-block rounded bg-blue-500/10 px-1.5 py-0.2 text-[10px] font-bold text-blue-400 border border-blue-500/20">
-                  V2.4
+                <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-white">C3S</span>
+                <span className="hidden sm:inline-block rounded-md bg-blue-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-blue-400 border border-blue-500/20">
+                  C3S
                 </span>
               </div>
-              <p className="hidden md:block text-[10px] text-slate-400 font-medium">Campus Surveillance & Security</p>
+              <p className="hidden md:block text-[11px] text-slate-400 leading-none mt-0.5">Campus Safety & Navigation</p>
             </div>
           </div>
 
-          <div className="hidden xl:flex items-center gap-2 ml-3 rounded-full border border-emerald-500/30 bg-emerald-950/30 px-3 py-1 text-[11px] font-semibold text-emerald-400">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            OPERATIONAL
-          </div>
-
-          {/* REAL CROWD COUNT Prominent Indicator */}
-          <div
+          {/* Real Crowd Count Minimal Pill */}
+          <button
             onClick={() => syncCrowdData()}
-            title="Real-time crowd count from Crowd_monitoring engine. Click to sync."
-            className="flex items-center gap-2 ml-1 sm:ml-2 rounded-full border border-cyan-500/40 bg-cyan-950/40 hover:bg-cyan-900/50 px-3 py-1 text-[11px] font-mono font-bold text-cyan-300 shadow-sm cursor-pointer transition-all"
+            title="Real-time campus density. Click to sync."
+            className="hidden sm:flex items-center gap-2 ml-3 rounded-full border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-white/[0.03] hover:bg-slate-200 dark:hover:bg-white/[0.06] px-3 py-1 text-xs text-slate-700 dark:text-slate-300 transition-all cursor-pointer"
           >
-            <span className="h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
-            <span>REAL CROWD: <strong className="text-white font-extrabold">{realCrowdCount || 192}</strong></span>
-            <RefreshCw className={`h-3 w-3 text-cyan-400/80 ${isRefreshing ? 'animate-spin' : ''}`} />
-          </div>
+            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-medium text-slate-400">Campus:</span>
+            <span className="font-semibold text-slate-900 dark:text-white">{realCrowdCount || 192} active</span>
+            <RefreshCw className={`h-3 w-3 text-slate-400 ${isRefreshing ? 'animate-spin text-blue-400' : ''}`} />
+          </button>
         </div>
 
         {/* Global Search Input */}
         <div className="hidden md:flex relative w-64 lg:w-80">
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
           <input
             type="text"
-            placeholder="Search campus gates, incidents, users..."
+            placeholder="Search campus gates, buildings, nodes..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-xl border border-slate-800 bg-slate-900/80 py-2 pl-9 pr-4 text-xs text-slate-200 placeholder-slate-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-white/[0.03] py-2 pl-9 pr-4 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-500 focus:border-blue-500 focus:bg-white dark:focus:bg-white/[0.05] focus:outline-none transition-all"
           />
         </div>
 
-        {/* Right Action Icons: Demo Role Switcher, Notifications, Profile */}
+        {/* Right Actions: Role Switcher, Notifications, Profile */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Quick Demo Role Switcher Button */}
+          {/* Quick SOS Trigger Button */}
+          <button
+            type="button"
+            onClick={() => setSosModalOpen(true)}
+            className="flex items-center gap-1.5 rounded-xl bg-red-600/20 hover:bg-red-600/30 border border-red-500/40 text-red-400 hover:text-red-300 px-2.5 py-1.5 text-xs font-bold transition shadow-sm active:scale-95 cursor-pointer"
+            title="Broadcast Emergency SOS"
+          >
+            <ShieldAlert className="h-3.5 w-3.5 text-red-500 animate-pulse" />
+            <span className="hidden sm:inline">SOS</span>
+          </button>
+          {/* Modern Role Switcher Pill */}
           <button
             onClick={() => setShowRoleModal(true)}
-            className="flex items-center gap-2 rounded-xl border border-blue-500/40 bg-blue-950/40 px-3 py-1.5 text-xs font-bold text-blue-300 shadow-sm transition-all hover:bg-blue-900/50 hover:border-blue-500"
+            className="flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-white/[0.03] hover:bg-slate-200 dark:hover:bg-white/[0.07] px-3 py-1.5 text-xs text-slate-700 dark:text-slate-300 transition-all cursor-pointer"
           >
             <Users className="h-3.5 w-3.5 text-blue-400" />
-            <span className="hidden sm:inline">Role:</span>
-            <span className="text-white font-extrabold">{roleMeta.title}</span>
-            <ChevronDown className="h-3 w-3 text-blue-400" />
+            <span className="hidden sm:inline text-slate-400">Role:</span>
+            <span className="font-semibold text-slate-900 dark:text-white">{roleMeta?.title || currentRole}</span>
+            <ChevronDown className="h-3 w-3 text-slate-400 ml-0.5" />
           </button>
+
+          {/* Global Light / Dark Theme Switcher */}
+          <ThemeToggle />
 
           {/* Notifications Bell Dropdown */}
           <div className="relative">
             <button
               onClick={() => setShowNotifDropdown(!showNotifDropdown)}
-              className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-slate-800 bg-slate-900 text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
+              className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-white/[0.03] text-slate-700 dark:text-slate-300 transition-colors hover:bg-slate-200 dark:hover:bg-white/[0.07] hover:text-slate-900 dark:hover:text-white"
+              aria-label="Notifications"
             >
               <Bell className="h-4 w-4" />
               {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[10px] font-black text-white">
+                <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[10px] font-bold text-white shadow">
                   {unreadCount}
                 </span>
               )}
             </button>
 
             {showNotifDropdown && (
-              <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl border border-slate-800 bg-slate-900/95 p-4 shadow-2xl backdrop-blur-xl z-50">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                  <span className="text-xs font-bold tracking-wider text-slate-300 uppercase">Alert Notifications</span>
-                  <span className="text-[11px] text-blue-400 cursor-pointer hover:underline" onClick={() => navigate('/notifications')}>
+              <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl border border-slate-200 dark:border-white/[0.1] bg-white dark:bg-[#0E1424] p-4 shadow-2xl backdrop-blur-2xl z-50 animate-in fade-in zoom-in-95">
+                <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/[0.08] pb-3">
+                  <span className="text-xs font-semibold text-slate-900 dark:text-slate-200">Notifications</span>
+                  <span
+                    className="text-xs text-blue-400 cursor-pointer hover:underline"
+                    onClick={() => {
+                      setShowNotifDropdown(false);
+                      navigate('/student/notifications');
+                    }}
+                  >
                     View All
                   </span>
                 </div>
@@ -130,14 +151,14 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
                       key={n.id}
                       onClick={() => markNotificationRead(n.id)}
                       className={`cursor-pointer rounded-xl p-2.5 transition-colors ${
-                        n.read ? 'bg-slate-950/40 text-slate-400' : 'bg-blue-950/30 border border-blue-500/20 text-slate-200'
+                        n.read ? 'bg-white/[0.02] text-slate-400' : 'bg-blue-500/10 border border-blue-500/20 text-slate-200'
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-slate-100">{n.title}</span>
+                        <span className="text-xs font-semibold text-white">{n.title}</span>
                         <span className="font-mono text-[10px] text-slate-500">{n.time}</span>
                       </div>
-                      <p className="mt-1 text-[11px] text-slate-400 leading-snug">{n.message}</p>
+                      <p className="mt-1 text-xs text-slate-400 leading-snug">{n.message}</p>
                     </div>
                   ))}
                 </div>
@@ -148,16 +169,15 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
           {/* User Profile Pill */}
           <div
             onClick={() => navigate('/profile')}
-            className="flex items-center gap-2 cursor-pointer rounded-xl border border-slate-800 bg-slate-900/70 p-1.5 pr-3 hover:border-slate-700 transition-colors"
+            className="flex items-center gap-2 cursor-pointer rounded-xl border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-white/[0.03] p-1.5 pr-2.5 hover:bg-slate-200 dark:hover:bg-white/[0.06] transition-colors"
           >
             <img
-              src={currentUser.avatar}
-              alt={currentUser.name}
-              className="h-7 w-7 rounded-lg object-cover ring-1 ring-blue-500/40"
+              src={currentUser?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80'}
+              alt={currentUser?.name || 'User'}
+              className="h-6 w-6 rounded-lg object-cover"
             />
             <div className="hidden lg:block text-left">
-              <p className="text-xs font-bold text-slate-200 leading-none">{currentUser.name}</p>
-              <p className="text-[10px] font-mono text-slate-400 mt-0.5">{currentUser.universityId}</p>
+              <p className="text-xs font-medium text-slate-800 dark:text-slate-200 leading-none">{currentUser?.name?.split(' ')[0]}</p>
             </div>
           </div>
         </div>

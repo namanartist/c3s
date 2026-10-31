@@ -176,6 +176,8 @@ export interface GateState {
   appendAuditLog: (entry: Omit<AuditLogEntry, 'id' | 'timestamp'>) => void;
 }
 
+let gateWatchId: number | null = null;
+
 export const useGateStore = create<GateState>((set, get) => {
   // Generate initial daily tokens for the 3 gates
   const initialTokens: Record<GateId, GateQrToken> = {
@@ -462,23 +464,49 @@ export const useGateStore = create<GateState>((set, get) => {
         return;
       }
 
+      const onPos = (pos: GeolocationPosition) => {
+        set({ locationPermission: 'granted', isLocationActive: true });
+        get().updateGpsLocation({
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
+          accuracy: pos.coords.accuracy
+        });
+      };
+
       navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          set({ locationPermission: 'granted', isLocationActive: true });
-          get().updateGpsLocation({
-            lat: pos.coords.latitude,
-            lng: pos.coords.longitude,
-            accuracy: pos.coords.accuracy
-          });
+        onPos,
+        (err) => {
+          if (err.code === 1) {
+            set({ locationPermission: 'denied', isLocationActive: false });
+          } else {
+            // Low accuracy fallback
+            navigator.geolocation.getCurrentPosition(
+              onPos,
+              () => {
+                set({ locationPermission: 'denied', isLocationActive: false });
+              },
+              { enableHighAccuracy: false, timeout: 8000 }
+            );
+          }
         },
-        () => {
-          set({ locationPermission: 'denied', isLocationActive: false });
-        },
-        { enableHighAccuracy: true, timeout: 10000 }
+        { enableHighAccuracy: true, timeout: 6000 }
+      );
+
+      if (gateWatchId !== null) {
+        navigator.geolocation.clearWatch(gateWatchId);
+      }
+      gateWatchId = navigator.geolocation.watchPosition(
+        onPos,
+        () => {},
+        { enableHighAccuracy: false, maximumAge: 10000, timeout: 15000 }
       );
     },
 
     stopLocationTracking: () => {
+      if (gateWatchId !== null) {
+        navigator.geolocation.clearWatch(gateWatchId);
+        gateWatchId = null;
+      }
       set({ isLocationActive: false });
     },
 

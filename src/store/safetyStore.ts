@@ -274,7 +274,8 @@ const DEFAULT_CONTACTS: EmergencyContact[] = [
 const DEFAULT_CAMERAS: CctvCamera[] = [
   {
     id: 'cam_gate_1',
-    name: 'CAM-01 • Main Gate Entrance & ANPR',
+    name: 'CAM-01 • Main Gate Entrance (Live Webcam & Optical AI)',
+    isLiveCameraSupported: true,
     location: 'Gate 1 Main Entrance Road',
     map: 'Campus_Map',
     floor: 0,
@@ -294,11 +295,14 @@ const DEFAULT_CAMERAS: CctvCamera[] = [
     crowdCount: 5,
     crowdDensity: 'low',
     confidence: 0.94,
-    latencyMs: 38
+    latencyMs: 38,
+    videoUrl: '/videos/cctv_recorded_incident.mp4',
+    fightDetected: true,
+    fightConfidence: 91
   },
   {
     id: 'cam_gate_2',
-    name: 'CAM-02 • New Gate Parking & Transit Hub',
+    name: 'CAM-02 • Gate 2 Parking & Incident Footage (Sample)',
     location: 'Gate 2 Student Vehicle Parking',
     map: 'Campus_Map',
     floor: 0,
@@ -318,11 +322,14 @@ const DEFAULT_CAMERAS: CctvCamera[] = [
     crowdCount: 18,
     crowdDensity: 'high',
     confidence: 0.91,
-    latencyMs: 44
+    latencyMs: 44,
+    youtubeEmbedUrl: 'https://www.youtube.com/embed/2vTqzQJkoPE',
+    fightDetected: true,
+    fightConfidence: 96
   },
   {
     id: 'cam_conclave',
-    name: 'CAM-03 • Conclave Foyer & Quadrangle',
+    name: 'CAM-03 • Conclave Corridor (Incident Footage)',
     location: 'Main Building South Entrance',
     map: 'Main_GF',
     floor: 0,
@@ -337,12 +344,15 @@ const DEFAULT_CAMERAS: CctvCamera[] = [
     zone: 'Academic South',
     bearingDeg: 45,
     coverageAngleDeg: 95,
-    lastMotionDetected: 'Medical Responder Dispatched',
-    crowdLabel: 'Conclave Foyer',
-    crowdCount: 22,
-    crowdDensity: 'critical',
+    lastMotionDetected: 'Corridor Altercation Review',
+    crowdLabel: 'Conclave Corridor',
+    crowdCount: 8,
+    crowdDensity: 'high',
     confidence: 0.98,
-    latencyMs: 52
+    latencyMs: 52,
+    youtubeEmbedUrl: 'https://www.youtube.com/embed/s4mqtnrJbdM',
+    fightDetected: true,
+    fightConfidence: 94
   },
   {
     id: 'cam_library',
@@ -370,7 +380,8 @@ const DEFAULT_CAMERAS: CctvCamera[] = [
   },
   {
     id: 'cam_jubilee',
-    name: 'CAM-05 • Jubilee Gate 4 & Hostel Axis',
+    name: 'CAM-08 • Jubilee Gate Checkpoint (Live Hardware Webcam & Fight AI)',
+    isLiveCameraSupported: true,
     location: 'Jubilee Gate Southern Checkpost',
     map: 'Campus_Map',
     floor: 0,

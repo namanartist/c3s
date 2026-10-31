@@ -41,7 +41,7 @@ export default function About() {
               The Problem We Solve
             </h3>
             <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-              Standard navigation apps stop at the entrance. Finding a specific classroom, laboratory, or seminar hall inside the academic blocks can be challenging. UniMap provides the official campus map level of detail to guide you indoors.
+              Standard navigation apps stop at the entrance. Finding a specific classroom, laboratory, or seminar hall inside the academic blocks can be challenging. C3S provides the official campus map level of detail to guide you indoors.
             </p>
           </div>
 
@@ -52,7 +52,7 @@ export default function About() {
               Students, Visitors & Faculty
             </h3>
             <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-              Whether you're a student rushing to your next lecture, a visitor attending a seminar, or a faculty member locating a department office, UniMap makes campus navigation seamless for everyone.
+              Whether you're a student rushing to your next lecture, a visitor attending a seminar, or a faculty member locating a department office, C3S makes campus navigation seamless for everyone.
             </p>
           </div>
 

@@ -7,7 +7,7 @@ import { buildUndirectedEdgeIndex } from '@/lib/navigation_instructions';
 import { buildNavigationStepViewModel } from '@/pages/Map/services/navigationStepService';
 import type { MapNode, MapEdge, Building, FloorMap } from '@/types';
 import { parseRoomName } from '@/lib/roomParser';
-import { gpsToSvg, findNearestCampusNode } from '@/lib/geoProjection';
+import { gpsToSvg, findNearestCampusNode, isWithinCampusBounds } from '@/lib/geoProjection';
 import type { SosIncident } from '@/types/safety';
 
 // Module-level caches to avoid multiple fetch requests on StrictMode double-mounting
@@ -24,6 +24,8 @@ export interface CampusNavigationContextType {
   floors: FloorMap[];
   loading: boolean;
   isMobile: boolean;
+  sidebarOpen: boolean;
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isMenuOpen: boolean;
   setIsMenuOpen: (open: boolean) => void;
   isBottomSheetExpanded: boolean;
@@ -68,6 +70,9 @@ export interface CampusNavigationContextType {
   userSvgCoords: { x: number; y: number } | null;
   gpsAccuracy: number | null;
   isGpsActive: boolean;
+  isGpsLocating: boolean;
+  isOutsideCampus: boolean;
+  gpsError: string | null;
   enableGps: () => void;
   disableGps: () => void;
   useGpsAsStartLocation: () => void;
@@ -88,6 +93,7 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
 
   // Mobile UI States
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
+  const [sidebarOpen, setSidebarOpen] = useState(() => typeof window !== 'undefined' ? window.innerWidth >= 768 : true);
   const [isBottomSheetExpanded, setIsBottomSheetExpanded] = useState(false);
   const [activeSearchField, setActiveSearchField] = useState<'start' | 'dest' | null>(null);
   const [mobileSearchQuery, setMobileSearchQuery] = useState('');
@@ -130,6 +136,9 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
   const [userSvgCoords, setUserSvgCoords] = useState<{ x: number; y: number } | null>(null);
   const [gpsAccuracy, setGpsAccuracy] = useState<number | null>(null);
   const [isGpsActive, setIsGpsActive] = useState<boolean>(false);
+  const [isGpsLocating, setIsGpsLocating] = useState<boolean>(false);
+  const [isOutsideCampus, setIsOutsideCampus] = useState<boolean>(false);
+  const [gpsError, setGpsError] = useState<string | null>(null);
 
   const unmountedRef = useRef(false);
   const routeAbortRef = useRef<AbortController | null>(null);
@@ -201,7 +210,18 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
         const buildingMeta = mapMeta && mapMeta.building ? buildingsById[mapMeta.building] : null;
 
         const name = n.name || parsed.name;
-        const searchName = String(name || '').toLowerCase();
+        // Generate comprehensive search tokens and aliases (including room 101, room 102/j126, colloquium)
+        const idLower = String(n.id || '').toLowerCase();
+        const nameLower = String(name || '').toLowerCase();
+        const strippedId = idLower.replace(/^(room_|node_|cabin_)/, '');
+        const roomAlias = nameLower
+          .replace(/classroom\s*/gi, 'room ')
+          .replace(/classroom\s*/gi, 'room no. ')
+          .replace(/classroom\s*/gi, 'room no ')
+          .replace(/classroom\s*/gi, 'rm ');
+        const digits = nameLower.match(/\d+/g)?.join(' ') || '';
+
+        const searchName = `${nameLower} ${idLower} ${strippedId} ${roomAlias} ${digits} ${n.map ? n.map.toLowerCase() : ''}`.trim();
 
         return {
           id: n.id,
@@ -213,6 +233,8 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
           category: parsed.category,
           x: n.x,
           y: n.y,
+          lat: n.lat,
+          lng: n.lng,
         };
       });
   }, [nodes, floors, buildings]);
@@ -263,7 +285,9 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
       setNavigationDirections([]);
     }
     setCurrentLocation(location);
-    setSelectedMapId(null);
+    if (location?.map) {
+      setSelectedMapId(location.map);
+    }
   }, [isNavigating, isComputingRoute]);
 
   const handleCurrentLocationClear = useCallback(() => {
@@ -495,36 +519,120 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
     };
   }, []);
 
-  // Live GPS Geolocation Watch
+  // Handle and project live GPS positions
+  const handlePositionUpdate = useCallback((pos: GeolocationPosition) => {
+    const lat = pos.coords.latitude;
+    const lon = pos.coords.longitude;
+    setUserGpsCoords({ lat, lon });
+    setGpsAccuracy(pos.coords.accuracy ?? 10);
+    setGpsError(null);
+
+    const inside = isWithinCampusBounds({ lat, lon });
+    setIsOutsideCampus(!inside);
+
+    const nearest = findNearestCampusNode({ lat, lon }, nodes, {
+      preferredMap: selectedMapId || undefined,
+      includeIndoor: true,
+    });
+
+    if (inside) {
+      if (nearest && nearest.map && nearest.map !== 'Campus_Map' && (!selectedMapId || selectedMapId === nearest.map)) {
+        // User is indoors on a building floor (e.g. Main_FF Room 101/J126)
+        setUserSvgCoords({ x: nearest.x, y: nearest.y });
+      } else {
+        const raw = gpsToSvg({ lat, lon });
+        setUserSvgCoords({
+          x: Math.max(30, Math.min(1060, raw.x)),
+          y: Math.max(30, Math.min(640, raw.y)),
+        });
+      }
+    } else {
+      // User is outside campus bounds: snap position to the closest campus entrance gate
+      const fallback = nodes.find((n) => n.id === 'Main_Gate') || nodes[0];
+      const target = nearest || fallback;
+      if (target) {
+        setUserSvgCoords({ x: target.x, y: target.y });
+      }
+    }
+  }, [nodes, selectedMapId]);
+
+  // Live GPS Geolocation Watch with High Accuracy & Resilient Fallback
   useEffect(() => {
     if (!isGpsActive) return;
     if (typeof navigator === 'undefined' || !navigator.geolocation) {
-      console.warn('Geolocation is not supported by this browser.');
+      setGpsError('Geolocation is not supported by your browser.');
       return;
     }
 
-    const watchId = navigator.geolocation.watchPosition(
-      (pos) => {
-        const lat = pos.coords.latitude;
-        const lon = pos.coords.longitude;
-        setUserGpsCoords({ lat, lon });
-        setGpsAccuracy(pos.coords.accuracy);
-        const svg = gpsToSvg({ lat, lon });
-        setUserSvgCoords(svg);
+    let activeWatchId: number | null = null;
+    let isCancelled = false;
+
+    const onPos = (pos: GeolocationPosition) => {
+      if (isCancelled) return;
+      handlePositionUpdate(pos);
+    };
+
+    const startWatching = (highAccuracy: boolean) => {
+      if (isCancelled) return;
+      if (activeWatchId !== null) {
+        navigator.geolocation.clearWatch(activeWatchId);
+      }
+
+      activeWatchId = navigator.geolocation.watchPosition(
+        onPos,
+        (err) => {
+          if (isCancelled) return;
+          console.warn(`Geolocation watch (${highAccuracy ? 'high' : 'low'} accuracy) error:`, err.code, err.message);
+
+          if (err.code === 1) { // PERMISSION_DENIED
+            setGpsError('Location permission denied. Please allow location access in your browser settings.');
+            return;
+          }
+
+          // If high accuracy timed out or is unavailable, fallback to low accuracy
+          if (highAccuracy && (err.code === 2 || err.code === 3)) {
+            startWatching(false);
+            return;
+          }
+
+          // If low accuracy also fails, provide calibrated entrance fallback
+          const fallbackNode = nodes.find((n) => n.id === 'Main_Gate') || nodes[0];
+          if (fallbackNode) {
+            setUserSvgCoords({ x: fallbackNode.x, y: fallbackNode.y });
+          }
+          setGpsError(err.code === 3 ? 'Location signal timed out. Using campus entrance.' : 'Location signal unavailable.');
+        },
+        {
+          enableHighAccuracy: highAccuracy,
+          maximumAge: highAccuracy ? 5000 : 30000,
+          timeout: highAccuracy ? 8000 : 15000,
+        }
+      );
+    };
+
+    // Immediate initial fix to prevent waiting for watchPosition interval
+    navigator.geolocation.getCurrentPosition(
+      onPos,
+      () => {
+        // Fallback silently if immediate fix fails; watchPosition will handle it
       },
-      (err) => {
-        console.warn('Geolocation watch error:', err.message);
-      },
-      { enableHighAccuracy: true, maximumAge: 3000, timeout: 10000 }
+      { enableHighAccuracy: true, timeout: 5000, maximumAge: 10000 }
     );
 
+    // Start with high accuracy, auto-fall back on failure
+    startWatching(true);
+
     return () => {
-      navigator.geolocation.clearWatch(watchId);
+      isCancelled = true;
+      if (activeWatchId !== null) {
+        navigator.geolocation.clearWatch(activeWatchId);
+      }
     };
-  }, [isGpsActive]);
+  }, [isGpsActive, handlePositionUpdate, nodes]);
 
   const enableGps = useCallback(() => {
     setIsGpsActive(true);
+    setGpsError(null);
   }, []);
 
   const disableGps = useCallback(() => {
@@ -532,35 +640,99 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
     setUserGpsCoords(null);
     setUserSvgCoords(null);
     setGpsAccuracy(null);
+    setIsOutsideCampus(false);
+    setGpsError(null);
   }, []);
 
   const useGpsAsStartLocation = useCallback(() => {
+    setIsGpsLocating(true);
+    setGpsError(null);
+
+    const applyNodeSelection = (lat: number, lon: number, accuracy?: number) => {
+      setUserGpsCoords({ lat, lon });
+      if (accuracy) setGpsAccuracy(accuracy);
+      setIsGpsActive(true);
+      setIsGpsLocating(false);
+
+      const inside = isWithinCampusBounds({ lat, lon });
+      setIsOutsideCampus(!inside);
+
+      const nearest = findNearestCampusNode({ lat, lon }, nodes, {
+        preferredMap: selectedMapId || undefined,
+        includeIndoor: true,
+      });
+      const targetNode = nearest || nodes.find((n) => n.id === 'Main_Gate') || nodes[0];
+
+      if (inside) {
+        if (targetNode && targetNode.map && targetNode.map !== 'Campus_Map') {
+          setUserSvgCoords({ x: targetNode.x, y: targetNode.y });
+          setSelectedMapId(targetNode.map);
+        } else {
+          const raw = gpsToSvg({ lat, lon });
+          setUserSvgCoords({
+            x: Math.max(30, Math.min(1060, raw.x)),
+            y: Math.max(30, Math.min(640, raw.y)),
+          });
+        }
+      } else if (targetNode) {
+        setUserSvgCoords({ x: targetNode.x, y: targetNode.y });
+      }
+
+      if (targetNode) {
+        const isIndoorRoom = targetNode.map && targetNode.map !== 'Campus_Map';
+        handleCurrentLocationSelect({
+          id: targetNode.id,
+          name: inside
+            ? isIndoorRoom
+              ? `📍 ${targetNode.name || targetNode.id} (${targetNode.map.replace('_', ' ')})`
+              : `📍 Current Location (${targetNode.name || targetNode.id})`
+            : `📍 Nearest Entrance: ${targetNode.name || 'Main Gate'}`,
+          searchName: (targetNode.name || '').toLowerCase(),
+          map: targetNode.map,
+          building: (targetNode as any).building || (targetNode.map?.startsWith('Main') ? 'Main Academic Building' : 'Campus'),
+          floor: (targetNode as any).floor ?? (targetNode.map?.includes('FF') ? 1 : targetNode.map?.includes('SF') ? 2 : 0),
+          category: 'Current Location',
+          x: targetNode.x,
+          y: targetNode.y,
+          lat,
+          lng: lon,
+        });
+      }
+    };
+
     if (typeof navigator === 'undefined' || !navigator.geolocation) {
-      alert('Geolocation is not supported by your browser.');
+      const fallbackNode = nodes.find((n) => n.id === 'Main_Gate') || nodes[0];
+      if (fallbackNode) {
+        applyNodeSelection(26.232611, 78.205222, 10);
+      }
+      setIsGpsLocating(false);
       return;
     }
+
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        const lat = pos.coords.latitude;
-        const lon = pos.coords.longitude;
-        setUserGpsCoords({ lat, lon });
-        setGpsAccuracy(pos.coords.accuracy);
-        const svg = gpsToSvg({ lat, lon });
-        setUserSvgCoords(svg);
-        setIsGpsActive(true);
-
-        const nearest = findNearestCampusNode({ lat, lon }, nodes);
-        if (nearest) {
-          setCurrentLocation(nearest);
-        }
+        applyNodeSelection(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy);
       },
       (err) => {
-        console.warn('Geolocation error:', err.message);
-        alert('Could not determine your GPS location: ' + err.message);
+        console.warn('High-accuracy start location error, trying network fallback:', err.message);
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            applyNodeSelection(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy);
+          },
+          (err2) => {
+            console.warn('Geolocation fallback failed, snapping to Main Gate:', err2.message);
+            setIsGpsLocating(false);
+            const fallbackNode = nodes.find((n) => n.id === 'Main_Gate') || nodes[0];
+            if (fallbackNode) {
+              applyNodeSelection(26.232611, 78.205222, 15);
+            }
+          },
+          { enableHighAccuracy: false, timeout: 8000 }
+        );
       },
-      { enableHighAccuracy: true, timeout: 10000 }
+      { enableHighAccuracy: true, timeout: 6000 }
     );
-  }, [nodes]);
+  }, [nodes, handleCurrentLocationSelect]);
 
   // Dynamic remaining metrics
   const dynamicDistance = useMemo(() => {
@@ -715,11 +887,20 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
   }, []);
 
   const filteredSuggestions = useMemo(() => {
-    const q = mobileSearchQuery.trim().toLowerCase();
-    if (!q) return campusLocations.slice(0, 10);
-    return campusLocations.filter(loc =>
-      (loc.searchName ?? loc.name.toLowerCase()).includes(q)
-    );
+    const rawQ = mobileSearchQuery.trim().toLowerCase();
+    if (!rawQ) return campusLocations.slice(0, 10);
+    const cleanQ = rawQ
+      .replace(/^(i am in|i'm in|im in|my location is|current location is)\s*/i, '')
+      .replace(/room\s*no\.?|room\s*number|room\s*no|room|rm|classroom/gi, '')
+      .replace(/[-\s]/g, '')
+      .trim();
+
+    return campusLocations.filter((loc) => {
+      const searchStr = (loc.searchName ?? loc.name.toLowerCase()).toLowerCase();
+      if (searchStr.includes(rawQ)) return true;
+      if (cleanQ && searchStr.replace(/[-\s]/g, '').includes(cleanQ)) return true;
+      return false;
+    });
   }, [mobileSearchQuery, campusLocations]);
 
   const contextValue = useMemo(() => ({
@@ -729,6 +910,8 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
     floors,
     loading,
     isMobile,
+    sidebarOpen,
+    setSidebarOpen,
     isMenuOpen,
     setIsMenuOpen,
     isBottomSheetExpanded,
@@ -773,6 +956,9 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
     userSvgCoords,
     gpsAccuracy,
     isGpsActive,
+    isGpsLocating,
+    isOutsideCampus,
+    gpsError,
     enableGps,
     disableGps,
     useGpsAsStartLocation,
@@ -784,6 +970,7 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
     floors,
     loading,
     isMobile,
+    sidebarOpen,
     isMenuOpen,
     isBottomSheetExpanded,
     activeSearchField,
@@ -820,6 +1007,9 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
     userSvgCoords,
     gpsAccuracy,
     isGpsActive,
+    isGpsLocating,
+    isOutsideCampus,
+    gpsError,
     enableGps,
     disableGps,
     useGpsAsStartLocation,
@@ -843,6 +1033,8 @@ export function useCampusNavigation() {
       floors: [],
       loading: false,
       isMobile: false,
+      sidebarOpen: true,
+      setSidebarOpen: () => {},
       isMenuOpen: false,
       setIsMenuOpen: () => {},
       isBottomSheetExpanded: false,
@@ -891,6 +1083,9 @@ export function useCampusNavigation() {
       userSvgCoords: { x: 500, y: 350 },
       gpsAccuracy: 2.5,
       isGpsActive: true,
+      isGpsLocating: false,
+      isOutsideCampus: false,
+      gpsError: null,
       enableGps: () => {},
       disableGps: () => {},
       useGpsAsStartLocation: () => {},

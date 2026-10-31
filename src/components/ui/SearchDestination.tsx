@@ -39,13 +39,21 @@ export default function SearchDestination({
   const [washroomPage, setWashroomPage] = useState(0);
   const washroomPageSize = 6;
 
-  const filteredLocations = useMemo(() =>
-    normalizedQuery
-      ? campusLocations.filter((loc) =>
-        (loc.searchName ?? loc.name.toLowerCase()).includes(normalizedQuery)
-      )
-      : [], [normalizedQuery, campusLocations]
-  );
+  const filteredLocations = useMemo(() => {
+    if (!normalizedQuery) return [];
+    const cleanQ = normalizedQuery
+      .replace(/^(go to|route to|to|reach)\s*/i, '')
+      .replace(/room\s*no\.?|room\s*number|room\s*no|room|rm|classroom/gi, '')
+      .replace(/[-\s]/g, '')
+      .trim();
+
+    return campusLocations.filter((loc) => {
+      const searchStr = (loc.searchName ?? loc.name.toLowerCase()).toLowerCase();
+      if (searchStr.includes(normalizedQuery)) return true;
+      if (cleanQ && searchStr.replace(/[-\s]/g, '').includes(cleanQ)) return true;
+      return false;
+    });
+  }, [normalizedQuery, campusLocations]);
 
   const isWashroomSelectionMode =
     filteredLocations.length > 0 && filteredLocations.every((loc) => loc.category === 'Washroom');
@@ -99,7 +107,7 @@ export default function SearchDestination({
 
   return (
     <div className="relative">
-      <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wider">
+      <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
         Where do you want to go?
       </label>
       <div className="relative">
@@ -134,7 +142,7 @@ export default function SearchDestination({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute z-10 w-full mt-2 bg-white rounded-xl shadow-xl border border-gray-200 max-h-64 overflow-auto overscroll-contain"
+            className="absolute z-10 w-full mt-2 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10 max-h-64 overflow-auto overscroll-contain backdrop-blur-xl transition-colors"
           >
             {resultsToShow.map((location) => {
               const isSelected = destination?.id === location.id;
@@ -142,13 +150,13 @@ export default function SearchDestination({
                 <button
                   key={location.id}
                   onClick={() => handleSelect(location)}
-                  className={`w-full px-4 py-3 hover:bg-orange-50/50 transition-colors flex items-start gap-3 border-b border-gray-100 last:border-0 text-left ${isSelected ? 'bg-orange-50/50' : ''
+                  className={`w-full px-4 py-3 hover:bg-orange-50/50 dark:hover:bg-white/[0.05] transition-colors flex items-start gap-3 border-b border-slate-100 dark:border-white/5 last:border-0 text-left ${isSelected ? 'bg-orange-50/60 dark:bg-white/10' : ''
                     }`}
                 >
                   <Building2 className="w-4 h-4 text-[#ff602e] mt-0.5 flex-shrink-0" />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-gray-900 truncate">{location.name}</p>
-                    <p className="text-xs text-gray-500 font-medium mt-0.5">
+                    <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">{location.name}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
                       {location.building} • Floor {location.floor}
                     </p>
                   </div>

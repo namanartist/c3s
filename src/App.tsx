@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/react';
 import useSmoothScroll from '@/hooks/smoothscroll';
 import './styles/globals.css';
 import { OfflineMeshBridge } from '@/components/safety/OfflineMeshBridge';
+import { FightAlertBanner } from '@/components/safety/FightAlertBanner';
 
 // C3S Lazy Loaded Page Components
 const C3SLoginPage = React.lazy(() => import('@/pages/c3s/C3SLoginPage'));
@@ -50,6 +51,7 @@ const LandingPage = React.lazy(() => import('@/pages/Landing/LandingPage'));
 const MapPage = React.lazy(() => import('@/pages/Map/MapPage'));
 const OperationsPage = React.lazy(() => import('@/pages/Operations/OperationsPage'));
 const SupportPage = React.lazy(() => import('@/pages/Support/SupportPage'));
+const DevelopersPage = React.lazy(() => import('@/pages/Developers/DevelopersPage'));
 const NotFoundPage = React.lazy(() => import('@/pages/404'));
 
 const LoadingFallback = () => (
@@ -75,6 +77,7 @@ export default function App() {
   return (
     <Router>
       <OfflineMeshBridge />
+      <FightAlertBanner />
       <ScrollToTop />
       <Suspense fallback={<LoadingFallback />}>
         <Routes>
@@ -135,6 +138,8 @@ export default function App() {
           <Route path="/map" element={<MapPage />} />
           <Route path="/operations" element={<OperationsPage />} />
           <Route path="/support" element={<SupportPage />} />
+          <Route path="/developers" element={<DevelopersPage />} />
+          <Route path="/developer" element={<DevelopersPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>

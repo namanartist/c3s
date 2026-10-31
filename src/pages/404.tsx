@@ -12,7 +12,7 @@ import './Landing/landing.css';
 export default function NotFoundPage() {
   usePageMeta(
     'Page Not Found — MITS Map',
-    'The requested page could not be found on UniMap - MITS Gwalior Campus Map.'
+    'The requested page could not be found on C3S - MITS Gwalior Campus Defense Network.'
   );
   return (
     <div className="w-full flex flex-col min-h-screen blueprint-grid text-[var(--text-primary)]">

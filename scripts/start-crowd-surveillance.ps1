@@ -5,7 +5,7 @@ $CrowdDir = "C:\Users\naman\Crowd_monitoring"
 $PythonExe = Join-Path $CrowdDir ".venv\Scripts\python.exe"
 
 Write-Host "==========================================================" -ForegroundColor Cyan
-Write-Host "   UniMap <-> Crowd Monitoring Service Launcher           " -ForegroundColor Cyan
+Write-Host "   C3S <-> Crowd Monitoring Service Launcher           " -ForegroundColor Cyan
 Write-Host "==========================================================" -ForegroundColor Cyan
 Write-Host "Target Path: $CrowdDir" -ForegroundColor Yellow
 
@@ -29,5 +29,5 @@ Write-Host ""
 Write-Host "[SUCCESS] Crowd Monitoring Services Launched!" -ForegroundColor Green
 Write-Host " - Video Feed Service: http://localhost:8001/video_feed/<CameraName>" -ForegroundColor Cyan
 Write-Host " - AI Estimate API:    http://localhost:8000/docs" -ForegroundColor Cyan
-Write-Host " - UniMap Dashboard:   http://localhost:5173/control-room/cameras" -ForegroundColor Cyan
+Write-Host " - C3S Dashboard:   http://localhost:5173/control-room/cameras" -ForegroundColor Cyan
 Write-Host "==========================================================" -ForegroundColor Cyan

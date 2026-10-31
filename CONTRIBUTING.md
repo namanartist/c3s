@@ -1,6 +1,6 @@
-# Contributing to UniMap
+# Contributing to C3S
 
-Thank you for your interest in contributing to **UniMap**. Contributions including bug fixes, UI/UX improvements, navigation algorithm optimizations, map data updates, and documentation enhancements are welcome.
+Thank you for your interest in contributing to **C3S**. Contributions including bug fixes, UI/UX improvements, navigation algorithm optimizations, map data updates, and documentation enhancements are welcome.
 
 Please read through these guidelines to get started.
 
@@ -10,8 +10,8 @@ Please read through these guidelines to get started.
 
 1. **Fork and Clone**:
    ```bash
-   git clone https://github.com/YOUR-USERNAME/UniMap-V2.git
-   cd UniMap-V2
+   git clone https://github.com/YOUR-USERNAME/C3S.git
+   cd C3S-V2
    ```
 
 2. **Install Dependencies**:
@@ -24,15 +24,15 @@ Please read through these guidelines to get started.
    ```bash
    cp .env.example .env
    ```
-   *Set `MONGO_URL` to point to your local MongoDB instance (e.g. `mongodb://localhost:27017/UniMap`). Do not commit credentials or `.env` files to version control.*
+   *Set `MONGO_URL` to point to your local MongoDB instance (e.g. `mongodb://localhost:27017/C3S`). Do not commit credentials or `.env` files to version control.*
 
 4. **Initialize Local Database Seed Data**:
    Populate your local MongoDB collections (`buildings`, `floors`, `nodes`, `edges`) using the static JSON seed files in `init-data/`:
    ```bash
-   mongoimport --uri="mongodb://localhost:27017/UniMap" --collection=buildings --file=init-data/buildings.json --jsonArray
-   mongoimport --uri="mongodb://localhost:27017/UniMap" --collection=floors --file=init-data/floors.json --jsonArray
-   mongoimport --uri="mongodb://localhost:27017/UniMap" --collection=nodes --file=init-data/nodes.json --jsonArray
-   mongoimport --uri="mongodb://localhost:27017/UniMap" --collection=edges --file=init-data/edges.json --jsonArray
+   mongoimport --uri="mongodb://localhost:27017/C3S" --collection=buildings --file=init-data/buildings.json --jsonArray
+   mongoimport --uri="mongodb://localhost:27017/C3S" --collection=floors --file=init-data/floors.json --jsonArray
+   mongoimport --uri="mongodb://localhost:27017/C3S" --collection=nodes --file=init-data/nodes.json --jsonArray
+   mongoimport --uri="mongodb://localhost:27017/C3S" --collection=edges --file=init-data/edges.json --jsonArray
    ```
    *(See [init-data/README.md](init-data/README.md) for MongoDB Compass / GUI setup).*
 

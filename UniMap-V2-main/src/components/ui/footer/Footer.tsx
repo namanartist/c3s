@@ -152,7 +152,7 @@ export default function Footer() {
                 <span className="text-sm font-normal text-neutral-300">Stay in touch</span>
                 <div className="flex gap-4 items-center">
                   <a
-                    href="https://x.com/dotrwt"
+                    href="https://web.mitsgwalior.in"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-neutral-400 hover:text-white transition-colors"
@@ -179,12 +179,12 @@ export default function Footer() {
               </div>
               <div className="mt-6 md:mt-auto">
                 <a
-                  href="https://dotrwt.in"
+                  href="https://web.mitsgwalior.in"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-neutral-400 hover:text-white transition-colors text-xs font-normal"
                 >
-                  developed by dotrwt
+                  Developed by MITS C3S Engineering Team
                 </a>
               </div>
             </div>

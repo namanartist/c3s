@@ -13,7 +13,7 @@ import './Support.css';
 export default function SupportPage() {
   usePageMeta(
     'Support & Feedback — MITS Map',
-    'Contact support or share your feedback to help improve the MITS Gwalior campus map on UniMap.'
+    'Contact support or share your feedback to help improve the MITS Gwalior campus map on C3S.'
   );
   return (
     <div className="support-bg flex flex-col w-full min-h-screen">
@@ -34,7 +34,7 @@ export default function SupportPage() {
         </div>
 
         {/* Support Header */}
-        <h1 className="text-[36px] sm:text-[44px] md:text-[48px] font-bold tracking-tight text-white text-center leading-[1.1] mb-12 max-w-2xl select-none">
+        <h1 className="text-[36px] sm:text-[44px] md:text-[48px] font-bold tracking-tight text-slate-900 dark:text-white text-center leading-[1.1] mb-12 max-w-2xl select-none transition-colors">
           Get support <br />
           or Share Your Feedback
         </h1>

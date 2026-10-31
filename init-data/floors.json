@@ -61,5 +61,14 @@
     "svgUrl": "https://res.cloudinary.com/dph28qrrx/image/upload/v1780765405/Main_FF_nvvdu5.svg",
     "label": "Main Building — Floor 1",
     "__v": 0
+  },
+  {
+    "id": "floor_campus_ai_tf",
+    "map": "AI_TF",
+    "building": "ai",
+    "floor": 3,
+    "svgUrl": "/maps/AI_TF.svg",
+    "label": "AI Building — Floor 3",
+    "__v": 0
   }
 ]
