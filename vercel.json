@@ -20,9 +20,45 @@
   },
   "rewrites": [
     {
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "app",
+        "path": "/api/$1"
+      }
+    },
+    {
+      "source": "/assets/(.*)",
+      "destination": {
+        "service": "app",
+        "path": "/assets/$1"
+      }
+    },
+    {
+      "source": "/maps/(.*)",
+      "destination": {
+        "service": "app",
+        "path": "/maps/$1"
+      }
+    },
+    {
+      "source": "/videos/(.*)",
+      "destination": {
+        "service": "app",
+        "path": "/videos/$1"
+      }
+    },
+    {
+      "source": "/(.*\\.[a-zA-Z0-9]+)",
+      "destination": {
+        "service": "app",
+        "path": "/$1"
+      }
+    },
+    {
       "source": "/(.*)",
       "destination": {
-        "service": "app"
+        "service": "app",
+        "path": "/index.html"
       }
     }
   ],
@@ -53,11 +89,20 @@
       ]
     },
     {
+      "source": "/index.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    },
+    {
       "source": "/api/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "s-maxage=300, stale-while-revalidate=600"
+          "value": "no-cache, no-store, must-revalidate"
         }
       ]
     },

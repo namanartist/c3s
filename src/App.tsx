@@ -5,54 +5,57 @@ import useSmoothScroll from '@/hooks/smoothscroll';
 import './styles/globals.css';
 import { OfflineMeshBridge } from '@/components/safety/OfflineMeshBridge';
 import { FightAlertBanner } from '@/components/safety/FightAlertBanner';
+import { lazyWithRetry } from '@/lib/lazyWithRetry';
 
-// C3S Lazy Loaded Page Components
-const C3SLoginPage = React.lazy(() => import('@/pages/c3s/C3SLoginPage'));
-const StudentDashboard = React.lazy(() => import('@/pages/c3s/StudentDashboard'));
-const StudentScanPage = React.lazy(() => import('@/pages/c3s/StudentScanPage'));
-const StudentCheckInPage = React.lazy(() => import('@/pages/c3s/StudentCheckInPage'));
-const StudentCheckOutPage = React.lazy(() => import('@/pages/c3s/StudentCheckOutPage'));
-const StudentLocationPage = React.lazy(() => import('@/pages/c3s/StudentLocationPage'));
-const StudentSosPage = React.lazy(() => import('@/pages/c3s/StudentSosPage'));
-const StudentIncidentsPage = React.lazy(() => import('@/pages/c3s/StudentIncidentsPage'));
-const StudentMovementPage = React.lazy(() => import('@/pages/c3s/StudentMovementPage'));
-const StudentNotificationsPage = React.lazy(() => import('@/pages/c3s/StudentNotificationsPage'));
+// C3S Resilient Lazy Loaded Page Components
+const C3SLoginPage = lazyWithRetry(() => import('@/pages/c3s/C3SLoginPage'), 'C3SLoginPage');
+const StudentDashboard = lazyWithRetry(() => import('@/pages/c3s/StudentDashboard'), 'StudentDashboard');
+const StudentScanPage = lazyWithRetry(() => import('@/pages/c3s/StudentScanPage'), 'StudentScanPage');
+const StudentCheckInPage = lazyWithRetry(() => import('@/pages/c3s/StudentCheckInPage'), 'StudentCheckInPage');
+const StudentCheckOutPage = lazyWithRetry(() => import('@/pages/c3s/StudentCheckOutPage'), 'StudentCheckOutPage');
+const StudentLocationPage = lazyWithRetry(() => import('@/pages/c3s/StudentLocationPage'), 'StudentLocationPage');
+const StudentSosPage = lazyWithRetry(() => import('@/pages/c3s/StudentSosPage'), 'StudentSosPage');
+const StudentIncidentsPage = lazyWithRetry(() => import('@/pages/c3s/StudentIncidentsPage'), 'StudentIncidentsPage');
+const StudentMovementPage = lazyWithRetry(() => import('@/pages/c3s/StudentMovementPage'), 'StudentMovementPage');
+const StudentNotificationsPage = lazyWithRetry(() => import('@/pages/c3s/StudentNotificationsPage'), 'StudentNotificationsPage');
 
-const GateKeeperDashboard = React.lazy(() => import('@/pages/c3s/GateKeeperDashboard'));
-const GateKeeperQrPage = React.lazy(() => import('@/pages/c3s/GateKeeperQrPage'));
-const GateKeeperActivityPage = React.lazy(() => import('@/pages/c3s/GateKeeperActivityPage'));
-const GateKeeperOccupancyPage = React.lazy(() => import('@/pages/c3s/GateKeeperOccupancyPage'));
+const GateKeeperDashboard = lazyWithRetry(() => import('@/pages/c3s/GateKeeperDashboard'), 'GateKeeperDashboard');
+const GateKeeperQrPage = lazyWithRetry(() => import('@/pages/c3s/GateKeeperQrPage'), 'GateKeeperQrPage');
+const GateKeeperActivityPage = lazyWithRetry(() => import('@/pages/c3s/GateKeeperActivityPage'), 'GateKeeperActivityPage');
+const GateKeeperOccupancyPage = lazyWithRetry(() => import('@/pages/c3s/GateKeeperOccupancyPage'), 'GateKeeperOccupancyPage');
 
-const SecurityDashboard = React.lazy(() => import('@/pages/c3s/SecurityDashboard'));
-const SecurityIncidentsPage = React.lazy(() => import('@/pages/c3s/SecurityIncidentsPage'));
-const SecurityIncidentDetailPage = React.lazy(() => import('@/pages/c3s/SecurityIncidentDetailPage'));
-const SecurityMapPage = React.lazy(() => import('@/pages/c3s/SecurityMapPage'));
+const SecurityDashboard = lazyWithRetry(() => import('@/pages/c3s/SecurityDashboard'), 'SecurityDashboard');
+const SecurityIncidentsPage = lazyWithRetry(() => import('@/pages/c3s/SecurityIncidentsPage'), 'SecurityIncidentsPage');
+const SecurityIncidentDetailPage = lazyWithRetry(() => import('@/pages/c3s/SecurityIncidentDetailPage'), 'SecurityIncidentDetailPage');
+const SecurityMapPage = lazyWithRetry(() => import('@/pages/c3s/SecurityMapPage'), 'SecurityMapPage');
 
-const ControlRoomDashboard = React.lazy(() => import('@/pages/c3s/ControlRoomDashboard'));
-const ControlRoomIncidentsPage = React.lazy(() => import('@/pages/c3s/ControlRoomIncidentsPage'));
-const ControlRoomMapPage = React.lazy(() => import('@/pages/c3s/ControlRoomMapPage'));
-const ControlRoomCamerasPage = React.lazy(() => import('@/pages/c3s/ControlRoomCamerasPage'));
-const ControlRoomOccupancyPage = React.lazy(() => import('@/pages/c3s/ControlRoomOccupancyPage'));
+const ControlRoomDashboard = lazyWithRetry(() => import('@/pages/c3s/ControlRoomDashboard'), 'ControlRoomDashboard');
+const ControlRoomIncidentsPage = lazyWithRetry(() => import('@/pages/c3s/ControlRoomIncidentsPage'), 'ControlRoomIncidentsPage');
+const ControlRoomMapPage = lazyWithRetry(() => import('@/pages/c3s/ControlRoomMapPage'), 'ControlRoomMapPage');
+const ControlRoomCamerasPage = lazyWithRetry(() => import('@/pages/c3s/ControlRoomCamerasPage'), 'ControlRoomCamerasPage');
+const ControlRoomOccupancyPage = lazyWithRetry(() => import('@/pages/c3s/ControlRoomOccupancyPage'), 'ControlRoomOccupancyPage');
 
-const AdminDashboard = React.lazy(() => import('@/pages/c3s/AdminDashboard'));
-const AdminUsersPage = React.lazy(() => import('@/pages/c3s/AdminUsersPage'));
-const AdminGatesPage = React.lazy(() => import('@/pages/c3s/AdminGatesPage'));
-const AdminCamerasPage = React.lazy(() => import('@/pages/c3s/AdminCamerasPage'));
-const AdminIncidentsPage = React.lazy(() => import('@/pages/c3s/AdminIncidentsPage'));
-const AdminAnalyticsPage = React.lazy(() => import('@/pages/c3s/AdminAnalyticsPage'));
-const AdminAuditPage = React.lazy(() => import('@/pages/c3s/AdminAuditPage'));
+const AdminDashboard = lazyWithRetry(() => import('@/pages/c3s/AdminDashboard'), 'AdminDashboard');
+const AdminUsersPage = lazyWithRetry(() => import('@/pages/c3s/AdminUsersPage'), 'AdminUsersPage');
+const AdminGatesPage = lazyWithRetry(() => import('@/pages/c3s/AdminGatesPage'), 'AdminGatesPage');
+const AdminCamerasPage = lazyWithRetry(() => import('@/pages/c3s/AdminCamerasPage'), 'AdminCamerasPage');
+const AdminIncidentsPage = lazyWithRetry(() => import('@/pages/c3s/AdminIncidentsPage'), 'AdminIncidentsPage');
+const AdminAnalyticsPage = lazyWithRetry(() => import('@/pages/c3s/AdminAnalyticsPage'), 'AdminAnalyticsPage');
+const AdminAuditPage = lazyWithRetry(() => import('@/pages/c3s/AdminAuditPage'), 'AdminAuditPage');
 
-const C3SSettingsPage = React.lazy(() => import('@/pages/c3s/C3SSettingsPage'));
-const C3SProfilePage = React.lazy(() => import('@/pages/c3s/C3SProfilePage'));
-const C3SNotificationsPage = React.lazy(() => import('@/pages/c3s/C3SNotificationsPage'));
+const C3SSettingsPage = lazyWithRetry(() => import('@/pages/c3s/C3SSettingsPage'), 'C3SSettingsPage');
+const C3SProfilePage = lazyWithRetry(() => import('@/pages/c3s/C3SProfilePage'), 'C3SProfilePage');
+const C3SNotificationsPage = lazyWithRetry(() => import('@/pages/c3s/C3SNotificationsPage'), 'C3SNotificationsPage');
 
-// Preserved Legacy Pages
-const LandingPage = React.lazy(() => import('@/pages/Landing/LandingPage'));
-const MapPage = React.lazy(() => import('@/pages/Map/MapPage'));
-const OperationsPage = React.lazy(() => import('@/pages/Operations/OperationsPage'));
-const SupportPage = React.lazy(() => import('@/pages/Support/SupportPage'));
-const DevelopersPage = React.lazy(() => import('@/pages/Developers/DevelopersPage'));
-const NotFoundPage = React.lazy(() => import('@/pages/404'));
+// Preserved Legacy Pages & Error Pages
+const LandingPage = lazyWithRetry(() => import('@/pages/Landing/LandingPage'), 'LandingPage');
+const MapPage = lazyWithRetry(() => import('@/pages/Map/MapPage'), 'MapPage');
+const OperationsPage = lazyWithRetry(() => import('@/pages/Operations/OperationsPage'), 'OperationsPage');
+const SupportPage = lazyWithRetry(() => import('@/pages/Support/SupportPage'), 'SupportPage');
+const DevelopersPage = lazyWithRetry(() => import('@/pages/Developers/DevelopersPage'), 'DevelopersPage');
+const NotFoundPage = lazyWithRetry(() => import('@/pages/404'), 'NotFoundPage');
+const AccessDeniedPage = lazyWithRetry(() => import('@/pages/error/AccessDeniedPage'), 'AccessDeniedPage');
+const SystemErrorPage = lazyWithRetry(() => import('@/pages/error/SystemErrorPage'), 'SystemErrorPage');
 
 const LoadingFallback = () => (
   <div className="w-screen h-screen flex flex-col items-center justify-center bg-[#0B1020] text-slate-200">
@@ -133,6 +136,11 @@ export default function App() {
           <Route path="/settings" element={<C3SSettingsPage />} />
           <Route path="/profile" element={<C3SProfilePage />} />
           <Route path="/notifications" element={<C3SNotificationsPage />} />
+
+          {/* Error & Diagnostic Pages */}
+          <Route path="/403" element={<AccessDeniedPage />} />
+          <Route path="/500" element={<SystemErrorPage />} />
+          <Route path="/404" element={<NotFoundPage />} />
 
           {/* Additional Features */}
           <Route path="/map" element={<MapPage />} />

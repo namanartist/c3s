@@ -1,5 +1,6 @@
+// src/components/ui/ErrorBoundary.tsx
 import React, { Component, type ErrorInfo, type ReactNode } from 'react';
-import { ShieldAlert, RefreshCw, Home, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
+import { ShieldAlert, RefreshCw, Home, Trash2, ChevronDown, ChevronUp, AlertTriangle, Terminal } from 'lucide-react';
 
 interface Props {
   children: ReactNode;
@@ -11,6 +12,7 @@ interface State {
   error: Error | null;
   errorInfo: ErrorInfo | null;
   showDetails: boolean;
+  isAutoRecovering: boolean;
 }
 
 export class ErrorBoundary extends Component<Props, State> {
@@ -18,7 +20,8 @@ export class ErrorBoundary extends Component<Props, State> {
     hasError: false,
     error: null,
     errorInfo: null,
-    showDetails: false
+    showDetails: false,
+    isAutoRecovering: false
   };
 
   public static getDerivedStateFromError(error: Error): Partial<State> {
@@ -28,6 +31,28 @@ export class ErrorBoundary extends Component<Props, State> {
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('C3S System Error caught by ErrorBoundary:', error, errorInfo);
     this.setState({ errorInfo });
+
+    // Detect stale Vite deployment chunks (common after pushing new builds)
+    const errorMsg = error?.message || '';
+    const isChunkMismatch =
+      errorMsg.includes('Failed to fetch dynamically imported module') ||
+      errorMsg.includes('error loading dynamically imported module') ||
+      errorMsg.includes('Importing a module script failed');
+
+    if (isChunkMismatch && typeof window !== 'undefined') {
+      const lastAutoReload = Number(sessionStorage.getItem('c3s_auto_chunk_recovery') || 0);
+      const now = Date.now();
+
+      // Only auto-reload if not already reloaded in the last 15 seconds
+      if (now - lastAutoReload > 15000) {
+        sessionStorage.setItem('c3s_auto_chunk_recovery', String(now));
+        this.setState({ isAutoRecovering: true });
+        console.warn('[C3S Error Boundary]: Auto-recovering from stale deployment chunk...');
+        setTimeout(() => {
+          window.location.reload();
+        }, 300);
+      }
+    }
   }
 
   private handleReset = () => {
@@ -35,13 +60,18 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleHardReload = () => {
-    window.location.reload();
+    // Clear chunk cache and reload with fresh cache-buster
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem('c3s_auto_chunk_recovery');
+      window.location.reload();
+    }
   };
 
   private handleClearStorageAndReset = () => {
     try {
-      // Clear C3S specific session/state while keeping auth if possible
       sessionStorage.clear();
+      localStorage.removeItem('c3s_security_state_v1');
+      localStorage.removeItem('c3s-session');
       localStorage.removeItem('c3s-user-movement-status');
       localStorage.removeItem('c3s-movement-ledger');
       localStorage.removeItem('c3s-consistency-alert');
@@ -52,12 +82,30 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   public render() {
+    if (this.state.isAutoRecovering) {
+      return (
+        <div className="min-h-screen w-full bg-[#070B14] text-slate-100 flex flex-col items-center justify-center p-6 text-center select-none font-sans">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-500 border-t-transparent shadow-lg shadow-blue-500/20" />
+          <p className="mt-4 font-mono text-xs text-blue-400 font-bold uppercase tracking-wider">
+            SYNCHRONIZING LATEST DEPLOYMENT BUNDLE...
+          </p>
+          <p className="mt-1 text-[11px] text-slate-500">
+            Detected updated campus security assets. Re-initializing terminal...
+          </p>
+        </div>
+      );
+    }
+
     if (this.state.hasError) {
       if (this.props.fallback) {
         return this.props.fallback;
       }
 
-      const errorMessage = this.state.error?.message || 'An unexpected runtime anomaly occurred in the tactical display subsystem.';
+      const errorMessage =
+        this.state.error?.message || 'An unexpected runtime anomaly occurred in the tactical display subsystem.';
+      const isChunkError =
+        errorMessage.includes('Failed to fetch dynamically imported module') ||
+        errorMessage.includes('error loading dynamically imported module');
 
       return (
         <div className="min-h-screen w-full bg-[#070B14] text-slate-100 flex items-center justify-center p-6 select-none font-sans relative overflow-hidden">
@@ -65,13 +113,14 @@ export class ErrorBoundary extends Component<Props, State> {
           <div
             className="absolute inset-0 pointer-events-none opacity-20"
             style={{
-              backgroundImage: 'radial-gradient(#2563eb 1px, transparent 1px), radial-gradient(#1e293b 1px, #070B14 1px)',
+              backgroundImage:
+                'radial-gradient(#2563eb 1px, transparent 1px), radial-gradient(#1e293b 1px, #070B14 1px)',
               backgroundSize: '40px 40px',
               backgroundPosition: '0 0, 20px 20px'
             }}
           />
 
-          <div className="max-w-xl w-full relative z-10 rounded-3xl border border-red-500/30 bg-[#0B1020]/95 backdrop-blur-2xl p-8 shadow-2xl shadow-red-950/40">
+          <div className="max-w-xl w-full relative z-10 rounded-3xl border border-red-500/30 bg-[#0B1020]/95 backdrop-blur-2xl p-6 sm:p-8 shadow-2xl shadow-red-950/40">
             {/* Status Radar Beacon */}
             <div className="flex items-center gap-3 mb-6 pb-5 border-b border-white/10">
               <div className="w-12 h-12 rounded-2xl bg-red-600/20 border border-red-500/40 flex items-center justify-center text-red-400 shrink-0 shadow-lg shadow-red-600/20">
@@ -85,18 +134,23 @@ export class ErrorBoundary extends Component<Props, State> {
                   </span>
                 </div>
                 <h1 className="text-xl font-black text-white uppercase tracking-tight">
-                  DISPLAY ANOMALY PREVENTED
+                  {isChunkError ? 'DEPLOYMENT ASSET UPDATED' : 'DISPLAY ANOMALY PREVENTED'}
                 </h1>
               </div>
             </div>
 
-            <p className="text-sm text-slate-300 leading-relaxed mb-6 font-medium">
-              The C3S security engine caught an unhandled display exception. The core navigation and emergency mesh remain protected. Choose an action below to restore interface stability:
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6 font-medium">
+              {isChunkError
+                ? 'A newer system release was deployed while this terminal session was open. The requested code chunk was replaced. Click below to synchronize with the live deployment:'
+                : 'The C3S security engine caught an unhandled display exception. The core navigation and emergency mesh remain protected. Choose an action below to restore interface stability:'}
             </p>
 
             {/* Error Message Box */}
             <div className="rounded-xl bg-red-950/40 border border-red-900/50 p-4 mb-6 font-mono text-xs text-red-200 break-words">
-              <span className="text-red-400 font-bold block mb-1 uppercase text-[10px]">Diagnostics Code:</span>
+              <div className="flex items-center gap-1.5 text-red-400 font-bold mb-1 uppercase text-[10px]">
+                <Terminal className="w-3.5 h-3.5" />
+                <span>Diagnostics Code:</span>
+              </div>
               {errorMessage}
             </div>
 
@@ -104,8 +158,17 @@ export class ErrorBoundary extends Component<Props, State> {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
               <button
                 type="button"
+                onClick={this.handleHardReload}
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-blue-600/20 active:scale-95 cursor-pointer"
+              >
+                <RefreshCw className="w-4 h-4" />
+                <span>Sync Latest Version</span>
+              </button>
+
+              <button
+                type="button"
                 onClick={this.handleReset}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-blue-600/20 active:scale-95"
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 border border-white/10 font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer"
               >
                 <RefreshCw className="w-4 h-4" />
                 <span>Re-Initialize View</span>
@@ -113,17 +176,10 @@ export class ErrorBoundary extends Component<Props, State> {
 
               <button
                 type="button"
-                onClick={this.handleHardReload}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 border border-white/10 font-bold text-xs uppercase tracking-wider transition-all active:scale-95"
-              >
-                <RefreshCw className="w-4 h-4" />
-                <span>Hard Reload Terminal</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => { window.location.href = '/student'; }}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs uppercase tracking-wider transition-all active:scale-95"
+                onClick={() => {
+                  window.location.href = '/student';
+                }}
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer"
               >
                 <Home className="w-4 h-4 text-slate-400" />
                 <span>Return to Student Base</span>
@@ -132,7 +188,7 @@ export class ErrorBoundary extends Component<Props, State> {
               <button
                 type="button"
                 onClick={this.handleClearStorageAndReset}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-amber-600/20 hover:bg-amber-600/30 text-amber-200 border border-amber-500/30 font-bold text-xs uppercase tracking-wider transition-all active:scale-95"
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-amber-600/20 hover:bg-amber-600/30 text-amber-200 border border-amber-500/30 font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer"
               >
                 <Trash2 className="w-4 h-4 text-amber-400" />
                 <span>Reset Local Cache</span>
@@ -145,7 +201,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 <button
                   type="button"
                   onClick={() => this.setState((prev) => ({ showDetails: !prev.showDetails }))}
-                  className="flex items-center justify-between w-full text-slate-400 hover:text-slate-200 text-xs font-semibold py-2 transition"
+                  className="flex items-center justify-between w-full text-slate-400 hover:text-slate-200 text-xs font-semibold py-2 transition cursor-pointer"
                 >
                   <span>Technical Trace Log</span>
                   {this.state.showDetails ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
