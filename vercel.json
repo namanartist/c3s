@@ -1,66 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "services": {
-    "app": {
-      "root": ".",
-      "framework": "vite",
-      "bindings": [
-        {
-          "type": "service",
-          "service": "unimap",
-          "format": "url",
-          "env": "UNIMAP_SERVICE_URL"
-        }
-      ]
-    },
-    "unimap": {
-      "root": "UniMap-V2-main",
-      "framework": "vite"
-    }
-  },
   "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": {
-        "service": "app",
-        "path": "/api/$1"
-      }
-    },
-    {
-      "source": "/assets/(.*)",
-      "destination": {
-        "service": "app",
-        "path": "/assets/$1"
-      }
-    },
-    {
-      "source": "/maps/(.*)",
-      "destination": {
-        "service": "app",
-        "path": "/maps/$1"
-      }
-    },
-    {
-      "source": "/videos/(.*)",
-      "destination": {
-        "service": "app",
-        "path": "/videos/$1"
-      }
-    },
-    {
-      "source": "/(.*\\.[a-zA-Z0-9]+)",
-      "destination": {
-        "service": "app",
-        "path": "/$1"
-      }
-    },
-    {
-      "source": "/(.*)",
-      "destination": {
-        "service": "app",
-        "path": "/index.html"
-      }
-    }
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
     {

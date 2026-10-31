@@ -59,10 +59,18 @@ export class ErrorBoundary extends Component<Props, State> {
     this.setState({ hasError: false, error: null, errorInfo: null });
   };
 
-  private handleHardReload = () => {
-    // Clear chunk cache and reload with fresh cache-buster
+  private handleHardReload = async () => {
+    // Clear chunk cache, service worker caches, and reload with fresh cache-buster
     if (typeof window !== 'undefined') {
       sessionStorage.removeItem('c3s_auto_chunk_recovery');
+      if ('caches' in window) {
+        try {
+          const keys = await window.caches.keys();
+          await Promise.all(keys.map((k) => window.caches.delete(k)));
+        } catch {
+          // non-fatal
+        }
+      }
       window.location.reload();
     }
   };

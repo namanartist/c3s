@@ -1,5 +1,5 @@
 // public/sw.js — Robust C3S Service Worker
-const CACHE_NAME = 'c3s-shell-v2';
+const CACHE_NAME = 'c3s-shell-v3';
 const SHELL_ASSETS = ['/', '/favicon.svg'];
 
 self.addEventListener('install', (event) => {
@@ -35,18 +35,20 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Never intercept Vite development endpoints or API routes
+  // Never intercept Vite endpoints, API routes, or hashed build assets
+  // Hashed build assets are served directly by Vercel Edge with immutable cache headers
   if (
     url.pathname.startsWith('/@') ||
     url.pathname.startsWith('/src/') ||
     url.pathname.startsWith('/node_modules/') ||
     url.pathname.startsWith('/api/') ||
+    url.pathname.startsWith('/assets/') ||
     url.pathname.includes('hot-update')
   ) {
     return;
   }
 
-  // Network-first with cache fallback
+  // Network-first with cache fallback for top-level pages
   event.respondWith(
     fetch(event.request)
       .then((networkResponse) => {
@@ -70,7 +72,6 @@ self.addEventListener('fetch', (event) => {
           if (fallbackHtml) return fallbackHtml;
         }
 
-        // Return a clean offline error response rather than crashing with corrupted MIME
         return new Response('Offline resource unavailable', {
           status: 503,
           statusText: 'Service Unavailable',

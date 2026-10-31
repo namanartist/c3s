@@ -7,9 +7,9 @@ import React from 'react';
  * an older session, accessing a new route can throw:
  * "Failed to fetch dynamically imported module: ..."
  * 
- * This wrapper catches that specific deployment mismatch error and executes a
- * single clean cache-busting reload so the user seamlessly receives the latest app
- * bundle without crashing or getting stuck.
+ * This wrapper catches that specific deployment mismatch error, purges stale caches,
+ * and executes a single clean cache-busting reload so the user seamlessly receives
+ * the latest app bundle without crashing or getting stuck.
  */
 export function lazyWithRetry<T extends React.ComponentType<any>>(
   factory: () => Promise<{ default: T }>,
@@ -36,7 +36,18 @@ export function lazyWithRetry<T extends React.ComponentType<any>>(
       if (isChunkLoadError && typeof window !== 'undefined' && !alreadyReloaded) {
         console.warn(`[C3S Recovery]: Chunk hash mismatch detected for ${componentName}. Auto-refreshing to load latest deployment assets...`);
         window.sessionStorage.setItem(storageKey, 'true');
-        // Force refresh to pull fresh index.html with new asset hashes
+
+        // Evict any stale service worker or cache storage entries
+        if ('caches' in window) {
+          try {
+            const cacheNames = await window.caches.keys();
+            await Promise.all(cacheNames.map((name) => window.caches.delete(name)));
+          } catch {
+            // non-fatal
+          }
+        }
+
+        // Force cache-busting reload
         window.location.reload();
         return new Promise<{ default: T }>(() => {});
       }
@@ -46,4 +57,3 @@ export function lazyWithRetry<T extends React.ComponentType<any>>(
     }
   });
 }
-
