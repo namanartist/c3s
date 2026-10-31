@@ -116,46 +116,46 @@ export class ErrorBoundary extends Component<Props, State> {
         errorMessage.includes('error loading dynamically imported module');
 
       return (
-        <div className="min-h-screen w-full bg-[#070B14] text-slate-100 flex items-center justify-center p-6 select-none font-sans relative overflow-hidden">
+        <div className="min-h-screen w-full bg-slate-50 dark:bg-[#070B14] text-slate-900 dark:text-slate-100 flex items-center justify-center p-6 select-none font-sans relative overflow-hidden transition-colors">
           {/* Ambient Cyber Grid Background */}
           <div
-            className="absolute inset-0 pointer-events-none opacity-20"
+            className="absolute inset-0 pointer-events-none opacity-15 dark:opacity-20"
             style={{
               backgroundImage:
-                'radial-gradient(#2563eb 1px, transparent 1px), radial-gradient(#1e293b 1px, #070B14 1px)',
+                'radial-gradient(#2563eb 1px, transparent 1px), radial-gradient(#1e293b 1px, transparent 1px)',
               backgroundSize: '40px 40px',
               backgroundPosition: '0 0, 20px 20px'
             }}
           />
 
-          <div className="max-w-xl w-full relative z-10 rounded-3xl border border-red-500/30 bg-[#0B1020]/95 backdrop-blur-2xl p-6 sm:p-8 shadow-2xl shadow-red-950/40">
+          <div className="max-w-xl w-full relative z-10 rounded-3xl border border-slate-200 dark:border-red-500/30 bg-white/95 dark:bg-[#0B1020]/95 backdrop-blur-2xl p-6 sm:p-8 shadow-xl dark:shadow-2xl shadow-slate-200/50 dark:shadow-red-950/40">
             {/* Status Radar Beacon */}
-            <div className="flex items-center gap-3 mb-6 pb-5 border-b border-white/10">
-              <div className="w-12 h-12 rounded-2xl bg-red-600/20 border border-red-500/40 flex items-center justify-center text-red-400 shrink-0 shadow-lg shadow-red-600/20">
+            <div className="flex items-center gap-3 mb-6 pb-5 border-b border-slate-200 dark:border-white/10">
+              <div className="w-12 h-12 rounded-2xl bg-red-500/15 dark:bg-red-600/20 border border-red-500/30 dark:border-red-500/40 flex items-center justify-center text-red-500 dark:text-red-400 shrink-0 shadow-lg shadow-red-500/20">
                 <ShieldAlert className="w-6 h-6 animate-pulse" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
-                  <span className="text-[10px] font-black tracking-widest text-red-400 uppercase">
+                  <span className="text-[10px] font-black tracking-widest text-red-600 dark:text-red-400 uppercase">
                     TACTICAL RECOVERY SUBSYSTEM
                   </span>
                 </div>
-                <h1 className="text-xl font-black text-white uppercase tracking-tight">
+                <h1 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
                   {isChunkError ? 'DEPLOYMENT ASSET UPDATED' : 'DISPLAY ANOMALY PREVENTED'}
                 </h1>
               </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6 font-medium">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6 font-medium">
               {isChunkError
                 ? 'A newer system release was deployed while this terminal session was open. The requested code chunk was replaced. Click below to synchronize with the live deployment:'
                 : 'The C3S security engine caught an unhandled display exception. The core navigation and emergency mesh remain protected. Choose an action below to restore interface stability:'}
             </p>
 
             {/* Error Message Box */}
-            <div className="rounded-xl bg-red-950/40 border border-red-900/50 p-4 mb-6 font-mono text-xs text-red-200 break-words">
-              <div className="flex items-center gap-1.5 text-red-400 font-bold mb-1 uppercase text-[10px]">
+            <div className="rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 p-4 mb-6 font-mono text-xs text-red-900 dark:text-red-200 break-words shadow-xs">
+              <div className="flex items-center gap-1.5 text-red-600 dark:text-red-400 font-bold mb-1 uppercase text-[10px]">
                 <Terminal className="w-3.5 h-3.5" />
                 <span>Diagnostics Code:</span>
               </div>
@@ -176,7 +176,7 @@ export class ErrorBoundary extends Component<Props, State> {
               <button
                 type="button"
                 onClick={this.handleReset}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 border border-white/10 font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer"
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-white/10 font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer shadow-xs"
               >
                 <RefreshCw className="w-4 h-4" />
                 <span>Retry View</span>
@@ -187,18 +187,18 @@ export class ErrorBoundary extends Component<Props, State> {
                 onClick={() => {
                   window.location.href = '/student';
                 }}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer"
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer shadow-xs"
               >
-                <Home className="w-4 h-4 text-slate-400" />
+                <Home className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                 <span>Return to Student Base</span>
               </button>
 
               <button
                 type="button"
                 onClick={this.handleClearStorageAndReset}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-amber-600/20 hover:bg-amber-600/30 text-amber-200 border border-amber-500/30 font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer"
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-amber-50 hover:bg-amber-100 dark:bg-amber-600/20 dark:hover:bg-amber-600/30 text-amber-800 dark:text-amber-200 border border-amber-200 dark:border-amber-500/30 font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer shadow-xs"
               >
-                <Trash2 className="w-4 h-4 text-amber-400" />
+                <Trash2 className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                 <span>Reset Local Cache</span>
               </button>
             </div>

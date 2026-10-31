@@ -9,8 +9,8 @@ import {
   QrCode,
   ShieldCheck,
   Radio,
-  Sliders,
-  } from 'lucide-react';
+  Sliders
+} from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
 import { type C3SRole } from '@/lib/mock-data/users';
@@ -60,11 +60,12 @@ export default function C3SLoginPage() {
     <div className="relative min-h-screen w-full bg-[#F8FAFC] dark:bg-[#070B14] text-slate-800 dark:text-slate-100 flex flex-col justify-between select-none transition-colors duration-200">
       {/* Subtle Architectural Grid Lines */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-40"
+        className="pointer-events-none absolute inset-0 opacity-20 dark:opacity-10"
         style={{
           backgroundImage:
-            'linear-gradient(to right, #E2E8F0 1px, transparent 1px), linear-gradient(to bottom, #E2E8F0 1px, transparent 1px)',
-          backgroundSize: '28px 28px'
+            'radial-gradient(#2563eb 1px, transparent 1px), radial-gradient(#94a3b8 1px, transparent 1px)',
+          backgroundSize: '32px 32px',
+          backgroundPosition: '0 0, 16px 16px'
         }}
       />
 
@@ -80,11 +81,11 @@ export default function C3SLoginPage() {
                 <span className="text-sm font-black tracking-wider text-slate-900 dark:text-white uppercase">
                   C3S Campus Defense Portal
                 </span>
-                <span className="rounded bg-blue-50 px-2 py-0.5 text-[10px] font-bold text-blue-700 border border-blue-200">
+                <span className="rounded bg-blue-50 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300 px-2 py-0.5 text-[10px] font-bold border border-blue-200 dark:border-blue-500/30">
                   INSTITUTIONAL
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500">Madhav Institute of Technology &amp; Science • Gwalior</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">Madhav Institute of Technology &amp; Science • Gwalior</p>
             </div>
           </Link>
 
@@ -92,7 +93,7 @@ export default function C3SLoginPage() {
             <ThemeToggle />
             <Link
               to="/"
-              className="text-xs font-bold text-slate-600 hover:text-blue-600 transition"
+              className="text-xs font-bold text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition"
             >
               ← Back to Overview
             </Link>
@@ -107,7 +108,7 @@ export default function C3SLoginPage() {
           <div className="lg:col-span-6 bg-white dark:bg-slate-900/90 rounded-3xl border border-slate-200 dark:border-white/10 p-6 sm:p-8 shadow-xl transition-colors">
             <div className="flex items-center gap-2.5">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[10px] font-mono font-black uppercase tracking-wider text-slate-500">
+              <span className="text-[10px] font-mono font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 CAMPUS SSO AUTHENTICATION
               </span>
             </div>
@@ -115,7 +116,7 @@ export default function C3SLoginPage() {
             <h1 className="mt-2 text-2xl font-black tracking-tight text-slate-900 dark:text-white">
               Sign In to C3S
             </h1>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
               Access turn-by-turn indoor routing, surveillance feeds, gate logs, or incident dispatch.
             </p>
 
@@ -163,7 +164,7 @@ export default function C3SLoginPage() {
                         onClick={() => handleQuickRoleSelect(role)}
                         className={`flex items-center gap-1.5 p-2 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
                           isSelected
-                            ? 'border-blue-600 bg-blue-50 text-blue-700 shadow-xs'
+                            ? 'border-blue-600 bg-blue-50 text-blue-700 dark:bg-blue-600 dark:text-white shadow-xs'
                             : 'border-slate-200 dark:border-white/10 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'
                         }`}
                       >
@@ -191,16 +192,16 @@ export default function C3SLoginPage() {
           {/* Right Direct RBAC Launchpad Column */}
           <div className="lg:col-span-6 space-y-4">
             <div className="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/90 p-6 shadow-xl transition-colors">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/10">
                 <div>
                   <h2 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">
                     Instant Operational RBAC Launchpad
                   </h2>
-                  <p className="text-xs text-slate-500 mt-0.5">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                     1-Click direct role activation for examiners, operators, and staff
                   </p>
                 </div>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-50 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30">
                   LIVE PASS
                 </span>
               </div>
@@ -213,7 +214,7 @@ export default function C3SLoginPage() {
                     <div
                       key={role}
                       onClick={() => handleDirectLaunch(role)}
-                      className="group flex items-center justify-between p-3 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50/60 dark:bg-slate-800/50 hover:bg-blue-50/60 dark:hover:bg-slate-800 hover:border-blue-300 dark:hover:border-blue-500/40 transition-all cursor-pointer"
+                      className="group flex items-center justify-between p-3 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50/60 dark:bg-slate-800/50 hover:bg-blue-50/60 dark:hover:bg-slate-800 hover:border-blue-300 dark:hover:border-blue-500/40 transition-all cursor-pointer shadow-2xs"
                     >
                       <div className="flex items-center gap-3">
                         <div className={`p-2 rounded-xl ${def.badgeBg} ${def.badgeText} border ${def.badgeBorder}`}>
@@ -221,20 +222,20 @@ export default function C3SLoginPage() {
                         </div>
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="text-xs font-black text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                            <span className="text-xs font-black text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                               {def.title}
                             </span>
-                            <span className="text-[10px] font-mono text-slate-400">
+                            <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                               {user.universityId}
                             </span>
                           </div>
-                          <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5">
+                          <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
                             {def.desc}
                           </p>
                         </div>
                       </div>
 
-                      <div className="shrink-0 flex items-center gap-1 text-xs font-bold text-blue-600 opacity-80 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">
+                      <div className="shrink-0 flex items-center gap-1 text-xs font-bold text-blue-600 dark:text-blue-400 opacity-80 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">
                         <span>Launch</span>
                         <ArrowRight className="h-3.5 w-3.5" />
                       </div>
@@ -245,12 +246,12 @@ export default function C3SLoginPage() {
             </div>
 
             {/* Compliance Note */}
-            <div className="p-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 text-xs text-slate-500 dark:text-slate-400 font-mono space-y-1">
-              <div className="flex items-center gap-2 text-slate-700 font-bold">
-                <Shield className="w-3.5 h-3.5 text-blue-600" />
+            <div className="p-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 text-xs text-slate-500 dark:text-slate-400 font-mono space-y-1 shadow-xs transition-colors">
+              <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-bold">
+                <Shield className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                 <span>Security Notice</span>
               </div>
-              <p className="text-[11px] text-slate-500">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
                 All campus entries, SOS triggers, and surveillance telemetry are logged with cryptographic verification and stored locally offline.
               </p>
             </div>

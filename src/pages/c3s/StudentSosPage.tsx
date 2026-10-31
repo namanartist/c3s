@@ -110,7 +110,7 @@ export default function StudentSosPage() {
               </span>
               <button
                 onClick={handleNavigateToMap}
-                className="flex items-center gap-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 px-2.5 py-1 text-xs font-semibold transition-colors"
+                className="flex items-center gap-1 rounded-lg bg-blue-50 hover:bg-blue-100 dark:bg-blue-600/20 dark:hover:bg-blue-600/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30 px-2.5 py-1 text-xs font-semibold transition-colors cursor-pointer shadow-xs"
               >
                 <Navigation className="h-3 w-3" />
                 Open Full Navigation
