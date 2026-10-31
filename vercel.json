@@ -1,7 +1,30 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "app": {
+      "root": ".",
+      "framework": "vite",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "unimap-v2-main",
+          "format": "url",
+          "env": "UNIMAP_SERVICE_URL"
+        }
+      ]
+    },
+    "unimap-v2-main": {
+      "root": "UniMap-V2-main",
+      "framework": "vite"
+    }
+  },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "app"
+      }
+    }
   ],
   "headers": [
     {
