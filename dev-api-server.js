@@ -36,6 +36,15 @@ function loadEnv() {
 loadEnv();
 
 const mongoUrl = process.env.MONGO_URL;
+
+function resolveDbName(urlStr, fallback = 'UniMap') {
+  try {
+    const parsed = new URL(urlStr.replace(/^mongodb\+srv:\/\//, 'http://').replace(/^mongodb:\/\//, 'http://'));
+    const pathName = parsed.pathname.replace(/^\//, '').split('?')[0];
+    if (pathName) return pathName;
+  } catch {}
+  return fallback;
+}
 let client = null;
 let db = null;
 
@@ -52,8 +61,9 @@ async function getDb() {
   if (!db) {
     try {
       await client.connect();
-      db = client.db('UniMap');
-      console.log('Connected to MongoDB UniMap database');
+      const targetDb = resolveDbName(mongoUrl, 'UniMap');
+      db = client.db(targetDb);
+      console.log(`Connected to MongoDB [${db.databaseName}] database`);
     } catch (e) {
       console.warn('MongoDB connection failed, running in memory-resilient mode:', e.message);
       return null;
@@ -66,6 +76,7 @@ async function getDb() {
 const inMemoryGateLogs = [];
 const inMemoryAuditLogs = [];
 const inMemoryPasses = [];
+const inMemorySos = [];
 
 function readBody(req) {
   return new Promise((resolve) => {
@@ -392,6 +403,86 @@ const server = http.createServer(async (req, res) => {
         res.writeHead(405, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: 'Method Not Allowed' }));
       }
+    }
+    // ----------------------------------------------------
+    // GET /api/db-status
+    // ----------------------------------------------------
+    else if (pathname === '/api/db-status') {
+      if (activeDb) {
+        try {
+          const cols = (await activeDb.listCollections().toArray()).map(c => c.name);
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, connected: true, database: activeDb.databaseName, collections: cols }));
+        } catch (e) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, connected: false, error: e.message }));
+        }
+      } else {
+        res.writeHead(503, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, connected: false, message: 'MongoDB not connected. Running in memory fallback mode.' }));
+      }
+    }
+    // ----------------------------------------------------
+    // GET & POST /api/sos
+    // ----------------------------------------------------
+    else if (pathname === '/api/sos') {
+      if (req.method === 'GET') {
+        let items = [];
+        if (activeDb) {
+          try {
+            items = await activeDb.collection('sos_incidents').find({}, { projection: { _id: 0 } }).sort({ timestamp: -1 }).limit(50).toArray();
+          } catch {}
+        }
+        if (items.length === 0) items = inMemorySos;
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, data: items }));
+      } else if (req.method === 'POST') {
+        const body = await readBody(req);
+        const incident = {
+          id: body.id || `sos_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+          category: body.category || 'medical',
+          severity: body.severity || 'critical',
+          title: body.title || '🚨 Campus SOS Incident',
+          description: body.description || 'Emergency SOS trigger received.',
+          map: body.map || 'Campus_Map',
+          floor: body.floor || 0,
+          x: body.x || 500,
+          y: body.y || 350,
+          lat: body.lat || 26.230752,
+          lng: body.lng || 78.205341,
+          nodeId: body.nodeId || null,
+          timestamp: Date.now(),
+          status: 'active',
+          reportedBy: body.reportedBy || 'Student'
+        };
+        inMemorySos.unshift(incident);
+        if (activeDb) {
+          try {
+            await activeDb.collection('sos_incidents').insertOne({ ...incident });
+          } catch {}
+        }
+        res.writeHead(201, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, incident }));
+      }
+    }
+    // ----------------------------------------------------
+    // POST /api/auth/login
+    // ----------------------------------------------------
+    else if (req.method === 'POST' && pathname === '/api/auth/login') {
+      const body = await readBody(req);
+      const email = body.email || '';
+      let user = null;
+      if (activeDb) {
+        try {
+          user = await activeDb.collection('users').findOne({ email: email.toLowerCase() }, { projection: { password: 0 } });
+        } catch {}
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({
+        success: true,
+        token: `c3s_token_${Date.now()}`,
+        user: user || { email, name: 'Campus User', role: 'STUDENT', universityId: body.universityId || 'BTCS2026-0842' }
+      }));
     } else {
       res.writeHead(404, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: 'Not Found' }));
