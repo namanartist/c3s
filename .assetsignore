@@ -1,4 +1,7 @@
 # Cloudflare Workers / Pages Asset Ignore
-# Exclude files exceeding 25 MiB limit
+# Exclude files exceeding 25 MiB limit or build artifacts
 *.mp4.bak
-20261030-1328-04.1738097.mp4
+*20261030*
+*.large.*
+*.jar
+*.war

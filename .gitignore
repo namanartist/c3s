@@ -26,3 +26,17 @@ dist-ssr
 .env
 
 .design_analysis
+
+# Cloudflare Wrangler & Build
+.wrangler
+.wrangler/
+
+# Java Target & Binaries
+target/
+backend/target/
+*.jar
+*.war
+
+# Large media archives & video backups
+*.mp4.bak
+*20261030*
