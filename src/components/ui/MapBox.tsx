@@ -1534,7 +1534,7 @@ export default function MapBox({
 
         {/* Floating Map Controls overlay */}
         {mapId && (
-          <div className="absolute right-4 bottom-6 z-20 flex flex-col items-end gap-3 pointer-events-none select-none">
+          <div className="absolute right-3 sm:right-4 bottom-20 sm:bottom-6 z-20 flex flex-col items-end gap-3 pointer-events-none select-none">
             {/* Building & Floor Selector (Horizontal Pill Bar) */}
             <div className="flex items-center bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-200/90 dark:border-white/10 p-1.5 gap-1.5 pointer-events-auto relative transition-colors">
               {/* Building Dropdown Trigger */}
@@ -1771,7 +1771,7 @@ export default function MapBox({
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-sm bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 rounded-2xl shadow-2xl p-4 pointer-events-auto"
+            className="absolute bottom-20 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-sm bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 rounded-2xl shadow-2xl p-4 pointer-events-auto"
           >
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-center gap-2.5 min-w-0">

@@ -5,6 +5,7 @@ import { Menu, PanelLeft, Home, Shield, School, HelpCircle } from 'lucide-react'
 import clgLogo from '@/assets/clg_logo.webp';
 import { useCampusNavigation } from '@/hooks/useCampusNavigation';
 import { useSafetyStore } from '@/store/safetyStore';
+import { useC3SStore } from '@/store/c3sStore';
 import { isProctorRole } from '@/lib/viewerRole';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 
@@ -14,19 +15,23 @@ export function MapHeader({ }: MapHeaderProps) {
   const navigate = useNavigate();
   const { isMobile, sidebarOpen, setSidebarOpen, isMenuOpen, setIsMenuOpen } = useCampusNavigation();
   const proctorMode = isProctorRole();
+  const currentRole = useC3SStore((s) => s.currentRole);
+  const isStudent = currentRole === 'STUDENT';
 
   if (isMobile) {
     return (
-      <div className="flex items-center gap-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl px-3 py-1.5 rounded-full shadow-lg border border-slate-200/90 dark:border-white/10 transition-colors pointer-events-auto">
+      <div className="flex items-center gap-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl px-2.5 py-1 rounded-full shadow-lg border border-slate-200/90 dark:border-white/10 transition-colors pointer-events-auto">
         <ThemeToggle />
-        <button
-          type="button"
-          onClick={() => useSafetyStore.getState().setSosModalOpen(true)}
-          className="px-3 py-1 rounded-full bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white font-black text-xs shadow-md shadow-red-500/30 active:scale-95 transition-all cursor-pointer animate-pulse"
-          title="Emergency SOS"
-        >
-          SOS
-        </button>
+        {!isStudent && (
+          <button
+            type="button"
+            onClick={() => useSafetyStore.getState().setSosModalOpen(true)}
+            className="px-3 py-1 rounded-full bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white font-black text-xs shadow-md shadow-red-500/30 active:scale-95 transition-all cursor-pointer animate-pulse"
+            title="Emergency SOS"
+          >
+            SOS
+          </button>
+        )}
       </div>
     );
   }

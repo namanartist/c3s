@@ -1,6 +1,7 @@
 // src/components/ui/MapLayout.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   Compass,
   MapPin,
@@ -14,6 +15,7 @@ import {
   Navigation as NavigationIcon,
   Layers,
   ChevronRight,
+  ChevronLeft,
   ChevronDown,
   ChevronUp,
   PanelLeftClose,
@@ -21,14 +23,26 @@ import {
   Footprints,
   Sparkles,
   ArrowRightLeft,
+  ArrowLeft,
+  ArrowRight,
   X,
   Search,
   CheckCircle2,
   AlertTriangle,
-  Users
+  Users,
+  Volume2,
+  VolumeX,
+  Accessibility,
+  LocateFixed,
+  Clock,
+  CornerUpLeft,
+  CornerUpRight,
+  ArrowUp,
+  ArrowDown
 } from 'lucide-react';
 import { useCampusNavigation } from '@/hooks/useCampusNavigation';
 import { useSafetyStore } from '@/store/safetyStore';
+import { useC3SStore } from '@/store/c3sStore';
 import { CctvSocDashboard } from '@/components/safety/CctvSocDashboard';
 import { SafetyAnalyticsDashboard } from '@/components/safety/SafetyAnalyticsDashboard';
 import { PatrolDispatchDashboard } from '@/components/safety/PatrolDispatchDashboard';
@@ -161,16 +175,124 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
     isNavigating,
     nodes,
     handleDestinationSelect,
+    handleDestinationClear,
+    handleCurrentLocationSelect,
+    handleCurrentLocationClear,
+    handleStartNavigation,
+    handleExitNavigation,
+    handleResetNavigation,
+    navigationDirections,
+    navigationSteps,
+    activeStepIndex,
+    setActiveStepIndex,
     floors,
     routeDistance,
-    routeDuration
+    routeDuration,
+    accessibleOnly,
+    setAccessibleOnly,
+    compassHeading,
+    useGpsAsStartLocation
   } = useCampusNavigation();
 
+  const [isVoiceEnabled, setIsVoiceEnabled] = useState(false);
+  const toggleVoice = () => setIsVoiceEnabled((prev) => !prev);
+
+  const currentRole = useC3SStore((s) => s.currentRole);
+  const isStudent = currentRole === 'STUDENT';
   const activeDashboard = useSafetyStore((s) => s.activeDashboard);
   const proctorMode = isProctorRole();
   const [activeTab, setActiveTab] = useState<SidebarTab>('route');
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [mobileDrawerHeight, setMobileDrawerHeight] = useState<'collapsed' | 'half' | 'full'>('collapsed');
+
+  // Mobile navigation state
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [mobileSearchField, setMobileSearchField] = useState<'destination' | 'start'>('destination');
+  const [mobileSearchQuery, setLocalMobileQuery] = useState('');
+  const [mobileCategoryFilter, setMobileCategoryFilter] = useState<'all' | 'classrooms' | 'labs' | 'amenities' | 'gates'>('all');
+
+  const renderGuidanceIcon = (direction?: string) => {
+    switch (direction) {
+      case 'left':
+        return <CornerUpLeft className="w-5 h-5 text-white" />;
+      case 'right':
+        return <CornerUpRight className="w-5 h-5 text-white" />;
+      case 'up':
+        return <ArrowUp className="w-5 h-5 text-white animate-pulse" />;
+      case 'down':
+        return <ArrowDown className="w-5 h-5 text-white animate-pulse" />;
+      case 'straight':
+      default:
+        return <ArrowUp className="w-5 h-5 text-white animate-pulse" />;
+    }
+  };
+
+  const mobileFilteredNodes = useMemo(() => {
+    let list = nodes.filter((n) => n.name && n.name.trim().length > 0);
+    if (isStudent) {
+      list = list.filter(
+        (n) =>
+          !n.id?.toLowerCase().includes('sos') &&
+          !n.name?.toLowerCase().includes('sos') &&
+          !n.id?.toLowerCase().includes('cctv')
+      );
+    }
+    if (mobileCategoryFilter === 'classrooms') {
+      list = list.filter(
+        (n) =>
+          n.category === 'Classroom' ||
+          n.category === 'Auditorium' ||
+          n.name?.toLowerCase().includes('classroom') ||
+          n.name?.toLowerCase().includes('hall') ||
+          n.name?.toLowerCase().includes('room')
+      );
+    } else if (mobileCategoryFilter === 'labs') {
+      list = list.filter(
+        (n) =>
+          n.category === 'Laboratory' ||
+          n.category === 'Academic' ||
+          n.name?.toLowerCase().includes('lab')
+      );
+    } else if (mobileCategoryFilter === 'gates') {
+      list = list.filter(
+        (n) => n.category === 'Gate' || n.name?.toLowerCase().includes('gate')
+      );
+    } else if (mobileCategoryFilter === 'amenities') {
+      list = list.filter(
+        (n) =>
+          n.category === 'Amenity' ||
+          n.name?.toLowerCase().includes('canteen') ||
+          n.name?.toLowerCase().includes('cafeteria') ||
+          n.name?.toLowerCase().includes('parking')
+      );
+    }
+    if (!mobileSearchQuery.trim()) {
+      return list.slice(0, 30);
+    }
+    const q = mobileSearchQuery.toLowerCase();
+    return list
+      .filter(
+        (n) =>
+          n.name?.toLowerCase().includes(q) ||
+          n.id?.toLowerCase().includes(q) ||
+          ((n as any).building && (n as any).building.toLowerCase().includes(q)) ||
+          ((n as any).category && (n as any).category.toLowerCase().includes(q))
+      )
+      .slice(0, 30);
+  }, [nodes, isStudent, mobileCategoryFilter, mobileSearchQuery]);
+
+  const handleSelectMobileNode = (node: any) => {
+    if (mobileSearchField === 'start') {
+      handleCurrentLocationSelect(node);
+    } else {
+      handleDestinationSelect(node);
+    }
+    if (node.map) {
+      setSelectedMapId(node.map);
+    }
+    setIsMobileSearchOpen(false);
+    setLocalMobileQuery('');
+  };
 
   // Automatically reveal the navigation drawer and focus the Route tab on desktop when navigating
   useEffect(() => {
@@ -545,91 +667,476 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
     </div>
   );
 
-  // MOBILE VIEW (< 768px) - Fullscreen, clean, zero sidebars
+  // MOBILE VIEW (< 768px) - Fullscreen map with dedicated Top Bar & Bottom Bar for navigation
   if (isMobile) {
+    const activeStep = navigationSteps[activeStepIndex] || null;
+    const currentInstruction = navigationDirections[0]?.instruction || 'Proceed toward destination along highlighted path';
+    const currentDirection = navigationDirections[0]?.direction || 'straight';
+    const currentDistance = navigationDirections[0]?.distance || '';
+
     return (
-      <div className="relative w-screen h-screen overflow-hidden bg-slate-50 dark:bg-[#070b14] select-none flex flex-col">
+      <div className="relative w-screen h-screen overflow-hidden bg-slate-50 dark:bg-[#070b14] select-none flex flex-col font-sans">
         {/* Top Proctor Dashboard Switcher if active */}
         {proctorMode && <ProctorDashboard />}
 
-        {/* Full-Screen Map Canvas (Untouched) */}
-        <div className="flex-1 relative w-full h-full z-0">
+        {/* Full-Screen Map Canvas */}
+        <div className="flex-1 relative w-full h-full z-0 pt-28 pb-20">
           {mapCanvas}
         </div>
 
-        {/* Floating Top Control Island */}
-        <div className="absolute top-3 left-3 right-3 z-30 flex items-center justify-between gap-2 pointer-events-none">
-          <div className="flex items-center gap-2 px-3.5 py-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-slate-200/90 dark:border-white/10 rounded-full shadow-lg text-xs font-black text-slate-900 dark:text-white pointer-events-auto">
-            <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shadow-xs">
-              <Compass className="w-3.5 h-3.5" />
-            </div>
-            <span>MITS Campus</span>
-          </div>
-
-          {header}
-        </div>
-
-        {/* Mobile Horizontal Quick-Floor Pill Selector */}
-        <div className="absolute top-15 left-3 right-3 z-20 flex items-center gap-1.5 overflow-x-auto no-scrollbar pointer-events-auto py-1">
-          {CAMPUS_FLOORS.map((f) => {
-            const isSelected = activeMapId === f.id;
-            return (
-              <button
-                key={f.id}
-                type="button"
-                onClick={() => setSelectedMapId(f.id)}
-                className={`px-3 py-1 rounded-full text-[10px] font-black whitespace-nowrap backdrop-blur-xl shadow-md transition-all active:scale-95 cursor-pointer ${
-                  isSelected
-                    ? 'bg-blue-600 text-white shadow-blue-500/30 ring-2 ring-blue-400'
-                    : 'bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 border border-slate-200/90 dark:border-white/10'
-                }`}
-              >
-                {f.label}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Conditional Dashboards for Mobile */}
-        {activeDashboard === 'soc' && <CctvSocDashboard />}
-        {activeDashboard === 'analytics' && <SafetyAnalyticsDashboard />}
-        {activeDashboard === 'patrol' && <PatrolDispatchDashboard />}
-
-        {/* Mobile Floating Bottom Summary Pill when route or destination is selected (leaves right-side map controls clear) */}
-        {activeDashboard === 'nav' && destination && (
-          <div className="absolute bottom-4 left-3 right-[84px] z-20 pointer-events-auto">
-            <div className="p-2.5 rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-slate-200/90 dark:border-white/10 shadow-2xl flex items-center justify-between gap-2.5 transition-all">
-              <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shrink-0 shadow-md shadow-blue-500/25">
-                  <NavigationIcon className="w-4 h-4" />
-                </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[9px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400 block truncate">
-                      {isNavigating ? 'Route Active' : 'Destination'}
-                    </span>
-                    {routeDistance ? (
-                      <span className="text-[9px] font-bold text-slate-500 dark:text-slate-400 truncate">
-                        • {routeDistance}
-                      </span>
-                    ) : null}
-                  </div>
-                  <p className="text-xs font-black text-slate-900 dark:text-white truncate">
-                    {destination.name}
-                  </p>
-                </div>
-              </div>
+        {/* ======================================================== */}
+        {/* 1. MOBILE TOP NAVIGATION BAR */}
+        {/* ======================================================== */}
+        <header className="fixed top-0 left-0 right-0 z-30 bg-white/95 dark:bg-[#0A0F1D]/95 backdrop-blur-2xl border-b border-slate-200/80 dark:border-white/10 shadow-md select-none transition-all">
+          {/* Top Row: Navigation status / Brand & Action buttons */}
+          <div className="flex items-center justify-between px-3 pt-2.5 pb-1.5 gap-2">
+            {isNavigating ? (
               <button
                 type="button"
-                onClick={() => handleDestinationSelect(null as any)}
-                className="w-7 h-7 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-white flex items-center justify-center shrink-0 cursor-pointer"
-                title="Clear route"
+                onClick={handleExitNavigation}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/25 font-black text-xs active:scale-95 transition-all cursor-pointer"
+                title="Stop Navigation"
               >
                 <X className="w-3.5 h-3.5" />
+                <span>Exit Nav</span>
               </button>
+            ) : destination ? (
+              <button
+                type="button"
+                onClick={() => {
+                  handleDestinationSelect(null as any);
+                  handleCurrentLocationClear();
+                }}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 font-bold text-xs active:scale-95 transition-all cursor-pointer"
+                title="Clear Destination"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Clear</span>
+              </button>
+            ) : (
+              <div
+                onClick={() => navigate(isStudent ? '/student' : '/')}
+                className="flex items-center gap-2 cursor-pointer active:opacity-80"
+              >
+                <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shadow-xs">
+                  <Compass className="w-4 h-4" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs font-black tracking-tight text-slate-900 dark:text-white leading-none">
+                    MITS MAP
+                  </span>
+                  <span className="text-[9px] font-bold text-blue-600 dark:text-blue-400 mt-0.5">
+                    Campus Navigation
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Quick Actions (Step-free accessibility, voice guidance, theme/SOS) */}
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => setAccessibleOnly(!accessibleOnly)}
+                className={`p-1.5 rounded-full border transition-all cursor-pointer active:scale-95 ${
+                  accessibleOnly
+                    ? 'bg-blue-600 text-white border-blue-500 shadow-sm'
+                    : 'bg-white/80 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-white/10'
+                }`}
+                title={accessibleOnly ? 'Step-Free Active' : 'Enable Step-Free Paths'}
+              >
+                <Accessibility className="w-4 h-4" />
+              </button>
+
+              {isNavigating && (
+                <button
+                  type="button"
+                  onClick={toggleVoice}
+                  className={`p-1.5 rounded-full border transition-all cursor-pointer active:scale-95 ${
+                    isVoiceEnabled
+                      ? 'bg-blue-600 text-white border-blue-500 shadow-sm'
+                      : 'bg-white/80 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-white/10'
+                  }`}
+                  title={isVoiceEnabled ? 'Voice Guidance Active' : 'Enable Voice Guidance'}
+                >
+                  {isVoiceEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                </button>
+              )}
+
+              {header}
             </div>
           </div>
-        )}
+
+          {/* Middle Row: Active Turn-by-Turn Instruction OR 1-Tap Search Bar */}
+          <div className="px-3 pb-1.5">
+            {isNavigating ? (
+              <div className="p-2.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white shadow-lg flex items-center justify-between gap-2.5">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 border border-white/20">
+                    {renderGuidanceIcon(currentDirection)}
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[9px] font-black uppercase tracking-wider text-blue-200 block truncate">
+                      {activeStep ? `Step ${activeStepIndex + 1} of ${navigationSteps.length} • ${activeStep.map ? activeStep.map.replace('_', ' ') : 'Campus'}` : 'Navigating'}
+                    </span>
+                    <p className="text-xs font-black leading-tight truncate mt-0.5">
+                      {currentInstruction}
+                    </p>
+                    {currentDistance && (
+                      <span className="text-[10px] text-blue-100 font-bold block mt-0.5">
+                        For {currentDistance}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div
+                  className="w-8 h-8 rounded-xl bg-white/15 backdrop-blur-md flex items-center justify-center shrink-0 border border-white/15"
+                  title="Compass Direction"
+                >
+                  <Compass
+                    className="w-4.5 h-4.5 text-white transition-transform duration-300 ease-out"
+                    style={{ transform: `rotate(${compassHeading}deg)` }}
+                  />
+                </div>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileSearchField('destination');
+                  setIsMobileSearchOpen(true);
+                }}
+                className="w-full h-10 px-3.5 rounded-2xl bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200/90 dark:border-white/10 flex items-center justify-between text-left transition-all active:scale-[0.99] cursor-pointer shadow-xs"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <Search className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
+                  <span className="text-xs font-medium text-slate-500 dark:text-slate-400 truncate">
+                    {destination ? `To: ${destination.name}` : 'Search Classrooms (101/102), Labs, Gates...'}
+                  </span>
+                </div>
+                <span className="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 shrink-0">
+                  {destination ? 'Route' : 'Search'}
+                </span>
+              </button>
+            )}
+          </div>
+
+          {/* Bottom Row: Quick Horizontal Floor Selector Pills */}
+          <div className="px-3 pb-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+            {CAMPUS_FLOORS.map((f) => {
+              const isSelected = activeMapId === f.id;
+              return (
+                <button
+                  key={f.id}
+                  type="button"
+                  onClick={() => setSelectedMapId(f.id)}
+                  className={`px-3 py-1 rounded-full text-[10px] font-black whitespace-nowrap backdrop-blur-xl transition-all active:scale-95 cursor-pointer ${
+                    isSelected
+                      ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30 ring-2 ring-blue-400'
+                      : 'bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10'
+                  }`}
+                >
+                  {f.label}
+                </button>
+              );
+            })}
+          </div>
+        </header>
+
+        {/* Conditional Dashboards for Mobile (Proctor / Security only) */}
+        {proctorMode && activeDashboard === 'soc' && <CctvSocDashboard />}
+        {proctorMode && activeDashboard === 'analytics' && <SafetyAnalyticsDashboard />}
+        {proctorMode && activeDashboard === 'patrol' && <PatrolDispatchDashboard />}
+
+        {/* ======================================================== */}
+        {/* 2. MOBILE BOTTOM NAVIGATION BAR */}
+        {/* ======================================================== */}
+        <footer className="fixed bottom-0 left-0 right-0 z-30 bg-white/95 dark:bg-[#0A0F1D]/95 backdrop-blur-2xl border-t border-slate-200/80 dark:border-white/10 shadow-[0_-8px_30px_rgba(0,0,0,0.12)] select-none transition-all pb-safe">
+          {isNavigating ? (
+            /* Mode 1: Active Turn-by-Turn Step Controls */
+            <div className="p-3 space-y-2">
+              <div className="flex items-center justify-between gap-2">
+                <button
+                  type="button"
+                  disabled={activeStepIndex <= 0}
+                  onClick={() => setActiveStepIndex(Math.max(0, activeStepIndex - 1))}
+                  className="flex-1 py-2 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 disabled:opacity-40 text-slate-700 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1 cursor-pointer active:scale-95"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  <span>Prev Step</span>
+                </button>
+
+                <div className="flex flex-col items-center px-2">
+                  <div className="flex items-center gap-1 text-xs font-black text-slate-900 dark:text-white">
+                    <Clock className="w-3.5 h-3.5 text-blue-600" />
+                    <span>{routeDuration ? `${Math.ceil(routeDuration / 60)} min` : '~2 min'}</span>
+                  </div>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold">
+                    {routeDistance ? `${Math.round(routeDistance)} m` : ''}
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  disabled={activeStepIndex >= Math.max(0, navigationSteps.length - 1)}
+                  onClick={() => setActiveStepIndex(Math.min(navigationSteps.length - 1, activeStepIndex + 1))}
+                  className="flex-1 py-2 px-3 rounded-xl bg-blue-600 disabled:opacity-40 text-white font-bold text-xs flex items-center justify-center gap-1 cursor-pointer active:scale-95 shadow-md shadow-blue-500/20"
+                >
+                  <span>Next Step</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleExitNavigation}
+                className="w-full py-2 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-rose-600 dark:text-rose-400 font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-98"
+              >
+                <X className="w-4 h-4" />
+                <span>Finish / Exit Navigation</span>
+              </button>
+            </div>
+          ) : destination ? (
+            /* Mode 2: Route Preview Card with Start CTA */
+            <div className="p-3.5 space-y-2.5">
+              <div className="flex items-center justify-between gap-2.5">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shrink-0 shadow-md shadow-blue-500/25">
+                    <NavigationIcon className="w-5 h-5 fill-white" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs font-black text-slate-900 dark:text-white truncate">
+                      {destination.name}
+                    </p>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400">
+                        {destination.building || 'Campus'} • Floor {destination.floor ?? 0}
+                      </span>
+                      {routeDistance ? (
+                        <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400">
+                          • {Math.round(routeDistance)} m (~{Math.ceil((routeDuration || 60) / 60)} min)
+                        </span>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleDestinationSelect(null as any);
+                    handleCurrentLocationClear();
+                  }}
+                  className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-white flex items-center justify-center shrink-0 cursor-pointer"
+                  title="Clear Destination"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleStartNavigation}
+                className="w-full h-11 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-blue-500/30 cursor-pointer active:scale-[0.99] transition-all"
+              >
+                <NavigationIcon className="w-4 h-4 fill-white" />
+                <span>Start Turn-by-Turn Navigation</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          ) : (
+            /* Mode 3: Idle Exploration 4-Tab Navigation Dock */
+            <div className="grid grid-cols-4 px-2 py-1.5 gap-1">
+              {/* 1. Search Destination */}
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileSearchField('destination');
+                  setIsMobileSearchOpen(true);
+                }}
+                className="flex flex-col items-center justify-center py-1.5 px-1 rounded-xl text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors cursor-pointer active:scale-95"
+              >
+                <Search className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <span className="text-[10px] font-bold mt-1">Search</span>
+              </button>
+
+              {/* 2. My Location / GPS */}
+              <button
+                type="button"
+                onClick={() => {
+                  useGpsAsStartLocation();
+                  if (activeMapId !== 'Campus_Map') {
+                    setSelectedMapId('Campus_Map');
+                  }
+                }}
+                className={`flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition-colors cursor-pointer active:scale-95 ${
+                  isGpsActive ? 'text-blue-600 dark:text-blue-400 font-black' : 'text-slate-600 dark:text-slate-300'
+                }`}
+              >
+                <LocateFixed className={`w-5 h-5 ${isGpsActive ? 'text-blue-600 dark:text-blue-400 animate-pulse' : ''}`} />
+                <span className="text-[10px] font-bold mt-1">Location</span>
+              </button>
+
+              {/* 3. Featured Campus Places */}
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileSearchField('destination');
+                  setIsMobileSearchOpen(true);
+                }}
+                className="flex flex-col items-center justify-center py-1.5 px-1 rounded-xl text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors cursor-pointer active:scale-95"
+              >
+                <School className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                <span className="text-[10px] font-bold mt-1">Places</span>
+              </button>
+
+              {/* 4. Full Campus View */}
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedMapId('Campus_Map');
+                }}
+                className="flex flex-col items-center justify-center py-1.5 px-1 rounded-xl text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors cursor-pointer active:scale-95"
+              >
+                <Compass className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                <span className="text-[10px] font-bold mt-1">Campus</span>
+              </button>
+            </div>
+          )}
+        </footer>
+
+        {/* ======================================================== */}
+        {/* 3. MOBILE SEARCH & PLACES DRAWER MODAL */}
+        {/* ======================================================== */}
+        <AnimatePresence>
+          {isMobileSearchOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex flex-col justify-end"
+            >
+              <motion.div
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                exit={{ y: '100%' }}
+                transition={{ type: 'spring', damping: 25, stiffness: 280 }}
+                className="bg-white dark:bg-[#0A0F1D] rounded-t-3xl border-t border-slate-200 dark:border-white/10 max-h-[85vh] flex flex-col shadow-2xl overflow-hidden"
+              >
+                {/* Drawer Header */}
+                <div className="p-4 border-b border-slate-200 dark:border-white/10 flex items-center justify-between gap-3 shrink-0">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                      <Search className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">
+                        {mobileSearchField === 'start' ? 'Choose Starting Location' : 'Choose Destination'}
+                      </h3>
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
+                        Search rooms, laboratories, gates, or amenities
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsMobileSearchOpen(false);
+                      setLocalMobileQuery('');
+                    }}
+                    className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center justify-center cursor-pointer"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {/* Search Input Box */}
+                <div className="p-3 border-b border-slate-200/80 dark:border-white/10 shrink-0">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={mobileSearchQuery}
+                      onChange={(e) => setLocalMobileQuery(e.target.value)}
+                      placeholder="Type classroom (e.g. 101, 102), lab, gate..."
+                      autoFocus
+                      className="w-full h-11 pl-4 pr-10 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    {mobileSearchQuery && (
+                      <button
+                        type="button"
+                        onClick={() => setLocalMobileQuery('')}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 p-1"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Category Filter Chips */}
+                  <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-2.5">
+                    {[
+                      { id: 'all', label: 'All Places' },
+                      { id: 'classrooms', label: 'Classrooms' },
+                      { id: 'labs', label: 'Labs' },
+                      { id: 'amenities', label: 'Cafeteria & Amenities' },
+                      { id: 'gates', label: 'Gates' },
+                    ].map((cat) => (
+                      <button
+                        key={cat.id}
+                        type="button"
+                        onClick={() => setMobileCategoryFilter(cat.id as any)}
+                        className={`px-3 py-1 rounded-full text-[10px] font-black whitespace-nowrap transition-all cursor-pointer ${
+                          mobileCategoryFilter === cat.id
+                            ? 'bg-blue-600 text-white shadow-xs'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
+                        }`}
+                      >
+                        {cat.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Results List */}
+                <div className="flex-1 overflow-y-auto p-3 space-y-2 custom-scrollbar">
+                  {mobileFilteredNodes.length > 0 ? (
+                    mobileFilteredNodes.map((node) => (
+                      <button
+                        key={node.id}
+                        type="button"
+                        onClick={() => handleSelectMobileNode(node)}
+                        className="w-full p-3 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 hover:border-blue-500/50 flex items-center justify-between gap-3 text-left transition-all active:scale-[0.99] cursor-pointer shadow-xs"
+                      >
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                            <MapPin className="w-4 h-4" />
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-xs font-black text-slate-900 dark:text-white truncate">
+                              {node.name || node.id}
+                            </p>
+                            <p className="text-[10px] text-slate-400 font-medium mt-0.5 truncate">
+                              {(node as any).building || 'MITS Campus'} • Floor {(node as any).floor ?? 0}
+                            </p>
+                          </div>
+                        </div>
+
+                        <span className="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0">
+                          {(node as any).category || 'Place'}
+                        </span>
+                      </button>
+                    ))
+                  ) : (
+                    <div className="text-center py-10 text-xs font-semibold text-slate-400">
+                      No matching campus spots found
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     );
   }
