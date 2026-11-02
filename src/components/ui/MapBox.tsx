@@ -614,16 +614,22 @@ export default function MapBox({
   const svgHeight = viewBoxConfig.height;
 
   const pathBbox = useMemo(() => {
-    if (!isNavigating || !pathPoints) return null;
+    if (!pathPoints) return null;
     const pts = parsePoints(pathPoints);
     return computeBbox(pts);
-  }, [isNavigating, pathPoints]);
+  }, [pathPoints]);
 
+  const lastNavigationFitKeyRef = useRef<string>('');
+
+  // Auto-focus and zoom closely in on the current node and active path when navigation starts
   useEffect(() => {
-    if (!isNavigating) return;
-    if (!pathBbox) return;
-    if (autoFitNonce == null) return;
-    if (lastAutoFitRef.current === autoFitNonce) return;
+    if (!isNavigating) {
+      lastNavigationFitKeyRef.current = '';
+      return;
+    }
+
+    const currentFitKey = `${autoFitNonce}_${mapId}_${currentLocation?.id || ''}_${destination?.id || ''}_${pathPoints.slice(0, 40)}`;
+    if (lastNavigationFitKeyRef.current === currentFitKey) return;
 
     const el = containerRef.current;
     if (!el) return;
@@ -636,32 +642,72 @@ export default function MapBox({
     const offsetX = (w - svgWidth * baseScale) / 2;
     const offsetY = (h - svgHeight * baseScale) / 2;
 
-    const minX = (pathBbox.minX - svgMinX) * baseScale + offsetX;
-    const maxX = (pathBbox.maxX - svgMinX) * baseScale + offsetX;
-    const minY = (pathBbox.minY - svgMinY) * baseScale + offsetY;
-    const maxY = (pathBbox.maxY - svgMinY) * baseScale + offsetY;
-
-    const bboxW = Math.max(1, maxX - minX);
-    const bboxH = Math.max(1, maxY - minY);
-    const pad = Math.max(24, Math.min(w, h) * 0.06);
-
     const isDesktop = w >= 768;
+    const pad = Math.max(30, Math.min(w, h) * 0.08);
     const availW = isDesktop ? Math.max(1, w - 410 - 2 * pad) : Math.max(1, w - 2 * pad);
     const availH = Math.max(1, h - 2 * pad);
+    const cx = isDesktop ? (w + 410) / 2 : w / 2;
+    const cy = h / 2;
 
-    const nextZoom = Math.max(0.5, Math.min(5, Math.min(availW / bboxW, availH / bboxH)));
+    const pts = parsePoints(pathPoints);
+    const hasCurrentNode = currentLocation && currentLocation.map === mapId && currentLocation.x !== undefined && currentLocation.y !== undefined;
+
+    // Focus on current node and the initial path leading out
+    let focusBbox: Bbox | null = null;
+    if (hasCurrentNode && pts.length > 0) {
+      // Current node + the next 4 path waypoints
+      const leadingPoints: Point[] = [
+        { x: currentLocation.x, y: currentLocation.y },
+        ...pts.slice(0, Math.min(5, pts.length))
+      ];
+      focusBbox = computeBbox(leadingPoints);
+    } else if (hasCurrentNode) {
+      // Just the current node with a focused boundary box
+      focusBbox = {
+        minX: currentLocation.x - 30,
+        maxX: currentLocation.x + 30,
+        minY: currentLocation.y - 30,
+        maxY: currentLocation.y + 30,
+        width: 60,
+        height: 60,
+      };
+    } else if (pts.length > 0) {
+      // Start of path + leading 5 points
+      const leadingPoints = pts.slice(0, Math.min(6, pts.length));
+      focusBbox = computeBbox(leadingPoints);
+    } else if (pathBbox) {
+      focusBbox = pathBbox;
+    }
+
+    if (!focusBbox) return;
+
+    const minX = (focusBbox.minX - svgMinX) * baseScale + offsetX;
+    const maxX = (focusBbox.maxX - svgMinX) * baseScale + offsetX;
+    const minY = (focusBbox.minY - svgMinY) * baseScale + offsetY;
+    const maxY = (focusBbox.maxY - svgMinY) * baseScale + offsetY;
+
+    const bboxW = Math.max(20, maxX - minX);
+    const bboxH = Math.max(20, maxY - minY);
+
+    // Zoom closely in on the current node and path (tactical navigation zoom: 1.85x to 3.2x)
+    const fitZoom = Math.min(availW / bboxW, availH / bboxH);
+    const nextZoom = Math.max(1.85, Math.min(3.2, fitZoom));
 
     const bboxCenterX = (minX + maxX) / 2;
     const bboxCenterY = (minY + maxY) / 2;
-    const cx = isDesktop ? (w + 410) / 2 : w / 2;
-    const cy = h / 2;
 
     const nextPanX = cx - bboxCenterX * nextZoom;
     const nextPanY = cy - bboxCenterY * nextZoom;
 
+    lastNavigationFitKeyRef.current = currentFitKey;
     lastAutoFitRef.current = autoFitNonce;
-    springApi.start({ x: nextPanX, y: nextPanY, zoom: nextZoom });
-  }, [autoFitNonce, isNavigating, pathBbox, svgMinX, svgMinY, svgHeight, svgWidth, springApi]);
+    springApi.start({
+      x: nextPanX,
+      y: nextPanY,
+      zoom: nextZoom,
+      config: { tension: 170, friction: 26 }
+    });
+  }, [autoFitNonce, isNavigating, pathPoints, pathBbox, currentLocation, destination, mapId, svgMinX, svgMinY, svgHeight, svgWidth, springApi]);
 
   // Camera pans to follow the simulated node during simulation!
   useEffect(() => {

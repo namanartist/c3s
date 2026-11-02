@@ -40,6 +40,7 @@ interface CampusOsmMapProps {
   heading?: number;
   isSimulatingWalk?: boolean;
   className?: string;
+  defaultTileLayer?: 'tactical' | 'standard' | 'satellite';
 }
 
 export const CampusOsmMap: React.FC<CampusOsmMapProps> = ({
@@ -48,6 +49,7 @@ export const CampusOsmMap: React.FC<CampusOsmMapProps> = ({
   userPos,
   heading = 0,
   className = '',
+  defaultTileLayer = 'satellite',
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
@@ -68,8 +70,8 @@ export const CampusOsmMap: React.FC<CampusOsmMapProps> = ({
   const incidents = useSafetyStore((s) => s.incidents);
   const setSelectedCamera = useSafetyStore((s) => s.setSelectedCamera);
 
-  // State
-  const [activeTileLayer, setActiveTileLayer] = useState<'tactical' | 'standard' | 'satellite'>('tactical');
+  // State (Defaults to High-Res Satellite as requested)
+  const [activeTileLayer, setActiveTileLayer] = useState<'tactical' | 'standard' | 'satellite'>(defaultTileLayer || 'satellite');
   const showGeofence = true;
   const showCameras = true;
   const showGates = true;

@@ -32,6 +32,8 @@ interface CampusMapProps {
   showControls?: boolean;
   highlightLocation?: string;
   onSelectZone?: (zoneName: string) => void;
+  defaultViewMode?: 'svg' | 'osm';
+  defaultTileLayer?: 'tactical' | 'standard' | 'satellite';
 }
 
 // Campus SVG Master coordinates (matches /maps/Campus_Map.svg viewBox)
@@ -59,7 +61,9 @@ export const CampusMap: React.FC<CampusMapProps> = ({
   height = 'h-[440px]',
   showControls = true,
   highlightLocation,
-  onSelectZone
+  onSelectZone,
+  defaultViewMode = 'osm',
+  defaultTileLayer = 'satellite'
 }) => {
   const { currentRole, isInsideCampus, isLocationActive, responders, latitude, longitude, requestGpsPermission } = useC3SStore();
   const cctvCameras = useSafetyStore((s) => s.cctvCameras);
@@ -67,9 +71,9 @@ export const CampusMap: React.FC<CampusMapProps> = ({
   const setSosModalOpen = useSafetyStore((s) => s.setSosModalOpen);
   const setSelectedCamera = useSafetyStore((s) => s.setSelectedCamera);
 
-  // Map state
+  // Map state (Defaults to OSM Satellite as requested)
   const [activeMapId, setActiveMapId] = useState<'Campus_Map' | 'Main_GF' | 'AI_GF'>('Campus_Map');
-  const [viewMode, setViewMode] = useState<'svg' | 'osm'>('svg');
+  const [viewMode, setViewMode] = useState<'svg' | 'osm'>(defaultViewMode);
   const [svgContent, setSvgContent] = useState<string>('');
   const [isLoadingSvg, setIsLoadingSvg] = useState<boolean>(true);
 
@@ -337,6 +341,7 @@ export const CampusMap: React.FC<CampusMapProps> = ({
           userPos={userPos}
           heading={heading}
           isSimulatingWalk={isSimulatingWalk}
+          defaultTileLayer={defaultTileLayer}
         />
       </div>
     );

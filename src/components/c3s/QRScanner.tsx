@@ -8,7 +8,6 @@ import {
   Sparkles,
   MapPin,
   AlertCircle,
-  Upload,
   ShieldCheck,
   History
 } from 'lucide-react';
@@ -285,34 +284,6 @@ export const QRScanner: React.FC<QRScannerProps> = ({ onScanSuccess, isCheckOut 
     };
   }, [startCamera, stopCamera]);
 
-  // Handle uploaded image file
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-        ctx.drawImage(img, 0, 0);
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const code = jsQR(imageData.data, imageData.width, imageData.height);
-        if (code && code.data) {
-          handleDecodedToken(code.data);
-        } else {
-          setCameraError('No valid C3S Gate QR code detected in the uploaded image.');
-        }
-      };
-      img.src = event.target?.result as string;
-    };
-    reader.readAsDataURL(file);
-  };
-
   // 1-tap quick scan with active terminal token
   const handleInstantScan = () => {
     const token = getGateQr(selectedGateId);
@@ -487,23 +458,9 @@ export const QRScanner: React.FC<QRScannerProps> = ({ onScanSuccess, isCheckOut 
               )}
             </button>
 
-            {/* Real QR Photo Upload */}
-            <div className="flex items-center justify-center">
-              <label className="flex items-center gap-1.5 cursor-pointer text-xs font-semibold text-slate-400 hover:text-blue-400 transition-colors">
-                <Upload className="h-3.5 w-3.5" />
-                <span>Upload QR Photo from Gallery</span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  className="hidden"
-                />
-              </label>
-            </div>
-
             <div className="pt-1 flex items-center justify-center gap-1.5 text-[11px] font-mono text-slate-500">
               <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
-              <span>Strict QR-Base Verification • Zero Manual Bypass</span>
+              <span>Strict Live Optical QR Verification • Live Camera Only</span>
             </div>
           </div>
         </>
