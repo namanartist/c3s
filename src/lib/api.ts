@@ -2,7 +2,9 @@
 import type { MapNode, MapEdge, Building, FloorMap } from '@/types';
 import fallbackData from '@/lib/mock-data/campusDataFallback.json';
 
-export const API_BASE: string = import.meta.env.VITE_API_BASE_URL ?? '';
+const rawApiBase = import.meta.env.VITE_API_BASE_URL;
+// Default to relative '' when unset or set to stale localhost:3000 so Vite /api proxy (port 3001) is used
+export const API_BASE: string = (!rawApiBase || rawApiBase.includes('localhost:3000')) ? '' : rawApiBase;
 
 /** Generic helper to fetch array data from the backend APIs with offline fallback. */
 export async function apiFetch<T>(path: string): Promise<T[]> {

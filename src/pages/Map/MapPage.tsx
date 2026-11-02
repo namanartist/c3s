@@ -25,6 +25,9 @@ export function RoutePanel(props: Record<string, unknown>) {
 }
 
 export default function MapPage() {
+  const currentRole = useC3SStore((s) => s.currentRole);
+  const isStudent = currentRole === 'STUDENT';
+
   usePageMeta(
     'Interactive MITS Map - Campus Navigation',
     'Navigate Madhav Institute of Technology and Science (MITS) Gwalior campus. Plan routes to classrooms, departments, laboratories, and blocks with ease.'
@@ -32,14 +35,14 @@ export default function MapPage() {
 
   return (
     <CampusNavigationProvider>
-      <IncidentMapResolver />
+      {!isStudent && <IncidentMapResolver />}
       <MapLayout
         header={<MapHeader />}
         searchBar={<SearchBar />}
         mapCanvas={<MapCanvas />}
         routePanel={<RoutePanel />}
       />
-      <SOSSystem />
+      {!isStudent && <SOSSystem />}
     </CampusNavigationProvider>
   );
 }

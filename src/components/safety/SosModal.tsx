@@ -157,6 +157,9 @@ export function SosModal() {
       recordedChunksRef.current = [];
 
       try {
+        if (typeof navigator === 'undefined' || !navigator.mediaDevices || typeof navigator.mediaDevices.getUserMedia !== 'function') {
+          throw new Error('Camera API requires HTTPS or secure context.');
+        }
         const stream = await navigator.mediaDevices.getUserMedia({
           video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
           audio: true

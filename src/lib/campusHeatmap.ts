@@ -150,3 +150,4 @@ export function getHeatColor(density: CampusHeatZone['density']): {
       };
   }
 }
+

@@ -19,6 +19,7 @@ import { CameraDetailModal } from '@/components/safety/CameraDetailModal';
 import { NodeDetailDrawer } from '@/components/map/NodeDetailDrawer';
 import { getMapLocationTags } from '@/lib/mapLabels';
 import { CAMPUS_HEATMAP_ZONES, getHeatColor } from '@/lib/campusHeatmap';
+import { useC3SStore } from '@/store/c3sStore';
 
 interface Point {
   x: number;
@@ -477,8 +478,11 @@ export default function MapBox({
   const selectedNodeForDetail = useSafetyStore((s) => s.selectedNodeForDetail);
   const setSelectedNodeForDetail = useSafetyStore((s) => s.setSelectedNodeForDetail);
   const advanceResponderStatus = useSafetyStore((s) => s.advanceResponderStatus);
+  const currentRole = useC3SStore((s) => s.currentRole);
+  const isStudent = currentRole === 'STUDENT';
 
   const activeMapIncidents = useMemo(() => {
+    if (isStudent) return [];
     return incidents.filter((i) => {
       if (i.map !== mapId) return false;
       if (i.status === 'resolved') return false;
@@ -489,17 +493,23 @@ export default function MapBox({
       // Hide unrelated incidents from non-proctor public users
       return false;
     });
-  }, [incidents, mapId, activeDashboard, proctorMode, destination, selectedIncident]);
+  }, [incidents, mapId, activeDashboard, proctorMode, destination, selectedIncident, isStudent]);
 
   const activeMapAmenities = useMemo(() => {
-    return showSafetyAmenities ? safetyAmenities.filter((a) => a.map === mapId) : [];
-  }, [safetyAmenities, mapId, showSafetyAmenities]);
+    if (!showSafetyAmenities) return [];
+    const list = safetyAmenities.filter((a) => a.map === mapId);
+    if (isStudent) {
+      return list.filter((a) => a.type !== 'emergency_phone');
+    }
+    return list;
+  }, [safetyAmenities, mapId, showSafetyAmenities, isStudent]);
 
   const activeMapCameras = useMemo(() => {
+    if (isStudent) return [];
     return (showSafetyAmenities || activeDashboard === 'soc')
       ? cctvCameras.filter((c) => c.map === mapId)
       : [];
-  }, [cctvCameras, mapId, showSafetyAmenities, activeDashboard]);
+  }, [cctvCameras, mapId, showSafetyAmenities, activeDashboard, isStudent]);
 
   // Clickable interactive nodes for "Open Node" feature
   const activeMapNodes = useMemo(() => {
@@ -1697,16 +1707,20 @@ export default function MapBox({
                 <Flame className="w-4 h-4" />
               </button>
 
-              <div className="h-[1px] bg-slate-200 dark:bg-white/10 mx-1" />
+              {!isStudent && (
+                <>
+                  <div className="h-[1px] bg-slate-200 dark:bg-white/10 mx-1" />
 
-              <button
-                type="button"
-                onClick={() => setSosModalOpen(true)}
-                className="w-9 h-9 rounded-xl flex items-center justify-center bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-lg shadow-red-500/30 hover:from-red-700 hover:to-rose-700 active:scale-95 transition-all cursor-pointer animate-pulse"
-                title="Broadcast SOS Emergency Alert"
-              >
-                <span className="text-[9px] font-black tracking-wider">SOS</span>
-              </button>
+                  <button
+                    type="button"
+                    onClick={() => setSosModalOpen(true)}
+                    className="w-9 h-9 rounded-xl flex items-center justify-center bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-lg shadow-red-500/30 hover:from-red-700 hover:to-rose-700 active:scale-95 transition-all cursor-pointer animate-pulse"
+                    title="Broadcast SOS Emergency Alert"
+                  >
+                    <span className="text-[9px] font-black tracking-wider">SOS</span>
+                  </button>
+                </>
+              )}
             </div>
           </div>
         )}
@@ -1727,7 +1741,7 @@ export default function MapBox({
         )}
 
         {/* Active En Route Responder Floating Banner */}
-        {activeEnRouteResponders.length > 0 && (
+        {!isStudent && activeEnRouteResponders.length > 0 && (
           <div className="absolute top-20 left-1/2 -translate-x-1/2 z-30 flex items-center gap-3 rounded-full border border-cyan-500/40 bg-slate-900/90 px-4 py-2 text-xs font-bold text-cyan-300 shadow-2xl backdrop-blur-md animate-pulse">
             <Radio className="h-4 w-4 text-cyan-400 animate-spin" />
             <span>
@@ -1746,10 +1760,10 @@ export default function MapBox({
         {proctorMode && <SafetyThemeControls />}
 
         {/* Selected Incident Floating Drawer (only for security / operator dashboards) */}
-        {activeDashboard !== 'nav' && <IncidentCard />}
+        {!isStudent && activeDashboard !== 'nav' && <IncidentCard />}
 
         {/* SOS Emergency Broadcast Modal (Universal) */}
-        <SosModal />
+        {!isStudent && <SosModal />}
 
         {/* Tactical Node Selection Action Card (Start / Go Here) */}
         {selectedMapNode && (

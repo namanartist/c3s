@@ -38,7 +38,8 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
     sosPhotoUrl,
     sosVideoUrl,
     sosNotifiedEntities,
-    advanceSosStatus
+    advanceSosStatus,
+    currentRole
   } = useC3SStore();
 
   const [holding, setHolding] = useState(false);
@@ -61,6 +62,9 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
   // Pre-initialize camera stream on hover/touch to guarantee instantaneous snapshot & video
   const initCameraStream = useCallback(async () => {
     if (mediaStreamRef.current && mediaStreamRef.current.active) return mediaStreamRef.current;
+    if (typeof navigator === 'undefined' || !navigator.mediaDevices || typeof navigator.mediaDevices.getUserMedia !== 'function') {
+      return null;
+    }
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
@@ -625,16 +629,18 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
 
         {/* Action Controls */}
         <div className="mt-5 flex w-full flex-col sm:flex-row gap-3">
-          <button
-            onClick={() => {
-              const url = sosIncidentId ? `/map?incident=${encodeURIComponent(sosIncidentId)}` : sosNodeId ? `/map?to=${encodeURIComponent(sosNodeId)}` : '/map';
-              window.location.href = url;
-            }}
-            className="flex items-center justify-center gap-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 py-3 px-4 text-xs font-bold text-white shadow-md transition-all active:scale-95 cursor-pointer"
-          >
-            <Navigation className="h-4 w-4" />
-            <span>🧭 Navigate to SOS Location</span>
-          </button>
+          {currentRole !== 'STUDENT' && (
+            <button
+              onClick={() => {
+                const url = sosIncidentId ? `/map?incident=${encodeURIComponent(sosIncidentId)}` : sosNodeId ? `/map?to=${encodeURIComponent(sosNodeId)}` : '/map';
+                window.location.href = url;
+              }}
+              className="flex items-center justify-center gap-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 py-3 px-4 text-xs font-bold text-white shadow-md transition-all active:scale-95 cursor-pointer"
+            >
+              <Navigation className="h-4 w-4" />
+              <span>🧭 Navigate to SOS Location</span>
+            </button>
+          )}
           <button
             onClick={() => advanceSosStatus()}
             className="flex-1 rounded-xl bg-blue-600/90 hover:bg-blue-600 py-3 text-xs font-bold text-white shadow-md transition-all active:scale-95 cursor-pointer"

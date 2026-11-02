@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { useSafetyStore } from '@/store/safetyStore';
 import { CAMPUS_HEATMAP_ZONES, getHeatColor } from '@/lib/campusHeatmap';
+import { useC3SStore } from '@/store/c3sStore';
 import { CAMPUS_GEOFENCE_POLYGON } from '@/lib/gateSecurity';
 import { CAMPUS_CALIBRATION_POINTS, svgToGps, formatDMS, formatDecimal } from '@/lib/geoProjection';
 import {
@@ -70,6 +71,8 @@ export const CampusOsmMap: React.FC<CampusOsmMapProps> = ({
   // Store bindings
   const cctvCameras = useSafetyStore((s) => s.cctvCameras);
   const incidents = useSafetyStore((s) => s.incidents);
+  const currentRole = useC3SStore((s) => s.currentRole);
+  const isStudent = currentRole === 'STUDENT';
   const setSelectedCamera = useSafetyStore((s) => s.setSelectedCamera);
 
   // State (Defaults to High-Res Satellite as requested)
@@ -364,7 +367,7 @@ export const CampusOsmMap: React.FC<CampusOsmMapProps> = ({
     if (!layer) return;
     layer.clearLayers();
 
-    if (!showCameras) return;
+    if (!showCameras || isStudent) return;
 
     cctvCameras.forEach((cam) => {
       const isOnline = cam.status === 'online';
@@ -429,7 +432,7 @@ export const CampusOsmMap: React.FC<CampusOsmMapProps> = ({
     if (!layer) return;
     layer.clearLayers();
 
-    if (!showIncidents) return;
+    if (!showIncidents || isStudent) return;
 
     incidents.forEach((inc) => {
       const isCritical = inc.severity === 'critical';

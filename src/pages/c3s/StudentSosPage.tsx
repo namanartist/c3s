@@ -47,15 +47,6 @@ export default function StudentSosPage() {
                 <ShieldAlert className="h-4 w-4 text-rose-400" />
                 <span>ACTIVE SOS ENGAGED • NODE #{sosNodeId || 'MainRoad09'}</span>
               </div>
-
-              {/* Direct Navigation to SOS Location Button */}
-              <button
-                onClick={handleNavigateToMap}
-                className="flex items-center gap-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-cyan-950/50 active:scale-95 transition-all cursor-pointer"
-              >
-                <Navigation className="h-4 w-4" />
-                <span>🧭 Navigate to SOS Location on Map</span>
-              </button>
             </div>
           )}
         </div>

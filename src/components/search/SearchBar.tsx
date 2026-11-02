@@ -31,46 +31,6 @@ import { buildGlobalGraph } from '@/lib/multiMapNavigation';
 
 export interface SearchBarProps { }
 
-const QUICK_PRESETS = [
-  { label: 'Main Gate', query: 'main gate', icon: '🚪' },
-  { label: 'Library', query: 'library', icon: '📚' },
-  { label: 'AI Block', query: 'ai building', icon: '💻' },
-  { label: 'Canteen', query: 'canteen', icon: '☕' },
-  { label: 'Restrooms', query: 'washroom', icon: '🚻' },
-  { label: 'Electrical', query: 'electrical', icon: '⚡' },
-];
-
-const POPULAR_GALI_ROUTES = [
-  {
-    title: 'Main Gate ➔ Canteen',
-    subtitle: 'Via Central Lawn Rasta',
-    from: 'main gate',
-    to: 'canteen',
-    icon: '☕'
-  },
-  {
-    title: 'Library ➔ AI Block',
-    subtitle: 'Via Courtyard Walkway',
-    from: 'library',
-    to: 'ai building',
-    icon: '💻'
-  },
-  {
-    title: 'Jubilee Gate ➔ Conclave',
-    subtitle: 'Direct East Corridor',
-    from: 'jubilee gate',
-    to: 'conclave',
-    icon: '🏛️'
-  },
-  {
-    title: 'Canteen ➔ Electrical',
-    subtitle: 'Via West Alley & Gali',
-    from: 'canteen',
-    to: 'electrical',
-    icon: '⚡'
-  }
-];
-
 export function SearchBar({ }: SearchBarProps) {
   const navigate = useNavigate();
   const {
@@ -123,32 +83,6 @@ export function SearchBar({ }: SearchBarProps) {
   };
 
   const graph = useMemo(() => buildGlobalGraph(edges, { accessibleOnly }), [edges, accessibleOnly]);
-
-  const handleQuickPreset = (query: string) => {
-    const match = campusLocations.find((loc) =>
-      (loc.searchName ?? loc.name.toLowerCase()).includes(query.toLowerCase())
-    );
-    if (match) {
-      handleDestinationSelect(match);
-      setActiveSearchField(null);
-      setMobileSearchQuery('');
-    }
-  };
-
-  const handleSelectGaliRoute = (route: typeof POPULAR_GALI_ROUTES[0]) => {
-    const fromLoc = campusLocations.find((loc) =>
-      (loc.searchName ?? loc.name.toLowerCase()).includes(route.from.toLowerCase())
-    );
-    const toLoc = campusLocations.find((loc) =>
-      (loc.searchName ?? loc.name.toLowerCase()).includes(route.to.toLowerCase())
-    );
-    if (fromLoc && toLoc) {
-      handleCurrentLocationSelect(fromLoc);
-      handleDestinationSelect(toLoc);
-      setActiveSearchField(null);
-      setMobileSearchQuery('');
-    }
-  };
 
   const renderGuidanceIcon = (direction?: string) => {
     switch (direction) {
@@ -371,53 +305,6 @@ export function SearchBar({ }: SearchBarProps) {
           >
             <ArrowUpDown className="w-4 h-4" />
           </button>
-        </div>
-
-        {/* Quick 1-Tap Destination Presets */}
-        <div>
-          <span className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">
-            Quick 1-Tap Destinations
-          </span>
-          <div className="flex flex-wrap gap-1.5">
-            {QUICK_PRESETS.map((preset) => (
-              <button
-                key={preset.label}
-                type="button"
-                onClick={() => handleQuickPreset(preset.query)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-white/10 text-xs font-bold text-slate-700 dark:text-slate-300 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 active:scale-95 transition-all cursor-pointer shadow-xs"
-              >
-                <span>{preset.icon}</span>
-                <span>{preset.label}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Walkways & Gali Shortcuts */}
-        <div>
-          <span className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">
-            🚶 Walkways & Gali Shortcuts
-          </span>
-          <div className="grid grid-cols-2 gap-2">
-            {POPULAR_GALI_ROUTES.map((route) => (
-              <button
-                key={route.title}
-                type="button"
-                onClick={() => handleSelectGaliRoute(route)}
-                className="flex items-start gap-2.5 p-2.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-white/10 hover:border-blue-400 text-left transition-all active:scale-[0.98] cursor-pointer group shadow-xs"
-              >
-                <span className="text-base shrink-0 mt-0.5">{route.icon}</span>
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 truncate">
-                    {route.title}
-                  </p>
-                  <p className="text-[10px] text-slate-400 truncate mt-0.5">
-                    {route.subtitle}
-                  </p>
-                </div>
-              </button>
-            ))}
-          </div>
         </div>
 
         {/* Step-Free Accessibility Toggle */}

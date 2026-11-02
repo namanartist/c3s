@@ -799,8 +799,8 @@ export const CampusMap: React.FC<CampusMapProps> = ({
               </g>
             ))}
 
-          {/* Active Emergency SOS Beacons */}
-          {showIncidents &&
+          {/* Active Emergency SOS Beacons (Restricted from Student view) */}
+          {currentRole !== 'STUDENT' && showIncidents &&
             incidents
               .filter((i) => i.status !== 'resolved')
               .map((inc) => (

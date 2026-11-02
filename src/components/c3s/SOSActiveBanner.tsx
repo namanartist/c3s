@@ -11,7 +11,8 @@ export const SOSActiveBanner: React.FC = () => {
     sosRespondersNotified,
     sosLocation,
     sosNodeId,
-    cancelSos
+    cancelSos,
+    currentRole
   } = useC3SStore();
   const navigate = useNavigate();
 
@@ -61,15 +62,17 @@ export const SOSActiveBanner: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          {/* Navigate to SOS on Campus Map */}
-          <button
-            onClick={handleNavigateToSos}
-            className="flex items-center gap-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 px-3.5 py-1.5 text-xs font-bold text-white shadow-md active:scale-95 transition-all cursor-pointer"
-            title="Open Interactive Campus Map and calculate walking route directly to SOS location"
-          >
-            <Navigation className="h-3.5 w-3.5" />
-            <span>Navigate to SOS</span>
-          </button>
+          {/* Navigate to SOS on Campus Map (Staff / Guards / Proctor only) */}
+          {currentRole !== 'STUDENT' && (
+            <button
+              onClick={handleNavigateToSos}
+              className="flex items-center gap-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 px-3.5 py-1.5 text-xs font-bold text-white shadow-md active:scale-95 transition-all cursor-pointer"
+              title="Open Interactive Campus Map and calculate walking route directly to SOS location"
+            >
+              <Navigation className="h-3.5 w-3.5" />
+              <span>Navigate to SOS</span>
+            </button>
+          )}
 
           <button
             onClick={() => navigate('/student/sos')}
