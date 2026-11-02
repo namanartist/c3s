@@ -141,7 +141,10 @@ export default function StudentDashboard() {
       // Auto-record 10-second evidence clip if camera is available
       if (navigator.mediaDevices?.getUserMedia) {
         try {
-          const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: { ideal: 'environment' } },
+            audio: true
+          });
           streamRef.current = stream;
           chunksRef.current = [];
           const recorder = new MediaRecorder(stream);

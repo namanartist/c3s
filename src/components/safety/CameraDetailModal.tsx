@@ -49,7 +49,7 @@ export const CameraDetailModal: React.FC = () => {
       location: selectedCamera.location,
       confidence: 100,
       videoElement: videoRef.current,
-      videoUrl: selectedCamera.videoUrl || '/videos/cctv_recorded_incident.mp4'
+      videoUrl: selectedCamera.videoUrl || (selectedCamera.id === 'CAM-08' || selectedCamera.id === 'cam_jubilee' ? undefined : '/videos/cctv_recorded_incident.mp4')
     });
     globalProctorAlarm.triggerAlarm(`Live Camera SOS Triggered from ${selectedCamera.name}`);
     setSosNotice('🚨 LIVE SOS DISPATCHED TO CHIEF PROCTOR & GUARDS');
@@ -63,7 +63,7 @@ export const CameraDetailModal: React.FC = () => {
       location: selectedCamera.location,
       confidence: 95,
       videoElement: videoRef.current,
-      videoUrl: selectedCamera.videoUrl || '/videos/cctv_recorded_incident.mp4'
+      videoUrl: selectedCamera.videoUrl || (selectedCamera.id === 'CAM-08' || selectedCamera.id === 'cam_jubilee' ? undefined : '/videos/cctv_recorded_incident.mp4')
     });
     globalProctorAlarm.triggerAlarm(`Aggressive Altercation Flagged at ${selectedCamera.name}`);
     setSosNotice('⚡ AGGRESSIVE ALTERCATION FLAGGED • PROCTOR ALARM ACTIVE');

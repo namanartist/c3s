@@ -19,17 +19,33 @@ export function lazyWithRetry<T extends React.ComponentType<any>>(
     const storageKey = `c3s_chunk_reload_${componentName}`;
 
     try {
-      const module = await factory();
+      const rawModule = (await factory()) as any;
       if (typeof window !== 'undefined') {
         window.sessionStorage.removeItem(storageKey);
       }
-      return module;
+
+      // Safely resolve default export or fallback named component export
+      const resolved =
+        rawModule?.default ||
+        rawModule?.[componentName] ||
+        (rawModule && typeof rawModule === 'object'
+          ? Object.values(rawModule).find(
+              (v) => typeof v === 'function' || (typeof v === 'object' && v !== null && '$$typeof' in (v as any))
+            )
+          : null) ||
+        rawModule;
+
+      return {
+        default: (resolved || (() => React.createElement('div', { className: 'hidden' }))) as T
+      };
     } catch (error: any) {
       const message = error?.message || String(error);
       const isChunkLoadError =
         message.includes('Failed to fetch dynamically imported module') ||
         message.includes('error loading dynamically imported module') ||
         message.includes('Importing a module script failed') ||
+        message.includes("Cannot read properties of undefined (reading 'default')") ||
+        message.includes("reading 'default'") ||
         error?.name === 'ChunkLoadError';
 
       if (isChunkLoadError && typeof window !== 'undefined') {

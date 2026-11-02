@@ -83,9 +83,9 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-extrabold tracking-tight leading-[1.04] select-none text-neutral-900 dark:text-white"
           >
-            Navigate Any Room. <br className="hidden sm:inline" />
+            Protect Every Corner. <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-blue-600 via-indigo-500 to-[#ff602e] bg-clip-text text-transparent">
-              Protect Every Corner.
+              Navigate Any Room.
             </span>
           </motion.h1>
 
@@ -95,16 +95,47 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-6 text-base sm:text-lg md:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed"
           >
+            <strong className="text-neutral-900 dark:text-white font-bold block mb-1">
+              Our Goal: Protecting Campus Safety Powered by Precision Wayfinding.
+            </strong>
             Experience non-blocking multi-floor vector routing with automated level-of-detail,
             instant QR gate verification, and 24/7 AI-monitored campus surveillance.
           </motion.p>
         </div>
 
-        {/* Interactive Quick Search & Jump Bar */}
+        {/* Primary Action Buttons (with Emergency SOS) */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
+        >
+          <Link to="/map" className="w-full sm:w-auto">
+            <button className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 hover:bg-blue-600 dark:hover:bg-blue-500 dark:hover:text-white font-bold text-sm transition-all shadow-xl shadow-black/10 dark:shadow-white/5 active:scale-95 cursor-pointer">
+              <Compass className="w-4 h-4 text-[#ff602e]" />
+              <span>Launch Campus Map</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </Link>
+          <Link to="/student" className="w-full sm:w-auto">
+            <button className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-white dark:bg-neutral-900/90 border border-neutral-300 dark:border-white/10 text-neutral-900 dark:text-white hover:border-[#ff602e]/60 hover:bg-neutral-50 dark:hover:bg-neutral-800 font-bold text-sm transition-all shadow-sm active:scale-95 cursor-pointer">
+              <Shield className="w-4 h-4 text-blue-500" />
+              <span>Student Safety & Passes</span>
+            </button>
+          </Link>
+          <Link to="/login" className="w-full sm:w-auto">
+            <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-red-500/10 dark:bg-red-500/15 border border-red-500/30 text-red-600 dark:text-red-400 hover:bg-red-500 hover:text-white font-bold text-sm transition-all active:scale-95 cursor-pointer">
+              <Radio className="w-4 h-4 animate-pulse" />
+              <span>Emergency SOS</span>
+            </button>
+          </Link>
+        </motion.div>
+
+        {/* Interactive Quick Search & Jump Bar (Shifted below Emergency SOS) */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.35 }}
           className="mt-8 max-w-2xl mx-auto"
         >
           <form
@@ -149,34 +180,6 @@ export default function Hero() {
               </button>
             ))}
           </div>
-        </motion.div>
-
-        {/* Primary Action Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.35 }}
-          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
-        >
-          <Link to="/map" className="w-full sm:w-auto">
-            <button className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 hover:bg-blue-600 dark:hover:bg-blue-500 dark:hover:text-white font-bold text-sm transition-all shadow-xl shadow-black/10 dark:shadow-white/5 active:scale-95 cursor-pointer">
-              <Compass className="w-4 h-4 text-[#ff602e]" />
-              <span>Launch Campus Map</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </Link>
-          <Link to="/student" className="w-full sm:w-auto">
-            <button className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-white dark:bg-neutral-900/90 border border-neutral-300 dark:border-white/10 text-neutral-900 dark:text-white hover:border-[#ff602e]/60 hover:bg-neutral-50 dark:hover:bg-neutral-800 font-bold text-sm transition-all shadow-sm active:scale-95 cursor-pointer">
-              <Shield className="w-4 h-4 text-blue-500" />
-              <span>Student Safety & Passes</span>
-            </button>
-          </Link>
-          <Link to="/proctor" className="w-full sm:w-auto">
-            <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-red-500/10 dark:bg-red-500/15 border border-red-500/30 text-red-600 dark:text-red-400 hover:bg-red-500 hover:text-white font-bold text-sm transition-all active:scale-95 cursor-pointer">
-              <Radio className="w-4 h-4 animate-pulse" />
-              <span>Emergency SOS</span>
-            </button>
-          </Link>
         </motion.div>
 
         {/* Interactive Digital Twin Showcase Widget */}

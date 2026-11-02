@@ -39,7 +39,7 @@ export default function Navbar() {
           <Link to="/support" className={`md:hidden text-xs font-semibold text-neutral-300 hover:text-blue-600 dark:hover:text-white transition-colors px-1 ${isSupport ? 'text-blue-600 dark:text-white font-bold' : ''}`}>
             Support
           </Link>
-          <Link to="/proctor" className="flex-shrink-0">
+          <Link to="/login" className="flex-shrink-0">
             <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-[11px] sm:text-xs font-black px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all duration-200 shadow-md whitespace-nowrap">
               Open SOS Center
             </button>

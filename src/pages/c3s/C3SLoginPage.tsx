@@ -8,7 +8,7 @@ import {
   GraduationCap,
   QrCode,
   ShieldCheck,
-  Radio,
+  ShieldAlert,
   Sliders
 } from 'lucide-react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
@@ -29,10 +29,10 @@ export default function C3SLoginPage() {
 
   const primaryRoles: { role: C3SRole; icon: React.ElementType }[] = [
     { role: 'STUDENT', icon: GraduationCap },
-    { role: 'GATE_KEEPER', icon: QrCode },
-    { role: 'SECURITY_GUARD', icon: ShieldCheck },
-    { role: 'CONTROL_ROOM_OPERATOR', icon: Radio },
-    { role: 'SUPER_ADMIN', icon: Sliders }
+    { role: 'GUARD', icon: ShieldCheck },
+    { role: 'PROCTOR', icon: ShieldAlert },
+    { role: 'GATEKEEPER', icon: QrCode },
+    { role: 'ADMIN', icon: Sliders }
   ];
 
   const handleLogin = (e: React.FormEvent) => {

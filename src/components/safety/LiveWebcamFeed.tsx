@@ -56,11 +56,20 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
     setErrorMessage(null);
     stopActiveStream();
 
+    const isCam08 = camera?.id === 'CAM-08' || camera?.id === 'cam_jubilee' || cameraId === 'CAM-08' || cameraId === 'cam_jubilee';
+
     try {
       // Browsers restrict navigator.mediaDevices on plain HTTP IP addresses (e.g. http://192.168.x.x:5173).
-      // Seamlessly fall back to recorded CCTV stream with full live ML analysis so user experiences zero errors.
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        console.info('[LiveWebcamFeed]: Browser mediaDevices restricted over HTTP LAN IP. Seamlessly engaging CCTV High-Res Feed.');
+        console.info('[LiveWebcamFeed]: Browser mediaDevices restricted over HTTP LAN IP.');
+        if (isCam08) {
+          // Camera 8 must strictly use hardware camera only — never load recorded incident video
+          setIsSimulatedLanFeed(false);
+          setPermissionState('denied');
+          setErrorMessage('CAM-08 requires live hardware camera access. Enable camera permissions or open via localhost/HTTPS.');
+          return;
+        }
+
         setIsSimulatedLanFeed(true);
         setPermissionState('granted');
         if (videoRef.current) {
@@ -78,7 +87,7 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
           : {
               width: { ideal: 1280 },
               height: { ideal: 720 },
-              facingMode: 'user'
+              facingMode: { ideal: 'environment' }
             },
         audio: false
       };
@@ -108,8 +117,16 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
         console.warn('Could not enumerate video devices:', err);
       }
     } catch (err: any) {
-      console.warn('Physical camera unavailable or blocked, engaging seamless CCTV matrix fallback:', err);
-      // Graceful fallback: engage high-res CCTV simulation instead of blocking the user
+      console.warn('Physical camera unavailable:', err);
+      if (isCam08) {
+        // CAM-08 must NEVER fall back to recorded incident video
+        setIsSimulatedLanFeed(false);
+        setPermissionState('denied');
+        setErrorMessage('CAM-08 Hardware Camera Offline. Please grant rear camera permission to stream.');
+        return;
+      }
+
+      // Fallback for non-CAM-08 demo streams
       setIsSimulatedLanFeed(true);
       setPermissionState('granted');
       if (videoRef.current) {
@@ -140,7 +157,7 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
       location: camLocation,
       confidence: 100,
       videoElement: videoRef.current,
-      videoUrl: camera?.videoUrl || '/videos/cctv_recorded_incident.mp4'
+      videoUrl: camera?.videoUrl || (camera?.id === 'CAM-08' ? undefined : '/videos/cctv_recorded_incident.mp4')
     });
 
     // 2. Trigger audible emergency alarm to Chief Proctor
@@ -165,7 +182,7 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
       location: camLocation,
       confidence: 96,
       videoElement: videoRef.current,
-      videoUrl: camera?.videoUrl || '/videos/cctv_recorded_incident.mp4'
+      videoUrl: camera?.videoUrl || (camera?.id === 'CAM-08' ? undefined : '/videos/cctv_recorded_incident.mp4')
     });
 
     globalProctorAlarm.triggerAlarm(`Aggressive Altercation Recognized at ${camName}`);

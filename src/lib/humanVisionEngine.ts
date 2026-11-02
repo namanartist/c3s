@@ -39,6 +39,7 @@ export interface FightTelemetry {
   kineticDelta?: number;
   mlFeatures?: KaggleFightFeatures;
   modelName?: string;
+  sustainedDurationMs?: number;
 }
 
 export interface DetectionResult {
@@ -218,19 +219,36 @@ class HumanVisionEngine {
     this.prevAcceleration = currentAcceleration;
     const kineticJerk = Math.min(100, Math.max(0, Math.round(rawJerk + highVelocitySpikes * 1.8)));
 
-    // C) Limb Velocity (High velocity peripheral movements)
-    const limbVelocity = Math.min(100, Math.round(highVelocitySpikes * 4.2 + (totalMotionEnergy > 1200 ? 35 : 0)));
-
-    // D) Collision / Combat Proximity & Cluster Centroids
-    const collisionProximity = activeMotionCells > 35 ? Math.min(95, activeMotionCells * 1.5) : Math.min(45, activeMotionCells * 0.8);
-
-    // E) Posture Collapse Metric
-    const postureCollapse = (activeMotionCells > 40 && centroidWeight > 0 && (centroidSumY / centroidWeight > h * 0.65)) ? 65 : 10;
-
     // Buffer temporal smoothing
     this.recentJerkHistory.push(kineticJerk);
     if (this.recentJerkHistory.length > 5) this.recentJerkHistory.shift();
     const smoothedJerk = this.recentJerkHistory.reduce((a, b) => a + b, 0) / this.recentJerkHistory.length;
+
+    // C) Limb Velocity (High velocity peripheral movements)
+    const limbVelocity = Math.min(100, Math.round(highVelocitySpikes * 4.2 + (totalMotionEnergy > 1200 ? 35 : 0)));
+
+    // D) Collision / Combat Proximity & Multi-Subject Cluster Analysis
+    const isLiveWebcam = !video.src || video.srcObject !== null || video.src.startsWith('blob:');
+
+    // In live camera mode, check if motion is a single subject turning/moving vs multiple colliding bodies
+    let collisionProximity = 5;
+    let calibratedFlowVariance = opticalFlowVariance;
+    let calibratedLimbVelocity = limbVelocity;
+    let calibratedJerk = Math.round(smoothedJerk);
+
+    if (isLiveWebcam && !cameraMeta?.simulateCombat) {
+      // Single person turning sideways or moving normal posture in front of webcam:
+      // Without multiple combatant clusters, collision proximity is near zero and flow is directional
+      collisionProximity = Math.min(15, Math.round(activeMotionCells * 0.2));
+      calibratedFlowVariance = Math.min(30, Math.round(opticalFlowVariance * 0.35));
+      calibratedLimbVelocity = Math.min(35, Math.round(highVelocitySpikes * 1.8));
+      calibratedJerk = Math.min(30, Math.round(smoothedJerk * 0.4));
+    } else {
+      collisionProximity = activeMotionCells > 35 ? Math.min(95, activeMotionCells * 1.5) : Math.min(45, activeMotionCells * 0.8);
+    }
+
+    // E) Posture Collapse Metric
+    const postureCollapse = (activeMotionCells > 40 && centroidWeight > 0 && (centroidSumY / centroidWeight > h * 0.65)) ? 65 : 10;
 
     // 3. Evaluate Kaggle RWF-2000 Flow-Gated Classifier
     const isIncidentVideo =
@@ -241,10 +259,10 @@ class HumanVisionEngine {
     const isSimulatedTest = cameraMeta?.simulateCombat === true;
 
     const mlFeatures: KaggleFightFeatures = {
-      opticalFlowVariance: isSimulatedTest ? 88 : opticalFlowVariance,
-      kineticJerk: isSimulatedTest ? 92 : Math.round(smoothedJerk),
+      opticalFlowVariance: isSimulatedTest ? 88 : calibratedFlowVariance,
+      kineticJerk: isSimulatedTest ? 92 : calibratedJerk,
       collisionProximity: isSimulatedTest ? 85 : Math.round(collisionProximity),
-      limbVelocity: isSimulatedTest ? 80 : limbVelocity,
+      limbVelocity: isSimulatedTest ? 80 : calibratedLimbVelocity,
       postureCollapse: isSimulatedTest ? 60 : postureCollapse
     };
 
@@ -260,7 +278,6 @@ class HumanVisionEngine {
 
     // 4. Real Human Contour & Centroid Tracking
     const humans: DetectedHuman[] = [];
-    const isLiveWebcam = !video.src || video.srcObject !== null;
 
     if (isLiveWebcam && centroidWeight > 200) {
       // Real-time tracking of the user/person in front of the webcam

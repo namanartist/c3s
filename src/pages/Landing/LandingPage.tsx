@@ -61,16 +61,7 @@ export default function LandingPage() {
       borderColor: 'border-blue-500/30 hover:border-blue-500'
     },
     {
-      role: 'GATE_KEEPER',
-      icon: QrCode,
-      tag: 'Access Control',
-      description: 'Ultra-fast QR pass verification, real-time campus occupancy tracking, and instant audit trails.',
-      highlights: ['Sub-second QR Scanner', 'Occupancy Meter', 'Offline Pass Validation'],
-      accentColor: 'from-emerald-600 to-teal-600',
-      borderColor: 'border-emerald-500/30 hover:border-emerald-500'
-    },
-    {
-      role: 'SECURITY_GUARD',
+      role: 'GUARD',
       icon: Shield,
       tag: 'Tactical Rapid Response',
       description: 'Active incident queue, automated shortest safe route to incident coordinates, and team coordination.',
@@ -79,7 +70,7 @@ export default function LandingPage() {
       borderColor: 'border-amber-500/30 hover:border-amber-500'
     },
     {
-      role: 'CONTROL_ROOM_OPERATOR',
+      role: 'PROCTOR',
       icon: Radio,
       tag: 'SOC Central Command',
       description: 'Unified CCTV camera matrix, automated fight & intrusion detection alerts, and incident orchestration.',
@@ -88,7 +79,16 @@ export default function LandingPage() {
       borderColor: 'border-rose-500/30 hover:border-rose-500'
     },
     {
-      role: 'SUPER_ADMIN',
+      role: 'GATEKEEPER',
+      icon: QrCode,
+      tag: 'Access Control',
+      description: 'Ultra-fast QR pass verification, real-time campus occupancy tracking, and instant audit trails.',
+      highlights: ['Sub-second QR Scanner', 'Occupancy Meter', 'Offline Pass Validation'],
+      accentColor: 'from-emerald-600 to-teal-600',
+      borderColor: 'border-emerald-500/30 hover:border-emerald-500'
+    },
+    {
+      role: 'ADMIN',
       icon: Sliders,
       tag: 'Institutional Governance',
       description: 'Complete role-based access control (RBAC), camera health monitoring, gate logs, and audit reports.',
@@ -124,9 +124,7 @@ export default function LandingPage() {
   };
 
   const handleLaunchRole = (role: C3SRole) => {
-    setRole(role);
-    const target = getRoleDefaultPath(role);
-    navigate(target);
+    navigate('/login', { state: { role } });
   };
 
   return (

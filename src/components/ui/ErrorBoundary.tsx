@@ -37,7 +37,9 @@ export class ErrorBoundary extends Component<Props, State> {
     const isChunkMismatch =
       errorMsg.includes('Failed to fetch dynamically imported module') ||
       errorMsg.includes('error loading dynamically imported module') ||
-      errorMsg.includes('Importing a module script failed');
+      errorMsg.includes('Importing a module script failed') ||
+      errorMsg.includes("Cannot read properties of undefined (reading 'default')") ||
+      errorMsg.includes("reading 'default'");
 
     if (isChunkMismatch && typeof window !== 'undefined') {
       const lastAutoReload = Number(sessionStorage.getItem('c3s_auto_chunk_recovery') || 0);

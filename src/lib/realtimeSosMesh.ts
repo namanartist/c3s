@@ -42,7 +42,7 @@ export async function broadcastSosIncident(incident: SosIncident): Promise<void>
   // 2. Dispatch to Local LAN Server API
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 3500);
+    const timeout = setTimeout(() => controller.abort(), 2500);
 
     await fetch(`${API_BASE}/api/sos`, {
       method: 'POST',
@@ -51,8 +51,8 @@ export async function broadcastSosIncident(incident: SosIncident): Promise<void>
       signal: controller.signal
     });
     clearTimeout(timeout);
-  } catch (err) {
-    console.warn('[RealtimeSosMesh]: LAN API POST /api/sos dispatch non-fatal error:', err);
+  } catch {
+    // Non-fatal LAN fallback when offline or running client-only
   }
 }
 

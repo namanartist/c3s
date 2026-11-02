@@ -46,6 +46,8 @@ export function useHumanDetection(
   const lastSyncTimeRef = useRef<number>(0);
   const lastProcessedTimeRef = useRef<number>(0);
   const cameraMetaRef = useRef<CameraVisionMeta | undefined>(cameraMeta);
+  const fightStartTimeRef = useRef<number | null>(null);
+  const lastSosTriggeredTimeRef = useRef<number>(0);
 
   useEffect(() => {
     cameraMetaRef.current = cameraMeta;
@@ -66,10 +68,24 @@ export function useHumanDetection(
     }
 
     if (detection) {
-      setResult(detection);
+      const nowMs = Date.now();
+      const isAggressive = detection.fight.isFightDetected && detection.fight.confidence >= 75;
 
-      // Auto-dispatch emergency response if fight confidence is >= 90%
-      if (detection.fight.isFightDetected && detection.fight.confidence >= 90) {
+      // Track continuous duration of aggression (User requirement: strictly > 5 seconds)
+      if (isAggressive) {
+        if (fightStartTimeRef.current === null) {
+          fightStartTimeRef.current = nowMs;
+        }
+      } else {
+        fightStartTimeRef.current = null;
+      }
+
+      const sustainedMs = fightStartTimeRef.current ? nowMs - fightStartTimeRef.current : 0;
+      detection.fight.sustainedDurationMs = sustainedMs;
+
+      // Only auto-dispatch emergency SOS if aggressiveness is sustained continuously for MORE THAN 5 SECONDS (> 5000ms)
+      if (sustainedMs > 5000 && nowMs - lastSosTriggeredTimeRef.current > 15000) {
+        lastSosTriggeredTimeRef.current = nowMs;
         const targetCamId = cameraId || currentMeta?.id || 'cam_cctv_01';
         const targetCamName = currentMeta?.name || `CCTV Camera #${targetCamId}`;
         const targetLocation = currentMeta?.location || 'Surveillance Zone';
@@ -90,6 +106,8 @@ export function useHumanDetection(
             : undefined
         });
       }
+
+      setResult(detection);
 
       // Periodically sync detection metrics into global store (throttled to 1s)
       const now = performance.now();

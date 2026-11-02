@@ -5,6 +5,7 @@ import useSmoothScroll from '@/hooks/smoothscroll';
 import './styles/globals.css';
 import { OfflineMeshBridge } from '@/components/safety/OfflineMeshBridge';
 import { FightAlertBanner } from '@/components/safety/FightAlertBanner';
+import { IpPermissionAndPwaBanner } from '@/components/ui/IpPermissionAndPwaBanner';
 import { RoleGuard } from '@/components/c3s/RoleGuard';
 import { lazyWithRetry } from '@/lib/lazyWithRetry';
 
@@ -82,6 +83,7 @@ export default function App() {
     <Router>
       <OfflineMeshBridge />
       <FightAlertBanner />
+      <IpPermissionAndPwaBanner />
       <ScrollToTop />
       <Suspense fallback={<LoadingFallback />}>
         <Routes>

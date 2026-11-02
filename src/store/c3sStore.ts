@@ -411,13 +411,13 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
         priority: 'CRITICAL',
         distanceMeters: parseInt(guardInfo.distance) || 85,
         assignedResponder: `${guardInfo.callsign} (${guardInfo.name}) & ${facultyInfo.name}`,
-        latitude: payload?.lat || 26.230752,
-        longitude: payload?.lng || 78.205341,
+        latitude: payload?.lat || get().latitude || 26.230752,
+        longitude: payload?.lng || get().longitude || 78.205341,
         photoUrl: payload?.photoUrl,
-        videoUrl: payload?.videoUrl || '/videos/cctv_recorded_incident.mp4',
+        videoUrl: payload?.videoUrl,
         evidence: {
           photoUrl: payload?.photoUrl,
-          videoUrl: payload?.videoUrl || '/videos/cctv_recorded_incident.mp4',
+          videoUrl: payload?.videoUrl,
         },
         timeline: [
           { time: now, event: `1-Step 2s Hold SOS initiated by student at Node #${nodeId}. Video & photo evidence captured.`, actor: 'System Dispatch' },
@@ -442,8 +442,8 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
         sosNodeId: nodeId,
         sosPhotoUrl: payload?.photoUrl,
         sosVideoUrl: payload?.videoUrl,
-        sosLat: payload?.lat || 26.230752,
-        sosLng: payload?.lng || 78.205341,
+        sosLat: payload?.lat || get().latitude || 26.230752,
+        sosLng: payload?.lng || get().longitude || 78.205341,
         sosNotifiedEntities: {
           guard: guardInfo,
           faculty: facultyInfo,

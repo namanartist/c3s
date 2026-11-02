@@ -615,3 +615,5 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
     </div>
   );
 });
+
+export default RoutePanel;

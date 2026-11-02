@@ -11,9 +11,14 @@ import { useC3SStore } from '@/store/c3sStore';
 import { useSearchParams } from 'react-router-dom';
 import { SOSSystem } from '@/components/ui/SOSSystem';
 import { haversineDistanceMeters } from '@/lib/geoProjection';
+import { lazyWithRetry } from '@/lib/lazyWithRetry';
 
-const RoutePanelLazy = React.lazy(() =>
-  import('@/components/route/RoutePanel').then((m) => ({ default: m.RoutePanel }))
+const RoutePanelLazy = lazyWithRetry(
+  () =>
+    import('@/components/route/RoutePanel').then((m) => ({
+      default: (m.default || m.RoutePanel || (() => null)) as React.ComponentType<any>
+    })),
+  'RoutePanel'
 );
 
 export function RoutePanel(props: Record<string, unknown>) {

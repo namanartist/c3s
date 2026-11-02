@@ -67,7 +67,7 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
     }
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
+        video: { facingMode: { ideal: 'environment' }, width: { ideal: 640 }, height: { ideal: 480 } },
         audio: true
       });
       mediaStreamRef.current = stream;
@@ -80,9 +80,9 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
       return stream;
     } catch {
       try {
-        // Fallback to video-only if microphone blocked
+        // Fallback to video-only if microphone blocked (rear camera only)
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } }
+          video: { facingMode: { ideal: 'environment' }, width: { ideal: 640 }, height: { ideal: 480 } }
         });
         mediaStreamRef.current = stream;
         if (hiddenVideoRef.current) {
@@ -174,23 +174,25 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
     }
 
     // 1. Resolve Location & Nearest Campus Node
-    let resolvedLat = 26.230752;
-    let resolvedLng = 78.205341;
+    const storeLat = useC3SStore.getState().latitude;
+    const storeLng = useC3SStore.getState().longitude;
+    let resolvedLat = storeLat || 26.230752;
+    let resolvedLng = storeLng || 78.205341;
 
-    // Grab real GPS location from device if available
+    // Grab real GPS location from device if available with generous timeout
     if (typeof navigator !== 'undefined' && 'geolocation' in navigator) {
       try {
         const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
           navigator.geolocation.getCurrentPosition(resolve, reject, {
             enableHighAccuracy: true,
-            timeout: 1500,
-            maximumAge: 30000
+            timeout: 5000,
+            maximumAge: 60000
           });
         });
         resolvedLat = pos.coords.latitude;
         resolvedLng = pos.coords.longitude;
       } catch {
-        // Fallback to campus default
+        // Retain cached store or campus default
       }
     }
 
@@ -226,10 +228,7 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
         resolvedFloor = (nearest as any).floor ?? 0;
         resolvedX = nearest.x;
         resolvedY = nearest.y;
-        if (nearest.lat != null && nearest.lng != null) {
-          resolvedLat = nearest.lat;
-          resolvedLng = nearest.lng;
-        }
+        // Do NOT overwrite user's actual GPS coordinates with nearest node coordinates!
       }
     } catch (e) {
       console.warn('Node resolution fallback engaged:', e);
