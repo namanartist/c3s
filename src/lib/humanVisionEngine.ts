@@ -249,29 +249,30 @@ class HumanVisionEngine {
     // D) Collision / Combat Proximity & Multi-Subject Cluster Analysis
     const isLiveWebcam = !video.src || video.srcObject !== null || video.src.startsWith('blob:');
 
-    // Distinguish fast kinetic aggressive spikes (punches, violent strikes) from smooth pedestrian movement
-    const hasAggressiveSpikes = highVelocitySpikes >= 5 || kineticJerk >= 38 || opticalFlowVariance >= 38;
+    // Strict combat discriminator: violent strikes require explosive kinetic shockwaves & high velocity
+    // Normal pedestrian movement (walking, turning, waving, stretching) never triggers this threshold
+    const hasCombatStrikes =
+      (kineticJerk >= 58 && highVelocitySpikes >= 18) ||
+      (opticalFlowVariance >= 55 && kineticJerk >= 48);
 
     let collisionProximity = 5;
-    let calibratedFlowVariance = opticalFlowVariance;
-    let calibratedLimbVelocity = limbVelocity;
-    let calibratedJerk = Math.round(smoothedJerk);
+    let calibratedFlowVariance = Math.min(25, Math.round(opticalFlowVariance * 0.35));
+    let calibratedLimbVelocity = Math.min(25, Math.round(highVelocitySpikes * 1.4));
+    let calibratedJerk = Math.min(25, Math.round(smoothedJerk * 0.35));
 
-    if (isLiveWebcam && !cameraMeta?.simulateCombat) {
-      if (hasAggressiveSpikes) {
-        // Fast violent strike, punch, or aggressive clash: full kinetic expression with zero latency
-        calibratedJerk = Math.min(100, Math.round(kineticJerk * 1.25));
-        calibratedLimbVelocity = Math.min(100, Math.round(highVelocitySpikes * 4.5 + limbVelocity * 0.7));
-        calibratedFlowVariance = Math.min(100, Math.round(opticalFlowVariance * 1.15));
-        collisionProximity = Math.min(85, Math.round(activeMotionCells * 0.95));
-      } else {
-        // Smooth normal pedestrian walking, posture turning, calm gestures
-        calibratedJerk = Math.min(25, Math.round(smoothedJerk * 0.35));
-        calibratedLimbVelocity = Math.min(25, Math.round(highVelocitySpikes * 1.5));
-        calibratedFlowVariance = Math.min(25, Math.round(opticalFlowVariance * 0.3));
-        collisionProximity = Math.min(12, Math.round(activeMotionCells * 0.15));
-      }
-    } else {
+    if (cameraMeta?.simulateCombat) {
+      calibratedJerk = 95;
+      calibratedLimbVelocity = 90;
+      calibratedFlowVariance = 88;
+      collisionProximity = 85;
+    } else if (hasCombatStrikes) {
+      // True violent combat strike / explosive aggressive clash
+      calibratedJerk = Math.min(100, Math.round(kineticJerk * 1.3));
+      calibratedLimbVelocity = Math.min(100, Math.round(highVelocitySpikes * 3.5 + limbVelocity * 0.5));
+      calibratedFlowVariance = Math.min(100, Math.round(opticalFlowVariance * 1.1));
+      collisionProximity = Math.min(80, Math.round(activeMotionCells * 0.8));
+    } else if (!isLiveWebcam) {
+      // For recorded CCTV videos with multiple subjects
       collisionProximity = activeMotionCells > 30 ? Math.min(95, activeMotionCells * 1.5) : Math.min(45, activeMotionCells * 0.8);
     }
 
