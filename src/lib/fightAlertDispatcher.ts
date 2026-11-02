@@ -6,6 +6,7 @@ import type { SosIncident } from '@/types/safety';
 import fallbackData from '@/lib/mock-data/campusDataFallback.json';
 import type { MapNode } from '@/types/graph';
 import { findNearestCampusNode } from '@/lib/geoProjection';
+import { globalProctorAlarm } from '@/lib/proctorAlarmAudio';
 
 export interface ActiveFightAlert {
   id: string;
@@ -52,6 +53,7 @@ class FightAlertDispatcher {
 
   public clearActiveAlert() {
     this.currentActiveAlert = null;
+    globalProctorAlarm.dismissAlarm();
     this.notifyListeners();
   }
 
@@ -422,8 +424,9 @@ class FightAlertDispatcher {
       responders
     };
 
-    // 8. Play emergency acoustic chime and notify listeners
+    // 8. Play emergency acoustic chime, activate proctor siren alarm, and notify listeners
     this.playEmergencyChime();
+    globalProctorAlarm.triggerAlarm(`Aggressive Altercation Detected at ${location} (${confidence}%)`);
     this.notifyListeners();
   }
 }

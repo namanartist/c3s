@@ -257,3 +257,4 @@ export function IncidentEvidenceModal({ incident, isOpen, onClose }: IncidentEvi
     </AnimatePresence>
   );
 }
+

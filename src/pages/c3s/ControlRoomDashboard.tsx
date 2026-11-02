@@ -16,12 +16,17 @@ import {
   ArrowRight,
   ExternalLink,
   Flame,
-  Activity
+  Activity,
+  Volume2,
+  VolumeX,
+  AlertTriangle
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
 import { useSafetyStore } from '@/store/safetyStore';
 import { IncidentEvidenceModal } from '@/components/c3s/IncidentEvidenceModal';
+import { globalProctorAlarm } from '@/lib/proctorAlarmAudio';
+import { globalFightDispatcher, type ActiveFightAlert } from '@/lib/fightAlertDispatcher';
 import type { C3SIncident } from '@/lib/mock-data/incidents';
 
 export default function ControlRoomDashboard() {
@@ -29,6 +34,23 @@ export default function ControlRoomDashboard() {
   const { incidents, responders, cameras } = useC3SStore();
   const realCrowdCount = useSafetyStore((s) => s.realCrowdCount);
   const [selectedEvidenceIncident, setSelectedEvidenceIncident] = React.useState<C3SIncident | null>(null);
+  const [alarmActive, setAlarmActive] = React.useState(false);
+  const [isSirenMuted, setIsSirenMuted] = React.useState(false);
+  const [activeFight, setActiveFight] = React.useState<ActiveFightAlert | null>(null);
+
+  React.useEffect(() => {
+    const unsubAlarm = globalProctorAlarm.subscribe((active, muted) => {
+      setAlarmActive(active);
+      setIsSirenMuted(muted);
+    });
+    const unsubFight = globalFightDispatcher.subscribe((alert) => {
+      setActiveFight(alert);
+    });
+    return () => {
+      unsubAlarm();
+      unsubFight();
+    };
+  }, []);
 
   const criticalIncidents = incidents.filter((i) => i.priority === 'CRITICAL' && i.status !== 'RESOLVED');
   const onlineCameras = cameras.filter((c) => c.status === 'ONLINE').length;
@@ -106,6 +128,77 @@ export default function ControlRoomDashboard() {
   return (
     <AppShell>
       <div className="space-y-6">
+        {/* HIGH-PRIORITY PROCTOR EMERGENCY ALARM BANNER */}
+        {alarmActive && (
+          <div className="rounded-3xl border-2 border-red-600 bg-gradient-to-r from-red-950 via-rose-950 to-red-900 p-5 sm:p-6 text-white shadow-2xl shadow-red-950/60">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-3.5">
+                <div className="w-12 h-12 rounded-2xl bg-red-600 text-white flex items-center justify-center font-bold shadow-lg shadow-red-600/40 shrink-0 animate-pulse">
+                  <ShieldAlert className="w-6 h-6" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-red-600 text-white animate-pulse">
+                      🚨 PROCTOR EMERGENCY ALARM
+                    </span>
+                    <span className="text-xs font-mono text-red-300">
+                      {isSirenMuted ? '🔕 Siren Silenced' : '🔔 Dual-Frequency Siren Warbling'}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-black mt-1 text-white">
+                    {activeFight ? `Aggressive Activity Flagged: ${activeFight.location}` : 'Critical SOS Signal Active on Campus Mesh'}
+                  </h3>
+                  <p className="text-xs text-rose-200 mt-0.5">
+                    {activeFight ? `Camera: ${activeFight.cameraName} • AI Confidence: ${activeFight.confidence}% • Dispatched: Guard, Faculty & Proctor` : 'Live optical alert or manual SOS requires immediate disciplinary intervention.'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (isSirenMuted) {
+                      globalProctorAlarm.triggerAlarm('Proctor Unmuted');
+                    } else {
+                      globalProctorAlarm.silenceAlarm();
+                    }
+                  }}
+                  className="px-3.5 py-2 rounded-xl bg-black/60 hover:bg-black/80 border border-white/20 text-xs font-bold text-white flex items-center gap-1.5 transition cursor-pointer"
+                >
+                  {isSirenMuted ? <Volume2 className="w-4 h-4 text-emerald-400" /> : <VolumeX className="w-4 h-4 text-amber-400" />}
+                  <span>{isSirenMuted ? 'Unmute Siren' : 'Silence Siren'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (activeFight) {
+                      navigate(`/map?to=${activeFight.nodeId}&incident=${activeFight.id}`);
+                    } else {
+                      navigate('/control-room/incidents');
+                    }
+                  }}
+                  className="px-4 py-2 rounded-xl bg-white text-red-950 font-black text-xs hover:bg-rose-100 transition shadow-lg cursor-pointer"
+                >
+                  Engage Responders →
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    globalProctorAlarm.dismissAlarm();
+                    globalFightDispatcher.clearActiveAlert();
+                  }}
+                  className="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-white transition cursor-pointer"
+                >
+                  Dismiss Alarm
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* SOC Command Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-white/[0.08] pb-5">
           <div>

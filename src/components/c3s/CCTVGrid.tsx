@@ -10,6 +10,8 @@ import {
 import { useHumanDetection } from '@/hooks/useHumanDetection';
 import { LiveDetectionOverlay } from '@/components/safety/LiveDetectionOverlay';
 import { LiveWebcamFeed } from '@/components/safety/LiveWebcamFeed';
+import { globalFightDispatcher } from '@/lib/fightAlertDispatcher';
+import { globalProctorAlarm } from '@/lib/proctorAlarmAudio';
 
 interface LiveCameraModalViewProps {
   videoSrc: string;
@@ -285,12 +287,34 @@ export const CCTVGrid: React.FC = () => {
                   </span>
                 )}
               </div>
-              <button
-                onClick={() => setSelectedCam(null)}
-                className="rounded-lg p-1 text-slate-400 hover:text-white transition-colors cursor-pointer"
-              >
-                <X className="h-6 w-6" />
-              </button>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    globalFightDispatcher.handleFightDetection({
+                      cameraId: selectedCam.id,
+                      cameraName: selectedCam.name,
+                      location: selectedCam.location,
+                      confidence: 100,
+                      videoUrl: selectedCam.videoUrl || '/videos/cctv_recorded_incident.mp4'
+                    });
+                    globalProctorAlarm.triggerAlarm(`Live SOS Triggered from ${selectedCam.name}`);
+                  }}
+                  className="px-3 py-1 rounded-full bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-black text-xs flex items-center gap-1.5 shadow-md shadow-red-600/40 active:scale-95 transition-all cursor-pointer animate-pulse"
+                  title="Broadcast Live SOS and sound Proctor emergency alarm"
+                >
+                  <ShieldAlert className="w-3.5 h-3.5" />
+                  <span>LIVE SOS</span>
+                </button>
+
+                <button
+                  onClick={() => setSelectedCam(null)}
+                  className="rounded-lg p-1 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
             </div>
 
             {/* Video Viewport */}

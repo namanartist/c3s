@@ -1,4 +1,5 @@
 import type { SosIncident } from '@/types/safety';
+import { safeRandomUUID } from './uuid';
 
 const CHANNEL_NAME = 'c3s-campus-safety-mesh';
 const STORAGE_EVENT_KEY = 'c3s-mesh-packet';
@@ -20,7 +21,7 @@ function getPeerId() {
     const key = 'c3s-peer-id';
     const existing = localStorage.getItem(key);
     if (existing) return existing;
-    const id = `peer_${crypto.randomUUID()}`;
+    const id = `peer_${safeRandomUUID()}`;
     localStorage.setItem(key, id);
     return id;
 }

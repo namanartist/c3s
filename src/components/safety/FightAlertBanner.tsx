@@ -12,26 +12,36 @@ import {
   UserCheck,
   Download,
   Flame,
-  Film
+  Film,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
 import {
   globalFightDispatcher,
   type ActiveFightAlert
 } from '@/lib/fightAlertDispatcher';
+import { globalProctorAlarm } from '@/lib/proctorAlarmAudio';
 
 export const FightAlertBanner: React.FC = () => {
   const [activeAlert, setActiveAlert] = useState<ActiveFightAlert | null>(null);
   const [showEvidenceModal, setShowEvidenceModal] = useState(false);
+  const [isSirenMuted, setIsSirenMuted] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = globalFightDispatcher.subscribe((alert) => {
+    const unsubAlert = globalFightDispatcher.subscribe((alert) => {
       setActiveAlert(alert);
       if (!alert) {
         setShowEvidenceModal(false);
       }
     });
-    return unsubscribe;
+    const unsubAudio = globalProctorAlarm.subscribe((active, muted) => {
+      setIsSirenMuted(muted);
+    });
+    return () => {
+      unsubAlert();
+      unsubAudio();
+    };
   }, []);
 
   if (!activeAlert) return null;
@@ -101,6 +111,26 @@ export const FightAlertBanner: React.FC = () => {
 
             {/* Right Action Buttons */}
             <div className="flex items-center gap-2 w-full sm:w-auto justify-end flex-shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-800">
+              <button
+                type="button"
+                onClick={() => {
+                  if (isSirenMuted) {
+                    globalProctorAlarm.triggerAlarm('Proctor Unmuted Alarm');
+                  } else {
+                    globalProctorAlarm.silenceAlarm();
+                  }
+                }}
+                className={`px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition active:scale-95 cursor-pointer ${
+                  isSirenMuted
+                    ? 'bg-slate-800 text-slate-300 border border-slate-700'
+                    : 'bg-amber-600 hover:bg-amber-500 text-white shadow-md animate-pulse'
+                }`}
+                title={isSirenMuted ? 'Resume Emergency Siren' : 'Silence Emergency Siren'}
+              >
+                {isSirenMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+                <span>{isSirenMuted ? 'Siren Muted' : 'Silence Siren'}</span>
+              </button>
+
               <button
                 type="button"
                 onClick={handleNavigate}

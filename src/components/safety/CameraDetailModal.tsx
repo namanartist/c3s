@@ -1,10 +1,12 @@
 import React, { useState, useRef } from 'react';
-import { Camera, X, Users, ShieldAlert, Video } from 'lucide-react';
+import { Camera, X, Users, ShieldAlert, Video, Zap } from 'lucide-react';
 import { useSafetyStore } from '@/store/safetyStore';
 import { getCrowdBadgeStyle } from '@/lib/crowdMonitoringApi';
 import { useHumanDetection } from '@/hooks/useHumanDetection';
 import { LiveDetectionOverlay } from './LiveDetectionOverlay';
 import { LiveWebcamFeed } from './LiveWebcamFeed';
+import { globalFightDispatcher } from '@/lib/fightAlertDispatcher';
+import { globalProctorAlarm } from '@/lib/proctorAlarmAudio';
 
 export const CameraDetailModal: React.FC = () => {
   const selectedCamera = useSafetyStore((s) => s.selectedCamera);
@@ -38,6 +40,36 @@ export const CameraDetailModal: React.FC = () => {
   const hasFight = selectedCamera.fightDetected || detection.fight.isFightDetected;
   const fightConfidence = selectedCamera.fightConfidence || Math.round(detection.fight.confidence);
 
+  const [sosNotice, setSosNotice] = useState<string | null>(null);
+
+  const handleTriggerLiveSos = () => {
+    globalFightDispatcher.handleFightDetection({
+      cameraId: selectedCamera.id,
+      cameraName: selectedCamera.name,
+      location: selectedCamera.location,
+      confidence: 100,
+      videoElement: videoRef.current,
+      videoUrl: selectedCamera.videoUrl || '/videos/cctv_recorded_incident.mp4'
+    });
+    globalProctorAlarm.triggerAlarm(`Live Camera SOS Triggered from ${selectedCamera.name}`);
+    setSosNotice('🚨 LIVE SOS DISPATCHED TO CHIEF PROCTOR & GUARDS');
+    setTimeout(() => setSosNotice(null), 5000);
+  };
+
+  const handleTriggerAggression = () => {
+    globalFightDispatcher.handleFightDetection({
+      cameraId: selectedCamera.id,
+      cameraName: selectedCamera.name,
+      location: selectedCamera.location,
+      confidence: 95,
+      videoElement: videoRef.current,
+      videoUrl: selectedCamera.videoUrl || '/videos/cctv_recorded_incident.mp4'
+    });
+    globalProctorAlarm.triggerAlarm(`Aggressive Altercation Flagged at ${selectedCamera.name}`);
+    setSosNotice('⚡ AGGRESSIVE ALTERCATION FLAGGED • PROCTOR ALARM ACTIVE');
+    setTimeout(() => setSosNotice(null), 5000);
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md animate-in fade-in">
       <div className="relative w-full max-w-3xl overflow-hidden rounded-3xl border border-slate-700 bg-slate-950 p-5 shadow-2xl text-slate-100 flex flex-col max-h-[92vh]">
@@ -70,12 +102,35 @@ export const CameraDetailModal: React.FC = () => {
               </p>
             </div>
           </div>
-          <button
-            onClick={() => setSelectedCamera(null)}
-            className="rounded-lg p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
-          >
-            <X className="h-5 w-5" />
-          </button>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleTriggerLiveSos}
+              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-600 text-white font-black text-xs flex items-center gap-1.5 shadow-md shadow-red-600/40 active:scale-95 transition-all cursor-pointer animate-pulse"
+              title="Broadcast Live SOS and sound Proctor emergency alarm"
+            >
+              <ShieldAlert className="w-3.5 h-3.5" />
+              <span>LIVE SOS</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleTriggerAggression}
+              className="px-2.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-mono font-bold text-xs flex items-center gap-1 transition-all cursor-pointer"
+              title="Flag aggressive combat or fight activity"
+            >
+              <Zap className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">FLAG AGGRESSION</span>
+            </button>
+
+            <button
+              onClick={() => setSelectedCamera(null)}
+              className="rounded-lg p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
         </div>
 
         {/* Video / Live Optical Feed Container */}
@@ -124,6 +179,13 @@ export const CameraDetailModal: React.FC = () => {
               <div className="mt-3 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-xl">
                 Real-time Headcount: <strong>{currentCount} Persons Detected</strong>
               </div>
+            </div>
+          )}
+
+          {/* SOS Broadcast Confirmation Toast */}
+          {sosNotice && (
+            <div className="absolute top-12 left-1/2 -translate-x-1/2 z-40 bg-red-600 text-white px-4 py-2 rounded-xl text-xs font-mono font-black shadow-2xl border border-white/30 animate-bounce">
+              {sosNotice}
             </div>
           )}
 
