@@ -15,6 +15,8 @@ export interface CameraVisionMeta {
   fightDetected?: boolean;
   fightConfidence?: number;
   location?: string;
+  simulateCombat?: boolean;
+  getRealVideoUrl?: () => string | undefined;
 }
 
 const DEFAULT_DETECTION: DetectionResult = {
@@ -78,10 +80,10 @@ export function useHumanDetection(
       const nowMs = Date.now();
       const isAggressive =
         detection.fight.isFightDetected &&
-        detection.fight.confidence >= 68 &&
+        detection.fight.confidence >= 65 &&
         !detection.fight.isOnlyMovement;
 
-      // Track continuous duration of aggression (User requirement: strictly > 5 seconds of active aggression)
+      // Track continuous duration of aggression
       if (isAggressive) {
         if (fightStartTimeRef.current === null) {
           fightStartTimeRef.current = nowMs;
@@ -93,12 +95,12 @@ export function useHumanDetection(
       const sustainedMs = fightStartTimeRef.current ? nowMs - fightStartTimeRef.current : 0;
       detection.fight.sustainedDurationMs = sustainedMs;
 
-      // Only auto-dispatch emergency SOS if aggressiveness is sustained continuously for MORE THAN 5 SECONDS (> 5000ms)
-      if (sustainedMs > 5000 && nowMs - lastSosTriggeredTimeRef.current > 15000) {
+      // Auto-dispatch emergency SOS promptly when fight is confirmed (> 900ms confirmation window)
+      if (sustainedMs >= 900 && nowMs - lastSosTriggeredTimeRef.current > 12000) {
         lastSosTriggeredTimeRef.current = nowMs;
         const targetCamId = cameraId || currentMeta?.id || 'cam_cctv_01';
         const targetCamName = currentMeta?.name || `CCTV Camera #${targetCamId}`;
-        const targetLocation = currentMeta?.location || 'Surveillance Zone';
+        const targetLocation = currentMeta?.location || 'J010 – SH-4 (Seminar Hall 4)';
 
         globalFightDispatcher.handleFightDetection({
           cameraId: targetCamId,
@@ -106,14 +108,14 @@ export function useHumanDetection(
           location: targetLocation,
           confidence: Math.round(detection.fight.confidence),
           videoElement: videoRef?.current || null,
-          videoUrl: currentMeta?.videoUrl,
+          videoUrl: currentMeta?.getRealVideoUrl?.() || currentMeta?.videoUrl,
           nodeId: targetCamId.includes('gate_1')
             ? 'Main_Gate'
             : targetCamId.includes('gate_2')
             ? 'Gate2_Parking'
             : targetCamId.includes('conclave')
             ? 'Conclave'
-            : undefined
+            : 'room_J010'
         });
       }
 

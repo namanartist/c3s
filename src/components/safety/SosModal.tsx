@@ -123,11 +123,11 @@ export function SosModal() {
       };
     }
     return {
-      lat: 26.232611,
-      lng: 78.205222,
-      x: 253.0593,
-      y: 606.1033,
-      source: 'MITS Campus Main Entrance'
+      lat: 26.23185102,
+      lng: 78.20636481,
+      x: 162.9803,
+      y: 353.4052,
+      source: 'J010 – SH-4 (Seminar Hall 4)'
     };
   }, [userGpsCoords, userSvgCoords]);
 
@@ -157,8 +157,8 @@ export function SosModal() {
       recordedChunksRef.current = [];
 
       try {
-        if (typeof navigator === 'undefined' || !navigator.mediaDevices || typeof navigator.mediaDevices.getUserMedia !== 'function') {
-          throw new Error('Camera API requires HTTPS or secure context.');
+        if (typeof navigator === 'undefined' || !navigator.mediaDevices?.getUserMedia) {
+          throw new Error('Camera access requires HTTPS or secure origin.');
         }
         const stream = await navigator.mediaDevices.getUserMedia({
           video: { facingMode: { ideal: 'environment' }, width: { ideal: 640 }, height: { ideal: 480 } },

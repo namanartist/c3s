@@ -172,7 +172,7 @@ class FightAlertDispatcher {
   }
 
   /**
-   * Dispatches high-confidence fight alerts (>= 90%)
+   * Dispatches high-confidence fight alerts (>= 65%) promptly and triggers active SOS
    */
   public handleFightDetection(payload: {
     cameraId: string;
@@ -185,24 +185,24 @@ class FightAlertDispatcher {
   }) {
     const { cameraId, cameraName, location, confidence, videoElement, videoUrl } = payload;
 
-    if (confidence < 90) return;
+    if (confidence < 65) return;
 
-    // Cooldown check (60 seconds per camera) to avoid repetitive alerts
+    // Cooldown check (20 seconds per camera) to avoid repetitive alerts while keeping responsiveness
     const nowMs = Date.now();
     const lastAlert = this.lastAlertTimeByCamera.get(cameraId) || 0;
-    if (nowMs - lastAlert < 60000) {
+    if (nowMs - lastAlert < 20000) {
       return;
     }
     this.lastAlertTimeByCamera.set(cameraId, nowMs);
 
-    // 1. Resolve Campus Node Coordinates
-    let resolvedNodeId = payload.nodeId || 'MainRoad09';
-    let resolvedNodeName = location;
-    let resolvedLat = 26.230752;
-    let resolvedLng = 78.205341;
-    let resolvedX = 500;
-    let resolvedY = 350;
-    let resolvedMap = 'Campus_Map';
+    // 1. Resolve Campus Node Coordinates (Default to J010 - SH-4 Seminar Hall 4)
+    let resolvedNodeId = payload.nodeId || 'room_J010';
+    let resolvedNodeName = location.includes('SH') || location.includes('J010') ? location : 'J010 – SH-4 (Seminar Hall 4)';
+    let resolvedLat = 26.23185102;
+    let resolvedLng = 78.20636481;
+    let resolvedX = 162.9803;
+    let resolvedY = 353.4052;
+    let resolvedMap = 'Main_GF';
 
     if (cameraId.includes('gate_1') || cameraId.includes('CAM-01')) {
       resolvedNodeId = 'Main_Gate';
@@ -211,6 +211,7 @@ class FightAlertDispatcher {
       resolvedLng = 78.205222;
       resolvedX = 253.0593;
       resolvedY = 606.1033;
+      resolvedMap = 'Campus_Map';
     } else if (cameraId.includes('gate_2') || cameraId.includes('CAM-02')) {
       resolvedNodeId = 'Gate2_Parking';
       resolvedNodeName = 'Gate 2 Student Parking & Annex';
@@ -218,6 +219,7 @@ class FightAlertDispatcher {
       resolvedLng = 78.203639;
       resolvedX = 815.0;
       resolvedY = 606.1033;
+      resolvedMap = 'Campus_Map';
     } else if (cameraId.includes('conclave') || cameraId.includes('CAM-03')) {
       resolvedNodeId = 'Conclave';
       resolvedNodeName = 'Conclave Foyer Corridor';
@@ -233,24 +235,23 @@ class FightAlertDispatcher {
       resolvedLng = 78.204892;
       resolvedX = 499.1435;
       resolvedY = 473.2811;
-    } else {
+      resolvedMap = 'Campus_Map';
+    } else if (payload.nodeId) {
       try {
         const nodesList = fallbackData.nodes as unknown as MapNode[];
-        const nearest = findNearestCampusNode({ lat: resolvedLat, lon: resolvedLng }, nodesList);
-        if (nearest) {
-          resolvedNodeId = nearest.id;
-          resolvedNodeName = nearest.name || resolvedNodeName;
-          resolvedX = nearest.x;
-          resolvedY = nearest.y;
-          resolvedMap = nearest.map;
-          if (nearest.lat != null && nearest.lng != null) {
-            resolvedLat = nearest.lat;
-            resolvedLng = nearest.lng;
+        const matched = nodesList.find((n) => n.id === payload.nodeId);
+        if (matched) {
+          resolvedNodeId = matched.id;
+          resolvedNodeName = matched.name || resolvedNodeName;
+          resolvedX = matched.x;
+          resolvedY = matched.y;
+          resolvedMap = matched.map;
+          if (matched.lat != null && matched.lng != null) {
+            resolvedLat = matched.lat;
+            resolvedLng = matched.lng;
           }
         }
-      } catch {
-        /* fallback coordinates used */
-      }
+      } catch {}
     }
 
     // 2. Generate Evidence Photo & Video Link
@@ -396,6 +397,38 @@ class FightAlertDispatcher {
       }
     };
     safetyStore.triggerSosIncident(sosIncident);
+
+    // 5b. Trigger active SOS in C3S store so campus-wide SOS state machine & UI banners engage
+    c3sStore.triggerSos({
+      nodeId: resolvedNodeId,
+      location: resolvedNodeName,
+      lat: resolvedLat,
+      lng: resolvedLng,
+      photoUrl,
+      videoUrl: incidentVideoUrl,
+      notifiedEntities: {
+        guard: {
+          name: responders.guard.name,
+          callsign: responders.guard.callsign,
+          distance: responders.guard.distance,
+          status: 'DISPATCHED',
+          radio: 'VHF CH-4'
+        },
+        faculty: {
+          name: responders.faculty.name,
+          department: responders.faculty.department,
+          distance: responders.faculty.distance,
+          status: 'ALERTED',
+          cabin: 'Cabin 204, Floor 1'
+        },
+        proctor: {
+          name: responders.proctor.name,
+          office: responders.proctor.office,
+          status: 'MONITORING LIVE FEED',
+          channel: 'VHF CH-0'
+        }
+      }
+    });
 
     // 6. Broadcast Campus-Wide Emergency Alert Banner
     safetyStore.triggerCampusAlert({

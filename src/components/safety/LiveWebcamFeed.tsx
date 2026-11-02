@@ -1,5 +1,5 @@
 // src/components/safety/LiveWebcamFeed.tsx
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Camera, RefreshCw, AlertCircle, Video, ShieldAlert, CheckCircle2, Zap, Activity, Volume2, VolumeX } from 'lucide-react';
 import { useHumanDetection } from '@/hooks/useHumanDetection';
 import { LiveDetectionOverlay } from './LiveDetectionOverlay';
@@ -21,6 +21,8 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const recordedChunksRef = useRef<Blob[]>([]);
 
   const [permissionState, setPermissionState] = useState<'requesting' | 'granted' | 'denied'>('requesting');
   const [isSimulatedLanFeed, setIsSimulatedLanFeed] = useState<boolean>(false);
@@ -30,6 +32,18 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
   const [simulateCombat, setSimulateCombat] = useState<boolean>(false);
   const [sosStatusText, setSosStatusText] = useState<string | null>(null);
 
+  // Helper to compile real recorded video blob from live webcam
+  const getRealRecordedVideoUrl = useCallback((): string | undefined => {
+    if (recordedChunksRef.current.length > 0) {
+      try {
+        const mime = mediaRecorderRef.current?.mimeType || 'video/webm';
+        const blob = new Blob(recordedChunksRef.current, { type: mime });
+        return URL.createObjectURL(blob);
+      } catch {}
+    }
+    return undefined;
+  }, []);
+
   // Human / Optical ML Detection on the live webcam frames
   const detection = useHumanDetection(
     videoRef,
@@ -37,11 +51,18 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
     permissionState === 'granted',
     {
       ...camera,
-      simulateCombat
+      simulateCombat,
+      getRealVideoUrl: getRealRecordedVideoUrl
     }
   );
 
   const stopActiveStream = () => {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+      try {
+        mediaRecorderRef.current.stop();
+      } catch {}
+      mediaRecorderRef.current = null;
+    }
     if (streamRef.current) {
       streamRef.current.getTracks().forEach((track) => track.stop());
       streamRef.current = null;
@@ -100,6 +121,33 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
         await videoRef.current.play().catch(() => {});
       }
 
+      // Initialize continuous real-evidence recorder on live camera stream
+      try {
+        let mimeType = 'video/webm';
+        if (typeof MediaRecorder !== 'undefined') {
+          if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) {
+            mimeType = 'video/webm;codecs=vp8';
+          } else if (MediaRecorder.isTypeSupported('video/mp4')) {
+            mimeType = 'video/mp4';
+          }
+          const rec = new MediaRecorder(stream, { mimeType });
+          recordedChunksRef.current = [];
+          rec.ondataavailable = (e) => {
+            if (e.data && e.data.size > 0) {
+              recordedChunksRef.current.push(e.data);
+              // Retain sliding 8-second buffer of genuine camera frames
+              if (recordedChunksRef.current.length > 8) {
+                recordedChunksRef.current.shift();
+              }
+            }
+          };
+          rec.start(1000);
+          mediaRecorderRef.current = rec;
+        }
+      } catch (recErr) {
+        console.warn('Real MediaRecorder streaming unavailable:', recErr);
+      }
+
       setIsSimulatedLanFeed(false);
       setPermissionState('granted');
 
@@ -149,15 +197,16 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
   const handleTriggerLiveSos = () => {
     const camName = camera?.name || `Live Camera #${cameraId}`;
     const camLocation = camera?.location || 'Academic Core Sector';
+    const realVideo = getRealRecordedVideoUrl();
 
-    // 1. Dispatch through fight/emergency system
+    // 1. Dispatch through fight/emergency system with real camera video
     globalFightDispatcher.handleFightDetection({
       cameraId,
       cameraName: camName,
       location: camLocation,
       confidence: 100,
       videoElement: videoRef.current,
-      videoUrl: camera?.videoUrl || (camera?.id === 'CAM-08' ? undefined : '/videos/cctv_recorded_incident.mp4')
+      videoUrl: realVideo || camera?.videoUrl || (camera?.id === 'CAM-08' ? undefined : '/videos/cctv_recorded_incident.mp4')
     });
 
     // 2. Trigger audible emergency alarm to Chief Proctor
@@ -175,6 +224,7 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
     setSimulateCombat(true);
     const camName = camera?.name || `Live Camera #${cameraId}`;
     const camLocation = camera?.location || 'Surveillance Zone';
+    const realVideo = getRealRecordedVideoUrl();
 
     globalFightDispatcher.handleFightDetection({
       cameraId,
@@ -182,7 +232,7 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
       location: camLocation,
       confidence: 96,
       videoElement: videoRef.current,
-      videoUrl: camera?.videoUrl || (camera?.id === 'CAM-08' ? undefined : '/videos/cctv_recorded_incident.mp4')
+      videoUrl: realVideo || camera?.videoUrl || (camera?.id === 'CAM-08' ? undefined : '/videos/cctv_recorded_incident.mp4')
     });
 
     globalProctorAlarm.triggerAlarm(`Aggressive Altercation Recognized at ${camName}`);

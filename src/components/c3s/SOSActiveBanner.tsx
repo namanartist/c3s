@@ -44,7 +44,7 @@ export const SOSActiveBanner: React.FC = () => {
                 {sosIncidentId}
               </span>
               <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono text-cyan-300 bg-cyan-950/40 border border-cyan-500/30 px-1.5 py-0.5 rounded">
-                <MapPin className="h-2.5 w-2.5" /> Node #{sosNodeId || 'MainRoad09'}
+                <MapPin className="h-2.5 w-2.5" /> Node #{sosNodeId || 'room_J010'}
               </span>
             </div>
             <p className="text-xs text-rose-300 flex flex-wrap items-center gap-2 mt-0.5">

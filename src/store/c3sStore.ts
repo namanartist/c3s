@@ -292,9 +292,9 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
     gpsPermission: initialGps,
     isLocationActive: initialLocActive,
     gpsAccuracy: 8,
-    latitude: 26.2183,
-    longitude: 78.1828,
-    lastLocationUpdate: 'Just now',
+    latitude: 26.23185102,
+    longitude: 78.20636481,
+    lastLocationUpdate: 'J010 – SH-4 (Seminar Hall 4)',
 
     requestGpsPermission: () => {
       if (typeof navigator === 'undefined' || !navigator.geolocation) {
@@ -363,19 +363,19 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
     sosRespondersNotified: 3,
     sosAssignedResponder: 'Guard 02 (Vikram Rathore)',
     sosDistanceMeters: 320,
-    sosLocation: 'Academic Block A, 2nd Floor',
-    sosNodeId: undefined,
+    sosLocation: 'J010 – SH-4 (Seminar Hall 4, Main Building GF)',
+    sosNodeId: 'room_J010',
     sosPhotoUrl: undefined,
     sosVideoUrl: undefined,
-    sosLat: 26.230752,
-    sosLng: 78.205341,
+    sosLat: 26.23185102,
+    sosLng: 78.20636481,
     sosNotifiedEntities: undefined,
 
     triggerSos: (payload?: SosPayload) => {
       const incidentId = `C3S-SOS-${Math.floor(1000 + Math.random() * 9000)}`;
       const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      const nodeId = payload?.nodeId || 'MainRoad09';
-      const location = payload?.location || 'Academic Block A Entrance Corridor';
+      const nodeId = payload?.nodeId || 'room_J010';
+      const location = payload?.location || 'J010 – SH-4 (Seminar Hall 4, Main Building GF)';
       const guardInfo = payload?.notifiedEntities?.guard || {
         name: 'Guard Vikram Rathore',
         callsign: 'Guard 02',
@@ -411,8 +411,8 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
         priority: 'CRITICAL',
         distanceMeters: parseInt(guardInfo.distance) || 85,
         assignedResponder: `${guardInfo.callsign} (${guardInfo.name}) & ${facultyInfo.name}`,
-        latitude: payload?.lat || get().latitude || 26.230752,
-        longitude: payload?.lng || get().longitude || 78.205341,
+        latitude: payload?.lat || get().latitude || 26.23185102,
+        longitude: payload?.lng || get().longitude || 78.20636481,
         photoUrl: payload?.photoUrl,
         videoUrl: payload?.videoUrl,
         evidence: {
@@ -442,8 +442,8 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
         sosNodeId: nodeId,
         sosPhotoUrl: payload?.photoUrl,
         sosVideoUrl: payload?.videoUrl,
-        sosLat: payload?.lat || get().latitude || 26.230752,
-        sosLng: payload?.lng || get().longitude || 78.205341,
+        sosLat: payload?.lat || get().latitude || 26.23185102,
+        sosLng: payload?.lng || get().longitude || 78.20636481,
         sosNotifiedEntities: {
           guard: guardInfo,
           faculty: facultyInfo,

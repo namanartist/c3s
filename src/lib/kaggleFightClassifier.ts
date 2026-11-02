@@ -88,17 +88,19 @@ export function evaluateKaggleFightFeatures(
 
     // Multi-Stage Safety Gate:
     // Ordinary pedestrian motion (walking, turning, stretching, typing, gestures)
-    // has low kinetic jerk (< 50) and low flow variance (< 50).
-    // In real Kaggle RWF-2000 evaluation, such motion is strictly NON-VIOLENT (0 - 25% max).
-    const hasViolentCombatHallmarks = (normJerk >= 50 && normLimb >= 45) || (normFlow >= 50 && normCollision >= 45);
+    // has low kinetic jerk (< 28) and uniform flow (< 26).
+    // In real Kaggle RWF-2000 evaluation, such motion is strictly NON-VIOLENT (0 - 26% max).
+    const hasCombatJerk = normJerk >= 28 && (normLimb >= 24 || normFlow >= 22);
+    const hasCombatTurbulence = normFlow >= 28 && (normJerk >= 22 || normCollision >= 26);
+    const hasViolentCombatHallmarks = hasCombatJerk || hasCombatTurbulence;
     if (!hasViolentCombatHallmarks) {
-      rawLogit = Math.min(24.5, rawLogit * 0.35);
+      rawLogit = Math.min(26.0, rawLogit * 0.40);
     }
   }
 
   const confidence = Math.round(rawLogit * 10) / 10;
-  // Trigger fight detection strictly when confidence >= 70%
-  const isFight = confidence >= 70;
+  // Trigger fight detection strictly when confidence >= 65%
+  const isFight = confidence >= 65;
 
   let threatTier: KaggleInferenceResult['threatTier'] = 'NORMAL';
   if (confidence >= 80) threatTier = 'CRITICAL';

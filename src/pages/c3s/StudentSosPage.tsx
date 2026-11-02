@@ -45,7 +45,7 @@ export default function StudentSosPage() {
             <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
               <div className="inline-flex items-center gap-2 rounded-xl border border-rose-500/50 bg-rose-950/60 px-4 py-2 font-mono text-xs font-bold text-rose-300 animate-pulse">
                 <ShieldAlert className="h-4 w-4 text-rose-400" />
-                <span>ACTIVE SOS ENGAGED • NODE #{sosNodeId || 'MainRoad09'}</span>
+                <span>ACTIVE SOS ENGAGED • NODE #{sosNodeId || 'room_J010'}</span>
               </div>
             </div>
           )}

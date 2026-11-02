@@ -176,8 +176,8 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
     // 1. Resolve Location & Nearest Campus Node
     const storeLat = useC3SStore.getState().latitude;
     const storeLng = useC3SStore.getState().longitude;
-    let resolvedLat = storeLat || 26.230752;
-    let resolvedLng = storeLng || 78.205341;
+    let resolvedLat = storeLat || 26.23185102;
+    let resolvedLng = storeLng || 78.20636481;
 
     // Grab real GPS location from device if available with generous timeout
     if (typeof navigator !== 'undefined' && 'geolocation' in navigator) {
@@ -196,12 +196,12 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
       }
     }
 
-    let resolvedNodeId = 'MainRoad09';
-    let resolvedNodeName = 'Academic Block A Entrance Corridor';
-    let resolvedMap = 'Campus_Map';
+    let resolvedNodeId = 'room_J010';
+    let resolvedNodeName = 'J010 – SH-4 (Seminar Hall 4)';
+    let resolvedMap = 'Main_GF';
     let resolvedFloor = 0;
-    let resolvedX = 253.0593;
-    let resolvedY = 272.7038;
+    let resolvedX = 162.9803;
+    let resolvedY = 353.4052;
 
     try {
       const nodesList = fallbackData.nodes as unknown as MapNode[];
@@ -496,12 +496,12 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
             </span>
           </div>
           <p className="mt-1 text-sm font-bold text-white">
-            {sosLocation || 'Academic Block A Entrance Corridor'}
+            {sosLocation || 'J010 – SH-4 (Seminar Hall 4, Main Building GF)'}
           </p>
           <div className="mt-1 flex flex-wrap gap-3 font-mono text-[11px] text-slate-400">
-            <span>Node: <strong className="text-cyan-300">{sosNodeId || 'MainRoad09'}</strong></span>
-            <span>Floor: <strong className="text-slate-200">Ground Floor (Campus Core)</strong></span>
-            <span>Coords: <strong className="text-slate-300">26.230752°N, 78.205341°E</strong></span>
+            <span>Node: <strong className="text-cyan-300">{sosNodeId || 'room_J010'}</strong></span>
+            <span>Floor: <strong className="text-slate-200">Ground Floor (Main_GF)</strong></span>
+            <span>Coords: <strong className="text-slate-300">26.231851°N, 78.206365°E</strong></span>
           </div>
         </div>
 
