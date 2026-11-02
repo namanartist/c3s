@@ -73,7 +73,7 @@ if (apiAlreadyRunning) {
 
 // Directly invoke vite binary with node executable to avoid shell: true DEP0190 warning on Node 22+
 const viteBin = './node_modules/vite/bin/vite.js';
-const vite = startProcess(process.execPath, [viteBin]);
+const vite = startProcess(process.execPath, [viteBin, '--host', '0.0.0.0']);
 vite.once('exit', (code) => {
   stopChildren();
   process.exit(code ?? 0);

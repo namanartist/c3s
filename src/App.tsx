@@ -34,6 +34,7 @@ const ControlRoomIncidentsPage = lazyWithRetry(() => import('@/pages/c3s/Control
 const ControlRoomMapPage = lazyWithRetry(() => import('@/pages/c3s/ControlRoomMapPage'), 'ControlRoomMapPage');
 const ControlRoomCamerasPage = lazyWithRetry(() => import('@/pages/c3s/ControlRoomCamerasPage'), 'ControlRoomCamerasPage');
 const ControlRoomOccupancyPage = lazyWithRetry(() => import('@/pages/c3s/ControlRoomOccupancyPage'), 'ControlRoomOccupancyPage');
+const StaffDashboard = lazyWithRetry(() => import('@/pages/Staff/StaffDashboard'), 'StaffDashboard');
 
 const AdminDashboard = lazyWithRetry(() => import('@/pages/c3s/AdminDashboard'), 'AdminDashboard');
 const AdminUsersPage = lazyWithRetry(() => import('@/pages/c3s/AdminUsersPage'), 'AdminUsersPage');
@@ -113,6 +114,9 @@ export default function App() {
           <Route path="/security/incidents/:id" element={<SecurityIncidentDetailPage />} />
           <Route path="/security/map" element={<SecurityMapPage />} />
           <Route path="/guard" element={<SecurityDashboard />} />
+
+          {/* Faculty Suite */}
+          <Route path="/faculty" element={<StaffDashboard role="faculty" />} />
 
           {/* Control Room Suite */}
           <Route path="/control-room" element={<ControlRoomDashboard />} />

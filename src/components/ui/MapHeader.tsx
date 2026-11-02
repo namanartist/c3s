@@ -1,11 +1,10 @@
 // src/components/ui/MapHeader.tsx
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, QrCode, PanelLeft, ShieldAlert, Home, Shield, School, Settings, HelpCircle } from 'lucide-react';
+import { Menu, PanelLeft, Home, Shield, School, HelpCircle } from 'lucide-react';
 import clgLogo from '@/assets/clg_logo.webp';
 import { useCampusNavigation } from '@/hooks/useCampusNavigation';
 import { useSafetyStore } from '@/store/safetyStore';
-import { useGateStore } from '@/store/gateStore';
 import { isProctorRole } from '@/lib/viewerRole';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 
@@ -18,20 +17,12 @@ export function MapHeader({ }: MapHeaderProps) {
 
   if (isMobile) {
     return (
-      <div className="flex items-center gap-1.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl px-2.5 py-1.5 rounded-full shadow-lg border border-slate-200/90 dark:border-white/10 transition-colors pointer-events-auto">
+      <div className="flex items-center gap-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl px-3 py-1.5 rounded-full shadow-lg border border-slate-200/90 dark:border-white/10 transition-colors pointer-events-auto">
         <ThemeToggle />
         <button
           type="button"
-          onClick={() => useGateStore.getState().setScannerModalOpen(true)}
-          className="p-1.5 rounded-full bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300 border border-blue-200 dark:border-blue-500/20 active:scale-95 transition-all cursor-pointer"
-          title="Scan Campus Gate QR"
-        >
-          <QrCode className="w-4 h-4" />
-        </button>
-        <button
-          type="button"
           onClick={() => useSafetyStore.getState().setSosModalOpen(true)}
-          className="px-2.5 py-1 rounded-full bg-gradient-to-r from-red-600 to-rose-600 text-white font-black text-[10px] shadow-sm active:scale-95 transition-all cursor-pointer animate-pulse"
+          className="px-3 py-1 rounded-full bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white font-black text-xs shadow-md shadow-red-500/30 active:scale-95 transition-all cursor-pointer animate-pulse"
           title="Emergency SOS"
         >
           SOS
@@ -66,17 +57,6 @@ export function MapHeader({ }: MapHeaderProps) {
       </div>
 
       <div className="h-4 w-[1px] bg-slate-200 dark:bg-white/10" />
-
-      {/* Gate QR Fast Trigger */}
-      <button
-        type="button"
-        onClick={() => useGateStore.getState().setScannerModalOpen(true)}
-        className="px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 text-blue-700 dark:text-blue-300 font-bold text-xs flex items-center gap-1.5 border border-blue-200/80 dark:border-blue-800/50 shadow-xs active:scale-95 transition-all cursor-pointer"
-        title="Scan Campus Gate QR (Check-In / Check-Out)"
-      >
-        <QrCode className="w-3.5 h-3.5" />
-        <span>Gate QR</span>
-      </button>
 
       {/* Emergency SOS Button */}
       <button

@@ -299,6 +299,13 @@ class FightAlertDispatcher {
       assignedResponder: `${responders.guard.callsign} & ${responders.faculty.name}`,
       latitude: resolvedLat,
       longitude: resolvedLng,
+      photoUrl,
+      videoUrl: incidentVideoUrl,
+      evidence: {
+        photoUrl,
+        videoUrl: incidentVideoUrl,
+        fightConfidence: confidence,
+      },
       timeline: [
         { time: timeString, event: `Physical fight recognized with ${confidence}% confidence by Kaggle RWF-2000 model.`, actor: 'AI Vision Engine' },
         { time: timeString, event: `Evidence snapshot & video clip recorded at Node #${resolvedNodeId}.`, actor: 'CCTV Evidence Archiver' },

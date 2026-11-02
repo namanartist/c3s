@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AppShell } from '@/components/c3s/AppShell';
 import { StatusBadge } from '@/components/c3s/StatusBadge';
-import { ShieldAlert, ArrowRight } from 'lucide-react';
+import { ShieldAlert, ArrowRight, Video, Camera } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
 
@@ -56,6 +56,13 @@ export default function SecurityIncidentsPage() {
 
               <h3 className="mt-3 text-base font-bold text-slate-100 group-hover:text-blue-400">{inc.title}</h3>
               <p className="mt-1 text-xs text-slate-400">{inc.location}</p>
+
+              {(inc.videoUrl || inc.photoUrl || inc.evidence) && (
+                <div className="mt-2.5 flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-800/50 px-2 py-0.5 rounded-md w-fit">
+                  <Video className="w-3 h-3 text-cyan-400" />
+                  <span>CCTV &amp; PHOTO EVIDENCE ATTACHED</span>
+                </div>
+              )}
 
               <div className="mt-4 flex items-center justify-between border-t border-slate-800 pt-3 text-xs text-slate-400">
                 <span>Priority: <strong className={inc.priority === 'CRITICAL' ? 'text-rose-400' : 'text-amber-400'}>{inc.priority}</strong></span>

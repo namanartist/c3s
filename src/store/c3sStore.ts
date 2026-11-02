@@ -405,6 +405,12 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
         assignedResponder: `${guardInfo.callsign} (${guardInfo.name}) & ${facultyInfo.name}`,
         latitude: payload?.lat || 26.230752,
         longitude: payload?.lng || 78.205341,
+        photoUrl: payload?.photoUrl,
+        videoUrl: payload?.videoUrl || '/videos/cctv_recorded_incident.mp4',
+        evidence: {
+          photoUrl: payload?.photoUrl,
+          videoUrl: payload?.videoUrl || '/videos/cctv_recorded_incident.mp4',
+        },
         timeline: [
           { time: now, event: `1-Step 2s Hold SOS initiated by student at Node #${nodeId}. Video & photo evidence captured.`, actor: 'System Dispatch' },
           { time: now, event: `Dispatched Nearest Guard ${guardInfo.name} (${guardInfo.distance}) & Alerted Faculty Warden ${facultyInfo.name} (${facultyInfo.distance}).`, actor: 'Emergency AI Router' },

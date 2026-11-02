@@ -8,6 +8,7 @@ import { DataTable } from '@/components/c3s/DataTable';
 import {
   Users,
   Camera,
+  Video,
   ShieldAlert,
   ShieldCheck,
   Radio,
@@ -20,12 +21,14 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
 import { useSafetyStore } from '@/store/safetyStore';
+import { IncidentEvidenceModal } from '@/components/c3s/IncidentEvidenceModal';
 import type { C3SIncident } from '@/lib/mock-data/incidents';
 
 export default function ControlRoomDashboard() {
   const navigate = useNavigate();
   const { incidents, responders, cameras } = useC3SStore();
   const realCrowdCount = useSafetyStore((s) => s.realCrowdCount);
+  const [selectedEvidenceIncident, setSelectedEvidenceIncident] = React.useState<C3SIncident | null>(null);
 
   const criticalIncidents = incidents.filter((i) => i.priority === 'CRITICAL' && i.status !== 'RESOLVED');
   const onlineCameras = cameras.filter((c) => c.status === 'ONLINE').length;
@@ -81,6 +84,22 @@ export default function ControlRoomDashboard() {
       header: 'Status',
       accessorKey: 'status' as const,
       cell: (r: C3SIncident) => <StatusBadge status={r.status} pulse={r.status !== 'RESOLVED'} />
+    },
+    {
+      header: 'Evidence',
+      cell: (r: C3SIncident) => (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            setSelectedEvidenceIncident(r);
+          }}
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-[11px] font-bold text-rose-300 transition cursor-pointer"
+        >
+          <Video className="w-3 h-3 text-rose-400" />
+          <span>Clip &amp; Photo</span>
+        </button>
+      )
     }
   ];
 
@@ -280,6 +299,13 @@ export default function ControlRoomDashboard() {
           </div>
           <DataTable columns={incidentColumns} data={incidents} />
         </div>
+
+        {/* Modal for Instant Footage & Photo Evidence Inspection by Chief Proctor */}
+        <IncidentEvidenceModal
+          incident={selectedEvidenceIncident}
+          isOpen={Boolean(selectedEvidenceIncident)}
+          onClose={() => setSelectedEvidenceIncident(null)}
+        />
       </div>
     </AppShell>
   );

@@ -495,6 +495,6 @@ const server = http.createServer(async (req, res) => {
 });
 
 const PORT = process.env.API_PORT || 3001;
-server.listen(PORT, () => {
-  console.log(`Development API server running at http://localhost:${PORT}`);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`Development API server running on 0.0.0.0:${PORT} (LAN accessible)`);
 });

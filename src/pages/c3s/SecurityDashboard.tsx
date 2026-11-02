@@ -4,13 +4,15 @@ import { AppShell } from '@/components/c3s/AppShell';
 import { StatCard } from '@/components/c3s/StatCard';
 import { StatusBadge } from '@/components/c3s/StatusBadge';
 import { CampusMap } from '@/components/c3s/CampusMap';
-import { Shield, ShieldAlert, CheckCircle2, MapPin, Radio, Navigation } from 'lucide-react';
+import { Shield, ShieldAlert, CheckCircle2, MapPin, Radio, Navigation, Video } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
+import { IncidentEvidenceModal } from '@/components/c3s/IncidentEvidenceModal';
 
 export default function SecurityDashboard() {
   const navigate = useNavigate();
   const { incidents, advanceIncidentStatus, resolveIncident } = useC3SStore();
+  const [isEvidenceModalOpen, setIsEvidenceModalOpen] = React.useState(false);
   const activeIncident = incidents.find((i) => i.id === 'C3S-INC-00192') || incidents[0];
 
   return (
@@ -123,6 +125,14 @@ export default function SecurityDashboard() {
                 )}
 
                 <button
+                  onClick={() => setIsEvidenceModalOpen(true)}
+                  className="w-full rounded-xl border border-rose-500/50 bg-rose-600/15 py-2.5 text-xs font-bold text-rose-700 dark:text-rose-200 hover:bg-rose-600/25 flex items-center justify-center gap-2 transition shadow-md cursor-pointer"
+                >
+                  <Video className="w-3.5 h-3.5 text-rose-500" />
+                  <span>Inspect CCTV Footage &amp; Photo Evidence →</span>
+                </button>
+
+                <button
                   onClick={() => navigate(`/map?to=Main_Gate&incident=${encodeURIComponent(activeIncident.id)}`)}
                   className="w-full rounded-xl border border-cyan-500/50 bg-cyan-600/20 py-2.5 text-xs font-bold text-cyan-700 dark:text-cyan-200 hover:bg-cyan-600/30 flex items-center justify-center gap-2 transition shadow-md shadow-cyan-900/20 cursor-pointer"
                 >
@@ -156,6 +166,13 @@ export default function SecurityDashboard() {
           </div>
           <CampusMap height="h-[440px]" highlightLocation="Academic Block A" />
         </div>
+
+        {/* Modal for Guard Evidence Review */}
+        <IncidentEvidenceModal
+          incident={activeIncident}
+          isOpen={isEvidenceModalOpen}
+          onClose={() => setIsEvidenceModalOpen(false)}
+        />
       </div>
     </AppShell>
   );

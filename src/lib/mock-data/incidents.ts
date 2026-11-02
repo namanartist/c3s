@@ -29,6 +29,14 @@ export interface C3SIncident {
   longitude: number;
   notes?: string[];
   timeline: IncidentTimelineEntry[];
+  photoUrl?: string;
+  videoUrl?: string;
+  evidence?: {
+    photoUrl?: string;
+    videoUrl?: string;
+    fightConfidence?: number;
+    aiClassification?: any;
+  };
 }
 
 export const MOCK_INCIDENTS: C3SIncident[] = [
@@ -50,6 +58,12 @@ export const MOCK_INCIDENTS: C3SIncident[] = [
     estimatedArrivalMin: 2,
     latitude: 26.2183,
     longitude: 78.1828,
+    videoUrl: '/videos/cctv_recorded_incident.mp4',
+    photoUrl: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80',
+    evidence: {
+      videoUrl: '/videos/cctv_recorded_incident.mp4',
+      photoUrl: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80'
+    },
     notes: ['Student reported chest discomfort and dizziness near Lab 4', 'Defibrillator and first aid requested from Health Center'],
     timeline: [
       { time: '20:16', event: 'SOS Triggered by Student', actor: 'Naman Lakhotia', detail: 'Automated GPS lock (accuracy 8m)' },
@@ -76,6 +90,13 @@ export const MOCK_INCIDENTS: C3SIncident[] = [
     estimatedArrivalMin: 4,
     latitude: 26.2198,
     longitude: 78.1805,
+    videoUrl: '/videos/cctv_recorded_incident.mp4',
+    photoUrl: 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=800&q=80',
+    evidence: {
+      videoUrl: '/videos/cctv_recorded_incident.mp4',
+      photoUrl: 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=800&q=80',
+      fightConfidence: 94
+    },
     notes: ['Motion detected beyond 19:30 curfew limit', 'Camera lens showed single person near tree line'],
     timeline: [
       { time: '19:45', event: 'Automated Perimeter Tripwire Triggered', actor: 'AI Sensor CAM-03' },

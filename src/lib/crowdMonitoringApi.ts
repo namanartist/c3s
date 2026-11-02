@@ -39,7 +39,7 @@ export interface LiveCrowdLog {
 
 const CROWD_API_URL = import.meta.env.VITE_CROWD_API_URL || 'http://localhost:8000';
 const CROWD_FEED_URL = import.meta.env.VITE_CROWD_FEED_URL || 'http://localhost:8001';
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (import.meta.env.PROD ? '' : 'http://localhost:3000');
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
 export function calculateCrowdDensity(count: number): CrowdDensity {
   if (count >= 20) return 'critical';

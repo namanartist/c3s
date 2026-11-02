@@ -15,7 +15,6 @@ import { IncidentCard } from '@/components/safety/IncidentCard';
 import { SosModal } from '@/components/safety/SosModal';
 import { ProctorMapOverlay } from '@/components/safety/ProctorMapOverlay';
 import { GateMapOverlay } from '@/components/safety/GateMapOverlay';
-import { StudentGateScannerModal } from '@/components/safety/StudentGateScannerModal';
 import { CameraDetailModal } from '@/components/safety/CameraDetailModal';
 import { NodeDetailDrawer } from '@/components/map/NodeDetailDrawer';
 import { getMapLocationTags } from '@/lib/mapLabels';
@@ -1716,9 +1715,6 @@ export default function MapBox({
 
         {/* Interactive Node Details Drawer ("Open Node") */}
         <NodeDetailDrawer />
-
-        {/* Student C3S Gate Check-In/Check-Out Scanner Modal */}
-        <StudentGateScannerModal />
 
         {/* CCTV Camera Live Surveillance & Crowd Telemetry Modal */}
         <CameraDetailModal />

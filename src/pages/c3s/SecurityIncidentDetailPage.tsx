@@ -4,15 +4,17 @@ import { AppShell } from '@/components/c3s/AppShell';
 import { StatusBadge } from '@/components/c3s/StatusBadge';
 import { IncidentTimeline } from '@/components/c3s/IncidentTimeline';
 import { CampusMap } from '@/components/c3s/CampusMap';
+import { IncidentEvidenceModal } from '@/components/c3s/IncidentEvidenceModal';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
-import { ArrowLeft, Navigation } from 'lucide-react';
+import { ArrowLeft, Navigation, Camera, Video, Sparkles, Maximize2, ShieldCheck, Download } from 'lucide-react';
 
 export default function SecurityIncidentDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { incidents, advanceIncidentStatus, resolveIncident, addIncidentNote, assignGuardToIncident } = useC3SStore();
   const [noteInput, setNoteInput] = useState('');
+  const [isEvidenceModalOpen, setIsEvidenceModalOpen] = useState(false);
 
   const incident = incidents.find((i) => i.id === id) || incidents[0];
 
@@ -22,6 +24,16 @@ export default function SecurityIncidentDetailPage() {
     addIncidentNote(incident.id, noteInput.trim());
     setNoteInput('');
   };
+
+  const photo =
+    incident.photoUrl ||
+    incident.evidence?.photoUrl ||
+    'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1200&q=80';
+
+  const video =
+    incident.videoUrl ||
+    incident.evidence?.videoUrl ||
+    '/videos/cctv_recorded_incident.mp4';
 
   return (
     <AppShell>
@@ -94,6 +106,102 @@ export default function SecurityIncidentDetailPage() {
             >
               [ Resolve Incident ]
             </button>
+            <button
+              onClick={() => setIsEvidenceModalOpen(true)}
+              className="rounded-xl border border-rose-500/40 bg-rose-500/10 hover:bg-rose-500/20 px-4 py-2.5 text-xs font-bold text-rose-600 dark:text-rose-300 shadow-md active:scale-95 cursor-pointer transition-colors flex items-center gap-1.5"
+            >
+              <Video className="w-3.5 h-3.5" />
+              <span>[ Open Evidence Lightbox ]</span>
+            </button>
+          </div>
+        </div>
+
+        {/* CCTV & Photo Evidence Archive (Visible to Guard, Faculty & Proctor) */}
+        <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 p-6 sm:p-8 backdrop-blur-xl shadow-xs dark:shadow-xl space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-4">
+            <div>
+              <h2 className="text-base font-black text-slate-900 dark:text-white uppercase tracking-tight flex items-center gap-2">
+                <Video className="w-4 h-4 text-rose-500" />
+                CCTV Footage & Photographic Evidence Archive
+              </h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Automated optical capture verified across Guard, Faculty and Proctorial command stations.
+              </p>
+            </div>
+            <button
+              onClick={() => setIsEvidenceModalOpen(true)}
+              className="flex items-center gap-1.5 text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+            >
+              <Maximize2 className="w-3.5 h-3.5" />
+              <span>Full Screen Inspection</span>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Live Video Player */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-300">
+                <span className="flex items-center gap-1.5">
+                  <Video className="w-3.5 h-3.5 text-cyan-500" />
+                  <span>CCTV Camera Clip</span>
+                </span>
+                <span className="text-[10px] font-mono text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded border border-cyan-200 dark:border-cyan-800">
+                  PLAYING • 1080p
+                </span>
+              </div>
+              <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-black aspect-video flex items-center justify-center shadow-md">
+                <video
+                  src={video}
+                  controls
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-2 left-2 pointer-events-none flex items-center gap-1.5 bg-black/75 px-2 py-0.5 rounded text-[10px] font-mono text-emerald-400 border border-white/10">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
+                  <span>CAM // {incident.zone}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Photo Snapshot */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-300">
+                <span className="flex items-center gap-1.5">
+                  <Camera className="w-3.5 h-3.5 text-emerald-500" />
+                  <span>Photographic Snapshot</span>
+                </span>
+                <a
+                  href={photo}
+                  download={`incident-${incident.id}.jpg`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[10px] font-bold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center gap-1"
+                >
+                  <Download className="w-3 h-3" />
+                  <span>Download</span>
+                </a>
+              </div>
+              <div
+                onClick={() => setIsEvidenceModalOpen(true)}
+                className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-black aspect-video flex items-center justify-center shadow-md cursor-pointer group"
+              >
+                <img
+                  src={photo}
+                  alt="Incident Snapshot"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute top-2 left-2 flex items-center gap-1 bg-black/75 px-2 py-0.5 rounded text-[10px] font-mono text-emerald-400 border border-white/10">
+                  <Camera className="w-2.5 h-2.5" />
+                  <span>EVIDENCE PHOTO</span>
+                </div>
+                <div className="absolute bottom-2 right-2 bg-black/75 px-2 py-0.5 rounded text-[10px] font-mono text-cyan-300 border border-white/10 flex items-center gap-1">
+                  <Maximize2 className="w-2.5 h-2.5" /> Click to enlarge
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -136,6 +244,13 @@ export default function SecurityIncidentDetailPage() {
             <CampusMap height="h-[380px]" highlightLocation="Academic Block A" />
           </div>
         </div>
+
+        {/* Full Evidence Inspection Lightbox Modal */}
+        <IncidentEvidenceModal
+          incident={incident}
+          isOpen={isEvidenceModalOpen}
+          onClose={() => setIsEvidenceModalOpen(false)}
+        />
       </div>
     </AppShell>
   );

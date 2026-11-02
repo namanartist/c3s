@@ -5,12 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/dev.mjs",
-    "dev:frontend": "vite",
+    "dev:frontend": "vite --host 0.0.0.0",
     "build:maps": "node scripts/build-offline-maps.mjs",
     "crowd:start": "powershell -ExecutionPolicy Bypass -File ./scripts/start-crowd-surveillance.ps1",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "preview": "vite preview --host 0.0.0.0",
     "db:seed": "node scripts/seed-db.mjs"
   },
   "dependencies": {

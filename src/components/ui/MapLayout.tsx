@@ -24,11 +24,11 @@ import {
   X,
   Search,
   CheckCircle2,
-  AlertTriangle
+  AlertTriangle,
+  Users
 } from 'lucide-react';
 import { useCampusNavigation } from '@/hooks/useCampusNavigation';
 import { useSafetyStore } from '@/store/safetyStore';
-import { useGateStore } from '@/store/gateStore';
 import { CctvSocDashboard } from '@/components/safety/CctvSocDashboard';
 import { SafetyAnalyticsDashboard } from '@/components/safety/SafetyAnalyticsDashboard';
 import { PatrolDispatchDashboard } from '@/components/safety/PatrolDispatchDashboard';
@@ -134,6 +134,14 @@ const FEATURED_PLACES = [
     description: 'East Campus Access & Vehicle Screening Gate',
     icon: '🚪'
   },
+];
+
+const CAMPUS_FLOORS = [
+  { id: 'Campus_Map', label: 'Campus' },
+  { id: 'Main_GF', label: 'Main GF' },
+  { id: 'Main_FF', label: 'Main 1F' },
+  { id: 'Main_SF', label: 'Main 2F' },
+  { id: 'AI_GF', label: 'AI GF' },
 ];
 
 export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayoutProps) {
@@ -455,20 +463,20 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
           <div className="space-y-2.5">
             {[
               {
-                title: 'Daily Gate QR Scanner',
-                subtitle: 'Scan check-in / check-out QR codes at campus gates',
-                icon: QrCode,
-                action: () => useGateStore.getState().setScannerModalOpen(true),
-                color: 'text-blue-600 bg-blue-50 dark:bg-blue-950/50',
-                badge: 'Gates 1, 2, 3',
-              },
-              {
                 title: 'Student Safety Base',
                 subtitle: 'View attendance logs, movement history & campus alerts',
                 icon: School,
                 action: () => navigate('/student'),
                 color: 'text-indigo-600 bg-indigo-50 dark:bg-indigo-950/50',
                 badge: 'Portal',
+              },
+              {
+                title: 'Faculty Welfare & Staff Desk',
+                subtitle: 'Acknowledge alerts, view student logs & campus safety reports',
+                icon: Users,
+                action: () => navigate('/faculty'),
+                color: 'text-rose-600 bg-rose-50 dark:bg-rose-950/50',
+                badge: 'Academic',
               },
               {
                 title: 'Security Guard Terminal',
@@ -548,7 +556,7 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
           <button
             type="button"
             onClick={() => setSidebarOpen(true)}
-            className="flex items-center gap-2 px-3.5 py-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 rounded-full shadow-lg text-xs font-black text-slate-900 dark:text-white active:scale-95 transition-all cursor-pointer pointer-events-auto"
+            className="flex items-center gap-2 px-3.5 py-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-slate-200/90 dark:border-white/10 rounded-full shadow-lg text-xs font-black text-slate-900 dark:text-white active:scale-95 transition-all cursor-pointer pointer-events-auto"
             title="Open Campus Navigator"
           >
             <Compass className="w-4 h-4 text-blue-600 dark:text-blue-400" />
@@ -558,35 +566,56 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
           {header}
         </div>
 
+        {/* Mobile Horizontal Quick-Floor Pill Selector */}
+        <div className="absolute top-15 left-3 right-3 z-20 flex items-center gap-1.5 overflow-x-auto no-scrollbar pointer-events-auto py-1">
+          {CAMPUS_FLOORS.map((f) => {
+            const isSelected = activeMapId === f.id;
+            return (
+              <button
+                key={f.id}
+                type="button"
+                onClick={() => setSelectedMapId(f.id)}
+                className={`px-3 py-1 rounded-full text-[10px] font-black whitespace-nowrap backdrop-blur-xl shadow-md transition-all active:scale-95 cursor-pointer ${
+                  isSelected
+                    ? 'bg-blue-600 text-white shadow-blue-500/30 ring-2 ring-blue-400'
+                    : 'bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 border border-slate-200/90 dark:border-white/10'
+                }`}
+              >
+                {f.label}
+              </button>
+            );
+          })}
+        </div>
+
         {/* Conditional Dashboards for Mobile */}
         {activeDashboard === 'soc' && <CctvSocDashboard />}
         {activeDashboard === 'analytics' && <SafetyAnalyticsDashboard />}
         {activeDashboard === 'patrol' && <PatrolDispatchDashboard />}
 
-        {/* Mobile Floating Bottom Summary Pill when route or destination is selected */}
+        {/* Mobile Floating Bottom Summary Pill when route or destination is selected (leaves right-side map controls clear) */}
         {activeDashboard === 'nav' && !sidebarOpen && destination && (
-          <div className="absolute bottom-6 left-4 right-4 z-20 pointer-events-auto">
+          <div className="absolute bottom-4 left-3 right-[84px] z-20 pointer-events-auto">
             <div
               onClick={() => setSidebarOpen(true)}
-              className="p-3.5 rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-2xl flex items-center justify-between gap-3 cursor-pointer active:scale-[0.99] transition-all"
+              className="p-2.5 rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-slate-200/90 dark:border-white/10 shadow-2xl flex items-center justify-between gap-2.5 cursor-pointer active:scale-[0.98] transition-all"
             >
-              <div className="flex items-center gap-3 min-w-0">
-                <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shrink-0 shadow-md shadow-blue-500/25">
-                  <NavigationIcon className="w-5 h-5" />
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shrink-0 shadow-md shadow-blue-500/25">
+                  <NavigationIcon className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 block truncate">
-                    Destination Selected
+                  <span className="text-[9px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400 block truncate">
+                    {isNavigating ? 'Route Active' : 'Destination'}
                   </span>
                   <p className="text-xs font-black text-slate-900 dark:text-white truncate">
                     {destination.name}
                   </p>
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold mt-0.5 truncate">
-                    Tap to view turn-by-turn route steps & options
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold truncate">
+                    Tap for turn-by-turn guidance
                   </p>
                 </div>
               </div>
-              <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />
+              <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
             </div>
           </div>
         )}
