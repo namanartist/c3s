@@ -40,66 +40,81 @@ export function safeRandomUUID(): string {
  * window.crypto.randomUUID() or crypto.randomUUID() works seamlessly in insecure contexts.
  */
 export function installCryptoPolyfill(): void {
-  if (typeof window === 'undefined') return;
+  if (typeof window === 'undefined' && typeof globalThis === 'undefined') return;
 
-  // 1. Prototype level definition (WebIDL Crypto interface prototype)
-  try {
-    if (typeof (window as any).Crypto !== 'undefined' && (window as any).Crypto.prototype) {
-      if (typeof (window as any).Crypto.prototype.randomUUID !== 'function') {
-        Object.defineProperty((window as any).Crypto.prototype, 'randomUUID', {
-          value: safeRandomUUID,
-          writable: true,
-          configurable: true,
-          enumerable: true
-        });
-      }
-    }
-  } catch {
-    // non-fatal
-  }
+  const targetGlobal: any = typeof globalThis !== 'undefined' ? globalThis : window;
 
-  // 2. Instance level property definition
+  // 1. Prototype of window.crypto instance
   try {
-    if (window.crypto && typeof window.crypto.randomUUID !== 'function') {
-      try {
-        Object.defineProperty(window.crypto, 'randomUUID', {
-          value: safeRandomUUID,
-          writable: true,
-          configurable: true,
-          enumerable: true
-        });
-      } catch {
-        (window.crypto as any).randomUUID = safeRandomUUID;
-      }
-    }
-  } catch {
-    // non-fatal
-  }
-
-  // 3. Fallback: Proxy wrapper if window.crypto.randomUUID is STILL not a function
-  try {
-    if (!window.crypto || typeof window.crypto.randomUUID !== 'function') {
-      const realCrypto = window.crypto || {};
-      const proxyCrypto = new Proxy(realCrypto, {
-        get(target, prop, receiver) {
-          if (prop === 'randomUUID') return safeRandomUUID;
-          const val = Reflect.get(target, prop, receiver);
-          return typeof val === 'function' ? val.bind(target) : val;
-        }
-      });
-      try {
-        Object.defineProperty(window, 'crypto', {
-          value: proxyCrypto,
-          writable: true,
-          configurable: true
-        });
-      } catch {
+    if (targetGlobal.crypto) {
+      const proto = Object.getPrototypeOf(targetGlobal.crypto);
+      if (proto && typeof proto.randomUUID !== 'function') {
         try {
-          (window as any).crypto = proxyCrypto;
+          Object.defineProperty(proto, 'randomUUID', {
+            value: safeRandomUUID,
+            writable: true,
+            configurable: true,
+            enumerable: true
+          });
         } catch {
-          // ignore
+          proto.randomUUID = safeRandomUUID;
         }
       }
+    }
+  } catch {
+    // non-fatal
+  }
+
+  // 2. WebIDL Crypto interface prototype
+  try {
+    if (typeof targetGlobal.Crypto !== 'undefined' && targetGlobal.Crypto.prototype) {
+      if (typeof targetGlobal.Crypto.prototype.randomUUID !== 'function') {
+        try {
+          Object.defineProperty(targetGlobal.Crypto.prototype, 'randomUUID', {
+            value: safeRandomUUID,
+            writable: true,
+            configurable: true,
+            enumerable: true
+          });
+        } catch {
+          targetGlobal.Crypto.prototype.randomUUID = safeRandomUUID;
+        }
+      }
+    }
+  } catch {
+    // non-fatal
+  }
+
+  // 3. Instance level property definition
+  try {
+    if (targetGlobal.crypto && typeof targetGlobal.crypto.randomUUID !== 'function') {
+      try {
+        Object.defineProperty(targetGlobal.crypto, 'randomUUID', {
+          value: safeRandomUUID,
+          writable: true,
+          configurable: true,
+          enumerable: true
+        });
+      } catch {
+        targetGlobal.crypto.randomUUID = safeRandomUUID;
+      }
+    }
+  } catch {
+    // non-fatal
+  }
+
+  // 4. Missing crypto object fallback
+  try {
+    if (!targetGlobal.crypto) {
+      targetGlobal.crypto = {
+        randomUUID: safeRandomUUID,
+        getRandomValues: (arr: any) => {
+          for (let i = 0; i < arr.length; i++) {
+            arr[i] = Math.floor(Math.random() * 256);
+          }
+          return arr;
+        }
+      };
     }
   } catch {
     // non-fatal

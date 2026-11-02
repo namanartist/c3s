@@ -35,56 +35,74 @@
           });
         }
 
-        // 1. Prototype level definition (WebIDL Crypto interface prototype)
-        try {
-          if (typeof window.Crypto !== 'undefined' && window.Crypto.prototype) {
-            if (typeof window.Crypto.prototype.randomUUID !== 'function') {
-              Object.defineProperty(window.Crypto.prototype, 'randomUUID', {
-                value: createSafeUUID,
-                writable: true,
-                configurable: true,
-                enumerable: true
-              });
-            }
-          }
-        } catch (e) {}
+        var targetGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : this;
+        if (!targetGlobal) return;
 
-        // 2. Instance level property definition
+        // 1. Prototype of crypto instance
         try {
-          if (window.crypto && typeof window.crypto.randomUUID !== 'function') {
-            try {
-              Object.defineProperty(window.crypto, 'randomUUID', {
-                value: createSafeUUID,
-                writable: true,
-                configurable: true,
-                enumerable: true
-              });
-            } catch (e) {
-              window.crypto.randomUUID = createSafeUUID;
-            }
-          }
-        } catch (e) {}
-
-        // 3. Fallback: Proxy wrapper if window.crypto.randomUUID is STILL not a function
-        try {
-          if (!window.crypto || typeof window.crypto.randomUUID !== 'function') {
-            var realCrypto = window.crypto || {};
-            var proxyCrypto = new Proxy(realCrypto, {
-              get: function(target, prop, receiver) {
-                if (prop === 'randomUUID') return createSafeUUID;
-                var val = Reflect.get(target, prop, receiver);
-                return typeof val === 'function' ? val.bind(target) : val;
+          if (targetGlobal.crypto) {
+            var proto = Object.getPrototypeOf(targetGlobal.crypto);
+            if (proto && typeof proto.randomUUID !== 'function') {
+              try {
+                Object.defineProperty(proto, 'randomUUID', {
+                  value: createSafeUUID,
+                  writable: true,
+                  configurable: true,
+                  enumerable: true
+                });
+              } catch (e1) {
+                proto.randomUUID = createSafeUUID;
               }
-            });
-            try {
-              Object.defineProperty(window, 'crypto', {
-                value: proxyCrypto,
-                writable: true,
-                configurable: true
-              });
-            } catch (e) {
-              try { window.crypto = proxyCrypto; } catch (e2) {}
             }
+          }
+        } catch (e) {}
+
+        // 2. WebIDL Crypto interface prototype
+        try {
+          if (typeof targetGlobal.Crypto !== 'undefined' && targetGlobal.Crypto.prototype) {
+            if (typeof targetGlobal.Crypto.prototype.randomUUID !== 'function') {
+              try {
+                Object.defineProperty(targetGlobal.Crypto.prototype, 'randomUUID', {
+                  value: createSafeUUID,
+                  writable: true,
+                  configurable: true,
+                  enumerable: true
+                });
+              } catch (e2) {
+                targetGlobal.Crypto.prototype.randomUUID = createSafeUUID;
+              }
+            }
+          }
+        } catch (e) {}
+
+        // 3. Instance level property definition
+        try {
+          if (targetGlobal.crypto && typeof targetGlobal.crypto.randomUUID !== 'function') {
+            try {
+              Object.defineProperty(targetGlobal.crypto, 'randomUUID', {
+                value: createSafeUUID,
+                writable: true,
+                configurable: true,
+                enumerable: true
+              });
+            } catch (e3) {
+              targetGlobal.crypto.randomUUID = createSafeUUID;
+            }
+          }
+        } catch (e) {}
+
+        // 4. Fallback if crypto object is completely missing
+        try {
+          if (!targetGlobal.crypto) {
+            targetGlobal.crypto = {
+              randomUUID: createSafeUUID,
+              getRandomValues: function(arr) {
+                for (var i = 0; i < arr.length; i++) {
+                  arr[i] = Math.floor(Math.random() * 256);
+                }
+                return arr;
+              }
+            };
           }
         } catch (e) {}
       })();
