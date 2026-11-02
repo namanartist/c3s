@@ -1,7 +1,7 @@
 // src/components/ui/MapHeader.tsx
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, QrCode, PanelLeft } from 'lucide-react';
+import { Menu, QrCode, PanelLeft, ShieldAlert, Home, Shield, School, Settings, HelpCircle } from 'lucide-react';
 import clgLogo from '@/assets/clg_logo.webp';
 import { useCampusNavigation } from '@/hooks/useCampusNavigation';
 import { useSafetyStore } from '@/store/safetyStore';
@@ -18,7 +18,7 @@ export function MapHeader({ }: MapHeaderProps) {
 
   if (isMobile) {
     return (
-      <div className="absolute top-3 right-3 z-30 flex items-center gap-1.5 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl px-2.5 py-1.5 rounded-full shadow-lg border border-slate-200/90 dark:border-white/10 transition-colors pointer-events-auto">
+      <div className="flex items-center gap-1.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl px-2.5 py-1.5 rounded-full shadow-lg border border-slate-200/90 dark:border-white/10 transition-colors pointer-events-auto">
         <ThemeToggle />
         <button
           type="button"
@@ -26,12 +26,12 @@ export function MapHeader({ }: MapHeaderProps) {
           className="p-1.5 rounded-full bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300 border border-blue-200 dark:border-blue-500/20 active:scale-95 transition-all cursor-pointer"
           title="Scan Campus Gate QR"
         >
-          <QrCode className="w-3.5 h-3.5" />
+          <QrCode className="w-4 h-4" />
         </button>
         <button
           type="button"
           onClick={() => useSafetyStore.getState().setSosModalOpen(true)}
-          className="px-2.5 py-1 rounded-full bg-red-600 text-white font-black text-[10px] shadow-sm active:scale-95 transition-all cursor-pointer animate-pulse"
+          className="px-2.5 py-1 rounded-full bg-gradient-to-r from-red-600 to-rose-600 text-white font-black text-[10px] shadow-sm active:scale-95 transition-all cursor-pointer animate-pulse"
           title="Emergency SOS"
         >
           SOS
@@ -41,120 +41,136 @@ export function MapHeader({ }: MapHeaderProps) {
   }
 
   return (
-    <div className="absolute top-6 right-6 z-10 flex items-center gap-3 sm:gap-4 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-4 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-lg border border-slate-200/80 dark:border-white/10 transition-colors">
+    <div className="absolute top-5 right-5 z-20 flex items-center gap-3 bg-white/90 dark:bg-[#0A0F1D]/90 backdrop-blur-2xl px-4 py-2 rounded-2xl shadow-xl border border-slate-200/80 dark:border-white/10 pointer-events-auto transition-colors">
       <div
         onClick={() => navigate('/')}
-        className="flex items-center gap-2 cursor-pointer hover:opacity-85 transition-opacity"
+        className="flex items-center gap-2.5 cursor-pointer hover:opacity-85 transition-opacity"
         title="Campus Safety Map Home"
       >
-        <img src={clgLogo} alt="MITS Logo" className="h-8 w-auto" decoding="async" />
-        <span className="text-gray-300 text-sm">×</span>
+        <img src={clgLogo} alt="MITS Logo" className="h-8 w-auto object-contain" decoding="async" />
+        <span className="text-slate-300 dark:text-slate-700 text-xs font-mono">/</span>
         <div className="flex flex-col">
           <div className="flex items-center gap-1.5">
-            <span className="text-xs font-black tracking-tight text-gray-900 dark:text-white leading-none">C3S MAP</span>
-            <span className="px-1.5 py-0.2 bg-blue-600 text-white rounded text-[8px] font-black">
-              {proctorMode ? 'PROCTOR' : 'CAMPUS'}
+            <span className="text-xs font-black tracking-tight text-slate-900 dark:text-white leading-none">
+              MITS MAP
+            </span>
+            <span className="px-1.5 py-0.2 bg-blue-600 text-white rounded text-[8px] font-black uppercase tracking-wider">
+              {proctorMode ? 'PROCTOR' : '3D VECTOR'}
             </span>
           </div>
-          <span className="text-[9px] font-bold text-emerald-600 tracking-wide mt-0.5 flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            {proctorMode ? 'LIVE OPERATIONS ACTIVE' : 'LIVE CAMPUS MAP'}
+          <span className="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 tracking-wide mt-0.5 flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+            {proctorMode ? 'SOC OPERATIONS LIVE' : 'CAMPUS MESH LIVE'}
           </span>
         </div>
       </div>
 
-      <div className="h-4 w-[1px] bg-gray-200 dark:bg-white/10" />
+      <div className="h-4 w-[1px] bg-slate-200 dark:bg-white/10" />
 
+      {/* Gate QR Fast Trigger */}
       <button
         type="button"
         onClick={() => useGateStore.getState().setScannerModalOpen(true)}
-        className="px-3 py-1.5 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-700 font-black text-xs flex items-center gap-1.5 border border-blue-200 shadow-sm active:scale-95 transition-all cursor-pointer"
+        className="px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 text-blue-700 dark:text-blue-300 font-bold text-xs flex items-center gap-1.5 border border-blue-200/80 dark:border-blue-800/50 shadow-xs active:scale-95 transition-all cursor-pointer"
         title="Scan Campus Gate QR (Check-In / Check-Out)"
       >
         <QrCode className="w-3.5 h-3.5" />
         <span>Gate QR</span>
       </button>
 
-      {proctorMode && (
-        <button
-          type="button"
-          onClick={() => useSafetyStore.getState().setSosModalOpen(true)}
-          className="px-3 py-1.5 rounded-full bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white font-black text-xs flex items-center gap-1.5 shadow-md shadow-red-500/30 active:scale-95 transition-all cursor-pointer animate-pulse"
-          title="Open Emergency SOS Trigger"
-        >
-          <span className="w-2 h-2 rounded-full bg-white" />
-          <span>SOS</span>
-        </button>
-      )}
+      {/* Emergency SOS Button */}
+      <button
+        type="button"
+        onClick={() => useSafetyStore.getState().setSosModalOpen(true)}
+        className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-600 text-white font-black text-xs flex items-center gap-1.5 shadow-md shadow-red-500/25 active:scale-95 transition-all cursor-pointer"
+        title="Open Emergency SOS Trigger"
+      >
+        <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+        <span>SOS</span>
+      </button>
 
+      {/* Sidebar Toggle Shortcut */}
       <button
         type="button"
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        className={`px-3 py-1.5 rounded-full font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer ${
+        className={`px-3 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer ${
           sidebarOpen
             ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/20'
-            : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200'
+            : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200'
         }`}
         title={sidebarOpen ? "Collapse Sidebar" : "Open Sidebar"}
       >
         <PanelLeft className="w-3.5 h-3.5" />
-        <span className="hidden sm:inline">Sidebar</span>
+        <span className="hidden sm:inline">Navigator</span>
       </button>
 
+      {/* Theme Toggle */}
       <ThemeToggle />
-      <div className="h-4 w-[1px] bg-gray-200 dark:bg-white/10" />
+
+      <div className="h-4 w-[1px] bg-slate-200 dark:bg-white/10" />
+
+      {/* Overflow App Navigation Menu */}
       <div className="relative">
         <button
+          type="button"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 transition-all duration-200 pointer-events-auto cursor-pointer"
-          aria-label="Menu"
+          className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 transition-all cursor-pointer"
+          aria-label="Navigation Menu"
         >
-          <Menu className="w-5 h-5" />
+          <Menu className="w-4.5 h-4.5" />
         </button>
 
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="absolute right-0 mt-3.5 w-36 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md rounded-xl shadow-xl border border-slate-200 dark:border-white/10 p-1.5 flex flex-col gap-0.5 z-20 pointer-events-auto transition-colors"
+              initial={{ opacity: 0, y: -8, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.95 }}
+              className="absolute right-0 mt-3 w-48 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10 p-1.5 flex flex-col gap-1 z-30 transition-colors"
             >
               <button
+                type="button"
                 onClick={() => {
                   navigate('/');
                   setIsMenuOpen(false);
                 }}
-                className="w-full text-left px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2 transition-colors cursor-pointer"
               >
-                Home
+                <Home className="w-3.5 h-3.5 text-blue-500" />
+                <span>UniMap Home</span>
               </button>
               <button
+                type="button"
                 onClick={() => {
-                  navigate('/gate');
+                  navigate('/student');
                   setIsMenuOpen(false);
                 }}
-                className="w-full text-left px-3 py-2 text-xs font-bold text-blue-700 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2 transition-colors cursor-pointer"
               >
-                Gate Keeper
+                <School className="w-3.5 h-3.5 text-indigo-500" />
+                <span>Student Base</span>
               </button>
               <button
+                type="button"
                 onClick={() => {
-                  navigate('/proctor');
+                  navigate('/security');
                   setIsMenuOpen(false);
                 }}
-                className="w-full text-left px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2 transition-colors cursor-pointer"
               >
-                C3S Operations
+                <Shield className="w-3.5 h-3.5 text-emerald-500" />
+                <span>Security Patrol</span>
               </button>
               <button
+                type="button"
                 onClick={() => {
                   navigate('/support');
                   setIsMenuOpen(false);
                 }}
-                className="w-full text-left px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
+                className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2 transition-colors cursor-pointer"
               >
-                Support
+                <HelpCircle className="w-3.5 h-3.5 text-purple-500" />
+                <span>Support & Help</span>
               </button>
             </motion.div>
           )}

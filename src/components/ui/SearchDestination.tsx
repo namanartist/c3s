@@ -111,7 +111,7 @@ export default function SearchDestination({
         Where do you want to go?
       </label>
       <div className="relative">
-        <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#ff602e]" />
+        <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-600 dark:text-blue-400" />
 
         <Input
           type="text"
@@ -122,7 +122,7 @@ export default function SearchDestination({
             setShowSuggestions(true);
           }}
           onFocus={() => setShowSuggestions(true)}
-          className="pl-10 pr-10 h-11 rounded-xl border-gray-200 focus:border-orange-400 focus:ring-orange-400/20 text-sm"
+          className="pl-10 pr-10 h-11 rounded-xl bg-slate-50 dark:bg-slate-900/80 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 focus:bg-white dark:focus:bg-slate-900 focus:border-blue-500 focus:ring-blue-500/20 text-sm font-medium"
         />
 
         {searchQuery && (
@@ -150,10 +150,10 @@ export default function SearchDestination({
                 <button
                   key={location.id}
                   onClick={() => handleSelect(location)}
-                  className={`w-full px-4 py-3 hover:bg-orange-50/50 dark:hover:bg-white/[0.05] transition-colors flex items-start gap-3 border-b border-slate-100 dark:border-white/5 last:border-0 text-left ${isSelected ? 'bg-orange-50/60 dark:bg-white/10' : ''
+                  className={`w-full px-4 py-3 hover:bg-blue-50/50 dark:hover:bg-blue-950/30 transition-colors flex items-start gap-3 border-b border-slate-100 dark:border-white/5 last:border-0 text-left ${isSelected ? 'bg-blue-50/80 dark:bg-blue-950/60' : ''
                     }`}
                 >
-                  <Building2 className="w-4 h-4 text-[#ff602e] mt-0.5 flex-shrink-0" />
+                  <Building2 className="w-4 h-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">{location.name}</p>
                     <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
@@ -161,7 +161,7 @@ export default function SearchDestination({
                     </p>
                   </div>
                   {isSelected ? (
-                    <Check className="w-4 h-4 text-[#ff602e] flex-shrink-0 mt-0.5" />
+                    <Check className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
                   ) : null}
                   <Badge variant="accent" className="text-xs flex-shrink-0">
                     {location.category}
