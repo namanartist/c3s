@@ -1,5 +1,6 @@
 // src/store/safetyStore.ts
 import { create } from 'zustand';
+import { broadcastSosIncident } from '@/lib/realtimeSosMesh';
 import type {
   SosIncident,
   SafetyAmenity,
@@ -606,9 +607,9 @@ export const useSafetyStore = create<SafetyStoreState>((set) => ({
       ...data,
       id: `sos_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
       timestamp: Date.now(),
-      status: 'active'
-      , deliveryState: 'queued'
-      , relayHops: 0
+      status: 'active',
+      deliveryState: 'queued',
+      relayHops: 0
     };
     set((state) => {
       const incidents = [newIncident, ...state.incidents];
@@ -619,6 +620,12 @@ export const useSafetyStore = create<SafetyStoreState>((set) => ({
         sosModalOpen: false
       };
     });
+    // Immediately broadcast to other IP network devices and Supabase Realtime
+    try {
+      broadcastSosIncident(newIncident);
+    } catch {
+      // non-fatal
+    }
     return newIncident;
   },
 
@@ -627,6 +634,12 @@ export const useSafetyStore = create<SafetyStoreState>((set) => ({
       inc.id === id ? { ...inc, status, responderAssigned: responder || inc.responderAssigned, deliveryState: 'queued' as const } : inc
     );
     persistIncidents(incidents);
+    const updated = incidents.find((i) => i.id === id);
+    if (updated) {
+      try {
+        broadcastSosIncident(updated);
+      } catch {}
+    }
     return {
       incidents,
       selectedIncident: state.selectedIncident?.id === id
@@ -638,6 +651,12 @@ export const useSafetyStore = create<SafetyStoreState>((set) => ({
   updateIncidentEvidence: (id, evidence) => set((state) => {
     const incidents = state.incidents.map((inc) => inc.id === id ? { ...inc, evidence, deliveryState: 'queued' as const } : inc);
     persistIncidents(incidents);
+    const updated = incidents.find((i) => i.id === id);
+    if (updated) {
+      try {
+        broadcastSosIncident(updated);
+      } catch {}
+    }
     return {
       incidents,
       selectedIncident: state.selectedIncident?.id === id

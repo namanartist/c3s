@@ -3,6 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <!-- Immediate RFC4122 v4 polyfill for non-secure HTTP contexts (e.g. LAN IP hosting http://192.168.x.x) -->
+    <script>
+      (function() {
+        if (typeof window !== 'undefined') {
+          if (!window.crypto) {
+            window.crypto = {};
+          }
+          if (typeof window.crypto.randomUUID !== 'function') {
+            window.crypto.randomUUID = function() {
+              if (window.crypto && typeof window.crypto.getRandomValues === 'function') {
+                try {
+                  var bytes = new Uint8Array(16);
+                  window.crypto.getRandomValues(bytes);
+                  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+                  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+                  var hex = [];
+                  for (var i = 0; i < 16; i++) {
+                    hex.push((bytes[i] < 16 ? '0' : '') + bytes[i].toString(16));
+                  }
+                  return (
+                    hex.slice(0, 4).join('') + '-' +
+                    hex.slice(4, 6).join('') + '-' +
+                    hex.slice(6, 8).join('') + '-' +
+                    hex.slice(8, 10).join('') + '-' +
+                    hex.slice(10, 16).join('')
+                  );
+                } catch (e) {}
+              }
+              return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = (Math.random() * 16) | 0;
+                var v = c === 'x' ? r : (r & 0x3) | 0x8;
+                return v.toString(16);
+              });
+            };
+          }
+        }
+      })();
+    </script>
     <title>C3S — Campus Surveillance & Safety System | MITS Gwalior</title>
     <meta name="description" content="C3S: Campus Surveillance and Safety System for Madhav Institute of Technology and Science (MITS) Gwalior. Real-time CCTV surveillance grid, tactical safe path navigation, 1-tap SOS emergency broadcast, and rapid QRF patrol dispatch." />
     <meta name="keywords" content="C3S, Campus Safety and Surveillance System, MITS Map, Official Campus map of MITS gwalior, Madhav Institute of Technology and Science Campus Map, Map of MITS, MITS Gwalior, campus navigation, emergency SOS, CCTV surveillance" />

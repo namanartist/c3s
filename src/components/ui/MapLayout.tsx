@@ -172,16 +172,22 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [mobileDrawerHeight, setMobileDrawerHeight] = useState<'collapsed' | 'half' | 'full'>('collapsed');
 
-  // Automatically reveal the navigation drawer and focus the Route tab when navigating (e.g. SOS incident or selected destination)
+  // Automatically reveal the navigation drawer and focus the Route tab on desktop when navigating
   useEffect(() => {
     if (isNavigating || destination) {
-      setSidebarOpen(true);
-      setActiveTab('route');
-      if (isMobile) {
-        setMobileDrawerHeight('half');
+      if (!isMobile) {
+        setSidebarOpen(true);
       }
+      setActiveTab('route');
     }
   }, [isNavigating, destination, isMobile, setSidebarOpen]);
+
+  // Ensure sidebar is closed on mobile view
+  useEffect(() => {
+    if (isMobile) {
+      setSidebarOpen(false);
+    }
+  }, [isMobile, setSidebarOpen]);
 
   const detectedBuilding = userGpsCoords ? detectIndoorBuilding(userGpsCoords) : null;
 
@@ -539,7 +545,7 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
     </div>
   );
 
-  // MOBILE VIEW (< 768px)
+  // MOBILE VIEW (< 768px) - Fullscreen, clean, zero sidebars
   if (isMobile) {
     return (
       <div className="relative w-screen h-screen overflow-hidden bg-slate-50 dark:bg-[#070b14] select-none flex flex-col">
@@ -553,15 +559,12 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
 
         {/* Floating Top Control Island */}
         <div className="absolute top-3 left-3 right-3 z-30 flex items-center justify-between gap-2 pointer-events-none">
-          <button
-            type="button"
-            onClick={() => setSidebarOpen(true)}
-            className="flex items-center gap-2 px-3.5 py-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-slate-200/90 dark:border-white/10 rounded-full shadow-lg text-xs font-black text-slate-900 dark:text-white active:scale-95 transition-all cursor-pointer pointer-events-auto"
-            title="Open Campus Navigator"
-          >
-            <Compass className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-            <span>Search & Floors</span>
-          </button>
+          <div className="flex items-center gap-2 px-3.5 py-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-slate-200/90 dark:border-white/10 rounded-full shadow-lg text-xs font-black text-slate-900 dark:text-white pointer-events-auto">
+            <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shadow-xs">
+              <Compass className="w-3.5 h-3.5" />
+            </div>
+            <span>MITS Campus</span>
+          </div>
 
           {header}
         </div>
@@ -593,45 +596,37 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
         {activeDashboard === 'patrol' && <PatrolDispatchDashboard />}
 
         {/* Mobile Floating Bottom Summary Pill when route or destination is selected (leaves right-side map controls clear) */}
-        {activeDashboard === 'nav' && !sidebarOpen && destination && (
+        {activeDashboard === 'nav' && destination && (
           <div className="absolute bottom-4 left-3 right-[84px] z-20 pointer-events-auto">
-            <div
-              onClick={() => setSidebarOpen(true)}
-              className="p-2.5 rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-slate-200/90 dark:border-white/10 shadow-2xl flex items-center justify-between gap-2.5 cursor-pointer active:scale-[0.98] transition-all"
-            >
+            <div className="p-2.5 rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-slate-200/90 dark:border-white/10 shadow-2xl flex items-center justify-between gap-2.5 transition-all">
               <div className="flex items-center gap-2.5 min-w-0">
                 <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shrink-0 shadow-md shadow-blue-500/25">
                   <NavigationIcon className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-[9px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400 block truncate">
-                    {isNavigating ? 'Route Active' : 'Destination'}
-                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[9px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400 block truncate">
+                      {isNavigating ? 'Route Active' : 'Destination'}
+                    </span>
+                    {routeDistance ? (
+                      <span className="text-[9px] font-bold text-slate-500 dark:text-slate-400 truncate">
+                        • {routeDistance}
+                      </span>
+                    ) : null}
+                  </div>
                   <p className="text-xs font-black text-slate-900 dark:text-white truncate">
                     {destination.name}
                   </p>
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold truncate">
-                    Tap for turn-by-turn guidance
-                  </p>
                 </div>
               </div>
-              <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
-            </div>
-          </div>
-        )}
-
-        {/* Mobile Slide-Over Sidebar Drawer */}
-        {sidebarOpen && (
-          <div className="fixed inset-0 z-50 flex pointer-events-auto">
-            {/* Backdrop Dimmer */}
-            <div
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
-              onClick={() => setSidebarOpen(false)}
-            />
-
-            {/* Slide-In Sidebar Card */}
-            <div className="relative w-[88vw] max-w-[390px] h-full bg-white dark:bg-slate-950 shadow-2xl flex flex-col z-10 border-r border-slate-200/80 dark:border-white/10 animate-in slide-in-from-left duration-250">
-              {renderSidebarContent()}
+              <button
+                type="button"
+                onClick={() => handleDestinationSelect(null as any)}
+                className="w-7 h-7 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-white flex items-center justify-center shrink-0 cursor-pointer"
+                title="Clear route"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
         )}

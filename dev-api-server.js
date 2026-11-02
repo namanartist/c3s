@@ -440,7 +440,7 @@ const server = http.createServer(async (req, res) => {
         const body = await readBody(req);
         const incident = {
           id: body.id || `sos_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
-          category: body.category || 'medical',
+          category: body.category || 'security',
           severity: body.severity || 'critical',
           title: body.title || '🚨 Campus SOS Incident',
           description: body.description || 'Emergency SOS trigger received.',
@@ -451,19 +451,55 @@ const server = http.createServer(async (req, res) => {
           lat: body.lat || 26.230752,
           lng: body.lng || 78.205341,
           nodeId: body.nodeId || null,
-          timestamp: Date.now(),
-          status: 'active',
-          reportedBy: body.reportedBy || 'Student'
+          photoUrl: body.photoUrl || (body.evidence && body.evidence.photoUrl) || null,
+          videoUrl: body.videoUrl || (body.evidence && body.evidence.videoUrl) || null,
+          evidence: body.evidence || null,
+          timestamp: body.timestamp || Date.now(),
+          status: body.status || 'active',
+          reportedBy: body.reportedBy || 'Student Distress Signal',
+          assignedResponder: body.assignedResponder || body.responderAssigned || null,
+          notifiedResponders: body.notifiedResponders || null
         };
-        inMemorySos.unshift(incident);
+        const existingIdx = inMemorySos.findIndex((i) => i.id === incident.id);
+        if (existingIdx >= 0) {
+          inMemorySos[existingIdx] = { ...inMemorySos[existingIdx], ...incident };
+        } else {
+          inMemorySos.unshift(incident);
+        }
         if (activeDb) {
           try {
-            await activeDb.collection('sos_incidents').insertOne({ ...incident });
+            await activeDb.collection('sos_incidents').updateOne(
+              { id: incident.id },
+              { $set: incident },
+              { upsert: true }
+            );
           } catch {}
         }
         res.writeHead(201, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, incident }));
       }
+    }
+    else if (pathname.startsWith('/api/sos/') && req.method === 'POST') {
+      const parts = pathname.split('/').filter(Boolean);
+      const id = parts[2];
+      const action = parts[3];
+      const body = await readBody(req);
+      const newStatus = action === 'resolve' ? 'resolved' : action === 'responding' || action === 'accept' ? 'responding' : 'active';
+      const existing = inMemorySos.find((i) => i.id === id);
+      if (existing) {
+        existing.status = newStatus;
+        if (body.responder) existing.assignedResponder = body.responder;
+      }
+      if (activeDb) {
+        try {
+          await activeDb.collection('sos_incidents').updateOne(
+            { id },
+            { $set: { status: newStatus, ...(body.responder ? { assignedResponder: body.responder } : {}) } }
+          );
+        } catch {}
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, id, status: newStatus }));
     }
     // ----------------------------------------------------
     // POST /api/auth/login

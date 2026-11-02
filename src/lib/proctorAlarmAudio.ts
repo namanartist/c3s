@@ -154,3 +154,4 @@ class ProctorAlarmSystem {
 }
 
 export const globalProctorAlarm = new ProctorAlarmSystem();
+
