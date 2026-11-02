@@ -59,7 +59,20 @@ const initialState = {
 export const useMapStore = create<MapStoreState>((set) => ({
   ...initialState,
 
-  setGraph: (graph) => set({ graph }),
+  setGraph: (graph) => {
+    const currentFrom = useMapStore.getState().selectedFrom;
+    const sh4Node = !currentFrom
+      ? graph.nodes.find((n) => n.id === 'room_J010' || n.name?.includes('SH-4'))
+      : null;
+
+    set({
+      graph,
+      isGraphLoaded: true,
+      activeMap: useMapStore.getState().activeMap || (sh4Node ? 'Main_Building' : null),
+      activeFloor: useMapStore.getState().activeFloor ?? (sh4Node ? 0 : null),
+      ...(sh4Node ? { selectedFrom: sh4Node } : {})
+    });
+  },
   setFloors: (floors) => {
     const mapped = floors.map(f => {
       if (f.map === 'Campus_Map') {

@@ -250,6 +250,21 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
       });
   }, [nodes, floors, buildings]);
 
+  // Auto-initialize current starting location to SH-4 (Seminar Hall 4, Main_GF)
+  useEffect(() => {
+    if (!currentLocation && campusLocations.length > 0) {
+      const sh4 = campusLocations.find(
+        (l) => l.id === 'room_J010' || l.searchName?.includes('sh-4') || l.name?.includes('SH-4')
+      );
+      if (sh4) {
+        setCurrentLocation(sh4);
+        setUserSvgCoords({ x: sh4.x, y: sh4.y });
+        setUserGpsCoords({ lat: sh4.lat || 26.23185102, lon: sh4.lng || 78.20636481 });
+        setIsGpsActive(true);
+      }
+    }
+  }, [campusLocations, currentLocation]);
+
   const handleDestinationSelect = useCallback((location: any) => {
     if (isNavigating || isComputingRoute) {
       routeAbortRef.current?.abort();
@@ -606,12 +621,12 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
             return;
           }
 
-          // If low accuracy also fails, provide calibrated entrance fallback
-          const fallbackNode = nodes.find((n) => n.id === 'Main_Gate') || nodes[0];
+          // If low accuracy also fails, provide calibrated SH-4 fallback
+          const fallbackNode = nodes.find((n) => n.id === 'room_J010') || nodes[0];
           if (fallbackNode) {
             setUserSvgCoords({ x: fallbackNode.x, y: fallbackNode.y });
           }
-          setGpsError(err.code === 3 ? 'Location signal timed out. Using campus entrance.' : 'Location signal unavailable.');
+          setGpsError(err.code === 3 ? 'Location signal timed out. Using SH-4.' : 'Location signal unavailable.');
         },
         {
           enableHighAccuracy: highAccuracy,
@@ -672,7 +687,7 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
         preferredMap: selectedMapId || undefined,
         includeIndoor: true,
       });
-      const targetNode = nearest || nodes.find((n) => n.id === 'Main_Gate') || nodes[0];
+      const targetNode = nearest || nodes.find((n) => n.id === 'room_J010') || nodes[0];
 
       if (inside) {
         if (targetNode && targetNode.map && targetNode.map !== 'Campus_Map') {
@@ -712,9 +727,9 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
     };
 
     if (typeof navigator === 'undefined' || !navigator.geolocation) {
-      const fallbackNode = nodes.find((n) => n.id === 'Main_Gate') || nodes[0];
+      const fallbackNode = nodes.find((n) => n.id === 'room_J010') || nodes[0];
       if (fallbackNode) {
-        applyNodeSelection(26.232611, 78.205222, 10);
+        applyNodeSelection(26.23185102, 78.20636481, 8);
       }
       setIsGpsLocating(false);
       return;
@@ -731,11 +746,11 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
             applyNodeSelection(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy);
           },
           (err2) => {
-            console.warn('Geolocation fallback failed, snapping to Main Gate:', err2.message);
+            console.warn('Geolocation fallback failed, snapping to SH-4:', err2.message);
             setIsGpsLocating(false);
-            const fallbackNode = nodes.find((n) => n.id === 'Main_Gate') || nodes[0];
+            const fallbackNode = nodes.find((n) => n.id === 'room_J010') || nodes[0];
             if (fallbackNode) {
-              applyNodeSelection(26.232611, 78.205222, 15);
+              applyNodeSelection(26.23185102, 78.20636481, 8);
             }
           },
           { enableHighAccuracy: false, timeout: 8000 }
@@ -928,7 +943,7 @@ export function CampusNavigationProvider({ children }: { children: React.ReactNo
         startNode = findNearestCampusNode({ lat: userGpsCoords.lat, lon: userGpsCoords.lon }, nodes);
       }
       if (!startNode || startNode.id === destination.id) {
-        startNode = nodesMap['Main_Gate'] || nodes.find((n) => n.id === 'Main_Gate') || nodes[0];
+        startNode = nodesMap['room_J010'] || nodes.find((n) => n.id === 'room_J010') || nodes[0];
       }
       if (startNode) {
         setCurrentLocation(startNode);

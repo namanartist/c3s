@@ -32,8 +32,16 @@ export function SearchPanel() {
 
   // Sync inputs with selected store nodes
   useEffect(() => {
+    if (!selectedFrom && graph) {
+      const sh4Node = graph.nodes.find((n) => n.id === 'room_J010' || n.name?.includes('SH-4'));
+      if (sh4Node) {
+        setSelectedFrom(sh4Node);
+        setFromQuery(sh4Node.name);
+        return;
+      }
+    }
     setFromQuery(selectedFrom ? selectedFrom.name : '');
-  }, [selectedFrom]);
+  }, [selectedFrom, graph, setSelectedFrom]);
 
   useEffect(() => {
     setToQuery(selectedTo ? selectedTo.name : '');
