@@ -92,38 +92,38 @@ export default function App() {
 
           {/* Student Suite - Emergency SOS is the default student entry page */}
           <Route path="/student" element={<Navigate to="/student/sos" replace />} />
-          <Route path="/student/sos" element={<StudentSosPage />} />
-          <Route path="/student/dashboard" element={<StudentDashboard />} />
-          <Route path="/student/scan" element={<StudentScanPage />} />
-          <Route path="/student/check-in" element={<StudentCheckInPage />} />
-          <Route path="/student/check-out" element={<StudentCheckOutPage />} />
-          <Route path="/student/location" element={<StudentLocationPage />} />
-          <Route path="/student/incidents" element={<StudentIncidentsPage />} />
-          <Route path="/student/movement" element={<StudentMovementPage />} />
-          <Route path="/student/notifications" element={<StudentNotificationsPage />} />
+          <Route path="/student/sos" element={<RoleGuard><StudentSosPage /></RoleGuard>} />
+          <Route path="/student/dashboard" element={<RoleGuard><StudentDashboard /></RoleGuard>} />
+          <Route path="/student/scan" element={<RoleGuard><StudentScanPage /></RoleGuard>} />
+          <Route path="/student/check-in" element={<RoleGuard><StudentCheckInPage /></RoleGuard>} />
+          <Route path="/student/check-out" element={<RoleGuard><StudentCheckOutPage /></RoleGuard>} />
+          <Route path="/student/location" element={<RoleGuard><StudentLocationPage /></RoleGuard>} />
+          <Route path="/student/incidents" element={<RoleGuard><StudentIncidentsPage /></RoleGuard>} />
+          <Route path="/student/movement" element={<RoleGuard><StudentMovementPage /></RoleGuard>} />
+          <Route path="/student/notifications" element={<RoleGuard><StudentNotificationsPage /></RoleGuard>} />
 
           {/* Gate Keeper Suite */}
-          <Route path="/gate-keeper" element={<GateKeeperDashboard />} />
-          <Route path="/gate-keeper/qr" element={<GateKeeperQrPage />} />
-          <Route path="/gate-keeper/activity" element={<GateKeeperActivityPage />} />
-          <Route path="/gate-keeper/occupancy" element={<GateKeeperOccupancyPage />} />
-          <Route path="/gate" element={<GateKeeperDashboard />} />
-          <Route path="/gate/:gateId" element={<GateKeeperDashboard />} />
+          <Route path="/gate-keeper" element={<RoleGuard allowedRoles={['GATE_KEEPER', 'SUPER_ADMIN']}><GateKeeperDashboard /></RoleGuard>} />
+          <Route path="/gate-keeper/qr" element={<RoleGuard allowedRoles={['GATE_KEEPER', 'SUPER_ADMIN']}><GateKeeperQrPage /></RoleGuard>} />
+          <Route path="/gate-keeper/activity" element={<RoleGuard allowedRoles={['GATE_KEEPER', 'SUPER_ADMIN']}><GateKeeperActivityPage /></RoleGuard>} />
+          <Route path="/gate-keeper/occupancy" element={<RoleGuard allowedRoles={['GATE_KEEPER', 'SUPER_ADMIN']}><GateKeeperOccupancyPage /></RoleGuard>} />
+          <Route path="/gate" element={<RoleGuard allowedRoles={['GATE_KEEPER', 'SUPER_ADMIN']}><GateKeeperDashboard /></RoleGuard>} />
+          <Route path="/gate/:gateId" element={<RoleGuard allowedRoles={['GATE_KEEPER', 'SUPER_ADMIN']}><GateKeeperDashboard /></RoleGuard>} />
 
           {/* Security Guard Suite */}
-          <Route path="/security" element={<SecurityDashboard />} />
-          <Route path="/security/incidents" element={<SecurityIncidentsPage />} />
-          <Route path="/security/incidents/:id" element={<SecurityIncidentDetailPage />} />
-          <Route path="/security/map" element={<SecurityMapPage />} />
-          <Route path="/guard" element={<SecurityDashboard />} />
+          <Route path="/security" element={<RoleGuard allowedRoles={['SECURITY_GUARD', 'SUPER_ADMIN', 'CONTROL_ROOM_OPERATOR']}><SecurityDashboard /></RoleGuard>} />
+          <Route path="/security/incidents" element={<RoleGuard allowedRoles={['SECURITY_GUARD', 'SUPER_ADMIN', 'CONTROL_ROOM_OPERATOR']}><SecurityIncidentsPage /></RoleGuard>} />
+          <Route path="/security/incidents/:id" element={<RoleGuard allowedRoles={['SECURITY_GUARD', 'SUPER_ADMIN', 'CONTROL_ROOM_OPERATOR']}><SecurityIncidentDetailPage /></RoleGuard>} />
+          <Route path="/security/map" element={<RoleGuard allowedRoles={['SECURITY_GUARD', 'SUPER_ADMIN', 'CONTROL_ROOM_OPERATOR', 'PROCTOR']}><SecurityMapPage /></RoleGuard>} />
+          <Route path="/guard" element={<RoleGuard allowedRoles={['SECURITY_GUARD', 'SUPER_ADMIN']}><SecurityDashboard /></RoleGuard>} />
 
           {/* Faculty Suite */}
-          <Route path="/faculty" element={<StaffDashboard role="faculty" />} />
+          <Route path="/faculty" element={<RoleGuard allowedRoles={['FACULTY', 'HOD', 'DEAN', 'CLASS_COORDINATOR', 'SUPER_ADMIN']}><StaffDashboard role="faculty" /></RoleGuard>} />
 
           {/* Control Room Suite */}
-          <Route path="/control-room" element={<ControlRoomDashboard />} />
-          <Route path="/control-room/incidents" element={<ControlRoomIncidentsPage />} />
-          <Route path="/control-room/map" element={<ControlRoomMapPage />} />
+          <Route path="/control-room" element={<RoleGuard allowedRoles={['CONTROL_ROOM_OPERATOR', 'SUPER_ADMIN', 'PROCTOR', 'HOD', 'DEAN']}><ControlRoomDashboard /></RoleGuard>} />
+          <Route path="/control-room/incidents" element={<RoleGuard allowedRoles={['CONTROL_ROOM_OPERATOR', 'SUPER_ADMIN', 'PROCTOR']}><ControlRoomIncidentsPage /></RoleGuard>} />
+          <Route path="/control-room/map" element={<RoleGuard allowedRoles={['CONTROL_ROOM_OPERATOR', 'SUPER_ADMIN', 'PROCTOR', 'SECURITY_GUARD']}><ControlRoomMapPage /></RoleGuard>} />
           <Route
             path="/control-room/cameras"
             element={
@@ -132,13 +132,13 @@ export default function App() {
               </RoleGuard>
             }
           />
-          <Route path="/control-room/occupancy" element={<ControlRoomOccupancyPage />} />
-          <Route path="/proctor" element={<ControlRoomDashboard />} />
+          <Route path="/control-room/occupancy" element={<RoleGuard allowedRoles={['CONTROL_ROOM_OPERATOR', 'SUPER_ADMIN', 'PROCTOR']}><ControlRoomOccupancyPage /></RoleGuard>} />
+          <Route path="/proctor" element={<RoleGuard allowedRoles={['PROCTOR', 'SUPER_ADMIN', 'CONTROL_ROOM_OPERATOR']}><ControlRoomDashboard /></RoleGuard>} />
 
           {/* Super Admin Suite */}
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/users" element={<AdminUsersPage />} />
-          <Route path="/admin/gates" element={<AdminGatesPage />} />
+          <Route path="/admin" element={<RoleGuard allowedRoles={['SUPER_ADMIN']}><AdminDashboard /></RoleGuard>} />
+          <Route path="/admin/users" element={<RoleGuard allowedRoles={['SUPER_ADMIN']}><AdminUsersPage /></RoleGuard>} />
+          <Route path="/admin/gates" element={<RoleGuard allowedRoles={['SUPER_ADMIN']}><AdminGatesPage /></RoleGuard>} />
           <Route
             path="/admin/cameras"
             element={
@@ -147,23 +147,23 @@ export default function App() {
               </RoleGuard>
             }
           />
-          <Route path="/admin/incidents" element={<AdminIncidentsPage />} />
-          <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
-          <Route path="/admin/audit" element={<AdminAuditPage />} />
+          <Route path="/admin/incidents" element={<RoleGuard allowedRoles={['SUPER_ADMIN']}><AdminIncidentsPage /></RoleGuard>} />
+          <Route path="/admin/analytics" element={<RoleGuard allowedRoles={['SUPER_ADMIN']}><AdminAnalyticsPage /></RoleGuard>} />
+          <Route path="/admin/audit" element={<RoleGuard allowedRoles={['SUPER_ADMIN']}><AdminAuditPage /></RoleGuard>} />
 
           {/* Global Pages */}
-          <Route path="/settings" element={<C3SSettingsPage />} />
-          <Route path="/profile" element={<C3SProfilePage />} />
-          <Route path="/notifications" element={<C3SNotificationsPage />} />
+          <Route path="/settings" element={<RoleGuard><C3SSettingsPage /></RoleGuard>} />
+          <Route path="/profile" element={<RoleGuard><C3SProfilePage /></RoleGuard>} />
+          <Route path="/notifications" element={<RoleGuard><C3SNotificationsPage /></RoleGuard>} />
 
           {/* Error & Diagnostic Pages */}
           <Route path="/403" element={<AccessDeniedPage />} />
           <Route path="/500" element={<SystemErrorPage />} />
           <Route path="/404" element={<NotFoundPage />} />
 
-          {/* Additional Features */}
-          <Route path="/map" element={<MapPage />} />
-          <Route path="/operations" element={<OperationsPage />} />
+          {/* Campus Map & Operations (Protected by RBAC) */}
+          <Route path="/map" element={<RoleGuard><MapPage /></RoleGuard>} />
+          <Route path="/operations" element={<RoleGuard><OperationsPage /></RoleGuard>} />
           <Route path="/support" element={<SupportPage />} />
           <Route path="/developers" element={<DevelopersPage />} />
           <Route path="/developer" element={<DevelopersPage />} />

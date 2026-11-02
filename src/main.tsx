@@ -1,15 +1,8 @@
 // src/main.tsx
-import { safeRandomUUID } from './lib/uuid';
+import { installCryptoPolyfill } from './lib/uuid';
 
-// Global polyfill for crypto.randomUUID on non-secure contexts (e.g. LAN IP hosting: http://192.168.x.x)
-if (typeof window !== 'undefined') {
-  if (!window.crypto) {
-    (window as any).crypto = {};
-  }
-  if (typeof window.crypto.randomUUID !== 'function') {
-    (window.crypto as any).randomUUID = safeRandomUUID;
-  }
-}
+// Immediate global polyfill for crypto.randomUUID on non-secure contexts (e.g. LAN IP hosting: http://192.168.x.x)
+installCryptoPolyfill();
 
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';

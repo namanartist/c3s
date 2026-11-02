@@ -6,39 +6,87 @@
     <!-- Immediate RFC4122 v4 polyfill for non-secure HTTP contexts (e.g. LAN IP hosting http://192.168.x.x) -->
     <script>
       (function() {
-        if (typeof window !== 'undefined') {
-          if (!window.crypto) {
-            window.crypto = {};
-          }
-          if (typeof window.crypto.randomUUID !== 'function') {
-            window.crypto.randomUUID = function() {
-              if (window.crypto && typeof window.crypto.getRandomValues === 'function') {
-                try {
-                  var bytes = new Uint8Array(16);
-                  window.crypto.getRandomValues(bytes);
-                  bytes[6] = (bytes[6] & 0x0f) | 0x40;
-                  bytes[8] = (bytes[8] & 0x3f) | 0x80;
-                  var hex = [];
-                  for (var i = 0; i < 16; i++) {
-                    hex.push((bytes[i] < 16 ? '0' : '') + bytes[i].toString(16));
-                  }
-                  return (
-                    hex.slice(0, 4).join('') + '-' +
-                    hex.slice(4, 6).join('') + '-' +
-                    hex.slice(6, 8).join('') + '-' +
-                    hex.slice(8, 10).join('') + '-' +
-                    hex.slice(10, 16).join('')
-                  );
-                } catch (e) {}
+        if (typeof window === 'undefined') return;
+
+        function createSafeUUID() {
+          if (window.crypto && typeof window.crypto.getRandomValues === 'function') {
+            try {
+              var bytes = new Uint8Array(16);
+              window.crypto.getRandomValues(bytes);
+              bytes[6] = (bytes[6] & 0x0f) | 0x40; // Version 4
+              bytes[8] = (bytes[8] & 0x3f) | 0x80; // Variant RFC4122
+              var hex = [];
+              for (var i = 0; i < 16; i++) {
+                hex.push((bytes[i] < 16 ? '0' : '') + bytes[i].toString(16));
               }
-              return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                var r = (Math.random() * 16) | 0;
-                var v = c === 'x' ? r : (r & 0x3) | 0x8;
-                return v.toString(16);
-              });
-            };
+              return (
+                hex.slice(0, 4).join('') + '-' +
+                hex.slice(4, 6).join('') + '-' +
+                hex.slice(6, 8).join('') + '-' +
+                hex.slice(8, 10).join('') + '-' +
+                hex.slice(10, 16).join('')
+              );
+            } catch (e) {}
           }
+          return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = (Math.random() * 16) | 0;
+            var v = c === 'x' ? r : (r & 0x3) | 0x8;
+            return v.toString(16);
+          });
         }
+
+        // 1. Prototype level definition (WebIDL Crypto interface prototype)
+        try {
+          if (typeof window.Crypto !== 'undefined' && window.Crypto.prototype) {
+            if (typeof window.Crypto.prototype.randomUUID !== 'function') {
+              Object.defineProperty(window.Crypto.prototype, 'randomUUID', {
+                value: createSafeUUID,
+                writable: true,
+                configurable: true,
+                enumerable: true
+              });
+            }
+          }
+        } catch (e) {}
+
+        // 2. Instance level property definition
+        try {
+          if (window.crypto && typeof window.crypto.randomUUID !== 'function') {
+            try {
+              Object.defineProperty(window.crypto, 'randomUUID', {
+                value: createSafeUUID,
+                writable: true,
+                configurable: true,
+                enumerable: true
+              });
+            } catch (e) {
+              window.crypto.randomUUID = createSafeUUID;
+            }
+          }
+        } catch (e) {}
+
+        // 3. Fallback: Proxy wrapper if window.crypto.randomUUID is STILL not a function
+        try {
+          if (!window.crypto || typeof window.crypto.randomUUID !== 'function') {
+            var realCrypto = window.crypto || {};
+            var proxyCrypto = new Proxy(realCrypto, {
+              get: function(target, prop, receiver) {
+                if (prop === 'randomUUID') return createSafeUUID;
+                var val = Reflect.get(target, prop, receiver);
+                return typeof val === 'function' ? val.bind(target) : val;
+              }
+            });
+            try {
+              Object.defineProperty(window, 'crypto', {
+                value: proxyCrypto,
+                writable: true,
+                configurable: true
+              });
+            } catch (e) {
+              try { window.crypto = proxyCrypto; } catch (e2) {}
+            }
+          }
+        } catch (e) {}
       })();
     </script>
     <title>C3S — Campus Surveillance & Safety System | MITS Gwalior</title>

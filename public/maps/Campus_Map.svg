@@ -117,13 +117,6 @@
     <text x="807" y="335" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" fill="#9A3412" font-weight="600" text-anchor="middle">Food &amp; Student Hub</text>
   </g>
 
-  <!-- Student Hostels -->
-  <g id="bldg_hostels">
-    <rect x="895" y="270" width="145" height="95" rx="10" class="bldg-common" stroke="#475569"/>
-    <text x="967" y="315" class="bldg-title" text-anchor="middle">🏢 HOSTELS</text>
-    <text x="967" y="335" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" fill="#64748B" font-weight="600" text-anchor="middle">Student Residences</text>
-  </g>
-
   <!-- AI & CSE Building Block -->
   <g id="bldg_ai_block">
     <rect x="430" y="65" width="280" height="130" rx="12" class="bldg-ai"/>

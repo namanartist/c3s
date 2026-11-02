@@ -13,6 +13,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { useSafetyStore } from '@/store/safetyStore';
+import { CAMPUS_HEATMAP_ZONES, getHeatColor } from '@/lib/campusHeatmap';
 import { CAMPUS_GEOFENCE_POLYGON } from '@/lib/gateSecurity';
 import { CAMPUS_CALIBRATION_POINTS, svgToGps, formatDMS, formatDecimal } from '@/lib/geoProjection';
 import {
@@ -62,6 +63,7 @@ export const CampusOsmMap: React.FC<CampusOsmMapProps> = ({
   const edgesLayerRef = useRef<L.LayerGroup | null>(null);
   const camerasLayerRef = useRef<L.LayerGroup | null>(null);
   const incidentsLayerRef = useRef<L.LayerGroup | null>(null);
+  const heatmapLayerRef = useRef<L.LayerGroup | null>(null);
   const userMarkerRef = useRef<L.Marker | null>(null);
   const userAccuracyCircleRef = useRef<L.Circle | null>(null);
 
@@ -82,6 +84,7 @@ export const CampusOsmMap: React.FC<CampusOsmMapProps> = ({
   const [edgesList] = useState<MapEdge[]>(fallbackData.edges as unknown as MapEdge[]);
   const [showNodes, setShowNodes] = useState(true);
   const [showEdges, setShowEdges] = useState(true);
+  const [showHeatmap, setShowHeatmap] = useState(true);
 
   // OSM Sync Modal & Metrics
   const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
@@ -130,6 +133,7 @@ export const CampusOsmMap: React.FC<CampusOsmMapProps> = ({
     nodesLayerRef.current = L.layerGroup().addTo(map);
     camerasLayerRef.current = L.layerGroup().addTo(map);
     incidentsLayerRef.current = L.layerGroup().addTo(map);
+    heatmapLayerRef.current = L.layerGroup().addTo(map);
 
     map.on('zoomend', () => {
       setCurrentZoom(map.getZoom());
@@ -478,6 +482,50 @@ export const CampusOsmMap: React.FC<CampusOsmMapProps> = ({
     });
   }, [incidents, showIncidents]);
 
+  // 8b. Render Real-Time Campus Headcount / Crowd Density Heatmap Layer
+  useEffect(() => {
+    const layer = heatmapLayerRef.current;
+    if (!layer) return;
+    layer.clearLayers();
+
+    if (!showHeatmap) return;
+
+    for (const zone of CAMPUS_HEATMAP_ZONES) {
+      const colors = getHeatColor(zone.density);
+
+      // Outer Heat Dispersion Halo
+      const halo = L.circle([zone.lat, zone.lng], {
+        radius: zone.radius * 0.9,
+        color: colors.primary,
+        fillColor: colors.primary,
+        fillOpacity: 0.18,
+        weight: 1,
+        dashArray: '3, 4'
+      });
+
+      // Inner Dense Heat Core
+      const core = L.circle([zone.lat, zone.lng], {
+        radius: zone.radius * 0.45,
+        color: colors.border,
+        fillColor: colors.primary,
+        fillOpacity: 0.48,
+        weight: 2
+      });
+
+      core.bindTooltip(
+        `<div style="font-family:sans-serif;font-size:11px;font-weight:bold;padding:3px 5px;line-height:1.4;">
+           🔥 <strong>${zone.name}</strong><br/>
+           👥 Headcount: <strong>${zone.headcount}</strong> students<br/>
+           🚦 Congestion: <span style="color:${colors.primary};text-transform:uppercase;">${zone.density}</span>
+         </div>`,
+        { direction: 'top', className: 'c3s-leaflet-tooltip' }
+      );
+
+      halo.addTo(layer);
+      core.addTo(layer);
+    }
+  }, [showHeatmap]);
+
   // 9. Update User Location Marker & Heading
   useEffect(() => {
     const map = mapInstanceRef.current;
@@ -673,6 +721,20 @@ export const CampusOsmMap: React.FC<CampusOsmMapProps> = ({
         >
           <span className={`h-2 w-2 rounded-full ${showEdges ? 'bg-cyan-400' : 'bg-slate-600'}`} />
           <span>Walkways</span>
+        </button>
+
+        {/* Headcount Heatmap Layer Toggle */}
+        <button
+          onClick={() => setShowHeatmap(!showHeatmap)}
+          className={`flex items-center gap-1.5 rounded-xl border px-2.5 py-1 text-[11px] font-bold transition-all shadow-lg backdrop-blur-md cursor-pointer ${
+            showHeatmap
+              ? 'border-rose-500/40 bg-rose-950/60 text-rose-300'
+              : 'border-slate-800/90 bg-slate-900/90 text-slate-400'
+          }`}
+          title="Toggle display of real-time campus crowd & headcount density heatmap"
+        >
+          <span className={`h-2 w-2 rounded-full ${showHeatmap ? 'bg-rose-400 animate-ping' : 'bg-slate-600'}`} />
+          <span>🔥 Headmap</span>
         </button>
       </div>
 

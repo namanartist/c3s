@@ -121,12 +121,14 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
   let initialLocActive = true;
   let initialSettings: C3SSettings = { ...DEFAULT_SETTINGS };
   let initialProfile: Partial<C3SUser> = {};
+  let initialAuth = false;
 
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
       if (parsed.currentRole) initialRole = parsed.currentRole;
+      if (parsed.isAuthenticated !== undefined) initialAuth = parsed.isAuthenticated;
       if (parsed.isInsideCampus !== undefined) initialInside = parsed.isInsideCampus;
       if (parsed.gpsPermission) initialGps = parsed.gpsPermission;
       if (parsed.isLocationActive !== undefined) initialLocActive = parsed.isLocationActive;
@@ -145,7 +147,7 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
   return {
     currentRole: initialRole,
     currentUser: defaultUser,
-    isAuthenticated: true,
+    isAuthenticated: initialAuth,
 
     settings: initialSettings,
 
@@ -183,10 +185,16 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
     loginAs: (role: C3SRole) => {
       const matched = MOCK_USERS.find((u) => u.role === role) || MOCK_USERS[0];
       set({ currentRole: role, currentUser: { ...matched, ...initialProfile }, isAuthenticated: true });
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...saved, currentRole: role, isAuthenticated: true }));
+      } catch {}
     },
 
     logout: () => {
       try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...saved, isAuthenticated: false }));
         localStorage.removeItem('c3s-session');
         localStorage.removeItem('c3s_user_token');
         sessionStorage.clear();

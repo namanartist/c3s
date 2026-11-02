@@ -11,7 +11,7 @@ import {
   Radio,
   Sliders
 } from 'lucide-react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
 import { type C3SRole } from '@/lib/mock-data/users';
 import { ROLE_DEFINITIONS, getRoleDefaultPath, getMockUserForRole } from '@/lib/rbac';
@@ -19,6 +19,8 @@ import ThemeToggle from '@/components/ui/ThemeToggle';
 
 export default function C3SLoginPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const fromPath = (location.state as any)?.from;
   const { loginAs } = useC3SStore();
   const [universityId, setUniversityId] = useState('BTCS2026-0842');
   const [password, setPassword] = useState('••••••••••••');
@@ -39,8 +41,8 @@ export default function C3SLoginPage() {
     loginAs(selectedRole);
 
     setTimeout(() => {
-      const target = getRoleDefaultPath(selectedRole);
-      navigate(target);
+      const target = fromPath || getRoleDefaultPath(selectedRole);
+      navigate(target, { replace: true });
     }, 400);
   };
 
@@ -52,8 +54,8 @@ export default function C3SLoginPage() {
 
   const handleDirectLaunch = (role: C3SRole) => {
     loginAs(role);
-    const target = getRoleDefaultPath(role);
-    navigate(target);
+    const target = fromPath || getRoleDefaultPath(role);
+    navigate(target, { replace: true });
   };
 
   return (

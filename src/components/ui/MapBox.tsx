@@ -1,7 +1,7 @@
 // src/components/ui/MapBox.tsx
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { ZoomIn, ZoomOut, RotateCcw, Building2, ChevronUp, Navigation, LocateFixed, Radio, ShieldCheck, Footprints, X, MapPin, Layers, Compass } from 'lucide-react';
+import { ZoomIn, ZoomOut, RotateCcw, Building2, ChevronUp, Navigation, LocateFixed, Radio, ShieldCheck, Footprints, X, MapPin, Layers, Compass, Flame } from 'lucide-react';
 import { useSpring, animated, to } from '@react-spring/web';
 import { useGesture } from '@use-gesture/react';
 import type { FloorMap, Building, MapNode } from '@/types';
@@ -18,6 +18,7 @@ import { GateMapOverlay } from '@/components/safety/GateMapOverlay';
 import { CameraDetailModal } from '@/components/safety/CameraDetailModal';
 import { NodeDetailDrawer } from '@/components/map/NodeDetailDrawer';
 import { getMapLocationTags } from '@/lib/mapLabels';
+import { CAMPUS_HEATMAP_ZONES, getHeatColor } from '@/lib/campusHeatmap';
 
 interface Point {
   x: number;
@@ -163,6 +164,7 @@ export default function MapBox({
 
   // Galis & Rasta (Pathways and Nodes Network) State
   const [showGalisNetwork, setShowGalisNetwork] = useState(true);
+  const [showHeatmap, setShowHeatmap] = useState(true);
   const [selectedMapNode, setSelectedMapNode] = useState<MapNode | null>(null);
 
   const [canZoomIn, setCanZoomIn] = useState(true);
@@ -854,6 +856,43 @@ export default function MapBox({
                 </defs>
                 {proctorMode && <ProctorMapOverlay nodes={nodes} mapId={mapId} zoom={zoom} />}
                 <GateMapOverlay mapId={mapId} zoom={zoom} />
+
+                {/* Real-Time Campus Headmap / Density Heatmap Overlay */}
+                {showHeatmap && mapId === 'Campus_Map' && (
+                  <g className="campus-headmap-overlay pointer-events-none">
+                    {CAMPUS_HEATMAP_ZONES.map((zone) => {
+                      const colors = getHeatColor(zone.density);
+                      return (
+                        <g key={zone.id}>
+                          {/* Ambient Dispersion Glow */}
+                          <circle
+                            cx={zone.x}
+                            cy={zone.y}
+                            r={zone.radius * 1.4}
+                            fill={colors.glow}
+                            className="animate-pulse"
+                            style={{ animationDuration: '3s' }}
+                          />
+                          {/* Intense Density Core */}
+                          <circle
+                            cx={zone.x}
+                            cy={zone.y}
+                            r={zone.radius * 0.75}
+                            fill={colors.fill}
+                            stroke={colors.border}
+                            strokeWidth="1.5"
+                            strokeDasharray="4 3"
+                          />
+                          {/* Headcount Beacon */}
+                          <circle cx={zone.x} cy={zone.y} r="10" fill="#0f172a" stroke={colors.primary} strokeWidth="2" />
+                          <text x={zone.x} y={zone.y + 3.5} fill="#ffffff" fontSize="8" fontWeight="bold" textAnchor="middle">
+                            {zone.headcount}
+                          </text>
+                        </g>
+                      );
+                    })}
+                  </g>
+                )}
 
                 {/* SVG Galis & Rasta (Pathways and Pedestrian Corridors) Network */}
                 {showGalisNetwork && (
@@ -1643,6 +1682,19 @@ export default function MapBox({
                 title={showGalisNetwork ? 'Hide Walkways & Galis Network' : 'Show Walkways & Galis Network'}
               >
                 <Footprints className="w-4 h-4" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setShowHeatmap((prev) => !prev)}
+                className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer ${
+                  showHeatmap
+                    ? 'bg-amber-600 text-white shadow-md shadow-amber-500/30 ring-2 ring-amber-400'
+                    : 'text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-white/10 hover:text-amber-600 dark:hover:text-amber-400'
+                }`}
+                title={showHeatmap ? 'Hide Campus Headmap & Crowd Density' : 'Show Campus Headmap & Crowd Density'}
+              >
+                <Flame className="w-4 h-4" />
               </button>
 
               <div className="h-[1px] bg-slate-200 dark:bg-white/10 mx-1" />

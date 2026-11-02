@@ -4,7 +4,7 @@ import { ShieldAlert, ArrowRight, Lock, Users } from 'lucide-react';
 import { useC3SStore } from '@/store/c3sStore';
 import type { C3SRole } from '@/lib/mock-data/users';
 import { ROLE_DEFINITIONS, getRoleDefaultPath, hasPermission, type Permission } from '@/lib/rbac';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 
 interface RoleGuardProps {
   children: React.ReactNode;
@@ -17,8 +17,13 @@ export const RoleGuard: React.FC<RoleGuardProps> = ({
   allowedRoles,
   requiredPermission
 }) => {
-  const { currentRole, setRole } = useC3SStore();
+  const { currentRole, setRole, isAuthenticated } = useC3SStore();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{ from: location.pathname + location.search }} replace />;
+  }
 
   // Role validation
   const isAllowed = allowedRoles ? allowedRoles.includes(currentRole) : true;

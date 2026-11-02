@@ -19,13 +19,15 @@ import {
   X,
   ShieldAlert,
   Building2,
-  MapPin
+  MapPin,
+  Flame
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
 import { useSafetyStore } from '@/store/safetyStore';
 import { CampusOsmMap } from '@/components/map/CampusOsmMap';
 import { gpsToSvg, isWithinCampusBounds } from '@/lib/geoProjection';
+import { CAMPUS_HEATMAP_ZONES, getHeatColor } from '@/lib/campusHeatmap';
 
 interface CampusMapProps {
   height?: string;
@@ -82,6 +84,7 @@ export const CampusMap: React.FC<CampusMapProps> = ({
   const [showResponders, setShowResponders] = useState<boolean>(true);
   const [showIncidents, setShowIncidents] = useState<boolean>(true);
   const [showWalkways, setShowWalkways] = useState<boolean>(true);
+  const [showHeatmap, setShowHeatmap] = useState<boolean>(true);
   const [selectedEntity, setSelectedEntity] = useState<string | null>(null);
 
   // Pan & Zoom Camera state
@@ -303,7 +306,7 @@ export const CampusMap: React.FC<CampusMapProps> = ({
     { id: 'CAM-05', name: 'Central Atrium Open Courtyard', x: 510, y: 365, status: 'ONLINE' },
     { id: 'CAM-06', name: 'Central Library & Plaza', x: 510, y: 280, status: 'ONLINE' },
     { id: 'CAM-07', name: 'AI & CSE Innovation Lab Hub', x: 570, y: 120, status: 'ONLINE' },
-    { id: 'CAM-08', name: 'East Campus Hostels Entry', x: 780, y: 280, status: 'ONLINE' },
+    { id: 'CAM-08', name: 'East Campus Perimeter Axis', x: 780, y: 280, status: 'ONLINE' },
     { id: 'CAM-09', name: 'Jubilee Gate 04 Perimeter', x: 60, y: 535, status: 'ONLINE' }
   ], []);
 
@@ -311,7 +314,7 @@ export const CampusMap: React.FC<CampusMapProps> = ({
   const guardNodes = useMemo(() => [
     { id: 'G-1', callsign: 'Guard 01 (Patrol Alpha)', x: 340, y: 490, role: 'Mobile Patrol' },
     { id: 'G-2', callsign: 'Guard 02 (Vikram Rathore)', x: 490, y: 380, role: 'Central QRF' },
-    { id: 'G-3', callsign: 'Guard 03 (East Post)', x: 740, y: 310, role: 'Hostel Gate Post' },
+    { id: 'G-3', callsign: 'Guard 03 (East Post)', x: 740, y: 310, role: 'East Perimeter Post' },
     { id: 'G-4', callsign: 'Guard 04 (Main Gate)', x: 265, y: 615, role: 'Entry Control' },
   ], []);
 
@@ -489,6 +492,16 @@ export const CampusMap: React.FC<CampusMapProps> = ({
             >
               <Footprints className="h-3 w-3" /> Galis & Rasta
             </button>
+            <button
+              type="button"
+              onClick={() => setShowHeatmap(!showHeatmap)}
+              className={`flex items-center gap-1 rounded-lg px-2 py-1 text-[11px] font-bold transition-colors cursor-pointer ${
+                showHeatmap ? 'bg-rose-50 text-rose-700 border border-rose-200 shadow-xs' : 'text-slate-500 hover:text-slate-700'
+              }`}
+              title="Toggle Real-Time Campus Headcount / Density Heatmap"
+            >
+              <Flame className="h-3 w-3 text-rose-500" /> Headmap
+            </button>
           </div>
         </div>
       )}
@@ -627,7 +640,100 @@ export const CampusMap: React.FC<CampusMapProps> = ({
               <stop offset="60%" stopColor="#38bdf8" stopOpacity="0.25" />
               <stop offset="100%" stopColor="#0284c7" stopOpacity="0" />
             </radialGradient>
+
+            {/* Campus Headmap / Density Heat Gradients */}
+            <radialGradient id="heatGlowCritical" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#ef4444" stopOpacity="0.85" />
+              <stop offset="50%" stopColor="#f87171" stopOpacity="0.45" />
+              <stop offset="100%" stopColor="#ef4444" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="heatGlowHigh" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#f97316" stopOpacity="0.8" />
+              <stop offset="50%" stopColor="#fb923c" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#f97316" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="heatGlowModerate" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#eab308" stopOpacity="0.75" />
+              <stop offset="50%" stopColor="#facc15" stopOpacity="0.35" />
+              <stop offset="100%" stopColor="#eab308" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="heatGlowLow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#10b981" stopOpacity="0.7" />
+              <stop offset="50%" stopColor="#34d399" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+            </radialGradient>
           </defs>
+
+          {/* Campus Headcount / Crowd Density Heatmap Layer */}
+          {showHeatmap && (
+            <g className="campus-headmap-layer">
+              {CAMPUS_HEATMAP_ZONES.map((zone) => {
+                const colors = getHeatColor(zone.density);
+                const gradId = zone.density === 'critical'
+                  ? 'heatGlowCritical'
+                  : zone.density === 'high'
+                  ? 'heatGlowHigh'
+                  : zone.density === 'moderate'
+                  ? 'heatGlowModerate'
+                  : 'heatGlowLow';
+
+                return (
+                  <g
+                    key={zone.id}
+                    className="cursor-pointer pointer-events-auto"
+                    onClick={() => setSelectedEntity(`🔥 Headmap: ${zone.name} • ${zone.headcount} Headcount (${zone.density.toUpperCase()})`)}
+                  >
+                    {/* Outer Ambient Heat Glow Halo */}
+                    <circle
+                      cx={zone.x}
+                      cy={zone.y}
+                      r={zone.radius * 1.5}
+                      fill={`url(#${gradId})`}
+                      className="animate-pulse"
+                      style={{ animationDuration: '3s' }}
+                    />
+                    {/* Inner Intense Density Core */}
+                    <circle
+                      cx={zone.x}
+                      cy={zone.y}
+                      r={zone.radius * 0.75}
+                      fill={colors.fill}
+                      stroke={colors.border}
+                      strokeWidth="1.5"
+                      strokeDasharray="3 2"
+                    />
+                    {/* Headcount Center Badge */}
+                    <circle cx={zone.x} cy={zone.y} r="10" fill="#0f172a" stroke={colors.primary} strokeWidth="2" />
+                    <text x={zone.x} y={zone.y + 3.5} fill="#ffffff" fontSize="8" fontWeight="bold" textAnchor="middle">
+                      {zone.headcount}
+                    </text>
+                    {/* Floating Zone Pill */}
+                    <rect
+                      x={zone.x - 45}
+                      y={zone.y - zone.radius - 16}
+                      width="90"
+                      height="15"
+                      rx="4"
+                      fill="#0f172a"
+                      opacity="0.9"
+                      stroke={colors.border}
+                      strokeWidth="1"
+                    />
+                    <text
+                      x={zone.x}
+                      y={zone.y - zone.radius - 5.5}
+                      fill="#ffffff"
+                      fontSize="7.5"
+                      fontWeight="bold"
+                      textAnchor="middle"
+                    >
+                      👥 {zone.headcount} Headcount
+                    </text>
+                  </g>
+                );
+              })}
+            </g>
+          )}
 
           {/* Walkways, Galis and Internal Rasta Waypoint Track */}
           {showWalkways && (
