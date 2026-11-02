@@ -92,10 +92,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
       case 'STUDENT':
       default:
         return [
-          { to: '/student', label: 'Dashboard', icon: LayoutDashboard },
+          { to: '/student/sos', label: 'Emergency SOS', icon: ShieldAlert, alert: sosActive },
+          { to: '/student/dashboard', label: 'Student Pass & Hub', icon: LayoutDashboard },
           { to: '/student/scan', label: 'Scan Gate QR', icon: Scan },
           { to: '/map', label: 'Campus Map', icon: Navigation },
-          { to: '/student/sos', label: 'Emergency SOS', icon: ShieldAlert, alert: sosActive },
           { to: '/student/movement', label: 'Movement Logs', icon: Activity },
           { to: '/student/incidents', label: 'Incident Reports', icon: ShieldAlert },
           { to: '/student/notifications', label: 'Alerts', icon: Bell }

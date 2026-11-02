@@ -3,7 +3,7 @@ import { Topbar } from './Topbar';
 import { Sidebar } from './Sidebar';
 import { SOSActiveBanner } from './SOSActiveBanner';
 import { SosModal } from '@/components/safety/SosModal';
-import { LayoutDashboard, Scan, ShieldAlert, MapPin, Camera } from 'lucide-react';
+import { LayoutDashboard, Scan, ShieldAlert, MapPin, Camera, Activity } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
 
@@ -59,7 +59,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
       {/* Mobile Bottom Navigation Bar */}
       <nav className="fixed bottom-0 inset-x-0 z-30 flex sm:hidden h-16 items-center justify-around border-t border-slate-200 dark:border-white/[0.08] bg-white/95 dark:bg-[#090D16]/95 backdrop-blur-2xl px-2 transition-colors">
         <NavLink
-          to={currentRole === 'GATE_KEEPER' ? '/gate-keeper' : currentRole === 'SECURITY_GUARD' ? '/security' : currentRole === 'CONTROL_ROOM_OPERATOR' ? '/control-room' : currentRole === 'SUPER_ADMIN' ? '/admin' : '/student'}
+          to={currentRole === 'STUDENT' ? '/student/sos' : currentRole === 'GATE_KEEPER' ? '/gate-keeper' : currentRole === 'SECURITY_GUARD' ? '/security' : currentRole === 'CONTROL_ROOM_OPERATOR' ? '/control-room' : currentRole === 'SUPER_ADMIN' ? '/admin' : '/student/sos'}
           className={({ isActive }) => `flex flex-col items-center gap-1 text-[10px] font-medium transition-colors ${isActive ? 'text-blue-400' : 'text-slate-400 hover:text-slate-200'}`}
         >
           <LayoutDashboard className="h-5 w-5" />
@@ -91,13 +91,23 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
           <span>Scan QR</span>
         </NavLink>
 
-        <NavLink
-          to="/control-room/cameras"
-          className={({ isActive }) => `flex flex-col items-center gap-1 text-[10px] font-medium transition-colors ${isActive ? 'text-blue-400' : 'text-slate-400 hover:text-slate-200'}`}
-        >
-          <Camera className="h-5 w-5" />
-          <span>CCTV</span>
-        </NavLink>
+        {currentRole !== 'STUDENT' ? (
+          <NavLink
+            to="/control-room/cameras"
+            className={({ isActive }) => `flex flex-col items-center gap-1 text-[10px] font-medium transition-colors ${isActive ? 'text-blue-400' : 'text-slate-400 hover:text-slate-200'}`}
+          >
+            <Camera className="h-5 w-5" />
+            <span>CCTV</span>
+          </NavLink>
+        ) : (
+          <NavLink
+            to="/student/movement"
+            className={({ isActive }) => `flex flex-col items-center gap-1 text-[10px] font-medium transition-colors ${isActive ? 'text-blue-400' : 'text-slate-400 hover:text-slate-200'}`}
+          >
+            <Activity className="h-5 w-5" />
+            <span>Pass Logs</span>
+          </NavLink>
+        )}
       </nav>
     </div>
   );

@@ -16,6 +16,7 @@ import { useC3SStore } from '@/store/c3sStore';
 import { useSafetyStore } from '@/store/safetyStore';
 import { useCrowdMonitoring } from '@/lib/crowdMonitoringApi';
 import { ROLE_LABELS } from '@/lib/mock-data/users';
+import { getRoleDefaultPath } from '@/lib/rbac';
 import { LogoutConfirmModal } from './LogoutConfirmModal';
 import { useNavigate } from 'react-router-dom';
 import ThemeToggle from '@/components/ui/ThemeToggle';
@@ -68,7 +69,7 @@ export const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
           )}
 
           <div
-            onClick={() => navigate('/student')}
+            onClick={() => navigate(currentRole === 'STUDENT' ? '/student/sos' : getRoleDefaultPath(currentRole))}
             className="flex items-center gap-2.5 cursor-pointer group select-none"
             title="C3S Campus Command"
           >

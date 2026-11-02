@@ -61,7 +61,7 @@ export const CampusMap: React.FC<CampusMapProps> = ({
   highlightLocation,
   onSelectZone
 }) => {
-  const { isInsideCampus, isLocationActive, responders, latitude, longitude, requestGpsPermission } = useC3SStore();
+  const { currentRole, isInsideCampus, isLocationActive, responders, latitude, longitude, requestGpsPermission } = useC3SStore();
   const cctvCameras = useSafetyStore((s) => s.cctvCameras);
   const incidents = useSafetyStore((s) => s.incidents);
   const setSosModalOpen = useSafetyStore((s) => s.setSosModalOpen);
@@ -464,15 +464,17 @@ export const CampusMap: React.FC<CampusMapProps> = ({
             >
               <Shield className="h-3 w-3" /> Guards
             </button>
-            <button
-              type="button"
-              onClick={() => setShowCameras(!showCameras)}
-              className={`flex items-center gap-1 rounded-lg px-2 py-1 text-[11px] font-bold transition-colors cursor-pointer ${
-                showCameras ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'text-slate-500 hover:text-slate-700'
-              }`}
-            >
-              <Camera className="h-3 w-3" /> CCTV
-            </button>
+            {currentRole !== 'STUDENT' && (
+              <button
+                type="button"
+                onClick={() => setShowCameras(!showCameras)}
+                className={`flex items-center gap-1 rounded-lg px-2 py-1 text-[11px] font-bold transition-colors cursor-pointer ${
+                  showCameras ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                <Camera className="h-3 w-3" /> CCTV
+              </button>
+            )}
             <button
               type="button"
               onClick={() => setShowWalkways(!showWalkways)}
@@ -645,8 +647,8 @@ export const CampusMap: React.FC<CampusMapProps> = ({
             </g>
           )}
 
-          {/* Real CCTV Camera Nodes */}
-          {showCameras &&
+          {/* Real CCTV Camera Nodes (restricted from student view) */}
+          {currentRole !== 'STUDENT' && showCameras &&
             cameraNodes.map((cam) => (
               <g
                 key={cam.id}

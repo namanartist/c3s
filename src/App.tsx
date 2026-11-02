@@ -1,10 +1,11 @@
 import React, { Suspense, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import useSmoothScroll from '@/hooks/smoothscroll';
 import './styles/globals.css';
 import { OfflineMeshBridge } from '@/components/safety/OfflineMeshBridge';
 import { FightAlertBanner } from '@/components/safety/FightAlertBanner';
+import { RoleGuard } from '@/components/c3s/RoleGuard';
 import { lazyWithRetry } from '@/lib/lazyWithRetry';
 
 // C3S Resilient Lazy Loaded Page Components
@@ -89,13 +90,14 @@ export default function App() {
           <Route path="/landing" element={<LandingPage />} />
           <Route path="/login" element={<C3SLoginPage />} />
 
-          {/* Student Suite */}
-          <Route path="/student" element={<StudentDashboard />} />
+          {/* Student Suite - Emergency SOS is the default student entry page */}
+          <Route path="/student" element={<Navigate to="/student/sos" replace />} />
+          <Route path="/student/sos" element={<StudentSosPage />} />
+          <Route path="/student/dashboard" element={<StudentDashboard />} />
           <Route path="/student/scan" element={<StudentScanPage />} />
           <Route path="/student/check-in" element={<StudentCheckInPage />} />
           <Route path="/student/check-out" element={<StudentCheckOutPage />} />
           <Route path="/student/location" element={<StudentLocationPage />} />
-          <Route path="/student/sos" element={<StudentSosPage />} />
           <Route path="/student/incidents" element={<StudentIncidentsPage />} />
           <Route path="/student/movement" element={<StudentMovementPage />} />
           <Route path="/student/notifications" element={<StudentNotificationsPage />} />
@@ -122,7 +124,14 @@ export default function App() {
           <Route path="/control-room" element={<ControlRoomDashboard />} />
           <Route path="/control-room/incidents" element={<ControlRoomIncidentsPage />} />
           <Route path="/control-room/map" element={<ControlRoomMapPage />} />
-          <Route path="/control-room/cameras" element={<ControlRoomCamerasPage />} />
+          <Route
+            path="/control-room/cameras"
+            element={
+              <RoleGuard allowedRoles={['CONTROL_ROOM_OPERATOR', 'SUPER_ADMIN', 'SECURITY_GUARD', 'PROCTOR', 'FACULTY', 'HOD', 'DEAN', 'CLASS_COORDINATOR']}>
+                <ControlRoomCamerasPage />
+              </RoleGuard>
+            }
+          />
           <Route path="/control-room/occupancy" element={<ControlRoomOccupancyPage />} />
           <Route path="/proctor" element={<ControlRoomDashboard />} />
 
@@ -130,7 +139,14 @@ export default function App() {
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/users" element={<AdminUsersPage />} />
           <Route path="/admin/gates" element={<AdminGatesPage />} />
-          <Route path="/admin/cameras" element={<AdminCamerasPage />} />
+          <Route
+            path="/admin/cameras"
+            element={
+              <RoleGuard allowedRoles={['SUPER_ADMIN', 'CONTROL_ROOM_OPERATOR']}>
+                <AdminCamerasPage />
+              </RoleGuard>
+            }
+          />
           <Route path="/admin/incidents" element={<AdminIncidentsPage />} />
           <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
           <Route path="/admin/audit" element={<AdminAuditPage />} />
