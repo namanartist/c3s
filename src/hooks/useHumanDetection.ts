@@ -21,15 +21,22 @@ const DEFAULT_DETECTION: DetectionResult = {
   count: 0,
   humans: [],
   density: 'low',
-  fps: 24,
+  fps: 30,
   timestamp: Date.now(),
+  movement: {
+    isMoving: false,
+    intensity: 0,
+    movementType: 'STATIONARY',
+    statusLabel: 'Sensors Online • Scene Calm'
+  },
   fight: {
     isFightDetected: false,
     confidence: 0,
     severity: 'none',
     intensityScore: 0,
     statusText: 'INITIALIZING AI VISION',
-    combatantsCount: 0
+    combatantsCount: 0,
+    isOnlyMovement: true
   }
 };
 
@@ -69,9 +76,12 @@ export function useHumanDetection(
 
     if (detection) {
       const nowMs = Date.now();
-      const isAggressive = detection.fight.isFightDetected && detection.fight.confidence >= 75;
+      const isAggressive =
+        detection.fight.isFightDetected &&
+        detection.fight.confidence >= 68 &&
+        !detection.fight.isOnlyMovement;
 
-      // Track continuous duration of aggression (User requirement: strictly > 5 seconds)
+      // Track continuous duration of aggression (User requirement: strictly > 5 seconds of active aggression)
       if (isAggressive) {
         if (fightStartTimeRef.current === null) {
           fightStartTimeRef.current = nowMs;
@@ -138,12 +148,12 @@ export function useHumanDetection(
     let animId: number;
     let isRunning = true;
 
-    // Throttle ML computer vision loop to ~8 FPS (125ms interval)
-    // Prevents 100% CPU lockup and keeps main thread free for 60fps UI rendering
+    // Ultra-low latency real-time optical loop (~30 FPS / 33ms interval)
+    // Eliminates frame-processing latency while remaining efficient
     const loop = (timestamp: number) => {
       if (!isRunning) return;
 
-      if (timestamp - lastProcessedTimeRef.current >= 125) {
+      if (timestamp - lastProcessedTimeRef.current >= 33) {
         lastProcessedTimeRef.current = timestamp;
         processFrame();
       }

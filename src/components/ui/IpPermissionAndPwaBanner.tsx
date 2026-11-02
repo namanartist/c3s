@@ -249,3 +249,4 @@ export const IpPermissionAndPwaBanner: React.FC = () => {
     </>
   );
 };
+

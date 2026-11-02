@@ -30,6 +30,19 @@ export const LiveDetectionOverlay: React.FC<LiveDetectionOverlayProps> = ({
               <span className="px-2 py-0.5 rounded-lg bg-red-600 text-white text-[11px] font-black tracking-wider">
                 {fightConfidence}% CONFIDENCE
               </span>
+              {fight?.sustainedDurationMs != null && fight.sustainedDurationMs > 0 && (
+                <span className="px-1.5 py-0.5 rounded bg-black/60 text-amber-300 text-[10px] font-mono font-bold">
+                  Sustained: {(fight.sustainedDurationMs / 1000).toFixed(1)}s / 5.0s
+                </span>
+              )}
+            </div>
+          ) : detection.movement?.isMoving ? (
+            <div className="flex items-center gap-2 px-3 py-1 rounded-xl bg-black/80 backdrop-blur-md border border-cyan-500/50 text-cyan-300 font-mono text-[11px] font-bold shadow-lg">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+              <Activity className="w-3.5 h-3.5 text-cyan-400" />
+              <span>MOVEMENT: {detection.movement.statusLabel}</span>
+              <span className="text-slate-400 font-normal">|</span>
+              <span className="text-emerald-400 font-bold">NO AGGRESSION</span>
             </div>
           ) : (
             <div className="flex items-center gap-2 px-3 py-1 rounded-xl bg-black/75 backdrop-blur-md border border-emerald-500/40 text-emerald-300 font-mono text-[11px] font-bold shadow-lg">
