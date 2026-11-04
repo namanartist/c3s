@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
+import { normalizeRole } from '@/lib/rbac';
 import { LogoutConfirmModal } from './LogoutConfirmModal';
 
 interface SidebarProps {
@@ -40,7 +41,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
 
   // Role-tailored dynamic menu configuration
   const getNavLinks = (): NavItem[] => {
-    switch (currentRole) {
+    const roleKey = normalizeRole(currentRole);
+    switch (roleKey) {
+      case 'GATEKEEPER':
       case 'GATE_KEEPER':
         return [
           { to: '/gate-keeper', label: 'Gate Terminal', icon: DoorOpen },
@@ -49,6 +52,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
           { to: '/gate-keeper/occupancy', label: 'Gate Occupancy', icon: BarChart3 }
         ];
 
+      case 'GUARD':
       case 'SECURITY_GUARD':
         return [
           { to: '/security', label: 'Guard Patrol', icon: LayoutDashboard },
@@ -56,15 +60,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
           { to: '/security/map', label: 'Dispatch Map', icon: MapPin }
         ];
 
-      case 'CONTROL_ROOM_OPERATOR':
-        return [
-          { to: '/control-room', label: 'Control Center (SOC)', icon: LayoutDashboard },
-          { to: '/control-room/incidents', label: 'Incident Hub', icon: ShieldAlert },
-          { to: '/control-room/cameras', label: 'CCTV Matrix', icon: Camera, badge: '12 Live' },
-          { to: '/control-room/map', label: 'Tactical Campus Map', icon: MapPin },
-          { to: '/control-room/occupancy', label: 'Campus Occupancy', icon: BarChart3 }
-        ];
-
+      case 'ADMIN':
       case 'SUPER_ADMIN':
         return [
           { to: '/admin', label: 'Admin Overview', icon: LayoutDashboard },
@@ -74,6 +70,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
           { to: '/admin/incidents', label: 'Incident Logs', icon: ShieldAlert },
           { to: '/admin/analytics', label: 'Safety Analytics', icon: BarChart3 },
           { to: '/admin/audit', label: 'Audit Trail', icon: FileText }
+        ];
+
+      case 'PROCTOR':
+      case 'CONTROL_ROOM_OPERATOR':
+        return [
+          { to: '/control-room', label: 'Control Center (SOC)', icon: LayoutDashboard },
+          { to: '/control-room/incidents', label: 'Incident Hub', icon: ShieldAlert },
+          { to: '/control-room/cameras', label: 'CCTV Matrix', icon: Camera, badge: '12 Live' },
+          { to: '/control-room/map', label: 'Tactical Campus Map', icon: MapPin },
+          { to: '/control-room/occupancy', label: 'Campus Occupancy', icon: BarChart3 }
         ];
 
       case 'PROCTOR':

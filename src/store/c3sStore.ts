@@ -94,6 +94,7 @@ export interface C3SStoreState {
 
   // Live Activity & Feeds
   movementLogs: C3SMovementLog[];
+  addMovementLog: (log: C3SMovementLog) => void;
   notifications: C3SNotification[];
   markNotificationRead: (id: string) => void;
   clearAllNotifications: () => void;
@@ -667,6 +668,11 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
 
     // Movement Logs & Notifications & Responders
     movementLogs: MOCK_MOVEMENTS,
+    addMovementLog: (log: C3SMovementLog) => {
+      set((state) => ({
+        movementLogs: [log, ...state.movementLogs]
+      }));
+    },
     notifications: MOCK_NOTIFICATIONS,
 
     markNotificationRead: (id: string) => {

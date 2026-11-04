@@ -14,12 +14,26 @@ export const GateQRDisplay: React.FC = () => {
   const [copied, setCopied] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
 
-  const currentGate = gates.find((g) => g.id === selectedGateId) || gates[0];
+  const defaultFallbackGate = {
+    id: 'gate-01',
+    name: 'Gate 1 - Main Campus Gate',
+    code: 'G1-MAIN',
+    status: 'OPEN' as const,
+    currentGateKeeper: 'Ramesh Singh',
+    keeperId: 'GK-01',
+    checkInCount: 1420,
+    checkOutCount: 980,
+    currentlyInside: 3480,
+    activeAlerts: 0,
+    qrToken: 'TOKEN_G1_20261104'
+  };
+
+  const currentGate = gates.find((g) => g.id === selectedGateId) || gates[0] || defaultFallbackGate;
 
   // Derive active token from store or gateStore
   const gateId = (currentGate.id.startsWith('GATE-') ? currentGate.id : `GATE-${currentGate.id.toUpperCase().replace('GATE_', '')}`) as GateId;
   const activeTokenObj = getGateQr(gateId) || { token: currentGate.qrToken };
-  const tokenString = activeTokenObj.token || currentGate.qrToken;
+  const tokenString = activeTokenObj?.token || currentGate.qrToken || 'TOKEN_GATE_MAIN';
 
   useEffect(() => {
     let isMounted = true;

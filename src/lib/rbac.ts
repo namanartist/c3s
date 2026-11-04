@@ -164,10 +164,22 @@ export const ROLE_DEFINITIONS: Record<C3SRole, RoleDefinition> = {
 };
 
 /**
+ * Normalizes any role alias to its primary canonical role.
+ */
+export function normalizeRole(role: C3SRole): C3SRole {
+  if (role === 'SECURITY_GUARD' || role === 'GUARD') return 'GUARD';
+  if (role === 'GATE_KEEPER' || role === 'GATEKEEPER') return 'GATEKEEPER';
+  if (role === 'SUPER_ADMIN' || role === 'DEAN' || role === 'ADMIN') return 'ADMIN';
+  if (role === 'CONTROL_ROOM_OPERATOR' || role === 'FACULTY' || role === 'CLASS_COORDINATOR' || role === 'HOD' || role === 'PROCTOR') return 'PROCTOR';
+  return role;
+}
+
+/**
  * Checks whether a given role possesses a specific capability.
  */
 export function hasPermission(role: C3SRole, permission: Permission): boolean {
-  const def = ROLE_DEFINITIONS[role];
+  const canonical = normalizeRole(role);
+  const def = ROLE_DEFINITIONS[canonical] || ROLE_DEFINITIONS[role];
   if (!def) return false;
   return def.permissions.includes(permission);
 }
@@ -176,20 +188,15 @@ export function hasPermission(role: C3SRole, permission: Permission): boolean {
  * Returns the default dashboard route for a role.
  */
 export function getRoleDefaultPath(role: C3SRole): string {
-  return ROLE_DEFINITIONS[role]?.defaultPath || '/student';
+  const canonical = normalizeRole(role);
+  return ROLE_DEFINITIONS[canonical]?.defaultPath || ROLE_DEFINITIONS[role]?.defaultPath || '/student';
 }
 
 /**
  * Resolves the primary mock account matching a role.
  */
 export function getMockUserForRole(role: C3SRole): C3SUser {
-  // Normalize alias to primary canonical role
-  let canonicalRole: C3SRole = role;
-  if (role === 'SECURITY_GUARD') canonicalRole = 'GUARD';
-  else if (role === 'GATE_KEEPER') canonicalRole = 'GATEKEEPER';
-  else if (role === 'SUPER_ADMIN' || role === 'DEAN') canonicalRole = 'ADMIN';
-  else if (role === 'CONTROL_ROOM_OPERATOR' || role === 'FACULTY' || role === 'CLASS_COORDINATOR' || role === 'HOD') canonicalRole = 'PROCTOR';
-
+  const canonicalRole = normalizeRole(role);
   const found = MOCK_USERS.find((u) => u.role === canonicalRole || u.role === role);
   return (
     found || {

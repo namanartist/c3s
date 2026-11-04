@@ -2,7 +2,7 @@
 import React from 'react';
 import { useC3SStore } from '@/store/c3sStore';
 import type { C3SRole } from '@/lib/mock-data/users';
-import { getRoleDefaultPath, hasPermission, type Permission } from '@/lib/rbac';
+import { getRoleDefaultPath, hasPermission, normalizeRole, type Permission } from '@/lib/rbac';
 import { useLocation, Navigate } from 'react-router-dom';
 
 interface RoleGuardProps {
@@ -23,8 +23,11 @@ export const RoleGuard: React.FC<RoleGuardProps> = ({
     return <Navigate to="/login" state={{ from: location.pathname + location.search }} replace />;
   }
 
-  // Role validation
-  const isAllowed = allowedRoles ? allowedRoles.includes(currentRole) : true;
+  // Normalized Role validation to seamlessly support both canonical roles ('GUARD', 'GATEKEEPER') and aliases
+  const canonicalCurrentRole = normalizeRole(currentRole);
+  const isAllowed = allowedRoles
+    ? allowedRoles.some((role) => normalizeRole(role) === canonicalCurrentRole || role === currentRole)
+    : true;
   const hasPerm = requiredPermission ? hasPermission(currentRole, requiredPermission) : true;
 
   if (isAllowed && hasPerm) {
