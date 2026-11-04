@@ -47,29 +47,47 @@ function resolveDbName(urlStr, fallback = 'UniMap') {
 }
 let client = null;
 let db = null;
-
-if (mongoUrl) {
-  try {
-    client = new MongoClient(mongoUrl, { serverSelectionTimeoutMS: 2000 });
-  } catch (e) {
-    console.warn('Could not initialize Mongo client:', e.message);
-  }
-}
+let isMongoConnected = false;
+let lastConnectAttempt = 0;
+let hasLoggedFailure = false;
+const RECONNECT_COOLDOWN_MS = 60000; // Retry connecting to MongoDB at most once per minute
 
 async function getDb() {
-  if (!client) return null;
-  if (!db) {
-    try {
-      await client.connect();
-      const targetDb = resolveDbName(mongoUrl, 'UniMap');
-      db = client.db(targetDb);
-      console.log(`Connected to MongoDB [${db.databaseName}] database`);
-    } catch (e) {
-      console.warn('MongoDB connection failed, running in memory-resilient mode:', e.message);
-      return null;
-    }
+  if (isMongoConnected && db) return db;
+  if (!mongoUrl) return null;
+
+  const now = Date.now();
+  if (now - lastConnectAttempt < RECONNECT_COOLDOWN_MS) {
+    return null;
   }
-  return db;
+
+  lastConnectAttempt = now;
+  try {
+    if (client) {
+      try { await client.close(); } catch {}
+      client = null;
+    }
+    client = new MongoClient(mongoUrl, { serverSelectionTimeoutMS: 1500 });
+    await client.connect();
+    const targetDb = resolveDbName(mongoUrl, 'UniMap');
+    db = client.db(targetDb);
+    isMongoConnected = true;
+    hasLoggedFailure = false;
+    console.log(`[Dev Server] Connected to MongoDB [${db.databaseName}] database`);
+    return db;
+  } catch (e) {
+    isMongoConnected = false;
+    db = null;
+    if (client) {
+      try { await client.close(); } catch {}
+      client = null;
+    }
+    if (!hasLoggedFailure) {
+      console.warn('[Dev Server] MongoDB offline, running in memory-resilient mode (queries served via fallbacks)');
+      hasLoggedFailure = true;
+    }
+    return null;
+  }
 }
 
 // In-memory fallbacks for resilient development
@@ -183,7 +201,7 @@ const server = http.createServer(async (req, res) => {
     // ----------------------------------------------------
     else if (req.method === 'GET' && pathname === '/api/crowd') {
       try {
-        if (client) {
+        if (activeDb && isMongoConnected && client) {
           const homeDb = client.db('home');
           const crowdLogs = await homeDb
             .collection('blogs')
@@ -196,7 +214,7 @@ const server = http.createServer(async (req, res) => {
           return;
         }
       } catch (crowdErr) {
-        console.warn('Failed to fetch home.blogs:', crowdErr.message);
+        // Suppress topology closed errors when Mongo is disconnected
       }
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ data: [] }));

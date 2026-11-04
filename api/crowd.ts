@@ -23,7 +23,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     const logs = await db.collection('blogs').find({}).sort({ _id: -1 }).limit(50).toArray();
     res.status(200).json({ data: logs, count: logs.length });
   } catch (error) {
-    console.warn('[API /api/crowd] Warning:', error);
     res.status(200).json({
       data: [],
       error: error instanceof Error ? error.message : String(error)
