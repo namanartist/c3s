@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: c3s_surveillance_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: c3s_surveillance
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/database/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: c3s_surveillance_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  surveillance-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: c3s_surveillance_api
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      DATABASE_URL: postgresql+asyncpg://postgres:postgrespassword@postgres:5432/c3s_surveillance
+      REDIS_URL: redis://redis:6379/0
+      SURVEILLANCE_ENV: production
+      SURVEILLANCE_DEBUG: "false"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./evidence:/app/evidence
+      - ./models/checkpoints:/app/ai_surveillance/models/checkpoints
+
+volumes:
+  postgres_data:
+  redis_data:
+
