@@ -117,7 +117,10 @@ export class ErrorBoundary extends Component<Props, State> {
         this.state.error?.message || 'An unexpected runtime anomaly occurred in the tactical display subsystem.';
       const isChunkError =
         errorMessage.includes('Failed to fetch dynamically imported module') ||
-        errorMessage.includes('error loading dynamically imported module');
+        errorMessage.includes('error loading dynamically imported module') ||
+        errorMessage.includes('Importing a module script failed') ||
+        errorMessage.includes("Cannot read properties of undefined (reading 'default')") ||
+        errorMessage.includes("reading 'default'");
 
       return (
         <div className="min-h-screen w-full bg-slate-50 dark:bg-[#070B14] text-slate-900 dark:text-slate-100 flex items-center justify-center p-6 select-none font-sans relative overflow-hidden transition-colors">

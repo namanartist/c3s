@@ -245,6 +245,19 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
   };
 
   const ml = detection.fight.mlFeatures;
+  const isAutoFlagged =
+    detection.fight.isFightDetected &&
+    !detection.fight.isOnlyMovement &&
+    detection.fight.confidence >= 65;
+
+  // Automatically trigger proctor alert sound and UI banner on auto-detection
+  useEffect(() => {
+    if (isAutoFlagged) {
+      const camName = camera?.name || `Live CCTV #${cameraId}`;
+      globalProctorAlarm.triggerAlarm(`Aggression Auto-Detected at ${camName}`);
+      setSosStatusText(`🚨 AUTO-FLAGGED: AGGRESSION DETECTED (${Math.round(detection.fight.confidence)}%) • SOS ACTIVE`);
+    }
+  }, [isAutoFlagged, camera?.name, cameraId, detection.fight.confidence]);
 
   return (
     <div className={`relative flex items-center justify-center overflow-hidden bg-black ${className}`}>
@@ -291,14 +304,20 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
             <button
               onClick={handleToggleCombatSimulation}
               className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold flex items-center gap-1.5 transition-all shadow-md cursor-pointer ${
-                simulateCombat
+                isAutoFlagged || simulateCombat
                   ? 'bg-red-600 text-white animate-pulse'
                   : 'bg-black/80 hover:bg-red-950/80 text-amber-300 border border-amber-500/30'
               }`}
-              title="Flag aggressive combat altercation & sound Proctor emergency alarm"
+              title="Aggressive combat altercation status & Proctor emergency alarm"
             >
               <Zap className="w-3 h-3 text-amber-300" />
-              <span>{simulateCombat ? 'AGGRESSION FLAGGED' : 'FLAG AGGRESSIVE ACTIVITY'}</span>
+              <span>
+                {isAutoFlagged
+                  ? `⚡ AUTO-FLAGGED (${Math.round(detection.fight.confidence)}%)`
+                  : simulateCombat
+                  ? 'AGGRESSION FLAGGED'
+                  : 'FLAG AGGRESSIVE ACTIVITY'}
+              </span>
             </button>
 
             {availableDevices.length > 1 && !isSimulatedLanFeed && (

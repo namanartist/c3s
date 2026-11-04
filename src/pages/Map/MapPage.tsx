@@ -1,9 +1,10 @@
 // src/pages/Map/MapPage.tsx
-import React, { Suspense, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { MapLayout } from '@/components/ui/MapLayout';
 import { MapHeader } from '@/components/ui/MapHeader';
 import { SearchBar } from '@/components/search/SearchBar';
 import { MapCanvas } from '@/components/map/MapCanvas';
+import RoutePanel from '@/components/route/RoutePanel';
 import { CampusNavigationProvider, useCampusNavigation } from '@/hooks/useCampusNavigation';
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { useSafetyStore } from '@/store/safetyStore';
@@ -11,23 +12,6 @@ import { useC3SStore } from '@/store/c3sStore';
 import { useSearchParams } from 'react-router-dom';
 import { SOSSystem } from '@/components/ui/SOSSystem';
 import { haversineDistanceMeters } from '@/lib/geoProjection';
-import { lazyWithRetry } from '@/lib/lazyWithRetry';
-
-const RoutePanelLazy = lazyWithRetry(
-  () =>
-    import('@/components/route/RoutePanel').then((m) => ({
-      default: (m.default || m.RoutePanel || (() => null)) as React.ComponentType<any>
-    })),
-  'RoutePanel'
-);
-
-export function RoutePanel(props: Record<string, unknown>) {
-  return (
-    <Suspense fallback={null}>
-      <RoutePanelLazy {...props} />
-    </Suspense>
-  );
-}
 
 export default function MapPage() {
   const currentRole = useC3SStore((s) => s.currentRole);
@@ -40,7 +24,7 @@ export default function MapPage() {
 
   return (
     <CampusNavigationProvider>
-      {!isStudent && <IncidentMapResolver />}
+      <CampusUrlNavigationResolver />
       <MapLayout
         header={<MapHeader />}
         searchBar={<SearchBar />}
@@ -52,10 +36,12 @@ export default function MapPage() {
   );
 }
 
-function IncidentMapResolver() {
+function CampusUrlNavigationResolver() {
   const [searchParams] = useSearchParams();
   const incidentId = searchParams.get('incident');
   const toNodeId = searchParams.get('to');
+  const destQuery = searchParams.get('dest') || searchParams.get('q');
+  const mapParam = searchParams.get('map');
   const incidents = useSafetyStore((state) => state.incidents);
   const setSelectedIncident = useSafetyStore((state) => state.setSelectedIncident);
   const setActiveDashboard = useSafetyStore((state) => state.setActiveDashboard);
@@ -65,8 +51,8 @@ function IncidentMapResolver() {
   useEffect(() => {
     if (loading || !nodes || nodes.length === 0) return;
 
-    const navKey = `${incidentId || ''}__${toNodeId || ''}`;
-    if (!incidentId && !toNodeId) return;
+    const navKey = `${incidentId || ''}__${toNodeId || ''}__${destQuery || ''}__${mapParam || ''}`;
+    if (!incidentId && !toNodeId && !destQuery && !mapParam) return;
     if (handledRef.current === navKey) return;
     handledRef.current = navKey;
 
@@ -158,10 +144,50 @@ function IncidentMapResolver() {
           setSelectedMapId(destNode.map);
         }
       }
+      return;
+    }
+
+    // 3. Search query or quick-destination navigation (?dest=... or ?q=...)
+    if (destQuery) {
+      const q = destQuery.trim().toLowerCase();
+      const matchedNode =
+        nodes.find((n) => n.id.toLowerCase() === q || (n.name && n.name.toLowerCase() === q)) ||
+        nodes.find((n) => n.name && n.name.toLowerCase().includes(q)) ||
+        nodes.find((n) => n.id.toLowerCase().includes(q)) ||
+        (mapParam ? nodes.find((n) => n.map === mapParam && (n.name?.toLowerCase().includes(q) || n.id.toLowerCase().includes(q))) : null);
+
+      if (matchedNode) {
+        handleDestinationSelect({
+          id: matchedNode.id,
+          name: matchedNode.name || matchedNode.id,
+          searchName: (matchedNode.name || matchedNode.id).toLowerCase(),
+          map: matchedNode.map,
+          floor: (matchedNode as any)?.floor ?? 0,
+          building: (matchedNode as any)?.building || 'Campus',
+          category: (matchedNode as any)?.category || 'Location',
+          x: matchedNode.x,
+          y: matchedNode.y,
+          lat: matchedNode.lat,
+          lng: matchedNode.lng,
+        });
+        if (matchedNode.map) {
+          setSelectedMapId(matchedNode.map);
+        }
+      } else if (mapParam) {
+        setSelectedMapId(mapParam);
+      }
+      return;
+    }
+
+    // 4. Direct map selection (?map=...)
+    if (mapParam) {
+      setSelectedMapId(mapParam);
     }
   }, [
     incidentId,
     toNodeId,
+    destQuery,
+    mapParam,
     incidents,
     loading,
     nodes,

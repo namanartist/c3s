@@ -205,29 +205,36 @@ class HumanVisionEngine {
     this.prevFrameData = new Uint8ClampedArray(data);
 
     // 2. Compute Kaggle RWF-2000 Spatio-Temporal Physical Feature Vectors:
-    // A) Directional Angular Flow Variance
-    let meanAngle = 0;
+    // A) Directional Angular Flow Variance (True circular directional variance)
+    let sumSin = 0;
+    let sumCos = 0;
     let validAngleCount = 0;
     for (let r = 0; r < gridRows; r++) {
       for (let c = 0; c < gridCols; c++) {
-        if (motionMagnitudes[r][c] > 18) {
-          meanAngle += motionAngles[r][c];
+        if (motionMagnitudes[r][c] > 28) {
+          const a = motionAngles[r][c];
+          sumSin += Math.sin(a);
+          sumCos += Math.cos(a);
           validAngleCount++;
         }
       }
     }
-    if (validAngleCount > 0) meanAngle /= validAngleCount;
+    const meanAngle = validAngleCount > 0 ? Math.atan2(sumSin / validAngleCount, sumCos / validAngleCount) : 0;
 
     let angularVarianceSum = 0;
     for (let r = 0; r < gridRows; r++) {
       for (let c = 0; c < gridCols; c++) {
-        if (motionMagnitudes[r][c] > 18) {
-          const diffAngle = Math.abs(motionAngles[r][c] - meanAngle);
+        if (motionMagnitudes[r][c] > 28) {
+          let diffAngle = Math.abs(motionAngles[r][c] - meanAngle);
+          // Proper circular distance wrap-around in [-PI, PI]
+          if (diffAngle > Math.PI) diffAngle = 2 * Math.PI - diffAngle;
           angularVarianceSum += diffAngle * diffAngle;
         }
       }
     }
-    const rawFlowVariance = validAngleCount > 0 ? (angularVarianceSum / validAngleCount) * 28 : 0;
+    // Normalized circular variance: (variance in rad^2) / (PI^2) scaled smoothly
+    const normalizedVar = validAngleCount > 0 ? (angularVarianceSum / validAngleCount) / (Math.PI * Math.PI) : 0;
+    const rawFlowVariance = normalizedVar * 45;
     const opticalFlowVariance = Math.min(100, Math.max(0, Math.round(rawFlowVariance)));
 
     // B) Kinetic Jerk (Second derivative of kinetic velocity energy)
@@ -244,22 +251,22 @@ class HumanVisionEngine {
     const smoothedJerk = this.recentJerkHistory.reduce((a, b) => a + b, 0) / this.recentJerkHistory.length;
 
     // C) Limb Velocity (High velocity peripheral movements)
-    const limbVelocity = Math.min(100, Math.round(highVelocitySpikes * 4.2 + (totalMotionEnergy > 1200 ? 35 : 0)));
+    const limbVelocity = Math.min(100, Math.round(highVelocitySpikes * 3.8 + (totalMotionEnergy > 1400 ? 30 : 0)));
 
     // D) Collision / Combat Proximity & Multi-Subject Cluster Analysis
     const isLiveWebcam = !video.src || video.srcObject !== null || video.src.startsWith('blob:');
 
-    // Strict combat discriminator: detects rapid punch extensions, strike impact reversals & aggressive clashes
-    // Normal pedestrian movement (walking, turning, waving, stretching) produces smooth velocity with low jerk (< 22)
+    // Strict combat discriminator: detects genuine violent strikes (jabs, punches, kicks, grapple clashes)
+    // Normal pedestrian movement (walking, turning, looking at screen, waving, stretching) produces smooth velocity with low jerk (< 26)
     const hasCombatStrikes =
-      (kineticJerk >= 26 && highVelocitySpikes >= 5) ||
-      (opticalFlowVariance >= 28 && (kineticJerk >= 20 || highVelocitySpikes >= 4)) ||
-      (kineticJerk >= 34);
+      (kineticJerk >= 36 && highVelocitySpikes >= 5) ||
+      (opticalFlowVariance >= 38 && (kineticJerk >= 28 || highVelocitySpikes >= 4)) ||
+      (kineticJerk >= 44);
 
     let collisionProximity = 5;
-    let calibratedFlowVariance = Math.min(20, Math.round(opticalFlowVariance * 0.25));
-    let calibratedLimbVelocity = Math.min(18, Math.round(highVelocitySpikes * 1.0));
-    let calibratedJerk = Math.min(18, Math.round(smoothedJerk * 0.25));
+    let calibratedFlowVariance = Math.min(12, Math.round(opticalFlowVariance * 0.2));
+    let calibratedLimbVelocity = Math.min(14, Math.round(highVelocitySpikes * 0.8));
+    let calibratedJerk = Math.min(15, Math.round(smoothedJerk * 0.2));
 
     if (cameraMeta?.simulateCombat) {
       calibratedJerk = 95;

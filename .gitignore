@@ -37,6 +37,8 @@ backend/target/
 *.jar
 *.war
 
-# Large media archives & video backups
-*.mp4.bak
-*20261030*
+# Python Cache & Bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd

@@ -83,7 +83,27 @@ export function lazyWithRetry<T extends React.ComponentType<any>>(
       }
 
       console.error(`[C3S Dynamic Import Error]: Could not load ${componentName}:`, error);
-      throw error;
+      // Return a safe inline fallback component rather than crashing the entire screen
+      return {
+        default: (() =>
+          React.createElement(
+            'div',
+            { className: 'min-h-[50vh] flex flex-col items-center justify-center p-6 text-center text-slate-300' },
+            React.createElement(
+              'p',
+              { className: 'text-sm font-bold text-amber-400 mb-2' },
+              `Module sync in progress (${componentName})`
+            ),
+            React.createElement(
+              'button',
+              {
+                onClick: () => window.location.reload(),
+                className: 'px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-bold text-white shadow-lg cursor-pointer'
+              },
+              'Reload Interface'
+            )
+          )) as any
+      };
     }
   });
 }

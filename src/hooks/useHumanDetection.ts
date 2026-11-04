@@ -56,6 +56,7 @@ export function useHumanDetection(
   const lastProcessedTimeRef = useRef<number>(0);
   const cameraMetaRef = useRef<CameraVisionMeta | undefined>(cameraMeta);
   const fightStartTimeRef = useRef<number | null>(null);
+  const aggressionStreakRef = useRef<number>(0);
   const lastSosTriggeredTimeRef = useRef<number>(0);
 
   useEffect(() => {
@@ -83,20 +84,24 @@ export function useHumanDetection(
         detection.fight.confidence >= 65 &&
         !detection.fight.isOnlyMovement;
 
-      // Track continuous duration of aggression
+      // Aggression momentum accumulator: avoids single-frame recoil dropouts
       if (isAggressive) {
+        aggressionStreakRef.current = Math.min(10, aggressionStreakRef.current + 2);
         if (fightStartTimeRef.current === null) {
           fightStartTimeRef.current = nowMs;
         }
       } else {
-        fightStartTimeRef.current = null;
+        aggressionStreakRef.current = Math.max(0, aggressionStreakRef.current - 1);
+        if (aggressionStreakRef.current === 0) {
+          fightStartTimeRef.current = null;
+        }
       }
 
       const sustainedMs = fightStartTimeRef.current ? nowMs - fightStartTimeRef.current : 0;
       detection.fight.sustainedDurationMs = sustainedMs;
 
-      // Auto-dispatch emergency SOS promptly when fight is confirmed (> 900ms confirmation window)
-      if (sustainedMs >= 900 && nowMs - lastSosTriggeredTimeRef.current > 12000) {
+      // Auto-dispatch emergency SOS promptly when fight is confirmed (streak >= 3 frames or sustained >= 600ms)
+      if ((aggressionStreakRef.current >= 3 || sustainedMs >= 600) && nowMs - lastSosTriggeredTimeRef.current > 10000) {
         lastSosTriggeredTimeRef.current = nowMs;
         const targetCamId = cameraId || currentMeta?.id || 'cam_cctv_01';
         const targetCamName = currentMeta?.name || `CCTV Camera #${targetCamId}`;
