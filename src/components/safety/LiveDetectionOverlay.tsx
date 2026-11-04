@@ -22,25 +22,33 @@ export const LiveDetectionOverlay: React.FC<LiveDetectionOverlayProps> = ({
       <div className="absolute top-3 left-3 right-3 flex flex-wrap items-center justify-between gap-2">
         {/* Left Telemetry Pill */}
         <div className="flex items-center gap-2">
-          {isFight ? (
+          {fight?.classificationState === 'CONFIRMED_AGGRESSION' || isFight ? (
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-red-950/90 backdrop-blur-md border border-red-500 text-white font-mono text-xs font-black shadow-xl shadow-red-950/80 animate-pulse">
               <span className="h-2.5 w-2.5 rounded-full bg-red-500 animate-ping" />
               <ShieldAlert className="w-4 h-4 text-red-400" />
-              <span>VIOLENT ALTERCATION DETECTED</span>
+              <span>CONFIRMED PHYSICAL AGGRESSION</span>
               <span className="px-2 py-0.5 rounded-lg bg-red-600 text-white text-[11px] font-black tracking-wider">
                 {fightConfidence}% CONFIDENCE
               </span>
               {fight?.sustainedDurationMs != null && fight.sustainedDurationMs > 0 && (
                 <span className="px-1.5 py-0.5 rounded bg-black/60 text-amber-300 text-[10px] font-mono font-bold">
-                  Sustained: {(fight.sustainedDurationMs / 1000).toFixed(1)}s / 5.0s
+                  Sustained: {(fight.sustainedDurationMs / 1000).toFixed(1)}s / 2.0s
                 </span>
               )}
+            </div>
+          ) : fight?.classificationState === 'SUSPICIOUS' || fightConfidence >= 50 ? (
+            <div className="flex items-center gap-2 px-3 py-1 rounded-xl bg-amber-950/85 backdrop-blur-md border border-amber-500 text-amber-200 font-mono text-[11px] font-bold shadow-lg">
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+              <Activity className="w-3.5 h-3.5 text-amber-400" />
+              <span>SUSPICIOUS KINETICS: ANALYZING SEQUENCE</span>
+              <span className="text-amber-500 font-normal">|</span>
+              <span className="text-amber-300 font-bold">{fightConfidence}%</span>
             </div>
           ) : detection.movement?.isMoving ? (
             <div className="flex items-center gap-2 px-3 py-1 rounded-xl bg-black/80 backdrop-blur-md border border-cyan-500/50 text-cyan-300 font-mono text-[11px] font-bold shadow-lg">
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
               <Activity className="w-3.5 h-3.5 text-cyan-400" />
-              <span>MOVEMENT: {detection.movement.statusLabel}</span>
+              <span>NORMAL MOVEMENT: {detection.movement.statusLabel}</span>
               <span className="text-slate-400 font-normal">|</span>
               <span className="text-emerald-400 font-bold">NO AGGRESSION</span>
             </div>
@@ -62,17 +70,19 @@ export const LiveDetectionOverlay: React.FC<LiveDetectionOverlayProps> = ({
 
         {/* Right Status / Threat Badge */}
         <div className="flex items-center gap-2">
-          {isFight && (
+          {(fight?.classificationState === 'CONFIRMED_AGGRESSION' || isFight) && (
             <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-red-900/80 backdrop-blur-md border border-red-400 text-red-100 font-mono text-[11px] font-extrabold shadow-lg animate-bounce">
               <Flame className="w-3.5 h-3.5 text-amber-300" />
-              <span>FIGHT CONF: {fightConfidence}%</span>
+              <span>CONFIRMED: {fightConfidence}%</span>
             </div>
           )}
 
           <span
             className={`px-2.5 py-1 rounded-xl font-mono text-[10px] font-black tracking-wider uppercase backdrop-blur-md border shadow-lg ${
-              isFight
+              fight?.classificationState === 'CONFIRMED_AGGRESSION' || isFight
                 ? 'bg-red-600/90 border-red-300 text-white shadow-red-600/50'
+                : fight?.classificationState === 'SUSPICIOUS' || fightConfidence >= 50
+                ? 'bg-amber-600/80 border-amber-400 text-white'
                 : density === 'critical'
                 ? 'bg-rose-600/80 border-rose-400 text-white'
                 : density === 'high'
@@ -82,7 +92,11 @@ export const LiveDetectionOverlay: React.FC<LiveDetectionOverlayProps> = ({
                 : 'bg-emerald-600/70 border-emerald-400 text-white'
             }`}
           >
-            {isFight ? 'CRITICAL THREAT' : `${density} DENSITY`}
+            {fight?.classificationState === 'CONFIRMED_AGGRESSION' || isFight
+              ? 'CRITICAL THREAT'
+              : fight?.classificationState === 'SUSPICIOUS' || fightConfidence >= 50
+              ? 'SUSPICIOUS ACTIVITY'
+              : `${density} DENSITY`}
           </span>
         </div>
       </div>

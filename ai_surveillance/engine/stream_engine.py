@@ -166,14 +166,24 @@ class CameraStreamProcessor:
                     predicted_category = IDX_TO_CATEGORY.get(cat_idx, ActionCategory.NORMAL_INTERACTION)
                     aggression_score = float(outputs["aggression_confidence"][0].cpu().numpy())
 
-            # Stage 6: Threat Evaluation & SOS Decision
-            should_alert, should_trigger_sos, incident_info = self.decision_engine.evaluate_threat(
+            # Stage 6: Threat Evaluation & SOS Decision (Tri-State Decision Engine)
+            tracked_ids = [t.track_id for t in tracked_subjects] if tracked_subjects else [1]
+            eval_result = self.decision_engine.evaluate_threat(
                 camera_id=self.camera_id,
                 predicted_category=predicted_category,
                 raw_confidence=aggression_score,
                 kinematic_flags=kinematic_summary,
-                pairwise_contacts=pairwise_contacts
+                pairwise_contacts=pairwise_contacts,
+                person_tracking_ids=tracked_ids
             )
+            should_alert, should_trigger_sos, incident_info = eval_result.should_alert, eval_result.should_trigger_sos, eval_result.incident_payload
+
+            # Structured logging on state change or significant activity
+            if eval_result.state.value != "NORMAL" or self.frame_count % 30 == 0:
+                rec = eval_result.log_record
+                print(f"[{rec['decision_state']}] Cam: {rec['camera_id']} | Action: {rec['predicted_action']} | "
+                      f"Normal: {rec['normal_confidence']} | Aggression: {rec['aggression_confidence']} | "
+                      f"Consistency: {rec['temporal_consistency']} | SOS: {rec['sos_decision']} ({rec['reason']})")
 
             # If qualifying violent incident occurs -> Trigger SOS & Evidentiary Capture
             if should_trigger_sos and incident_info:
@@ -194,6 +204,8 @@ class CameraStreamProcessor:
                 "tracked_persons": len(tracked_subjects),
                 "predicted_action": predicted_category.value,
                 "aggression_confidence": round(aggression_score, 3),
+                "normal_confidence": eval_result.log_record["normal_confidence"],
+                "decision_state": eval_result.state.value,
                 "is_alert_active": should_alert,
                 "timestamp": now
             }

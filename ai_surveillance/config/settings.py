@@ -57,12 +57,15 @@ try:
 
         # Stage 4 & 5: Action Recognition & Aggression Classification
         ACTION_MODEL_TYPE: str = "cnn_lstm"
-        AGGRESSION_CONFIRMATION_FRAMES: int = 5
-        AGGRESSION_SCORE_SMOOTHING: float = 0.75
+        AGGRESSION_CONFIRMATION_FRAMES: int = 6
+        AGGRESSION_SCORE_SMOOTHING: float = 0.35
 
-        # Stage 6: SOS Decision Engine Thresholds
+        # Stage 6: Dedicated SOS Decision Engine Thresholds
         ALERT_CONFIDENCE_THRESHOLD: float = 0.70
-        SOS_DISPATCH_THRESHOLD: float = 0.82
+        SOS_DISPATCH_THRESHOLD: float = 0.85
+        MIN_CONTINUOUS_DURATION_SECONDS: float = 2.0
+        MIN_CONSECUTIVE_WINDOWS: int = 3
+        REQUIRE_PHYSICAL_CONTACT: bool = True
         INCIDENT_DEBOUNCE_SECONDS: int = 30
 
         # Database & Message Broker
@@ -133,11 +136,14 @@ except ImportError:
         NUM_KEYPOINTS: int = 17
 
         ACTION_MODEL_TYPE: str = "cnn_lstm"
-        AGGRESSION_CONFIRMATION_FRAMES: int = 5
-        AGGRESSION_SCORE_SMOOTHING: float = 0.75
+        AGGRESSION_CONFIRMATION_FRAMES: int = 6
+        AGGRESSION_SCORE_SMOOTHING: float = 0.35
 
         ALERT_CONFIDENCE_THRESHOLD: float = 0.70
-        SOS_DISPATCH_THRESHOLD: float = 0.82
+        SOS_DISPATCH_THRESHOLD: float = 0.85
+        MIN_CONTINUOUS_DURATION_SECONDS: float = 2.0
+        MIN_CONSECUTIVE_WINDOWS: int = 3
+        REQUIRE_PHYSICAL_CONTACT: bool = True
         INCIDENT_DEBOUNCE_SECONDS: int = 30
 
         DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql+asyncpg://postgres:postgres@localhost:5432/c3s_surveillance")
@@ -157,6 +163,13 @@ except ImportError:
 
 
 settings = SurveillanceSettings()
+
+# Top-level hyperparameter exports for direct imports
+SOS_DISPATCH_THRESHOLD = settings.SOS_DISPATCH_THRESHOLD
+MIN_CONTINUOUS_DURATION_SECONDS = settings.MIN_CONTINUOUS_DURATION_SECONDS
+MIN_CONSECUTIVE_WINDOWS = settings.MIN_CONSECUTIVE_WINDOWS
+REQUIRE_PHYSICAL_CONTACT = settings.REQUIRE_PHYSICAL_CONTACT
+SOS_COOLDOWN_SECONDS = settings.INCIDENT_DEBOUNCE_SECONDS
 
 settings.IMAGES_DIR.mkdir(parents=True, exist_ok=True)
 settings.VIDEOS_DIR.mkdir(parents=True, exist_ok=True)

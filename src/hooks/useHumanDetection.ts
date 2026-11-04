@@ -6,6 +6,7 @@ import {
 } from '@/lib/humanVisionEngine';
 import { useSafetyStore } from '@/store/safetyStore';
 import { globalFightDispatcher } from '@/lib/fightAlertDispatcher';
+import { globalSosDecisionEngine } from '@/lib/sosDecisionEngine';
 
 export interface CameraVisionMeta {
   id?: string;
@@ -81,12 +82,12 @@ export function useHumanDetection(
       const nowMs = Date.now();
       const isAggressive =
         detection.fight.isFightDetected &&
-        detection.fight.confidence >= 65 &&
+        detection.fight.confidence >= 85 &&
         !detection.fight.isOnlyMovement;
 
       // Aggression momentum accumulator: avoids single-frame recoil dropouts
       if (isAggressive) {
-        aggressionStreakRef.current = Math.min(10, aggressionStreakRef.current + 2);
+        aggressionStreakRef.current = Math.min(20, aggressionStreakRef.current + 2);
         if (fightStartTimeRef.current === null) {
           fightStartTimeRef.current = nowMs;
         }
@@ -97,31 +98,49 @@ export function useHumanDetection(
         }
       }
 
-      const sustainedMs = fightStartTimeRef.current ? nowMs - fightStartTimeRef.current : 0;
-      detection.fight.sustainedDurationMs = sustainedMs;
+      const targetCamId = cameraId || currentMeta?.id || 'cam_cctv_01';
+      const targetCamName = currentMeta?.name || `CCTV Camera #${targetCamId}`;
+      const targetLocation = currentMeta?.location || 'UNKNOWN';
 
-      // Auto-dispatch emergency SOS promptly when fight is confirmed (streak >= 3 frames or sustained >= 600ms)
-      if ((aggressionStreakRef.current >= 3 || sustainedMs >= 600) && nowMs - lastSosTriggeredTimeRef.current > 10000) {
+      // Evaluate through the dedicated stateful SOS Decision Engine
+      const sosDecision =
+        detection.sosDecision ||
+        globalSosDecisionEngine.evaluateWindow({
+          cameraId: targetCamId,
+          timestamp: nowMs,
+          rawConfidence: detection.fight.confidence,
+          predictedAction: detection.fight.detectedAction || 'altercation',
+          personTrackingIds: detection.humans.map((h) => h.id),
+          hasInterpersonalContact: (detection.fight.mlFeatures?.collisionProximity || 0) >= 30,
+          hasStrikeKinematics: detection.fight.isFightDetected,
+        });
+
+      detection.fight.classificationState = sosDecision.state;
+      detection.fight.sustainedDurationMs = sosDecision.sustainedDurationMs;
+
+      if (sosDecision.shouldTriggerSos) {
         lastSosTriggeredTimeRef.current = nowMs;
-        const targetCamId = cameraId || currentMeta?.id || 'cam_cctv_01';
-        const targetCamName = currentMeta?.name || `CCTV Camera #${targetCamId}`;
-        const targetLocation = currentMeta?.location || 'J010 – SH-4 (Seminar Hall 4)';
+
+        console.info('[AI SOS DECISION: DISPATCHING SOS]', sosDecision.logRecord);
 
         globalFightDispatcher.handleFightDetection({
           cameraId: targetCamId,
           cameraName: targetCamName,
           location: targetLocation,
-          confidence: Math.round(detection.fight.confidence),
+          confidence: Math.round(sosDecision.smoothedConfidence * 100),
           videoElement: videoRef?.current || null,
           videoUrl: currentMeta?.getRealVideoUrl?.() || currentMeta?.videoUrl,
+          incidentId: sosDecision.incidentId || undefined,
           nodeId: targetCamId.includes('gate_1')
             ? 'Main_Gate'
             : targetCamId.includes('gate_2')
             ? 'Gate2_Parking'
             : targetCamId.includes('conclave')
             ? 'Conclave'
-            : 'room_J010'
+            : undefined
         });
+      } else if (sosDecision.state === 'SUSPICIOUS') {
+        console.debug('[AI SOS DECISION: SUSPICIOUS ACTIVITY UNDER OBSERVATION]', sosDecision.logRecord);
       }
 
       setResult(detection);

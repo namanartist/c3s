@@ -150,11 +150,24 @@ function CampusUrlNavigationResolver() {
     // 3. Search query or quick-destination navigation (?dest=... or ?q=...)
     if (destQuery) {
       const q = destQuery.trim().toLowerCase();
-      const matchedNode =
-        nodes.find((n) => n.id.toLowerCase() === q || (n.name && n.name.toLowerCase() === q)) ||
-        nodes.find((n) => n.name && n.name.toLowerCase().includes(q)) ||
-        nodes.find((n) => n.id.toLowerCase().includes(q)) ||
-        (mapParam ? nodes.find((n) => n.map === mapParam && (n.name?.toLowerCase().includes(q) || n.id.toLowerCase().includes(q))) : null);
+      // Smart map preference: if query refers to AI & CSE block rooms/faculty (M101-M105, HOD, Dr. Abhishek Rout, etc.), prefer AI_FF
+      const targetMap =
+        mapParam ||
+        (/^(m10|ai|dr\.|hod|cst)/i.test(q) ? 'AI_FF' : null);
+
+      let matchedNode = null;
+      if (targetMap) {
+        matchedNode =
+          nodes.find((n) => n.map === targetMap && (n.id.toLowerCase() === q || (n.name && n.name.toLowerCase() === q))) ||
+          nodes.find((n) => n.map === targetMap && (n.name && n.name.toLowerCase().includes(q))) ||
+          nodes.find((n) => n.map === targetMap && n.id.toLowerCase().includes(q));
+      }
+      if (!matchedNode) {
+        matchedNode =
+          nodes.find((n) => n.id.toLowerCase() === q || (n.name && n.name.toLowerCase() === q)) ||
+          nodes.find((n) => n.name && n.name.toLowerCase().includes(q)) ||
+          nodes.find((n) => n.id.toLowerCase().includes(q));
+      }
 
       if (matchedNode) {
         handleDestinationSelect({
@@ -173,8 +186,8 @@ function CampusUrlNavigationResolver() {
         if (matchedNode.map) {
           setSelectedMapId(matchedNode.map);
         }
-      } else if (mapParam) {
-        setSelectedMapId(mapParam);
+      } else if (targetMap) {
+        setSelectedMapId(targetMap);
       }
       return;
     }

@@ -11,6 +11,15 @@ import React from 'react';
  * unregisters any outdated service worker, and executes a clean cache-busting reload
  * so the user seamlessly receives the latest app bundle without crashing or getting stuck.
  */
+function isValidReactComponent(comp: any): boolean {
+  if (!comp) return false;
+  if (typeof comp === 'function') return true;
+  if (typeof comp === 'object' && comp !== null && ('$$typeof' in comp || typeof (comp as any).render === 'function')) {
+    return true;
+  }
+  return false;
+}
+
 export function lazyWithRetry<T extends React.ComponentType<any>>(
   factory: () => Promise<{ default: T }>,
   componentName: string = 'Component'
@@ -25,18 +34,26 @@ export function lazyWithRetry<T extends React.ComponentType<any>>(
       }
 
       // Safely resolve default export or fallback named component export
-      const resolved =
+      let resolved =
         rawModule?.default ||
         rawModule?.[componentName] ||
         (rawModule && typeof rawModule === 'object'
-          ? Object.values(rawModule).find(
-              (v) => typeof v === 'function' || (typeof v === 'object' && v !== null && '$$typeof' in (v as any))
-            )
-          : null) ||
-        rawModule;
+          ? Object.values(rawModule).find((v) => isValidReactComponent(v))
+          : null);
+
+      if (!isValidReactComponent(resolved)) {
+        console.warn(`[C3S lazyWithRetry]: "${componentName}" did not resolve to a valid React component. Using fallback.`);
+        resolved = () =>
+          React.createElement(
+            'div',
+            { className: 'min-h-[40vh] flex flex-col items-center justify-center p-6 text-center text-slate-300' },
+            React.createElement('div', { className: 'h-8 w-8 animate-spin rounded-full border-2 border-blue-500 border-t-transparent mb-3' }),
+            React.createElement('p', { className: 'text-xs text-slate-400' }, `Loading ${componentName}...`)
+          );
+      }
 
       return {
-        default: (resolved || (() => React.createElement('div', { className: 'hidden' }))) as T
+        default: resolved as T
       };
     } catch (error: any) {
       const message = error?.message || String(error);

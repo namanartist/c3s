@@ -26,5 +26,6 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "packages"]
+  "include": ["src", "packages"],
+  "exclude": ["src/**/__tests__/*"]
 }

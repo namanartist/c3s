@@ -56,6 +56,16 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   private handleReset = () => {
+    const errorMsg = this.state.error?.message || '';
+    if (
+      errorMsg.includes('Failed to fetch') ||
+      errorMsg.includes('dynamically imported') ||
+      errorMsg.includes("reading 'default'") ||
+      errorMsg.includes("default")
+    ) {
+      this.handleHardReload();
+      return;
+    }
     this.setState({ hasError: false, error: null, errorInfo: null });
   };
 
@@ -75,7 +85,8 @@ export class ErrorBoundary extends Component<Props, State> {
       } catch {
         // non-fatal
       }
-      window.location.href = window.location.pathname + '?_sync=' + Date.now();
+      const target = window.location.pathname + '?_sync=' + Date.now();
+      window.location.replace(target);
     }
   };
 

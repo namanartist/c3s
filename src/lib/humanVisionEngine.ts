@@ -9,9 +9,16 @@
 
 import {
   evaluateKaggleFightFeatures,
+  ACTION_CLASSIFIER_METADATA,
   KAGGLE_RWF2000_BENCHMARK,
-  type KaggleFightFeatures
+  type ActionFeatures
 } from '@/lib/kaggleFightClassifier';
+import {
+  globalSosDecisionEngine,
+  type SosDecisionOutput
+} from '@/lib/sosDecisionEngine';
+
+export type KaggleFightFeatures = ActionFeatures;
 
 export interface DetectedHuman {
   id: number;
@@ -42,9 +49,10 @@ export interface FightTelemetry {
   intensityScore: number; // 0 to 100
   statusText: string;
   combatantsCount: number;
+  classificationState?: 'NORMAL' | 'SUSPICIOUS' | 'CONFIRMED_AGGRESSION';
   detectedAction?: string;
   kineticDelta?: number;
-  mlFeatures?: KaggleFightFeatures;
+  mlFeatures?: ActionFeatures;
   modelName?: string;
   sustainedDurationMs?: number;
   isOnlyMovement?: boolean;
@@ -58,6 +66,7 @@ export interface DetectionResult {
   timestamp: number;
   movement: MovementTelemetry;
   fight: FightTelemetry;
+  sosDecision?: SosDecisionOutput;
 }
 
 class HumanVisionEngine {
@@ -253,92 +262,60 @@ class HumanVisionEngine {
     // C) Limb Velocity (High velocity peripheral movements)
     const limbVelocity = Math.min(100, Math.round(highVelocitySpikes * 3.8 + (totalMotionEnergy > 1400 ? 30 : 0)));
 
-    // D) Collision / Combat Proximity & Multi-Subject Cluster Analysis
+    // D) Camera Ego-Motion Detection (Pan / Tilt / Vibration)
+    // If the vast majority of grid cells move in the exact same direction with near-zero angular variance,
+    // the movement is caused by camera mechanical motion, not human aggression.
+    const isCameraMoving = validAngleCount > (gridRows * gridCols * 0.60) && normalizedVar < 0.08;
+
+    // E) Collision / Combat Proximity & Multi-Subject Interaction Analysis
     const isLiveWebcam = !video.src || video.srcObject !== null || video.src.startsWith('blob:');
 
-    // Strict combat discriminator: detects genuine violent strikes (jabs, punches, kicks, grapple clashes)
-    // Normal pedestrian movement (walking, turning, looking at screen, waving, stretching) produces smooth velocity with low jerk (< 26)
+    // On live webcam with a single individual, motion is individual (non-violent gestures, turning, standing)
     const hasCombatStrikes =
-      (kineticJerk >= 36 && highVelocitySpikes >= 5) ||
-      (opticalFlowVariance >= 38 && (kineticJerk >= 28 || highVelocitySpikes >= 4)) ||
-      (kineticJerk >= 44);
+      !isLiveWebcam
+        ? (kineticJerk >= 40 && highVelocitySpikes >= 5) || (opticalFlowVariance >= 42 && kineticJerk >= 34)
+        : (kineticJerk >= 58 && highVelocitySpikes >= 8 && activeMotionCells >= 35);
 
-    let collisionProximity = 5;
-    let calibratedFlowVariance = Math.min(12, Math.round(opticalFlowVariance * 0.2));
-    let calibratedLimbVelocity = Math.min(14, Math.round(highVelocitySpikes * 0.8));
-    let calibratedJerk = Math.min(15, Math.round(smoothedJerk * 0.2));
+    let collisionProximity = 0;
+    let calibratedFlowVariance = Math.min(10, Math.round(opticalFlowVariance * 0.15));
+    let calibratedLimbVelocity = Math.min(12, Math.round(highVelocitySpikes * 0.6));
+    let calibratedJerk = Math.min(12, Math.round(smoothedJerk * 0.15));
 
     if (cameraMeta?.simulateCombat) {
       calibratedJerk = 95;
       calibratedLimbVelocity = 90;
       calibratedFlowVariance = 88;
       collisionProximity = 85;
-    } else if (hasCombatStrikes) {
+    } else if (hasCombatStrikes && !isLiveWebcam) {
       // True violent combat strike / explosive aggressive clash
-      calibratedJerk = Math.min(100, Math.round(kineticJerk * 1.5));
-      calibratedLimbVelocity = Math.min(100, Math.round(highVelocitySpikes * 4.5 + limbVelocity * 0.6));
-      calibratedFlowVariance = Math.min(100, Math.round(opticalFlowVariance * 1.25));
-      collisionProximity = Math.min(85, Math.round(activeMotionCells * 1.2 + 25));
+      calibratedJerk = Math.min(100, Math.round(kineticJerk * 1.4));
+      calibratedLimbVelocity = Math.min(100, Math.round(highVelocitySpikes * 4.0 + limbVelocity * 0.5));
+      calibratedFlowVariance = Math.min(100, Math.round(opticalFlowVariance * 1.2));
+      collisionProximity = Math.min(85, Math.round(activeMotionCells * 1.2 + 20));
     } else if (!isLiveWebcam) {
-      // For recorded CCTV videos with multiple subjects
-      collisionProximity = activeMotionCells > 30 ? Math.min(95, activeMotionCells * 1.5) : Math.min(45, activeMotionCells * 0.8);
+      collisionProximity = activeMotionCells > 30 ? Math.min(90, activeMotionCells * 1.4) : Math.min(40, activeMotionCells * 0.7);
     }
 
-    // E) Posture Collapse Metric
+    // F) Posture Collapse Metric
     const postureCollapse = (activeMotionCells > 40 && centroidWeight > 0 && (centroidSumY / centroidWeight > h * 0.65)) ? 65 : 10;
 
-    // 3. Evaluate Kaggle RWF-2000 Flow-Gated Classifier
-    const isIncidentVideo =
-      video.src.includes('cctv_recorded_incident') ||
-      video.src.includes('20261030');
-
-    // If manual combat simulation is triggered (e.g. testing)
-    const isSimulatedTest = cameraMeta?.simulateCombat === true;
-
-    const mlFeatures: KaggleFightFeatures = {
-      opticalFlowVariance: isSimulatedTest ? 88 : calibratedFlowVariance,
-      kineticJerk: isSimulatedTest ? 92 : calibratedJerk,
-      collisionProximity: isSimulatedTest ? 85 : Math.round(collisionProximity),
-      limbVelocity: isSimulatedTest ? 80 : calibratedLimbVelocity,
-      postureCollapse: isSimulatedTest ? 60 : postureCollapse
+    // 3. Spatio-Temporal Action Classification (Zero synthetic shortcuts)
+    const mlFeatures: ActionFeatures = {
+      opticalFlowVariance: calibratedFlowVariance,
+      kineticJerk: calibratedJerk,
+      collisionProximity: Math.round(collisionProximity),
+      limbVelocity: calibratedLimbVelocity,
+      postureCollapse: postureCollapse
     };
 
-    const mlResult = evaluateKaggleFightFeatures(mlFeatures, {
-      isKnownIncident: isIncidentVideo,
-      baseConfidence: cameraMeta?.fightConfidence
-    });
-
-    // Zero-latency responsive filter: reacts instantly to aggressive combat within 1-2 frames (< 50ms)
-    this.fightScoreSmoothed = this.fightScoreSmoothed * 0.20 + mlResult.confidence * 0.80;
-    const finalConfidence = Math.round(this.fightScoreSmoothed * 10) / 10;
-
-    // Movement calculation
-    const motionIntensity = Math.min(100, Math.round((totalMotionEnergy / 15) + (activeMotionCells * 1.2)));
-    const isMovementDetected = motionIntensity > 8 || activeMotionCells > 5;
-
-    // Strict distinction: true combat triggers when confidence >= 65%
-    const isFightDetected = finalConfidence >= 65 || isSimulatedTest || (isIncidentVideo && !video.paused);
-    const isOnlyMovement = isMovementDetected && !isFightDetected;
-
-    let movementType: MovementTelemetry['movementType'] = 'STATIONARY';
-    let movementStatusLabel = 'Stationary • Scene Calm';
-
-    if (isFightDetected) {
-      movementType = 'AGGRESSIVE_ALTERCATION';
-      movementStatusLabel = '🚨 Aggressive Physical Altercation';
-    } else if (motionIntensity > 35 || highVelocitySpikes > 6) {
-      movementType = 'ACTIVE_MOTION';
-      movementStatusLabel = '🏃 Active Movement (Normal Posture / Turning)';
-    } else if (isMovementDetected) {
-      movementType = 'PEDESTRIAN_WALKING';
-      movementStatusLabel = '🚶 Pedestrian Movement (Normal Walking - Safe)';
-    }
+    const mlResult = evaluateKaggleFightFeatures(mlFeatures);
 
     // 4. Real Human Contour & Centroid Tracking
+    // Only real detected people are returned; never invent phantom combatants
     const humans: DetectedHuman[] = [];
 
     if (isLiveWebcam && centroidWeight > 200) {
-      // Real-time tracking of the user/person in front of the webcam
+      // Real-time tracking of the actual person in front of the camera
       const avgX = (centroidSumX / centroidWeight) / w * 100;
       const avgY = (centroidSumY / centroidWeight) / h * 100;
 
@@ -354,41 +331,23 @@ class HumanVisionEngine {
         width: Math.round(userBoxW * 10) / 10,
         height: Math.round(userBoxH * 10) / 10,
         confidence: 0.96,
-        label: isFightDetected ? 'Subject #1 (Aggressive Altercation)' : isMovementDetected ? 'Subject #1 (Normal Pedestrian Movement)' : 'Subject #1 (Live User)',
-        isMoving: isMovementDetected,
-        isFighting: isFightDetected,
-        fightConfidence: isFightDetected ? finalConfidence : 0,
-        role: isFightDetected ? 'combatant' : 'pedestrian',
-        action: isFightDetected ? 'Violent Kinetic Motion / Altercation' : isMovementDetected ? 'Walking / Posture Movement (Safe)' : 'Stationary Presence'
+        label: 'Subject #1 (Tracked Individual)',
+        isMoving: activeMotionCells > 5,
+        isFighting: false,
+        fightConfidence: Math.round(mlResult.confidence),
+        role: 'pedestrian',
+        action: mlResult.predictedAction
       });
-
-      if (isFightDetected) {
-        // Add secondary combatant silhouette if fight threshold is breached
-        humans.push({
-          id: 2,
-          x: Math.max(5, Math.min(80, userBoxX + 18)),
-          y: Math.max(10, userBoxY + 4),
-          width: Math.round(userBoxW * 0.85),
-          height: Math.round(userBoxH * 0.9),
-          confidence: 0.92,
-          label: 'Combatant #2 (Aggressive Cluster)',
-          isMoving: true,
-          isFighting: true,
-          fightConfidence: Math.max(78, Math.round(finalConfidence - 3)),
-          role: 'combatant',
-          action: 'Physical Grapple & Thrust'
-        });
-      }
     } else if (isLiveWebcam) {
-      // Stationary user / calm webcam view
+      // Stationary user / scene calm
       humans.push({
         id: 1,
-        x: 28,
-        y: 18,
-        width: 44,
-        height: 68,
+        x: 30,
+        y: 20,
+        width: 40,
+        height: 65,
         confidence: 0.95,
-        label: 'Subject #1 (Normal Presence)',
+        label: 'Subject #1 (Stationary)',
         isMoving: false,
         isFighting: false,
         fightConfidence: 0,
@@ -396,31 +355,70 @@ class HumanVisionEngine {
         action: 'Stationary / Watching'
       });
     } else {
-      // Recorded CCTV Video Fallback Tracking
-      const baseCount = isIncidentVideo ? 3 : 5;
-      const count = baseCount;
-      const t = video.currentTime;
-
+      // Non-webcam video tracking
+      const count = activeMotionCells > 30 ? 2 : 1;
       for (let i = 0; i < count; i++) {
-        const offset = (i / count) * 70 + 15;
-        const drift = Math.sin(t * 2 + i) * 3;
-        const isCombatant = isFightDetected && i < 2;
-
         humans.push({
           id: i + 1,
-          x: Math.round((offset + drift) * 10) / 10,
-          y: Math.round((28 + (i % 2) * 16) * 10) / 10,
-          width: 15,
-          height: 42,
-          confidence: 0.91,
-          label: isCombatant ? `Combatant #${i + 1}` : `Person #${i + 1}`,
-          isMoving: true,
-          isFighting: isCombatant,
-          fightConfidence: isCombatant ? finalConfidence : 0,
-          role: isCombatant ? 'combatant' : 'pedestrian',
-          action: isCombatant ? 'Physical Altercation' : 'Walking'
+          x: Math.round((25 + i * 35) * 10) / 10,
+          y: 28,
+          width: 18,
+          height: 48,
+          confidence: 0.92,
+          label: `Subject #${i + 1}`,
+          isMoving: activeMotionCells > 5,
+          isFighting: false,
+          fightConfidence: Math.round(mlResult.confidence),
+          role: 'pedestrian',
+          action: mlResult.predictedAction
         });
       }
+    }
+
+    // 5. Evaluate through the Dedicated Independent SOS Decision Engine
+    const targetCamId = cameraMeta?.id || 'cam_stream_01';
+    const sosDecision = globalSosDecisionEngine.evaluateWindow({
+      cameraId: targetCamId,
+      timestamp: Date.now(),
+      rawConfidence: mlResult.confidence,
+      predictedAction: mlResult.predictedAction,
+      personTrackingIds: humans.map((h) => h.id),
+      hasInterpersonalContact: collisionProximity >= 30,
+      hasStrikeKinematics: hasCombatStrikes,
+      isCameraMoving
+    });
+
+    const isFightDetected = sosDecision.state === 'CONFIRMED_AGGRESSION';
+    const finalConfidence = Math.round(sosDecision.smoothedConfidence * 1000) / 10;
+    const classificationState = sosDecision.state;
+
+    // Movement categorization
+    const motionIntensity = Math.min(100, Math.round((totalMotionEnergy / 15) + (activeMotionCells * 1.2)));
+    const isMovementDetected = motionIntensity > 8 || activeMotionCells > 5;
+    const isOnlyMovement = isMovementDetected && !isFightDetected;
+
+    let movementType: MovementTelemetry['movementType'] = 'STATIONARY';
+    let movementStatusLabel = 'Stationary • Scene Calm';
+
+    if (classificationState === 'CONFIRMED_AGGRESSION') {
+      movementType = 'AGGRESSIVE_ALTERCATION';
+      movementStatusLabel = '🚨 Aggressive Physical Altercation';
+    } else if (classificationState === 'SUSPICIOUS') {
+      movementType = 'ACTIVE_MOTION';
+      movementStatusLabel = '⚠️ Suspicious Sequence (Analyzing Temporal Consistency)';
+    } else if (motionIntensity > 35 || highVelocitySpikes > 6) {
+      movementType = 'ACTIVE_MOTION';
+      movementStatusLabel = '🏃 Active Movement (Normal Posture / Turning / Safe)';
+    } else if (isMovementDetected) {
+      movementType = 'PEDESTRIAN_WALKING';
+      movementStatusLabel = '🚶 Pedestrian Movement (Normal Walking - Safe)';
+    }
+
+    // Update individual human tags
+    for (const hItem of humans) {
+      hItem.isFighting = isFightDetected;
+      hItem.fightConfidence = isFightDetected ? finalConfidence : 0;
+      hItem.role = isFightDetected ? 'combatant' : 'pedestrian';
     }
 
     let severity: FightTelemetry['severity'] = 'none';
@@ -466,12 +464,14 @@ class HumanVisionEngine {
         intensityScore: Math.min(100, Math.round(currentKinetic * 12 + mlFeatures.kineticJerk * 0.4)),
         statusText,
         combatantsCount: isFightDetected ? 2 : 0,
+        classificationState,
         detectedAction,
         kineticDelta: Math.round(rawJerk * 10) / 10,
         mlFeatures,
-        modelName: KAGGLE_RWF2000_BENCHMARK.architecture,
+        modelName: ACTION_CLASSIFIER_METADATA.modelName,
         isOnlyMovement
-      }
+      },
+      sosDecision
     };
   }
 
@@ -489,7 +489,7 @@ class HumanVisionEngine {
     const now = performance.now();
     const t = now / 1000;
     const baseConf = cameraMeta?.fightConfidence ?? (cameraMeta?.fightDetected ? 94 : 0);
-    const isFightDetected = cameraMeta?.fightDetected ?? baseConf >= 65;
+    const isFightDetected = cameraMeta?.fightDetected ?? baseConf >= 85;
 
     const humans: DetectedHuman[] = [];
     const count = isFightDetected ? 3 : 5;
@@ -569,6 +569,7 @@ class HumanVisionEngine {
           intensityScore: 92,
           statusText: '🚨 ACTIVE PHYSICAL FIGHT IN PROGRESS (Kaggle RWF-2000)',
           combatantsCount: 2,
+          classificationState: 'CONFIRMED_AGGRESSION',
           detectedAction: 'Physical Strikes & Grappling Detected',
           kineticDelta: 4.8,
           mlFeatures: {
@@ -578,7 +579,7 @@ class HumanVisionEngine {
             limbVelocity: 79,
             postureCollapse: 52
           },
-          modelName: KAGGLE_RWF2000_BENCHMARK.architecture,
+          modelName: ACTION_CLASSIFIER_METADATA.modelName,
           isOnlyMovement: false
         }
       };

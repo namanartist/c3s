@@ -248,14 +248,18 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
   const isAutoFlagged =
     detection.fight.isFightDetected &&
     !detection.fight.isOnlyMovement &&
-    detection.fight.confidence >= 65;
+    detection.fight.confidence >= 85;
 
-  // Automatically trigger proctor alert sound and UI banner on auto-detection
+  const classificationState =
+    detection.fight.classificationState ||
+    (isAutoFlagged ? 'CONFIRMED_AGGRESSION' : detection.fight.confidence >= 50 ? 'SUSPICIOUS' : 'NORMAL');
+
+  // Automatically trigger proctor alert sound and UI banner only on CONFIRMED aggression
   useEffect(() => {
     if (isAutoFlagged) {
       const camName = camera?.name || `Live CCTV #${cameraId}`;
       globalProctorAlarm.triggerAlarm(`Aggression Auto-Detected at ${camName}`);
-      setSosStatusText(`🚨 AUTO-FLAGGED: AGGRESSION DETECTED (${Math.round(detection.fight.confidence)}%) • SOS ACTIVE`);
+      setSosStatusText(`🚨 CONFIRMED AGGRESSION (${Math.round(detection.fight.confidence)}%) • SOS ACTIVE`);
     }
   }, [isAutoFlagged, camera?.name, cameraId, detection.fight.confidence]);
 
@@ -357,8 +361,37 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
               <span>LIMB VEL: <strong className="text-slate-200">{ml?.limbVelocity || 0}%</strong></span>
             </div>
 
-            <div className="px-2.5 py-1 rounded-xl bg-black/80 border border-white/10 text-[10px] font-mono text-cyan-400 backdrop-blur-md">
-              <span>{detection.fps || 30} FPS • 720p HD</span>
+            <div className="flex items-center gap-2">
+              <div
+                className={`px-2.5 py-1 rounded-xl border text-[10px] font-mono font-bold backdrop-blur-md flex items-center gap-1.5 ${
+                  classificationState === 'CONFIRMED_AGGRESSION'
+                    ? 'bg-red-600/90 border-red-400 text-white animate-pulse shadow-lg shadow-red-600/40'
+                    : classificationState === 'SUSPICIOUS'
+                    ? 'bg-amber-600/30 border-amber-500/50 text-amber-300'
+                    : 'bg-emerald-950/40 border-emerald-500/30 text-emerald-300'
+                }`}
+              >
+                <span
+                  className={`h-2 w-2 rounded-full ${
+                    classificationState === 'CONFIRMED_AGGRESSION'
+                      ? 'bg-white animate-ping'
+                      : classificationState === 'SUSPICIOUS'
+                      ? 'bg-amber-400'
+                      : 'bg-emerald-400'
+                  }`}
+                />
+                <span>
+                  {classificationState === 'CONFIRMED_AGGRESSION'
+                    ? `CONFIRMED AGGRESSION (${Math.round(detection.fight.confidence)}%)`
+                    : classificationState === 'SUSPICIOUS'
+                    ? `SUSPICIOUS SEQUENCE (${Math.round(detection.fight.confidence)}%)`
+                    : 'MONITORING • NORMAL ACTIVITY'}
+                </span>
+              </div>
+
+              <div className="px-2.5 py-1 rounded-xl bg-black/80 border border-white/10 text-[10px] font-mono text-cyan-400 backdrop-blur-md">
+                <span>{detection.fps || 30} FPS • 720p HD</span>
+              </div>
             </div>
           </div>
         </>
@@ -379,3 +412,5 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
     </div>
   );
 };
+
+export default LiveWebcamFeed;
