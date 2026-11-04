@@ -50,7 +50,7 @@ const fallbackMapViewBoxes: Record<string, SvgViewBox> = {
   Main_FF: { minX: 0, minY: 0, width: 696.4, height: 576.6927 },
   Main_SF: { minX: 0, minY: 0, width: 743.9135, height: 482.3806 },
   AI_GF: { minX: 0, minY: 0, width: 842, height: 595 },
-  AI_FF: { minX: 0, minY: 0, width: 705.6, height: 283.32 },
+  AI_FF: { minX: 0, minY: 0, width: 705.6, height: 250 },
   AI_SF: { minX: 0, minY: 0, width: 719.4, height: 220.32 },
   AI_TF: { minX: 0, minY: 0, width: 719.4, height: 220.32 },
 };
