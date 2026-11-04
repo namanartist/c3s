@@ -75,5 +75,43 @@ export const MOCK_GATES: C3SGate[] = [
     longitude: 78.1848,
     speedBumps: 2,
     boomBarriers: 'OPERATIONAL'
+  },
+  {
+    id: 'gate-ai-north',
+    name: 'AI Building North Access',
+    code: 'GATE-04',
+    status: 'ACTIVE',
+    qrStatus: 'ACTIVE',
+    currentGateKeeper: 'Manoj Kushwah',
+    keeperId: 'GK-AI-04',
+    checkInCount: 840,
+    checkOutCount: 780,
+    currentlyInside: 60,
+    activeAlerts: 0,
+    qrToken: 'C3S-QR-AINORTH-20260929-SEC5',
+    qrExpiresAt: '2026-09-29T23:59:59',
+    latitude: 26.2182,
+    longitude: 78.1824,
+    speedBumps: 1,
+    boomBarriers: 'OPERATIONAL'
+  },
+  {
+    id: 'gate-sh4',
+    name: 'Seminar Hall 4 (SH-4) Turnstile',
+    code: 'GATE-05',
+    status: 'ACTIVE',
+    qrStatus: 'ACTIVE',
+    currentGateKeeper: 'Vikram Sen',
+    keeperId: 'GK-SH4-05',
+    checkInCount: 320,
+    checkOutCount: 295,
+    currentlyInside: 25,
+    activeAlerts: 1,
+    qrToken: 'C3S-QR-SH4-20260929-SEC6',
+    qrExpiresAt: '2026-09-29T23:59:59',
+    latitude: 26.2184,
+    longitude: 78.1829,
+    speedBumps: 0,
+    boomBarriers: 'OPERATIONAL'
   }
 ];

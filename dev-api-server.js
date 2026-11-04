@@ -1,3 +1,12 @@
+const DEFAULT_CROWD_LOGS = [
+  { id: 'log-main-gate', label: 'Main Gate', count: 4, coordinates: { latitude: 26.2178, longitude: 78.1832 }, timestamp: new Date().toISOString() },
+  { id: 'log-gate-2', label: 'Gate 2 Annex', count: 6, coordinates: { latitude: 26.2185, longitude: 78.1830 }, timestamp: new Date().toISOString() },
+  { id: 'log-ai-ff', label: 'AI & CSE FF Corridor', count: 8, coordinates: { latitude: 26.2181, longitude: 78.1825 }, timestamp: new Date().toISOString() },
+  { id: 'log-sh4', label: 'SH-4 Seminar Hall', count: 3, coordinates: { latitude: 26.2184, longitude: 78.1829 }, timestamp: new Date().toISOString() },
+  { id: 'log-jubilee', label: 'Jubilee Gate', count: 2, coordinates: { latitude: 26.2195, longitude: 78.1810 }, timestamp: new Date().toISOString() },
+  { id: 'log-library', label: 'Central Library Plaza', count: 5, coordinates: { latitude: 26.2172, longitude: 78.1820 }, timestamp: new Date().toISOString() }
+];
+
 // dev-api-server.js
 import http from 'http';
 import fs from 'fs';
@@ -47,47 +56,29 @@ function resolveDbName(urlStr, fallback = 'UniMap') {
 }
 let client = null;
 let db = null;
-let isMongoConnected = false;
-let lastConnectAttempt = 0;
-let hasLoggedFailure = false;
-const RECONNECT_COOLDOWN_MS = 60000; // Retry connecting to MongoDB at most once per minute
+
+if (mongoUrl) {
+  try {
+    client = new MongoClient(mongoUrl, { serverSelectionTimeoutMS: 2000 });
+  } catch (e) {
+    console.warn('Could not initialize Mongo client:', e.message);
+  }
+}
 
 async function getDb() {
-  if (isMongoConnected && db) return db;
-  if (!mongoUrl) return null;
-
-  const now = Date.now();
-  if (now - lastConnectAttempt < RECONNECT_COOLDOWN_MS) {
-    return null;
+  if (!client) return null;
+  if (!db) {
+    try {
+      await client.connect();
+      const targetDb = resolveDbName(mongoUrl, 'UniMap');
+      db = client.db(targetDb);
+      console.log(`Connected to MongoDB [${db.databaseName}] database`);
+    } catch (e) {
+      console.warn('MongoDB connection failed, running in memory-resilient mode:', e.message);
+      return null;
+    }
   }
-
-  lastConnectAttempt = now;
-  try {
-    if (client) {
-      try { await client.close(); } catch {}
-      client = null;
-    }
-    client = new MongoClient(mongoUrl, { serverSelectionTimeoutMS: 1500 });
-    await client.connect();
-    const targetDb = resolveDbName(mongoUrl, 'UniMap');
-    db = client.db(targetDb);
-    isMongoConnected = true;
-    hasLoggedFailure = false;
-    console.log(`[Dev Server] Connected to MongoDB [${db.databaseName}] database`);
-    return db;
-  } catch (e) {
-    isMongoConnected = false;
-    db = null;
-    if (client) {
-      try { await client.close(); } catch {}
-      client = null;
-    }
-    if (!hasLoggedFailure) {
-      console.warn('[Dev Server] MongoDB offline, running in memory-resilient mode (queries served via fallbacks)');
-      hasLoggedFailure = true;
-    }
-    return null;
-  }
+  return db;
 }
 
 // In-memory fallbacks for resilient development
@@ -201,7 +192,7 @@ const server = http.createServer(async (req, res) => {
     // ----------------------------------------------------
     else if (req.method === 'GET' && pathname === '/api/crowd') {
       try {
-        if (activeDb && isMongoConnected && client) {
+        if (client) {
           const homeDb = client.db('home');
           const crowdLogs = await homeDb
             .collection('blogs')
@@ -209,15 +200,17 @@ const server = http.createServer(async (req, res) => {
             .sort({ _id: -1 })
             .limit(50)
             .toArray();
-          res.writeHead(200, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ data: crowdLogs, count: crowdLogs.length }));
-          return;
+          if (crowdLogs && crowdLogs.length > 0) {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ data: crowdLogs, count: crowdLogs.length }));
+            return;
+          }
         }
       } catch (crowdErr) {
-        // Suppress topology closed errors when Mongo is disconnected
+        console.warn('Failed to fetch home.blogs:', crowdErr.message);
       }
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ data: [] }));
+      res.end(JSON.stringify({ data: DEFAULT_CROWD_LOGS, count: DEFAULT_CROWD_LOGS.length }));
     }
     // ----------------------------------------------------
     // GET /api/gate/qr

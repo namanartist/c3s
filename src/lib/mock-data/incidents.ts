@@ -41,6 +41,82 @@ export interface C3SIncident {
 
 export const MOCK_INCIDENTS: C3SIncident[] = [
   {
+    id: 'C3S-INC-00195',
+    title: 'Physical Altercation (OpenCV Fight AI Alert)',
+    type: 'Security Threat',
+    priority: 'CRITICAL',
+    location: 'J010 - SH-4 (Seminar Hall 4, Main Building GF)',
+    zone: 'Main Building GF',
+    reportedAt: '20:38',
+    reportedBy: 'OpenCV Optical AI (CAM-10)',
+    reportedById: 'SYSTEM-OPENCV-CAM10',
+    reporterPhone: 'SOC Hot-Line',
+    status: 'ALERT SENT',
+    distanceMeters: 45,
+    assignedResponder: 'Guard 01 (Deepak Rao) & QRF Unit 1',
+    responderPhone: '+91 98765 43220',
+    estimatedArrivalMin: 1,
+    latitude: 26.2184,
+    longitude: 78.1829,
+    videoUrl: '/videos/cctv_recorded_incident.mp4',
+    photoUrl: 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=800&q=80',
+    evidence: {
+      videoUrl: '/videos/cctv_recorded_incident.mp4',
+      photoUrl: 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=800&q=80',
+      fightConfidence: 94,
+      aiClassification: {
+        action: 'Violent Physical Altercation & Rapid Kinetic Strikes',
+        severity: 'CRITICAL',
+        engine: 'OpenCV Optical Flow & MOG2 Multi-Tracker'
+      }
+    },
+    notes: [
+      'Automated SOS trigger initiated by OpenCV Optical Vision Engine in Seminar Hall 4 (SH-4)',
+      'High-velocity kinetic jerk and subject collision confirmed above 90% confidence threshold',
+      'Audio proctor sirens dispatched to local zone'
+    ],
+    timeline: [
+      { time: '20:38', event: 'OpenCV Fight Detection Triggered (94% Conf)', actor: 'AI Sensor CAM-10', detail: 'Sustained kinetic altercation > 3.0s' },
+      { time: '20:38', event: 'Automated SOS Broadcast Dispatched', actor: 'C3S Defense Engine', detail: 'Geo-locked to SH-4 (Main_GF, room_J010)' },
+      { time: '20:39', event: 'QRF Patrol Team 1 Dispatched', actor: 'SOC Operator', detail: 'Guards dispatched with emergency response kit' }
+    ]
+  },
+  {
+    id: 'C3S-INC-00194',
+    title: 'Aggressive Shoving Incident (Corridor Sector)',
+    type: 'Security Threat',
+    priority: 'HIGH',
+    location: 'AI & CSE Building First Floor Corridor (Near M103)',
+    zone: 'AI & CSE Building',
+    reportedAt: '20:22',
+    reportedBy: 'Faculty Cabin Report (Dr. Archana Acharya)',
+    reportedById: 'FAC-AI-01',
+    reporterPhone: '+91 98765 43250',
+    status: 'RESOLVED',
+    distanceMeters: 120,
+    assignedResponder: 'Guard 02 (Vikram Rathore)',
+    responderPhone: '+91 98765 43215',
+    estimatedArrivalMin: 2,
+    latitude: 26.2181,
+    longitude: 78.1825,
+    videoUrl: '/videos/cctv_recorded_incident.mp4',
+    photoUrl: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80',
+    evidence: {
+      videoUrl: '/videos/cctv_recorded_incident.mp4',
+      photoUrl: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80',
+      fightConfidence: 86
+    },
+    notes: [
+      'Minor confrontation between students outside classroom M103',
+      'Faculty intervened immediately; campus guard arrived within 90 seconds. Dispersed peacefully.'
+    ],
+    timeline: [
+      { time: '20:22', event: 'Altercation reported by faculty', actor: 'Dr. Archana Acharya' },
+      { time: '20:23', event: 'Guard arrived on scene', actor: 'Guard 02' },
+      { time: '20:26', event: 'Incident resolved & students counseled', actor: 'Chief Proctor Office' }
+    ]
+  },
+  {
     id: 'C3S-INC-00192',
     title: 'Medical Emergency',
     type: 'Medical Emergency',
