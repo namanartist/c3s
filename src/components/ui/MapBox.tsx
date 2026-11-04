@@ -20,6 +20,7 @@ import { NodeDetailDrawer } from '@/components/map/NodeDetailDrawer';
 import { getMapLocationTags } from '@/lib/mapLabels';
 import { CAMPUS_HEATMAP_ZONES, getHeatColor } from '@/lib/campusHeatmap';
 import { useC3SStore } from '@/store/c3sStore';
+import { useThemeStore } from '@/store/themeStore';
 
 interface Point {
   x: number;
@@ -464,6 +465,7 @@ export default function MapBox({
   }, [edges, nodesMap, mapId]);
 
   const activeTheme = useSafetyStore((s) => s.activeTheme);
+  const currentTheme = useThemeStore((s) => s.theme);
   const is3dMode = useSafetyStore((s) => s.is3dMode);
   const pitch = useSafetyStore((s) => s.pitch);
   const incidents = useSafetyStore((s) => s.incidents);
@@ -797,16 +799,17 @@ export default function MapBox({
     >
       <div
         ref={containerRef}
-        className={`relative w-full h-full overflow-hidden touch-none transition-colors duration-500 ${activeTheme === 'dark'
-            ? 'bg-[#0b0f19]'
+        className={`relative w-full h-full overflow-hidden touch-none transition-colors duration-500 ${
+          currentTheme === 'dark' || activeTheme === 'dark'
+            ? 'bg-[#070B14]'
             : activeTheme === 'satellite'
               ? 'bg-[#152317]'
               : activeTheme === 'safety'
                 ? 'bg-[#0f172a]'
                 : activeTheme === '3d'
                   ? 'bg-[#f4f1ea]'
-                  : 'bg-[#fcfaf6]'
-          }`}
+                  : 'bg-[#F8FAFC]'
+        }`}
         style={{
           perspective: is3dMode || activeTheme === '3d' ? '1200px' : undefined,
           perspectiveOrigin: '50% 50%'
@@ -825,8 +828,8 @@ export default function MapBox({
               transformOrigin: '50% 50%',
               imageRendering: 'crisp-edges',
               filter:
-                activeTheme === 'dark'
-                  ? 'invert(0.9) hue-rotate(180deg) contrast(1.15) brightness(1.05)'
+                currentTheme === 'dark' || activeTheme === 'dark'
+                  ? 'invert(0.92) hue-rotate(190deg) contrast(1.1) brightness(0.95)'
                   : activeTheme === 'safety'
                     ? 'invert(0.8) hue-rotate(160deg) contrast(1.15)'
                     : undefined,
@@ -1580,11 +1583,11 @@ export default function MapBox({
               {/* Floor Buttons (Segmented Pills) */}
               {buildingFloors.length > 0 && (
                 <>
-                  <div className="h-5 w-[1px] bg-slate-200 dark:bg-white/10" />
+                  <div className="h-5 w-[1px] bg-slate-200 dark:bg-slate-700" />
                   <div className="flex items-center gap-1">
                     {buildingFloors.map((f) => {
                       const isActive = f.map === mapId;
-                      const label = f.floor === 0 ? 'GF' : `F${f.floor}`;
+                      const label = f.floor === 0 ? 'GF' : f.floor === 1 ? 'FF' : f.floor === 2 ? 'SF' : f.floor === 3 ? 'TF' : `F${f.floor}`;
                       return (
                         <button
                           key={f.map}
@@ -1830,6 +1833,59 @@ export default function MapBox({
 
         {/* CCTV Camera Live Surveillance & Crowd Telemetry Modal */}
         <CameraDetailModal />
+
+        {/* Architectural Blueprint Legend (Indoor Floor Plans) */}
+        {mapId !== 'Campus_Map' && mapId && (
+          <div className="absolute bottom-5 left-3 sm:left-5 z-20 pointer-events-auto max-w-[94vw] sm:max-w-2xl select-none transition-all">
+            <div className="flex flex-wrap items-center gap-2 bg-white/95 dark:bg-[#070B14]/90 backdrop-blur-xl border border-slate-200/90 dark:border-slate-800 px-3.5 py-2 rounded-2xl shadow-xl text-[10px] sm:text-[11px] font-medium text-slate-800 dark:text-slate-200 transition-colors">
+              <span className="font-mono font-black text-slate-900 dark:text-white uppercase tracking-wider text-[10px] mr-1">
+                Legend |
+              </span>
+
+              {/* Classroom */}
+              <div className="flex items-center gap-1.5">
+                <span className="w-3.5 h-3 rounded bg-sky-100 dark:bg-sky-950/80 border border-sky-500" />
+                <span className="text-slate-700 dark:text-slate-300 font-semibold text-[10px]">Classroom</span>
+              </div>
+
+              {/* Faculty Cabin */}
+              <div className="flex items-center gap-1.5">
+                <span className="w-3.5 h-3 rounded bg-emerald-100 dark:bg-emerald-950/80 border border-emerald-500" />
+                <span className="text-slate-700 dark:text-slate-300 font-semibold text-[10px]">Faculty Cabin</span>
+              </div>
+
+              {/* Washroom */}
+              <div className="flex items-center gap-1.5">
+                <span className="w-3.5 h-3 rounded bg-orange-100 dark:bg-orange-950/80 border border-orange-500" />
+                <span className="text-slate-700 dark:text-slate-300 font-semibold text-[10px]">Washroom</span>
+              </div>
+
+              {/* Utility / Service */}
+              <div className="hidden sm:flex items-center gap-1.5">
+                <span className="w-3.5 h-3 rounded bg-purple-100 dark:bg-purple-950/80 border border-purple-500" />
+                <span className="text-slate-700 dark:text-slate-300 font-semibold text-[10px]">Utility</span>
+              </div>
+
+              {/* Corridor */}
+              <div className="hidden sm:flex items-center gap-1.5">
+                <span className="w-4 h-0.5 border-b-2 border-dashed border-sky-500" />
+                <span className="text-slate-700 dark:text-slate-300 font-semibold text-[10px]">Corridor</span>
+              </div>
+
+              {/* Staircase */}
+              <div className="flex items-center gap-1.5">
+                <span className="w-3.5 h-3 rounded bg-rose-100 dark:bg-rose-950/80 border border-rose-500" />
+                <span className="text-slate-700 dark:text-slate-300 font-semibold text-[10px]">Staircase</span>
+              </div>
+
+              {/* Lift */}
+              <div className="flex items-center gap-1.5">
+                <span className="w-3.5 h-3 rounded bg-indigo-100 dark:bg-indigo-950/80 border border-indigo-500" />
+                <span className="text-slate-700 dark:text-slate-300 font-semibold text-[10px]">Lift</span>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Real-world GPS Georeference Badge */}
         {mapId === 'Campus_Map' && (

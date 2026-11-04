@@ -186,13 +186,8 @@ export const CCTVGrid: React.FC = () => {
                   )
                 )}
 
-                <div
-                  className="pointer-events-none absolute inset-0 opacity-20"
-                  style={{
-                    backgroundImage:
-                      'repeating-linear-gradient(0deg, #000, #000 2px, transparent 2px, transparent 4px)'
-                  }}
-                />
+                {/* Clean Viewport Vignette */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
 
                 <div className="z-10 flex items-center justify-between text-[11px]">
                   <span className="rounded bg-black/70 px-2 py-0.5 font-mono font-bold text-slate-200 backdrop-blur-md border border-white/10">
@@ -269,14 +264,14 @@ export const CCTVGrid: React.FC = () => {
 
       {/* Camera Live Stream & Telemetry Modal */}
       {selectedCam && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md animate-in fade-in">
-          <div className="relative w-full max-w-4xl overflow-hidden rounded-3xl border border-slate-700 bg-slate-950 p-6 shadow-2xl flex flex-col max-h-[92vh]">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md animate-in fade-in">
+          <div className="relative w-full max-w-4xl overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-[#070B14]/95 p-6 shadow-2xl flex flex-col max-h-[92vh] text-slate-900 dark:text-slate-100 transition-colors">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
               <div className="flex items-center gap-2">
-                <span className="rounded bg-blue-600 px-2.5 py-0.5 text-xs font-mono font-bold text-white shadow-md shadow-blue-600/30">
+                <span className="rounded-xl bg-blue-600 px-2.5 py-1 text-xs font-mono font-black text-white shadow-md shadow-blue-500/20">
                   {selectedCam.id}
                 </span>
-                <h3 className="text-base sm:text-lg font-bold text-white truncate max-w-sm sm:max-w-md">
+                <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white truncate max-w-sm sm:max-w-md">
                   {selectedCam.name}
                 </h3>
                 <StatusBadge status={selectedCam.status} size="sm" />
@@ -301,7 +296,7 @@ export const CCTVGrid: React.FC = () => {
                     });
                     globalProctorAlarm.triggerAlarm(`Live SOS Triggered from ${selectedCam.name}`);
                   }}
-                  className="px-3 py-1 rounded-full bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-black text-xs flex items-center gap-1.5 shadow-md shadow-red-600/40 active:scale-95 transition-all cursor-pointer animate-pulse"
+                  className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-600 text-white font-black text-xs flex items-center gap-1.5 shadow-md shadow-red-600/30 active:scale-95 transition-all cursor-pointer animate-pulse"
                   title="Broadcast Live SOS and sound Proctor emergency alarm"
                 >
                   <ShieldAlert className="w-3.5 h-3.5" />
@@ -310,22 +305,17 @@ export const CCTVGrid: React.FC = () => {
 
                 <button
                   onClick={() => setSelectedCam(null)}
-                  className="rounded-lg p-1 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                  className="rounded-xl p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                  title="Close Modal"
                 >
-                  <X className="h-6 w-6" />
+                  <X className="h-5 w-5" />
                 </button>
               </div>
             </div>
 
             {/* Video Viewport */}
             <div className="relative mt-4 h-80 sm:h-96 w-full rounded-2xl bg-black flex flex-col items-center justify-center overflow-hidden border border-slate-800 shadow-inner">
-              <div
-                className="pointer-events-none absolute inset-0 opacity-20 z-10"
-                style={{
-                  backgroundImage:
-                    'repeating-linear-gradient(0deg, #000, #000 2px, transparent 2px, transparent 4px)'
-                }}
-              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 z-10" />
 
               {modalStreamMode === 'webcam' ? (
                 <LiveWebcamFeed
@@ -396,31 +386,31 @@ export const CCTVGrid: React.FC = () => {
 
             {/* Telemetry and Metadata Grid */}
             <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span className="text-[10px] text-slate-400 uppercase font-mono">Live Human Count</span>
-                <p className="text-base font-bold text-white flex items-center gap-1.5 mt-0.5">
-                  <Users className="w-4 h-4 text-blue-400" />
-                  <span>{selectedCam.crowdCount ?? 3} People</span>
+              <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 transition-colors">
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-mono font-semibold tracking-wider">Live Human Count</span>
+                <p className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-1.5 mt-1">
+                  <Users className="w-4 h-4 text-blue-500" />
+                  <span className="font-mono font-black">{selectedCam.crowdCount ?? 3} People</span>
                 </p>
               </div>
 
-              <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span className="text-[10px] text-slate-400 uppercase font-mono">Fight / Threat AI</span>
-                <p className={`text-sm font-bold mt-0.5 ${selectedCam.fightDetected ? 'text-red-400 font-mono font-black animate-pulse' : 'text-emerald-400'}`}>
+              <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 transition-colors">
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-mono font-semibold tracking-wider">Fight / Threat AI</span>
+                <p className={`text-sm font-bold mt-1 ${selectedCam.fightDetected ? 'text-red-600 dark:text-red-400 font-mono font-black animate-pulse' : 'text-emerald-600 dark:text-emerald-400 font-mono'}`}>
                   {selectedCam.fightDetected ? `🚨 FIGHT: ${selectedCam.fightConfidence || 92}%` : 'SECURE (0%)'}
                 </p>
               </div>
 
-              <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span className="text-[10px] text-slate-400 uppercase font-mono">Zone / Area</span>
-                <p className="text-xs font-bold text-slate-200 mt-0.5 truncate">
+              <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 transition-colors">
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-mono font-semibold tracking-wider">Zone / Area</span>
+                <p className="text-xs font-bold text-slate-900 dark:text-slate-200 mt-1 truncate">
                   {selectedCam.zone} ({selectedCam.location})
                 </p>
               </div>
 
-              <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span className="text-[10px] text-slate-400 uppercase font-mono">AI Classification</span>
-                <p className="text-xs font-bold text-slate-300 mt-0.5">
+              <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 transition-colors">
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-mono font-semibold tracking-wider">AI Classification</span>
+                <p className="text-xs font-bold text-slate-700 dark:text-slate-300 mt-1">
                   {selectedCam.lastMotion || 'Perimeter Active'}
                 </p>
               </div>

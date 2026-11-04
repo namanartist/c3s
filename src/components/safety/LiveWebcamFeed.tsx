@@ -279,56 +279,26 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
       {/* 2. Optical AI Overlay for Real-time Headcount & Altercation Telemetry */}
       {permissionState === 'granted' && (
         <>
-          <LiveDetectionOverlay detection={detection} />
+          <LiveDetectionOverlay detection={detection} showTopBar={false} showBottomBar={false} />
 
-          {/* Active Live Hardware / Stream Badge */}
+          {/* Active Live Hardware / Stream Status Badge (Top Left) */}
           <div className="absolute top-3 left-3 z-30 flex items-center gap-2">
-            <div className="flex items-center gap-1.5 bg-red-600/95 text-white px-3 py-1 rounded-full text-[10px] font-mono font-black uppercase tracking-wider shadow-lg shadow-red-600/40 backdrop-blur-md">
+            <div className="flex items-center gap-1.5 bg-red-600/90 text-white px-3 py-1 rounded-full text-[10px] font-mono font-black uppercase tracking-wider shadow-lg shadow-red-600/30 backdrop-blur-md border border-white/20">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-80" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
               </span>
-              <span>{isSimulatedLanFeed ? 'LAN IP STREAM • CAM ACTIVE' : 'LIVE WEBCAM HARDWARE'}</span>
+              <span>{isSimulatedLanFeed ? 'LAN IP STREAM • ACTIVE' : 'LIVE WEBCAM HARDWARE'}</span>
             </div>
-
-            {/* LIVE SOS TRIGGER BUTTON */}
-            <button
-              type="button"
-              onClick={handleTriggerLiveSos}
-              className="px-3 py-1 rounded-full bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-600 text-white font-black text-[10px] font-mono flex items-center gap-1.5 shadow-lg shadow-red-600/50 active:scale-95 transition-all cursor-pointer animate-pulse border border-white/20"
-              title="Immediately broadcast Live SOS with CCTV telemetry to Chief Proctor"
-            >
-              <ShieldAlert className="w-3.5 h-3.5" />
-              <span>LIVE SOS</span>
-            </button>
           </div>
 
-          {/* Top Right Controls: Camera switcher & Test Fight Trigger */}
-          <div className="absolute top-3 right-3 z-30 flex items-center gap-2">
-            <button
-              onClick={handleToggleCombatSimulation}
-              className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold flex items-center gap-1.5 transition-all shadow-md cursor-pointer ${
-                isAutoFlagged || simulateCombat
-                  ? 'bg-red-600 text-white animate-pulse'
-                  : 'bg-black/80 hover:bg-red-950/80 text-amber-300 border border-amber-500/30'
-              }`}
-              title="Aggressive combat altercation status & Proctor emergency alarm"
-            >
-              <Zap className="w-3 h-3 text-amber-300" />
-              <span>
-                {isAutoFlagged
-                  ? `⚡ AUTO-FLAGGED (${Math.round(detection.fight.confidence)}%)`
-                  : simulateCombat
-                  ? 'AGGRESSION FLAGGED'
-                  : 'FLAG AGGRESSIVE ACTIVITY'}
-              </span>
-            </button>
-
-            {availableDevices.length > 1 && !isSimulatedLanFeed && (
+          {/* Top Right: Camera Device Switcher (when multiple available) */}
+          {availableDevices.length > 1 && !isSimulatedLanFeed && (
+            <div className="absolute top-3 right-3 z-30">
               <select
                 value={selectedDeviceId}
                 onChange={(e) => setSelectedDeviceId(e.target.value)}
-                className="bg-black/80 border border-white/20 text-white text-[10px] font-mono rounded-lg px-2 py-1 backdrop-blur-md focus:outline-none cursor-pointer"
+                className="bg-black/80 border border-white/20 text-white text-[10px] font-mono rounded-xl px-2.5 py-1 backdrop-blur-md focus:outline-none cursor-pointer shadow-lg"
               >
                 {availableDevices.map((device, idx) => (
                   <option key={device.deviceId || idx} value={device.deviceId}>
@@ -336,19 +306,19 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
                   </option>
                 ))}
               </select>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Live SOS / Aggression Broadcast Confirmation Toast */}
           {sosStatusText && (
-            <div className="absolute top-14 left-1/2 -translate-x-1/2 z-40 bg-red-600 text-white px-4 py-2 rounded-xl text-xs font-mono font-black shadow-2xl border border-white/30 animate-bounce">
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-40 bg-red-600 text-white px-4 py-2 rounded-xl text-xs font-mono font-black shadow-2xl border border-white/30 animate-bounce">
               {sosStatusText}
             </div>
           )}
 
           {/* Real-time ML Telemetry Strip at Bottom */}
           <div className="absolute bottom-3 left-3 right-3 z-30 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
-            <div className="flex items-center gap-2 bg-black/80 border border-white/10 px-3 py-1.5 rounded-xl text-[10px] font-mono text-slate-300 backdrop-blur-md">
+            <div className="flex items-center gap-2 bg-black/80 border border-white/15 px-3 py-1.5 rounded-xl text-[10px] font-mono text-slate-300 backdrop-blur-md shadow-xl">
               <span className="text-emerald-400 font-bold flex items-center gap-1">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                 RWF-2000 ML ACTIVE
@@ -363,12 +333,12 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
 
             <div className="flex items-center gap-2">
               <div
-                className={`px-2.5 py-1 rounded-xl border text-[10px] font-mono font-bold backdrop-blur-md flex items-center gap-1.5 ${
+                className={`px-3 py-1 rounded-xl border text-[10px] font-mono font-bold backdrop-blur-md flex items-center gap-1.5 shadow-lg ${
                   classificationState === 'CONFIRMED_AGGRESSION'
-                    ? 'bg-red-600/90 border-red-400 text-white animate-pulse shadow-lg shadow-red-600/40'
+                    ? 'bg-red-600/90 border-red-400 text-white animate-pulse shadow-red-600/40'
                     : classificationState === 'SUSPICIOUS'
-                    ? 'bg-amber-600/30 border-amber-500/50 text-amber-300'
-                    : 'bg-emerald-950/40 border-emerald-500/30 text-emerald-300'
+                    ? 'bg-amber-600/40 border-amber-500/60 text-amber-300'
+                    : 'bg-emerald-950/60 border-emerald-500/40 text-emerald-300'
                 }`}
               >
                 <span
@@ -376,7 +346,7 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
                     classificationState === 'CONFIRMED_AGGRESSION'
                       ? 'bg-white animate-ping'
                       : classificationState === 'SUSPICIOUS'
-                      ? 'bg-amber-400'
+                      ? 'bg-amber-400 animate-pulse'
                       : 'bg-emerald-400'
                   }`}
                 />
@@ -389,7 +359,7 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
                 </span>
               </div>
 
-              <div className="px-2.5 py-1 rounded-xl bg-black/80 border border-white/10 text-[10px] font-mono text-cyan-400 backdrop-blur-md">
+              <div className="px-2.5 py-1 rounded-xl bg-black/80 border border-white/15 text-[10px] font-mono text-cyan-400 backdrop-blur-md shadow-lg">
                 <span>{detection.fps || 30} FPS • 720p HD</span>
               </div>
             </div>
