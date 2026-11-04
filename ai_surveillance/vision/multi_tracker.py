@@ -1,7 +1,8 @@
 """
 ai_surveillance/vision/multi_tracker.py
-Stage 2: Multi-Object Tracking (ByteTrack / Kalman Filter Tracking).
-Maintains persistent track IDs, inter-person distances, and interaction velocities.
+Stage 2: Multi-Object & Multi-Person Tracking using OpenCV.
+Maintains persistent track IDs, inter-person distances, and interaction velocities
+without heavy deep learning tracking dependencies.
 """
 
 from typing import Dict, List, Tuple
@@ -9,19 +10,30 @@ import numpy as np
 
 
 class TrackedSubject:
-    def __init__(self, track_id: int, bbox: Tuple[float, float, float, float], score: float):
+    def __init__(
+        self,
+        track_id: int,
+        bbox: Tuple[float, float, float, float],
+        score: float,
+        cls_id: int = 0,
+        class_label: str = "person"
+    ):
         self.track_id = track_id
         self.bbox = bbox  # x1, y1, x2, y2
         self.score = score
+        self.cls_id = cls_id
+        self.class_label = class_label
         self.history: List[Tuple[float, float, float, float]] = [bbox]
         self.centroid = ((bbox[0] + bbox[2]) / 2.0, (bbox[1] + bbox[3]) / 2.0)
         self.velocity = (0.0, 0.0)
         self.time_since_update = 0
 
-    def update(self, bbox: Tuple[float, float, float, float], score: float):
+    def update(self, bbox: Tuple[float, float, float, float], score: float, cls_id: int = 0):
         old_cx, old_cy = self.centroid
         self.bbox = bbox
         self.score = score
+        self.cls_id = cls_id
+        self.class_label = "person" if cls_id == 0 else "object"
         self.history.append(bbox)
         if len(self.history) > 30:
             self.history.pop(0)
@@ -35,8 +47,8 @@ class TrackedSubject:
 
 class MultiPersonTracker:
     """
-    IoU-based association tracker with Kalman motion continuity.
-    Preserves tracking IDs across occlusions and violent collisions.
+    OpenCV IoU-based association tracker with motion continuity.
+    Preserves tracking IDs across occlusions, crowds, and physical altercations.
     """
     def __init__(self, iou_threshold: float = 0.35, max_age: int = 30):
         self.iou_threshold = iou_threshold
@@ -85,14 +97,24 @@ class MultiPersonTracker:
                         best_det_idx = d_idx
 
                 if best_iou >= self.iou_threshold and best_det_idx >= 0:
-                    self.tracks[t_id].update(det_boxes[best_det_idx], detections[best_det_idx][4])
+                    matched_det = detections[best_det_idx]
+                    det_cls = matched_det[5] if len(matched_det) > 5 else 0
+                    self.tracks[t_id].update(det_boxes[best_det_idx], matched_det[4], cls_id=det_cls)
                     matched_tracks.add(t_id)
                     matched_dets.add(best_det_idx)
 
         # Create new tracks for unmatched detections
         for d_idx, d_box in enumerate(det_boxes):
             if d_idx not in matched_dets:
-                new_track = TrackedSubject(self.next_id, d_box, detections[d_idx][4])
+                d_cls = detections[d_idx][5] if len(detections[d_idx]) > 5 else 0
+                d_label = "person" if d_cls == 0 else "object"
+                new_track = TrackedSubject(
+                    self.next_id,
+                    d_box,
+                    detections[d_idx][4],
+                    cls_id=d_cls,
+                    class_label=d_label
+                )
                 self.tracks[self.next_id] = new_track
                 self.next_id += 1
 
@@ -133,4 +155,9 @@ class MultiPersonTracker:
                     "is_in_contact": dist < 85.0
                 })
         return pairs
+
+
+# Backward-compatible and OpenCV-native alias
+OpenCVMultiTracker = MultiPersonTracker
+
 

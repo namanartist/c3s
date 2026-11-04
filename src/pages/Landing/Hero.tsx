@@ -26,12 +26,12 @@ export default function Hero() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const quickDestinations = [
+    { label: 'SH-4 (Seminar Hall 4)', query: 'SH-4', map: 'Main_GF', badge: 'Seminar' },
     { label: 'Room 101 (J125)', query: '101', map: 'Main_FF', badge: 'Classroom' },
     { label: 'Room 102 (J126)', query: '102', map: 'Main_FF', badge: 'Classroom' },
     { label: 'Colloquium Hall', query: 'colloquium', map: 'Main_FF', badge: 'Seminar' },
     { label: 'Central Library', query: 'library', map: 'Campus_Map', badge: 'Facility' },
     { label: 'Main Gate', query: 'main gate', map: 'Campus_Map', badge: 'Access' },
-    { label: 'AI Block M101', query: 'M101', map: 'AI_FF', badge: 'AI & CSE' },
   ];
 
   const handleSearchSubmit = (e: React.FormEvent) => {

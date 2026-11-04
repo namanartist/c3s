@@ -112,15 +112,16 @@ class FightAlertDispatcher {
       // Draw actual video frame
       ctx.drawImage(videoElement, 0, 0, 640, 420);
     } else {
-      // Neutral camera stream snapshot (no synthetic people)
+      // Synthetic tactical camera snapshot
       const grad = ctx.createLinearGradient(0, 0, 640, 420);
-      grad.addColorStop(0, '#0a0d16');
+      grad.addColorStop(0, '#1a0508');
+      grad.addColorStop(0.5, '#0a0d16');
       grad.addColorStop(1, '#050811');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 640, 420);
 
-      // Camera grid
-      ctx.strokeStyle = '#1e293b';
+      // Radar scanline grid
+      ctx.strokeStyle = '#331219';
       ctx.lineWidth = 1;
       for (let x = 0; x < 640; x += 40) {
         ctx.beginPath();
@@ -135,10 +136,17 @@ class FightAlertDispatcher {
         ctx.stroke();
       }
 
-      ctx.fillStyle = '#64748b';
+      // Simulated combatant bounding boxes watermark
+      ctx.strokeStyle = '#ef4444';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(220, 110, 110, 200);
+      ctx.strokeRect(310, 120, 105, 190);
+
+      ctx.fillStyle = '#ef4444';
+      ctx.fillRect(220, 85, 200, 24);
+      ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 12px monospace';
-      ctx.fillText(`CCTV VIDEO STREAM: ${cameraName}`, 20, 210);
-      ctx.fillText(`TELEMETRY CAPTURED AT ${new Date().toISOString()}`, 20, 230);
+      ctx.fillText(`🚨 COMBATANTS DETECTED [${confidence}%]`, 225, 102);
     }
 
     // Top Critical Banner Watermark
@@ -146,7 +154,7 @@ class FightAlertDispatcher {
     ctx.fillRect(0, 0, 640, 38);
     ctx.fillStyle = '#ffffff';
     ctx.font = 'black 14px monospace';
-    ctx.fillText(`🚨 C3S AI SURVEILLANCE • CONFIDENCE: ${confidence}%`, 15, 24);
+    ctx.fillText(`🚨 C3S KAGGLE RWF-2000 FIGHT AI • CONFIDENCE: ${confidence}%`, 15, 24);
 
     // Bottom Telemetry Overlay
     ctx.fillStyle = 'rgba(2, 6, 23, 0.88)';
@@ -164,7 +172,7 @@ class FightAlertDispatcher {
   }
 
   /**
-   * Dispatches validated high-confidence fight alerts (>= 85%) confirmed by the SOS decision engine
+   * Dispatches high-confidence fight alerts (>= 65%) promptly and triggers active SOS
    */
   public handleFightDetection(payload: {
     cameraId: string;
@@ -174,24 +182,22 @@ class FightAlertDispatcher {
     videoElement?: HTMLVideoElement | null;
     videoUrl?: string;
     nodeId?: string;
-    incidentId?: string;
   }) {
-    const { cameraId, cameraName, location, confidence, videoElement, videoUrl, incidentId: providedIncidentId } = payload;
+    const { cameraId, cameraName, location, confidence, videoElement, videoUrl } = payload;
 
-    // Strict SOS gate: minimum 85% confidence
-    if (confidence < 85) return;
+    if (confidence < 65) return;
 
-    // Strict cooldown check (30 seconds per camera)
+    // Cooldown check (20 seconds per camera) to avoid repetitive alerts while keeping responsiveness
     const nowMs = Date.now();
     const lastAlert = this.lastAlertTimeByCamera.get(cameraId) || 0;
-    if (nowMs - lastAlert < 30000) {
+    if (nowMs - lastAlert < 20000) {
       return;
     }
     this.lastAlertTimeByCamera.set(cameraId, nowMs);
 
-    // 1. Resolve Campus Node Coordinates (Fallback to UNKNOWN if not mapped)
-    let resolvedNodeId = payload.nodeId || 'UNKNOWN_NODE';
-    let resolvedNodeName = location && location !== 'UNKNOWN' ? location : 'Location Unverified (Zone Monitoring)';
+    // 1. Resolve Campus Node Coordinates (Default to J010 - SH-4 Seminar Hall 4)
+    let resolvedNodeId = payload.nodeId || 'room_J010';
+    let resolvedNodeName = location.includes('SH') || location.includes('J010') ? location : 'J010 – SH-4 (Seminar Hall 4)';
     let resolvedLat = 26.23185102;
     let resolvedLng = 78.20636481;
     let resolvedX = 162.9803;
@@ -276,7 +282,7 @@ class FightAlertDispatcher {
       }
     };
 
-    const incidentId = providedIncidentId || `FIGHT-AI-${Math.floor(1000 + Math.random() * 9000)}`;
+    const incidentId = `FIGHT-AI-${Math.floor(1000 + Math.random() * 9000)}`;
     const timeString = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     // 4. Record into c3sStore
@@ -284,11 +290,11 @@ class FightAlertDispatcher {
       id: incidentId,
       title: `🚨 FIGHT DETECTED (${confidence}%): ${cameraName}`,
       type: 'Security Threat',
-      location: `${resolvedNodeName} [Node: #${resolvedNodeId}]`,
+      location: `${location} [Node: #${resolvedNodeId}]`,
       zone: 'Perimeter & Academic Zone',
       reportedAt: timeString,
-      reportedBy: 'C3S AI Surveillance Engine',
-      reportedById: 'AI-CV-C3S',
+      reportedBy: 'Kaggle RWF-2000 Optical AI Surveillance',
+      reportedById: 'AI-CV-RWF2000',
       reporterPhone: '+91 751-2409301',
       status: 'ALERT SENT',
       priority: 'CRITICAL',

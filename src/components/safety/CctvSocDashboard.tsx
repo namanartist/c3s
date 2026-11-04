@@ -229,8 +229,8 @@ export function CctvSocDashboard() {
                 isNightVision ? 'brightness-125 contrast-150 hue-rotate-90 bg-emerald-950/80' : 'bg-neutral-950'
               }`}
             >
-              {/* Subtle Vignette Canvas */}
-              <div className="absolute inset-0 pointer-events-none z-10 shadow-[inset_0_0_80px_rgba(0,0,0,0.5)]" />
+              {/* Scanline Effect Overlay */}
+              <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px] pointer-events-none z-10 opacity-60" />
 
               {/* Viewport Content: Live Stream or Blueprint HUD */}
               {streamMode === 'webcam' ? (

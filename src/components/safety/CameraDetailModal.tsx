@@ -71,98 +71,43 @@ export const CameraDetailModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md animate-in fade-in">
-      <div className="relative w-full max-w-4xl overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-[#070B14]/95 p-5 sm:p-6 shadow-2xl text-slate-900 dark:text-slate-100 flex flex-col max-h-[94vh] transition-colors">
-        {/* Header Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800/80 pb-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md animate-in fade-in">
+      <div className="relative w-full max-w-3xl overflow-hidden rounded-3xl border border-slate-700 bg-slate-950 p-5 shadow-2xl text-slate-100 flex flex-col max-h-[92vh]">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
           <div className="flex items-center gap-3">
-            <span className="rounded-xl bg-blue-600 px-2.5 py-1 text-xs font-mono font-black text-white shadow-md shadow-blue-500/20">
+            <span className="rounded-lg bg-blue-600 px-2 py-0.5 text-xs font-mono font-bold text-white shadow-md">
               {selectedCamera.id}
             </span>
             <div>
-              <div className="flex flex-wrap items-center gap-2">
-                <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white truncate max-w-xs sm:max-w-md">
+              <div className="flex items-center gap-2">
+                <h3 className="text-base font-bold text-white truncate max-w-xs sm:max-w-md">
                   {selectedCamera.name}
                 </h3>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>ONLINE</span>
-                </span>
                 {hasFight && (
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-black bg-red-600 text-white shadow-md animate-pulse flex items-center gap-1">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-black bg-red-600/90 text-white shadow animate-pulse flex items-center gap-1">
                     <ShieldAlert className="w-3 h-3" />
                     <span>FIGHT: {fightConfidence}% CONF</span>
                   </span>
                 )}
                 {isLiveCapable && !hasFight && (
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-red-600/10 dark:bg-red-500/20 text-red-600 dark:text-red-400 border border-red-500/30 flex items-center gap-1">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-red-600/20 text-red-400 border border-red-500/30 flex items-center gap-1 animate-pulse">
                     <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
-                    <span>HARDWARE CAM</span>
+                    <span>LIVE HARDWARE ACCESS</span>
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
-                {selectedCamera.location} • <span className="font-mono">{selectedCamera.zone}</span>
+              <p className="text-[11px] text-slate-400 font-mono">
+                {selectedCamera.location} • {selectedCamera.zone}
               </p>
             </div>
           </div>
 
-          {/* Action Toolbar */}
-          <div className="flex items-center flex-wrap gap-2">
-            {/* Stream Mode Segmented Switcher */}
-            <div className="flex items-center bg-slate-100 dark:bg-slate-900/90 p-1 rounded-xl border border-slate-200 dark:border-slate-800">
-              {isLiveCapable && (
-                <button
-                  type="button"
-                  onClick={() => setStreamMode('webcam')}
-                  className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                    streamMode === 'webcam'
-                      ? 'bg-red-600 text-white shadow-md shadow-red-600/30'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  <Video className="w-3 h-3" />
-                  <span>LIVE WEBCAM</span>
-                </button>
-              )}
-              <button
-                type="button"
-                onClick={() => setStreamMode('video')}
-                className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer ${
-                  streamMode === 'video'
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                }`}
-              >
-                RECORDED
-              </button>
-              <button
-                type="button"
-                onClick={() => setStreamMode('hud')}
-                className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer ${
-                  streamMode === 'hud'
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                }`}
-              >
-                HUD
-              </button>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleTriggerAggression}
-              className="px-3 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-700 dark:text-amber-300 border border-amber-500/30 font-mono font-bold text-xs flex items-center gap-1 transition-all cursor-pointer"
-              title="Flag aggressive altercation activity"
-            >
-              <Zap className="w-3.5 h-3.5 text-amber-500" />
-              <span className="hidden sm:inline">FLAG AGGRESSION</span>
-            </button>
-
+          <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={handleTriggerLiveSos}
-              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-600 text-white font-black text-xs flex items-center gap-1.5 shadow-md shadow-red-600/30 active:scale-95 transition-all cursor-pointer animate-pulse"
+              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-600 text-white font-black text-xs flex items-center gap-1.5 shadow-md shadow-red-600/40 active:scale-95 transition-all cursor-pointer animate-pulse"
               title="Broadcast Live SOS and sound Proctor emergency alarm"
             >
               <ShieldAlert className="w-3.5 h-3.5" />
@@ -170,9 +115,18 @@ export const CameraDetailModal: React.FC = () => {
             </button>
 
             <button
+              type="button"
+              onClick={handleTriggerAggression}
+              className="px-2.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-mono font-bold text-xs flex items-center gap-1 transition-all cursor-pointer"
+              title="Flag aggressive combat or fight activity"
+            >
+              <Zap className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">FLAG AGGRESSION</span>
+            </button>
+
+            <button
               onClick={() => setSelectedCamera(null)}
-              className="rounded-xl p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-              title="Close Modal"
+              className="rounded-lg p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
             >
               <X className="h-5 w-5" />
             </button>
@@ -180,7 +134,7 @@ export const CameraDetailModal: React.FC = () => {
         </div>
 
         {/* Video / Live Optical Feed Container */}
-        <div className="relative mt-3.5 h-80 sm:h-[420px] w-full rounded-2xl bg-black flex flex-col items-center justify-center overflow-hidden border border-slate-200 dark:border-slate-800 shadow-inner">
+        <div className="relative mt-3 h-72 sm:h-96 w-full rounded-2xl bg-black flex flex-col items-center justify-center overflow-hidden border border-slate-800 shadow-inner">
           {streamMode === 'webcam' ? (
             <LiveWebcamFeed
               cameraId={selectedCamera.id}
@@ -215,61 +169,92 @@ export const CameraDetailModal: React.FC = () => {
               </div>
             )
           ) : (
-            <div className="w-full h-full relative flex flex-col items-center justify-center p-6 text-center bg-slate-950">
+            <div className="w-full h-full relative flex flex-col items-center justify-center p-4 text-center">
               <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:20px_20px]" />
-              <Camera className="h-12 w-12 text-blue-400 animate-pulse mb-3" />
-              <p className="font-mono text-sm text-slate-100 font-bold">TACTICAL RADAR SURVEILLANCE HUD</p>
-              <p className="text-xs text-slate-400 mt-1 max-w-sm">
-                Optical sensor tracking active on {selectedCamera.location} ({selectedCamera.zone}).
+              <Camera className="h-10 w-10 text-blue-400/70 animate-pulse mb-2" />
+              <p className="font-mono text-xs text-slate-200 font-bold">TACTICAL HUD RADAR STREAM</p>
+              <p className="text-[11px] text-slate-400 mt-0.5">
+                {selectedCamera.location} • {selectedCamera.zone}
               </p>
-              <div className="mt-4 text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3.5 py-1.5 rounded-xl">
-                Real-time Headcount: <strong>{currentCount === 1 ? '1 Person Detected' : `${currentCount} Persons Detected`}</strong>
+              <div className="mt-3 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-xl">
+                Real-time Headcount: <strong>{currentCount} Persons Detected</strong>
               </div>
             </div>
           )}
 
           {/* SOS Broadcast Confirmation Toast */}
           {sosNotice && (
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-40 bg-red-600 text-white px-4 py-2 rounded-xl text-xs font-mono font-black shadow-2xl border border-white/30 animate-bounce">
+            <div className="absolute top-12 left-1/2 -translate-x-1/2 z-40 bg-red-600 text-white px-4 py-2 rounded-xl text-xs font-mono font-black shadow-2xl border border-white/30 animate-bounce">
               {sosNotice}
             </div>
           )}
+
+          {/* Mode Switcher Tabs */}
+          <div className="absolute top-3 right-3 z-30 flex items-center gap-1.5 bg-black/80 p-1 rounded-xl border border-white/20 backdrop-blur-md">
+            {isLiveCapable && (
+              <button
+                onClick={() => setStreamMode('webcam')}
+                className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer flex items-center gap-1 ${
+                  streamMode === 'webcam'
+                    ? 'bg-red-600 text-white shadow-md'
+                    : 'text-slate-300 hover:text-white'
+                }`}
+              >
+                <Video className="w-3 h-3" />
+                <span>LIVE WEBCAM</span>
+              </button>
+            )}
+            <button
+              onClick={() => setStreamMode('video')}
+              className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer ${
+                streamMode === 'video'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              RECORDED
+            </button>
+            <button
+              onClick={() => setStreamMode('hud')}
+              className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer ${
+                streamMode === 'hud'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              HUD
+            </button>
+          </div>
         </div>
 
-        {/* Live Crowd Telemetry & Information Cards */}
-        <div className="mt-3.5 grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
-          <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 transition-colors">
-            <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-mono font-semibold tracking-wider">Live Human Count</span>
-            <p className="font-bold text-slate-900 dark:text-white flex items-center gap-2 mt-1 text-base">
-              <Users className="w-4 h-4 text-emerald-500" />
-              <span className="text-emerald-600 dark:text-emerald-400 font-mono font-black">
-                {currentCount === 1 ? '1 Person' : `${currentCount} People`}
-              </span>
+        {/* Live Crowd Telemetry & Quick Action Bar */}
+        <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+          <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800">
+            <span className="text-[10px] text-slate-400 uppercase font-mono">Live Human Count</span>
+            <p className="font-bold text-white flex items-center gap-1.5 mt-0.5 text-base">
+              <Users className="w-4 h-4 text-emerald-400" />
+              <span className="text-emerald-300 font-mono font-black">{currentCount} Detected</span>
             </p>
           </div>
 
-          <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 transition-colors">
-            <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-mono font-semibold tracking-wider">Fight / Threat AI</span>
-            <p className={`font-mono font-bold mt-1 text-sm ${hasFight ? 'text-red-600 dark:text-red-400 font-black animate-pulse' : 'text-emerald-600 dark:text-emerald-400'}`}>
+          <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800">
+            <span className="text-[10px] text-slate-400 uppercase font-mono">Fight / Threat AI</span>
+            <p className={`font-mono font-bold mt-0.5 text-sm ${hasFight ? 'text-red-400 font-black animate-pulse' : 'text-emerald-300'}`}>
               {hasFight ? `🚨 FIGHT: ${fightConfidence}%` : 'SECURE (0%)'}
             </p>
           </div>
 
-          <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 transition-colors">
-            <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-mono font-semibold tracking-wider">Crowd Density</span>
-            <div className="mt-1">
-              <span className={`inline-block px-2.5 py-0.5 rounded-lg font-mono font-bold text-[10px] ${badgeStyle.bg}`}>
-                {badgeStyle.label}
-              </span>
-            </div>
+          <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800">
+            <span className="text-[10px] text-slate-400 uppercase font-mono">Campus Crowd Density</span>
+            <span className={`inline-block mt-1 px-2 py-0.5 rounded font-mono font-bold text-[10px] ${badgeStyle.bg}`}>
+              {badgeStyle.label}
+            </span>
           </div>
 
-          <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 transition-colors flex items-center justify-between">
+          <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
             <div>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-mono font-semibold tracking-wider">AI Classification</span>
-              <p className="font-mono text-cyan-600 dark:text-cyan-400 font-bold mt-1 truncate max-w-[150px]">
-                {selectedCamera.latencyMs ?? 34}ms (Real-time)
-              </p>
+              <span className="text-[10px] text-slate-400 uppercase font-mono">Optical AI Latency</span>
+              <p className="font-mono text-emerald-400 font-bold mt-0.5">{selectedCamera.latencyMs ?? 34}ms (Real-time)</p>
             </div>
           </div>
         </div>
