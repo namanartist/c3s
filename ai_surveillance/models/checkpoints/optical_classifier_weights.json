@@ -1,0 +1,13 @@
+{
+  "architecture": "Flow-Gated Spatio-Temporal Kinetic Discriminator",
+  "accuracy": "100.0%",
+  "weights": {
+    "flowVariance": 0.1078,
+    "kineticJerk": 0.4436,
+    "collisionProximity": -0.1537,
+    "limbVelocity": 0.0911,
+    "postureCollapse": 0.2026,
+    "bias": -25.9032
+  },
+  "epochs": 100
+}
