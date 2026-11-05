@@ -79,6 +79,14 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
 
     const isCam08 = camera?.id === 'CAM-08' || camera?.id === 'cam_jubilee' || cameraId === 'CAM-08' || cameraId === 'cam_jubilee';
 
+    // CAM-08 is the ONLY live camera in the system. All other cameras fallback to recorded CCTV stream.
+    if (!isCam08) {
+      if (onFallbackToRecorded) {
+        onFallbackToRecorded();
+        return;
+      }
+    }
+
     try {
       // Browsers restrict navigator.mediaDevices on plain HTTP IP addresses (e.g. http://192.168.x.x:5173).
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {

@@ -11,7 +11,7 @@ import { globalProctorAlarm } from '@/lib/proctorAlarmAudio';
 export const CameraDetailModal: React.FC = () => {
   const selectedCamera = useSafetyStore((s) => s.selectedCamera);
   const setSelectedCamera = useSafetyStore((s) => s.setSelectedCamera);
-  const isLiveCapable = selectedCamera?.isLiveCameraSupported || selectedCamera?.id === 'cam_jubilee' || selectedCamera?.id === 'CAM-08' || selectedCamera?.id === 'cam_gate_1' || selectedCamera?.id === 'CAM-01';
+  const isLiveCapable = selectedCamera?.id === 'cam_jubilee' || selectedCamera?.id === 'CAM-08';
 
   const [streamMode, setStreamMode] = useState<'video' | 'hud' | 'webcam'>(
     selectedCamera?.id === 'CAM-08' || selectedCamera?.id === 'cam_jubilee' ? 'webcam' : 'video'

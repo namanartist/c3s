@@ -59,6 +59,8 @@ export function CctvSocDashboard() {
   useEffect(() => {
     if (focusedCamera?.id === 'cam_jubilee' || focusedCamera?.id === 'CAM-08') {
       setStreamMode('webcam');
+    } else {
+      setStreamMode('stream');
     }
   }, [focusedCamera?.id]);
 
@@ -359,17 +361,19 @@ export function CctvSocDashboard() {
 
               {/* Top Right Mode Switchers */}
               <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
-                <button
-                  onClick={() => setStreamMode('webcam')}
-                  className={`px-3 py-1 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                    streamMode === 'webcam'
-                      ? 'bg-red-600 text-white shadow-lg shadow-red-500/40'
-                      : 'bg-black/60 border border-white/10 text-neutral-300 hover:bg-black/80'
-                  }`}
-                >
-                  <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                  <span>LIVE WEBCAM</span>
-                </button>
+                {(focusedCamera.id === 'cam_jubilee' || focusedCamera.id === 'CAM-08') && (
+                  <button
+                    onClick={() => setStreamMode('webcam')}
+                    className={`px-3 py-1 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                      streamMode === 'webcam'
+                        ? 'bg-red-600 text-white shadow-lg shadow-red-500/40'
+                        : 'bg-black/60 border border-white/10 text-neutral-300 hover:bg-black/80'
+                    }`}
+                  >
+                    <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                    <span>LIVE WEBCAM</span>
+                  </button>
+                )}
                 <button
                   onClick={() => {
                     setStreamMode('stream');

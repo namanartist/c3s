@@ -600,3 +600,4 @@ with open('public/maps/AI_FF.svg', 'w', encoding='utf-8') as f:
     f.write(svg_content.strip())
 
 print("Successfully written architectural SVG to public/maps/AI_FF.svg")
+

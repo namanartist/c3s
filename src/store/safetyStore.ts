@@ -275,8 +275,8 @@ const DEFAULT_CONTACTS: EmergencyContact[] = [
 const DEFAULT_CAMERAS: CctvCamera[] = [
   {
     id: 'cam_gate_1',
-    name: 'CAM-01 • Main Gate Entrance (Live Webcam & Optical AI)',
-    isLiveCameraSupported: true,
+    name: 'CAM-01 • Main Gate Entrance',
+    isLiveCameraSupported: false,
     location: 'Gate 1 Main Entrance Road',
     map: 'Campus_Map',
     floor: 0,

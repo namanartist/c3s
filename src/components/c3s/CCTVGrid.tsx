@@ -74,9 +74,10 @@ export const CCTVGrid: React.FC = () => {
 
   const handleOpenCam = (cam: C3SCamera, forceMode?: 'stream' | 'hud' | 'webcam') => {
     setSelectedCam(cam);
+    const isSoleLiveCam = cam.id === 'CAM-08';
     if (forceMode) {
       setModalStreamMode(forceMode);
-    } else if (cam.isLiveCameraSupported || cam.id === 'CAM-08' || cam.id === 'CAM-01') {
+    } else if (isSoleLiveCam) {
       setModalStreamMode('webcam');
     } else {
       setModalStreamMode('stream');
@@ -149,7 +150,7 @@ export const CCTVGrid: React.FC = () => {
           const density = (cam.crowdDensity?.toLowerCase() as 'low' | 'moderate' | 'high' | 'critical') || 'low';
           const badgeStyle = getCrowdBadgeStyle(density);
           const hasFight = cam.fightDetected;
-          const isLiveCapable = cam.isLiveCameraSupported || cam.id === 'CAM-08' || cam.id === 'CAM-01';
+          const isLiveCapable = cam.id === 'CAM-08';
 
           return (
             <div
@@ -358,7 +359,7 @@ export const CCTVGrid: React.FC = () => {
 
               {/* Mode switcher tabs */}
               <div className="absolute top-3 right-3 z-30 flex items-center gap-1.5 bg-black/80 p-1 rounded-xl border border-white/15 backdrop-blur-md">
-                {(selectedCam.isLiveCameraSupported || selectedCam.id === 'CAM-08' || selectedCam.id === 'CAM-01') && (
+                {selectedCam.id === 'CAM-08' && (
                   <button
                     onClick={() => setModalStreamMode('webcam')}
                     className={`px-2.5 py-1 rounded-lg font-mono text-[11px] font-bold transition-all cursor-pointer flex items-center gap-1.5 ${

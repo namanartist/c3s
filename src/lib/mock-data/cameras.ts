@@ -28,8 +28,8 @@ export interface C3SCamera {
 export const MOCK_CAMERAS: C3SCamera[] = [
   {
     id: 'CAM-01',
-    name: 'Main Gate - Inbound Turnstiles (Live Webcam & Optical AI)',
-    isLiveCameraSupported: true,
+    name: 'CAM-01 • Main Gate - Inbound Turnstiles',
+    isLiveCameraSupported: false,
     zone: 'Main Gate',
     location: 'Gate 2 Inbound Turnstiles',
     status: 'ONLINE',
@@ -159,7 +159,7 @@ export const MOCK_CAMERAS: C3SCamera[] = [
   },
   {
     id: 'CAM-08',
-    name: 'CAM-08 • Jubilee Gate Checkpoint (Live Hardware Webcam & Fight AI)',
+    name: 'CAM-08 • Jubilee Gate Checkpoint (Sole Live Hardware Webcam & Fight AI)',
     zone: 'Jubilee Gate',
     location: 'Jubilee Gate Inner Checkpost & Hostel Axis',
     status: 'ONLINE',
@@ -189,7 +189,7 @@ export const MOCK_CAMERAS: C3SCamera[] = [
     ptzCapable: true,
     nightVision: true,
     aiDetection: true,
-    isLiveCameraSupported: true,
+    isLiveCameraSupported: false,
     lastMotion: 'Just now (Corridor pedestrian traffic)',
     streamUrl: '/videos/cctv_recorded_incident.mp4',
     videoUrl: '/videos/cctv_recorded_incident.mp4',
@@ -202,7 +202,7 @@ export const MOCK_CAMERAS: C3SCamera[] = [
   },
   {
     id: 'CAM-10',
-    name: 'CAM-10 • Seminar Hall 4 (SH-4) & Main Building GF (Active Live Optical AI)',
+    name: 'CAM-10 • Seminar Hall 4 (SH-4) & Main Building GF (Optical CCTV AI)',
     zone: 'Main Building GF',
     location: 'J010 - SH-4 (Seminar Hall 4, Main Building GF)',
     status: 'ONLINE',
@@ -212,8 +212,8 @@ export const MOCK_CAMERAS: C3SCamera[] = [
     ptzCapable: true,
     nightVision: true,
     aiDetection: true,
-    isLiveCameraSupported: true,
-    lastMotion: 'Just now (Live Optical OpenCV Monitoring Active)',
+    isLiveCameraSupported: false,
+    lastMotion: 'Just now (Optical OpenCV Monitoring Active)',
     streamUrl: '/videos/cctv_recorded_incident.mp4',
     videoUrl: '/videos/cctv_recorded_incident.mp4',
     thumbnailColor: 'from-emerald-950 via-slate-900 to-teal-950',
