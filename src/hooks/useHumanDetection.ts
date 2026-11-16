@@ -89,7 +89,7 @@ export function useHumanDetection(
       const nowMs = Date.now();
       const isAggressive =
         detection.fight.isFightDetected &&
-        detection.fight.confidence >= 70 &&
+        detection.fight.confidence >= 65 &&
         !detection.fight.isOnlyMovement;
 
       // Aggression momentum accumulator: avoids single-frame recoil dropouts
@@ -99,7 +99,7 @@ export function useHumanDetection(
           fightStartTimeRef.current = nowMs;
         }
       } else {
-        aggressionStreakRef.current = Math.max(0, aggressionStreakRef.current - 2);
+        aggressionStreakRef.current = Math.max(0, aggressionStreakRef.current - 1);
         if (aggressionStreakRef.current === 0) {
           fightStartTimeRef.current = null;
         }
@@ -108,8 +108,8 @@ export function useHumanDetection(
       const sustainedMs = fightStartTimeRef.current ? nowMs - fightStartTimeRef.current : 0;
       detection.fight.sustainedDurationMs = sustainedMs;
 
-      // Auto-dispatch emergency SOS promptly when fight is confirmed (streak >= 6 frames or sustained >= 1000ms)
-      if ((aggressionStreakRef.current >= 6 || sustainedMs >= 1000) && nowMs - lastSosTriggeredTimeRef.current > 15000) {
+      // Auto-dispatch emergency SOS promptly when fight is confirmed (streak >= 4 frames or sustained >= 600ms)
+      if ((aggressionStreakRef.current >= 4 || sustainedMs >= 600) && nowMs - lastSosTriggeredTimeRef.current > 12000) {
         lastSosTriggeredTimeRef.current = nowMs;
         const targetCamId = cameraId || currentMeta?.id || 'cam_cctv_01';
         const targetCamName = currentMeta?.name || `CCTV Camera #${targetCamId}`;

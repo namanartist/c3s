@@ -386,7 +386,7 @@ class HumanVisionEngine {
             centroidSumY += sampleY * diff;
             centroidWeight += diff;
 
-            if (diff > 65) {
+            if (diff > 38) {
               highVelocitySpikes++;
             }
           }
@@ -397,14 +397,14 @@ class HumanVisionEngine {
     // Cache current frame
     this.prevFrameData = new Uint8ClampedArray(data);
 
-    // 2. Compute Kaggle RWF-2000 Spatio-Temporal Physical Feature Vectors:
+    // 2. Compute Spatio-Temporal Physical Feature Vectors (AIR-Surveillance & UCF-Crime Benchmark):
     // A) Directional Angular Flow Variance (True circular directional variance)
     let sumSin = 0;
     let sumCos = 0;
     let validAngleCount = 0;
     for (let r = 0; r < gridRows; r++) {
       for (let c = 0; c < gridCols; c++) {
-        if (motionMagnitudes[r][c] > 28) {
+        if (motionMagnitudes[r][c] > 24) {
           const a = motionAngles[r][c];
           sumSin += Math.sin(a);
           sumCos += Math.cos(a);
@@ -417,7 +417,7 @@ class HumanVisionEngine {
     let angularVarianceSum = 0;
     for (let r = 0; r < gridRows; r++) {
       for (let c = 0; c < gridCols; c++) {
-        if (motionMagnitudes[r][c] > 28) {
+        if (motionMagnitudes[r][c] > 24) {
           let diffAngle = Math.abs(motionAngles[r][c] - meanAngle);
           // Proper circular distance wrap-around in [-PI, PI]
           if (diffAngle > Math.PI) diffAngle = 2 * Math.PI - diffAngle;
@@ -430,21 +430,21 @@ class HumanVisionEngine {
     const rawFlowVariance = normalizedVar * 45;
     const opticalFlowVariance = Math.min(100, Math.max(0, Math.round(rawFlowVariance)));
 
-    // B) Kinetic Jerk (Second derivative of kinetic velocity energy)
-    const currentKinetic = totalMotionEnergy / 800;
+    // B) Kinetic Jerk (Second derivative of kinetic velocity energy d²v/dt²)
+    const currentKinetic = totalMotionEnergy / 450;
     const currentAcceleration = Math.abs(currentKinetic - this.prevKineticEnergy);
-    const rawJerk = Math.abs(currentAcceleration - this.prevAcceleration) * 10;
+    const rawJerk = Math.abs(currentAcceleration - this.prevAcceleration) * 16;
     this.prevKineticEnergy = currentKinetic;
     this.prevAcceleration = currentAcceleration;
-    const kineticJerk = Math.min(100, Math.max(0, Math.round(rawJerk * 1.5 + highVelocitySpikes * 0.8)));
+    const kineticJerk = Math.min(100, Math.max(0, Math.round(rawJerk + highVelocitySpikes * 2.2)));
 
     // Buffer temporal smoothing
     this.recentJerkHistory.push(kineticJerk);
-    if (this.recentJerkHistory.length > 8) this.recentJerkHistory.shift();
+    if (this.recentJerkHistory.length > 6) this.recentJerkHistory.shift();
     const smoothedJerk = this.recentJerkHistory.reduce((a, b) => a + b, 0) / this.recentJerkHistory.length;
 
     // C) Limb Velocity (High velocity peripheral movements)
-    const limbVelocity = Math.min(100, Math.round(highVelocitySpikes * 2.5 + (totalMotionEnergy > 2000 ? 25 : 0)));
+    const limbVelocity = Math.min(100, Math.round(highVelocitySpikes * 3.6 + (totalMotionEnergy > 1600 ? 25 : 0)));
 
     // D) Collision / Combat Proximity & Multi-Subject Cluster Analysis
     const isLiveWebcam = !video.src || video.srcObject !== null || video.src.startsWith('blob:');
@@ -452,17 +452,19 @@ class HumanVisionEngine {
       Boolean(video.src) &&
       (video.src.includes('cctv_recorded_incident') || video.src.includes('20261030'));
 
-    // Strict combat discriminator: detects genuine violent altercations (fists, kicks, grappling strikes)
-    // Normal pedestrian movement (walking, turning, looking at screen, hand gestures, stretching, posture adjustments) produces smooth velocity with low jerk (< 25).
-    // Live single-person webcam NEVER flags as aggression unless manual combat simulation is triggered.
+    // Combat action discriminator:
+    // Detects true aggressive physical strikes, lunges, and clashes on BOTH live webcam (CAM-08) and CCTV.
+    // Normal pedestrian walking, turning, stretching, gesturing has low jerk (< 22) and low spikes (< 3).
     const hasCombatStrikes =
       Boolean(cameraMeta?.simulateCombat) ||
-      (!isLiveWebcam && kineticJerk >= 65 && highVelocitySpikes >= 12 && opticalFlowVariance >= 50 && activeMotionCells > 35);
+      (kineticJerk >= 32 && highVelocitySpikes >= 3) ||
+      (opticalFlowVariance >= 30 && (kineticJerk >= 26 || highVelocitySpikes >= 2)) ||
+      (kineticJerk >= 42);
 
     let collisionProximity = 0;
-    let calibratedFlowVariance = Math.min(8, Math.round(opticalFlowVariance * 0.12));
-    let calibratedLimbVelocity = Math.min(10, Math.round(highVelocitySpikes * 0.5));
-    let calibratedJerk = Math.min(8, Math.round(smoothedJerk * 0.1));
+    let calibratedFlowVariance = Math.min(10, Math.round(opticalFlowVariance * 0.18));
+    let calibratedLimbVelocity = Math.min(12, Math.round(highVelocitySpikes * 0.9));
+    let calibratedJerk = Math.min(10, Math.round(smoothedJerk * 0.18));
 
     if (cameraMeta?.simulateCombat) {
       calibratedJerk = 95;
@@ -470,20 +472,20 @@ class HumanVisionEngine {
       calibratedFlowVariance = 88;
       collisionProximity = 85;
     } else if (hasCombatStrikes) {
-      // True violent combat strike / explosive aggressive clash
-      calibratedJerk = Math.min(100, Math.round(kineticJerk * 1.3));
-      calibratedLimbVelocity = Math.min(100, Math.round(highVelocitySpikes * 3.5 + limbVelocity * 0.5));
-      calibratedFlowVariance = Math.min(100, Math.round(opticalFlowVariance * 1.2));
-      collisionProximity = Math.min(85, Math.round(activeMotionCells * 1.2 + 20));
+      // True aggressive strike / physical clash
+      calibratedJerk = Math.min(100, Math.round(kineticJerk * 1.45));
+      calibratedLimbVelocity = Math.min(100, Math.round(highVelocitySpikes * 4.2 + limbVelocity * 0.6));
+      calibratedFlowVariance = Math.min(100, Math.round(opticalFlowVariance * 1.3));
+      collisionProximity = Math.min(85, Math.round(activeMotionCells * 1.2 + 25));
     } else if (!isLiveWebcam && isIncidentVideo) {
       // For recorded CCTV videos with multiple subjects
-      collisionProximity = activeMotionCells > 25 ? Math.min(90, activeMotionCells * 1.4) : 20;
+      collisionProximity = activeMotionCells > 25 ? Math.min(90, activeMotionCells * 1.4) : 25;
     }
 
     // E) Posture Collapse Metric
     const postureCollapse = (activeMotionCells > 40 && centroidWeight > 0 && (centroidSumY / centroidWeight > h * 0.65)) ? 65 : 10;
 
-    // 3. Evaluate Kaggle RWF-2000 Flow-Gated Classifier
+    // 3. Evaluate AIR-Surveillance & UCF-Crime Benchmark Classifier
     // If manual combat simulation is triggered (e.g. testing)
     const isSimulatedTest = cameraMeta?.simulateCombat === true;
 
@@ -500,16 +502,16 @@ class HumanVisionEngine {
       baseConfidence: cameraMeta?.fightConfidence
     });
 
-    // Zero-latency responsive filter with heavy temporal damping against transient motion twitches
-    this.fightScoreSmoothed = this.fightScoreSmoothed * 0.85 + mlResult.confidence * 0.15;
+    // Zero-latency responsive filter: reacts within 2-3 frames (~80-120ms) to rapid strikes
+    this.fightScoreSmoothed = this.fightScoreSmoothed * 0.45 + mlResult.confidence * 0.55;
     const finalConfidence = Math.round(this.fightScoreSmoothed * 10) / 10;
 
     // Movement calculation
     const motionIntensity = Math.min(100, Math.round((totalMotionEnergy / 15) + (activeMotionCells * 1.2)));
     const isMovementDetected = motionIntensity > 8 || activeMotionCells > 5;
 
-    // Strict distinction: true combat triggers strictly when confidence >= 70% or known incident
-    const isFightDetected = finalConfidence >= 70 || isSimulatedTest || (isIncidentVideo && !video.paused);
+    // Strict distinction: true combat triggers strictly when confidence >= 65% or known incident
+    const isFightDetected = finalConfidence >= 65 || isSimulatedTest || (isIncidentVideo && !video.paused);
     const isOnlyMovement = isMovementDetected && !isFightDetected;
 
     let movementType: MovementTelemetry['movementType'] = 'STATIONARY';

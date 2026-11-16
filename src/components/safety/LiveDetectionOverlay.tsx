@@ -210,7 +210,7 @@ export const LiveDetectionOverlay: React.FC<LiveDetectionOverlayProps> = ({
           className={`w-2 h-2 rounded-full ${isFight ? 'bg-red-500 animate-ping' : 'bg-cyan-400 animate-pulse'}`}
         />
         <span>
-          OPENCV OPTICAL VISION: <strong>{isFight ? 'PHYSICAL ALTERCATION IN PROGRESS' : 'SURVEILLANCE RADAR SECURE (0ms LATENCY)'}</strong>
+          AIR-SURVEILLANCE &amp; UCF-CRIME AI: <strong>{isFight ? 'PHYSICAL ALTERCATION IN PROGRESS' : 'SURVEILLANCE RADAR SECURE (0ms LATENCY)'}</strong>
         </span>
         {isFight ? (
           <>

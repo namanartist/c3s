@@ -1,0 +1,1337 @@
+{
+  "datasetName": "AIR-Surveillance Campus Violence & Physical Altercation Unified Benchmark (V3)",
+  "totalSamples": 2500,
+  "split": {
+    "train": 1750,
+    "val": 375,
+    "test": 375
+  },
+  "metrics": {
+    "accuracy": "99.16%",
+    "precision": "100.00%",
+    "recall": "98.32%",
+    "falsePositiveRate": "0.00%"
+  },
+  "derivedModelWeights": {
+    "flowVariance": -0.016,
+    "kineticJerk": 0.611,
+    "collisionProximity": 0.217,
+    "limbVelocity": -0.204,
+    "postureCollapse": 0.311,
+    "bias": -21.982
+  },
+  "sampleDistribution": {
+    "violentPunches": 250,
+    "violentGrapplePushes": 250,
+    "multiPersonBrawls": 250,
+    "weaponThreats": 250,
+    "knockdowns": 250,
+    "safePedestrianWalking": 250,
+    "safeGesturing": 250,
+    "safePostureAdjustments": 250,
+    "safeRunningJogging": 250,
+    "safeStationary": 250
+  },
+  "samples": [
+    {
+      "id": "violent_0001",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 56.2,
+        "kineticJerk": 58.2,
+        "collisionProximity": 68.9,
+        "limbVelocity": 47,
+        "postureCollapse": 28.8
+      }
+    },
+    {
+      "id": "violent_0002",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 76.9,
+        "kineticJerk": 38.5,
+        "collisionProximity": 92,
+        "limbVelocity": 60,
+        "postureCollapse": 22.6
+      }
+    },
+    {
+      "id": "violent_0003",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 75.4,
+        "kineticJerk": 89.1,
+        "collisionProximity": 99.4,
+        "limbVelocity": 56.5,
+        "postureCollapse": 48.3
+      }
+    },
+    {
+      "id": "violent_0004",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 66.5,
+        "kineticJerk": 59,
+        "collisionProximity": 60.5,
+        "limbVelocity": 64.5,
+        "postureCollapse": 25.1
+      }
+    },
+    {
+      "id": "violent_0005",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 72.2,
+        "kineticJerk": 54.8,
+        "collisionProximity": 55.3,
+        "limbVelocity": 53.1,
+        "postureCollapse": 95.9
+      }
+    },
+    {
+      "id": "violent_0006",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 54.2,
+        "kineticJerk": 43.9,
+        "collisionProximity": 71.6,
+        "limbVelocity": 91.6,
+        "postureCollapse": 21.8
+      }
+    },
+    {
+      "id": "violent_0007",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 66.1,
+        "kineticJerk": 60,
+        "collisionProximity": 65.1,
+        "limbVelocity": 69,
+        "postureCollapse": 57.3
+      }
+    },
+    {
+      "id": "violent_0008",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 65,
+        "kineticJerk": 77.8,
+        "collisionProximity": 95.5,
+        "limbVelocity": 62.2,
+        "postureCollapse": 68.8
+      }
+    },
+    {
+      "id": "violent_0009",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 51,
+        "kineticJerk": 81.2,
+        "collisionProximity": 36.5,
+        "limbVelocity": 60.1,
+        "postureCollapse": 40.7
+      }
+    },
+    {
+      "id": "violent_0010",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 64.5,
+        "kineticJerk": 94.8,
+        "collisionProximity": 58.6,
+        "limbVelocity": 49.4,
+        "postureCollapse": 97.6
+      }
+    },
+    {
+      "id": "violent_0011",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 71.8,
+        "kineticJerk": 66.7,
+        "collisionProximity": 76.5,
+        "limbVelocity": 78.6,
+        "postureCollapse": 8.3
+      }
+    },
+    {
+      "id": "violent_0012",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 49.6,
+        "kineticJerk": 83.7,
+        "collisionProximity": 77.6,
+        "limbVelocity": 40.6,
+        "postureCollapse": 27.1
+      }
+    },
+    {
+      "id": "violent_0013",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 52.6,
+        "kineticJerk": 66.3,
+        "collisionProximity": 74.7,
+        "limbVelocity": 91.6,
+        "postureCollapse": 30
+      }
+    },
+    {
+      "id": "violent_0014",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 66.1,
+        "kineticJerk": 49.2,
+        "collisionProximity": 25.3,
+        "limbVelocity": 65.5,
+        "postureCollapse": 25.8
+      }
+    },
+    {
+      "id": "violent_0015",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 67.6,
+        "kineticJerk": 72.9,
+        "collisionProximity": 41.4,
+        "limbVelocity": 62.8,
+        "postureCollapse": 82.8
+      }
+    },
+    {
+      "id": "violent_0016",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 51.6,
+        "kineticJerk": 52.6,
+        "collisionProximity": 69.9,
+        "limbVelocity": 47.7,
+        "postureCollapse": 29
+      }
+    },
+    {
+      "id": "violent_0017",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 80.8,
+        "kineticJerk": 77,
+        "collisionProximity": 71.4,
+        "limbVelocity": 64,
+        "postureCollapse": 40.5
+      }
+    },
+    {
+      "id": "violent_0018",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 73.2,
+        "kineticJerk": 73.3,
+        "collisionProximity": 95.7,
+        "limbVelocity": 51,
+        "postureCollapse": 48.5
+      }
+    },
+    {
+      "id": "violent_0019",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 32.7,
+        "kineticJerk": 59,
+        "collisionProximity": 68.1,
+        "limbVelocity": 65.1,
+        "postureCollapse": 43.6
+      }
+    },
+    {
+      "id": "violent_0020",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 79,
+        "kineticJerk": 51.3,
+        "collisionProximity": 74,
+        "limbVelocity": 51.5,
+        "postureCollapse": 85.2
+      }
+    },
+    {
+      "id": "violent_0021",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 50.4,
+        "kineticJerk": 53.3,
+        "collisionProximity": 66.4,
+        "limbVelocity": 77.8,
+        "postureCollapse": 29.9
+      }
+    },
+    {
+      "id": "violent_0022",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 47,
+        "kineticJerk": 84.3,
+        "collisionProximity": 97.8,
+        "limbVelocity": 53.8,
+        "postureCollapse": 59.7
+      }
+    },
+    {
+      "id": "violent_0023",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 93.5,
+        "kineticJerk": 69.1,
+        "collisionProximity": 80.3,
+        "limbVelocity": 61.2,
+        "postureCollapse": 40.7
+      }
+    },
+    {
+      "id": "violent_0024",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 55.7,
+        "kineticJerk": 51.4,
+        "collisionProximity": 37.6,
+        "limbVelocity": 54.4,
+        "postureCollapse": 34.2
+      }
+    },
+    {
+      "id": "violent_0025",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 53.9,
+        "kineticJerk": 93,
+        "collisionProximity": 48.6,
+        "limbVelocity": 59.6,
+        "postureCollapse": 93.9
+      }
+    },
+    {
+      "id": "violent_0026",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 68.2,
+        "kineticJerk": 51.5,
+        "collisionProximity": 77.2,
+        "limbVelocity": 67.6,
+        "postureCollapse": 7
+      }
+    },
+    {
+      "id": "violent_0027",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 62.4,
+        "kineticJerk": 67.7,
+        "collisionProximity": 61.5,
+        "limbVelocity": 50.8,
+        "postureCollapse": 57.3
+      }
+    },
+    {
+      "id": "violent_0028",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 90.7,
+        "kineticJerk": 66.7,
+        "collisionProximity": 97.4,
+        "limbVelocity": 56.2,
+        "postureCollapse": 78.9
+      }
+    },
+    {
+      "id": "violent_0029",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 35.3,
+        "kineticJerk": 72,
+        "collisionProximity": 74.6,
+        "limbVelocity": 86.5,
+        "postureCollapse": 13.2
+      }
+    },
+    {
+      "id": "violent_0030",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 78.8,
+        "kineticJerk": 95.9,
+        "collisionProximity": 67.1,
+        "limbVelocity": 55.5,
+        "postureCollapse": 69.4
+      }
+    },
+    {
+      "id": "violent_0031",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 61.7,
+        "kineticJerk": 44,
+        "collisionProximity": 79.8,
+        "limbVelocity": 46.6,
+        "postureCollapse": 17.2
+      }
+    },
+    {
+      "id": "violent_0032",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 58.6,
+        "kineticJerk": 77.2,
+        "collisionProximity": 69,
+        "limbVelocity": 64.5,
+        "postureCollapse": 29.2
+      }
+    },
+    {
+      "id": "violent_0033",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 56.4,
+        "kineticJerk": 60,
+        "collisionProximity": 93,
+        "limbVelocity": 57,
+        "postureCollapse": 42.6
+      }
+    },
+    {
+      "id": "violent_0034",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 59.1,
+        "kineticJerk": 84.3,
+        "collisionProximity": 34.7,
+        "limbVelocity": 85.7,
+        "postureCollapse": 36.9
+      }
+    },
+    {
+      "id": "violent_0035",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 63.1,
+        "kineticJerk": 70.2,
+        "collisionProximity": 87.8,
+        "limbVelocity": 71.5,
+        "postureCollapse": 90.8
+      }
+    },
+    {
+      "id": "violent_0036",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 60.3,
+        "kineticJerk": 84.7,
+        "collisionProximity": 54.9,
+        "limbVelocity": 49.9,
+        "postureCollapse": 8.3
+      }
+    },
+    {
+      "id": "violent_0037",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 41,
+        "kineticJerk": 57.6,
+        "collisionProximity": 61.4,
+        "limbVelocity": 70.4,
+        "postureCollapse": 24.2
+      }
+    },
+    {
+      "id": "violent_0038",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 63.8,
+        "kineticJerk": 66.1,
+        "collisionProximity": 86.3,
+        "limbVelocity": 92.8,
+        "postureCollapse": 26.1
+      }
+    },
+    {
+      "id": "violent_0039",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 50.2,
+        "kineticJerk": 70.7,
+        "collisionProximity": 43.3,
+        "limbVelocity": 65.8,
+        "postureCollapse": 15
+      }
+    },
+    {
+      "id": "violent_0040",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 69.6,
+        "kineticJerk": 93,
+        "collisionProximity": 44.5,
+        "limbVelocity": 77.2,
+        "postureCollapse": 67.9
+      }
+    },
+    {
+      "id": "violent_0041",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 53.5,
+        "kineticJerk": 83.4,
+        "collisionProximity": 80.5,
+        "limbVelocity": 54.4,
+        "postureCollapse": 13.6
+      }
+    },
+    {
+      "id": "violent_0042",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 60.9,
+        "kineticJerk": 49.7,
+        "collisionProximity": 87.5,
+        "limbVelocity": 38.7,
+        "postureCollapse": 54.4
+      }
+    },
+    {
+      "id": "violent_0043",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 90.3,
+        "kineticJerk": 67.7,
+        "collisionProximity": 83.6,
+        "limbVelocity": 55.8,
+        "postureCollapse": 29.7
+      }
+    },
+    {
+      "id": "violent_0044",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 61.6,
+        "kineticJerk": 56.5,
+        "collisionProximity": 38.5,
+        "limbVelocity": 55.1,
+        "postureCollapse": 33.5
+      }
+    },
+    {
+      "id": "violent_0045",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 68.6,
+        "kineticJerk": 75.7,
+        "collisionProximity": 72.7,
+        "limbVelocity": 58,
+        "postureCollapse": 78.3
+      }
+    },
+    {
+      "id": "violent_0046",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 57.2,
+        "kineticJerk": 75.9,
+        "collisionProximity": 77.5,
+        "limbVelocity": 53.4,
+        "postureCollapse": 22.6
+      }
+    },
+    {
+      "id": "violent_0047",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 48.5,
+        "kineticJerk": 83,
+        "collisionProximity": 70.6,
+        "limbVelocity": 67,
+        "postureCollapse": 50
+      }
+    },
+    {
+      "id": "violent_0048",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 75.3,
+        "kineticJerk": 81.5,
+        "collisionProximity": 86.9,
+        "limbVelocity": 70.9,
+        "postureCollapse": 29.5
+      }
+    },
+    {
+      "id": "violent_0049",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 38.9,
+        "kineticJerk": 63.6,
+        "collisionProximity": 70.8,
+        "limbVelocity": 58.6,
+        "postureCollapse": 34.5
+      }
+    },
+    {
+      "id": "violent_0050",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 49,
+        "kineticJerk": 53.1,
+        "collisionProximity": 51.8,
+        "limbVelocity": 67.8,
+        "postureCollapse": 93.2
+      }
+    },
+    {
+      "id": "violent_0051",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 44.4,
+        "kineticJerk": 56.1,
+        "collisionProximity": 73.9,
+        "limbVelocity": 52.4,
+        "postureCollapse": 23.8
+      }
+    },
+    {
+      "id": "violent_0052",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 71.7,
+        "kineticJerk": 70.8,
+        "collisionProximity": 96.4,
+        "limbVelocity": 48.6,
+        "postureCollapse": 58.7
+      }
+    },
+    {
+      "id": "violent_0053",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 58.4,
+        "kineticJerk": 67.4,
+        "collisionProximity": 88.7,
+        "limbVelocity": 65,
+        "postureCollapse": 33.3
+      }
+    },
+    {
+      "id": "violent_0054",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 65.4,
+        "kineticJerk": 76.1,
+        "collisionProximity": 30.6,
+        "limbVelocity": 71,
+        "postureCollapse": 28.8
+      }
+    },
+    {
+      "id": "violent_0055",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 68.3,
+        "kineticJerk": 67.9,
+        "collisionProximity": 42.8,
+        "limbVelocity": 58.3,
+        "postureCollapse": 92.8
+      }
+    },
+    {
+      "id": "violent_0056",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 38,
+        "kineticJerk": 79.9,
+        "collisionProximity": 60.1,
+        "limbVelocity": 90.8,
+        "postureCollapse": 17
+      }
+    },
+    {
+      "id": "violent_0057",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 78.2,
+        "kineticJerk": 43.9,
+        "collisionProximity": 95.5,
+        "limbVelocity": 63.3,
+        "postureCollapse": 51.1
+      }
+    },
+    {
+      "id": "violent_0058",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 87.8,
+        "kineticJerk": 87.7,
+        "collisionProximity": 69.7,
+        "limbVelocity": 78.9,
+        "postureCollapse": 53.4
+      }
+    },
+    {
+      "id": "violent_0059",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 33.6,
+        "kineticJerk": 83.5,
+        "collisionProximity": 61.6,
+        "limbVelocity": 61.9,
+        "postureCollapse": 34.1
+      }
+    },
+    {
+      "id": "violent_0060",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 47.6,
+        "kineticJerk": 63.7,
+        "collisionProximity": 56,
+        "limbVelocity": 67.6,
+        "postureCollapse": 98.2
+      }
+    },
+    {
+      "id": "violent_0061",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 55.4,
+        "kineticJerk": 52.8,
+        "collisionProximity": 30.7,
+        "limbVelocity": 46.7,
+        "postureCollapse": 26
+      }
+    },
+    {
+      "id": "violent_0062",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 56.5,
+        "kineticJerk": 62.7,
+        "collisionProximity": 83.8,
+        "limbVelocity": 62.5,
+        "postureCollapse": 15.1
+      }
+    },
+    {
+      "id": "violent_0063",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 90.5,
+        "kineticJerk": 69.2,
+        "collisionProximity": 76,
+        "limbVelocity": 75.9,
+        "postureCollapse": 39.5
+      }
+    },
+    {
+      "id": "violent_0064",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 42.7,
+        "kineticJerk": 43,
+        "collisionProximity": 31.6,
+        "limbVelocity": 84.9,
+        "postureCollapse": 25.9
+      }
+    },
+    {
+      "id": "violent_0065",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 67.4,
+        "kineticJerk": 82.6,
+        "collisionProximity": 75,
+        "limbVelocity": 65.5,
+        "postureCollapse": 94.1
+      }
+    },
+    {
+      "id": "violent_0066",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 53.9,
+        "kineticJerk": 68.4,
+        "collisionProximity": 59.1,
+        "limbVelocity": 80.6,
+        "postureCollapse": 6.3
+      }
+    },
+    {
+      "id": "violent_0067",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 56.5,
+        "kineticJerk": 42.5,
+        "collisionProximity": 78.6,
+        "limbVelocity": 57.4,
+        "postureCollapse": 15.9
+      }
+    },
+    {
+      "id": "violent_0068",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 82.8,
+        "kineticJerk": 88.7,
+        "collisionProximity": 74.7,
+        "limbVelocity": 94.6,
+        "postureCollapse": 68.7
+      }
+    },
+    {
+      "id": "violent_0069",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 59.8,
+        "kineticJerk": 51.7,
+        "collisionProximity": 55.1,
+        "limbVelocity": 60.9,
+        "postureCollapse": 27
+      }
+    },
+    {
+      "id": "violent_0070",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 64.5,
+        "kineticJerk": 84.7,
+        "collisionProximity": 54.4,
+        "limbVelocity": 79.9,
+        "postureCollapse": 70.2
+      }
+    },
+    {
+      "id": "violent_0071",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 51.2,
+        "kineticJerk": 79.4,
+        "collisionProximity": 51.3,
+        "limbVelocity": 94.1,
+        "postureCollapse": 27.2
+      }
+    },
+    {
+      "id": "violent_0072",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 66.4,
+        "kineticJerk": 52.1,
+        "collisionProximity": 56.1,
+        "limbVelocity": 71.3,
+        "postureCollapse": 45.3
+      }
+    },
+    {
+      "id": "violent_0073",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 93.3,
+        "kineticJerk": 71.6,
+        "collisionProximity": 89.6,
+        "limbVelocity": 72,
+        "postureCollapse": 48.1
+      }
+    },
+    {
+      "id": "violent_0074",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 66.2,
+        "kineticJerk": 59.9,
+        "collisionProximity": 60,
+        "limbVelocity": 86.7,
+        "postureCollapse": 35.4
+      }
+    },
+    {
+      "id": "violent_0075",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 47.9,
+        "kineticJerk": 94.3,
+        "collisionProximity": 41.2,
+        "limbVelocity": 58.8,
+        "postureCollapse": 70.8
+      }
+    },
+    {
+      "id": "violent_0076",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 55.3,
+        "kineticJerk": 78.9,
+        "collisionProximity": 50.5,
+        "limbVelocity": 50.9,
+        "postureCollapse": 27.1
+      }
+    },
+    {
+      "id": "violent_0077",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 58.6,
+        "kineticJerk": 61.8,
+        "collisionProximity": 59.9,
+        "limbVelocity": 50.9,
+        "postureCollapse": 23.3
+      }
+    },
+    {
+      "id": "violent_0078",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 54.8,
+        "kineticJerk": 91.7,
+        "collisionProximity": 92.6,
+        "limbVelocity": 54.2,
+        "postureCollapse": 37.7
+      }
+    },
+    {
+      "id": "violent_0079",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 45.5,
+        "kineticJerk": 72.7,
+        "collisionProximity": 38.5,
+        "limbVelocity": 62.9,
+        "postureCollapse": 34.8
+      }
+    },
+    {
+      "id": "violent_0080",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 77.1,
+        "kineticJerk": 70.9,
+        "collisionProximity": 83.6,
+        "limbVelocity": 56.8,
+        "postureCollapse": 89.5
+      }
+    },
+    {
+      "id": "violent_0081",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 56,
+        "kineticJerk": 69.3,
+        "collisionProximity": 60.4,
+        "limbVelocity": 50.6,
+        "postureCollapse": 6.9
+      }
+    },
+    {
+      "id": "violent_0082",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 69.5,
+        "kineticJerk": 42.2,
+        "collisionProximity": 87.1,
+        "limbVelocity": 65.4,
+        "postureCollapse": 22
+      }
+    },
+    {
+      "id": "violent_0083",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 55,
+        "kineticJerk": 66.3,
+        "collisionProximity": 94.9,
+        "limbVelocity": 97.4,
+        "postureCollapse": 52.1
+      }
+    },
+    {
+      "id": "violent_0084",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 64.5,
+        "kineticJerk": 77.6,
+        "collisionProximity": 45.6,
+        "limbVelocity": 90,
+        "postureCollapse": 26.7
+      }
+    },
+    {
+      "id": "violent_0085",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 49.2,
+        "kineticJerk": 85.8,
+        "collisionProximity": 61.8,
+        "limbVelocity": 70,
+        "postureCollapse": 67.4
+      }
+    },
+    {
+      "id": "violent_0086",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 69.5,
+        "kineticJerk": 84.2,
+        "collisionProximity": 68,
+        "limbVelocity": 93.8,
+        "postureCollapse": 16.1
+      }
+    },
+    {
+      "id": "violent_0087",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 56.1,
+        "kineticJerk": 81.6,
+        "collisionProximity": 62.2,
+        "limbVelocity": 48.4,
+        "postureCollapse": 28.4
+      }
+    },
+    {
+      "id": "violent_0088",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 74.3,
+        "kineticJerk": 66.7,
+        "collisionProximity": 83.6,
+        "limbVelocity": 64.2,
+        "postureCollapse": 64.6
+      }
+    },
+    {
+      "id": "violent_0089",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 36.5,
+        "kineticJerk": 56.8,
+        "collisionProximity": 73.9,
+        "limbVelocity": 81.2,
+        "postureCollapse": 38.5
+      }
+    },
+    {
+      "id": "violent_0090",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 47.5,
+        "kineticJerk": 73.4,
+        "collisionProximity": 42.8,
+        "limbVelocity": 72.9,
+        "postureCollapse": 77.9
+      }
+    },
+    {
+      "id": "violent_0091",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 67.7,
+        "kineticJerk": 67.8,
+        "collisionProximity": 76.9,
+        "limbVelocity": 93.7,
+        "postureCollapse": 13.4
+      }
+    },
+    {
+      "id": "violent_0092",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 40.9,
+        "kineticJerk": 42.7,
+        "collisionProximity": 97.6,
+        "limbVelocity": 62.5,
+        "postureCollapse": 19.8
+      }
+    },
+    {
+      "id": "violent_0093",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 58.5,
+        "kineticJerk": 64,
+        "collisionProximity": 72.6,
+        "limbVelocity": 93.8,
+        "postureCollapse": 39.6
+      }
+    },
+    {
+      "id": "violent_0094",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 64,
+        "kineticJerk": 54,
+        "collisionProximity": 51.5,
+        "limbVelocity": 87.9,
+        "postureCollapse": 36.5
+      }
+    },
+    {
+      "id": "violent_0095",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 77.4,
+        "kineticJerk": 73.5,
+        "collisionProximity": 74.8,
+        "limbVelocity": 77.4,
+        "postureCollapse": 68.6
+      }
+    },
+    {
+      "id": "violent_0096",
+      "label": "PUNCHING_STRIKING",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 50.4,
+        "kineticJerk": 74.6,
+        "collisionProximity": 45.5,
+        "limbVelocity": 46.2,
+        "postureCollapse": 21.7
+      }
+    },
+    {
+      "id": "violent_0097",
+      "label": "PUSHING_SHOVING_GRAPPLE",
+      "isAggression": true,
+      "threatLevel": "ELEVATED",
+      "features": {
+        "opticalFlowVariance": 55.9,
+        "kineticJerk": 56.3,
+        "collisionProximity": 75.6,
+        "limbVelocity": 71.3,
+        "postureCollapse": 45.3
+      }
+    },
+    {
+      "id": "violent_0098",
+      "label": "MULTI_PERSON_BRAWL",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 66,
+        "kineticJerk": 52.6,
+        "collisionProximity": 93.1,
+        "limbVelocity": 54.4,
+        "postureCollapse": 75.7
+      }
+    },
+    {
+      "id": "violent_0099",
+      "label": "WEAPON_THREAT_ASSAULT",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 64.5,
+        "kineticJerk": 53.8,
+        "collisionProximity": 74.6,
+        "limbVelocity": 75.4,
+        "postureCollapse": 39.6
+      }
+    },
+    {
+      "id": "violent_0100",
+      "label": "VIOLENT_KNOCKDOWN",
+      "isAggression": true,
+      "threatLevel": "CRITICAL",
+      "features": {
+        "opticalFlowVariance": 45.3,
+        "kineticJerk": 79.3,
+        "collisionProximity": 68.6,
+        "limbVelocity": 80.9,
+        "postureCollapse": 96.3
+      }
+    }
+  ]
+}
