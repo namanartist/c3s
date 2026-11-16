@@ -1,6 +1,7 @@
 // src/store/safetyStore.ts
 import { create } from 'zustand';
 import { broadcastSosIncident } from '@/lib/realtimeSosMesh';
+import { createSosIncident, updateSosIncident, fetchSosIncidents } from '@/lib/api';
 import type {
   SosIncident,
   SafetyAmenity,
@@ -109,6 +110,7 @@ export interface SafetyStoreState {
 
   toggleSafetyAmenities: () => void;
   setActiveAmenityFilter: (filter: string | null) => void;
+  syncIncidentsWithDb: () => Promise<void>;
 }
 
 const DEFAULT_INCIDENTS: SosIncident[] = [
@@ -620,8 +622,9 @@ export const useSafetyStore = create<SafetyStoreState>((set) => ({
         sosModalOpen: false
       };
     });
-    // Immediately broadcast to other IP network devices and Supabase Realtime
+    // Immediately persist to MongoDB and broadcast to real-time mesh
     try {
+      createSosIncident(newIncident);
       broadcastSosIncident(newIncident);
     } catch {
       // non-fatal
@@ -637,6 +640,7 @@ export const useSafetyStore = create<SafetyStoreState>((set) => ({
     const updated = incidents.find((i) => i.id === id);
     if (updated) {
       try {
+        updateSosIncident(id, status === 'resolved' ? 'resolve' : 'update', responder);
         broadcastSosIncident(updated);
       } catch {}
     }
@@ -647,6 +651,29 @@ export const useSafetyStore = create<SafetyStoreState>((set) => ({
         : state.selectedIncident
     };
   }),
+
+  syncIncidentsWithDb: async () => {
+    try {
+      const dbIncidents = await fetchSosIncidents();
+      if (Array.isArray(dbIncidents) && dbIncidents.length > 0) {
+        set((state) => {
+          const merged = [...state.incidents];
+          for (const item of dbIncidents) {
+            const idx = merged.findIndex((i) => i.id === item.id);
+            if (idx >= 0) {
+              merged[idx] = { ...merged[idx], ...item };
+            } else {
+              merged.push(item);
+            }
+          }
+          persistIncidents(merged);
+          return { incidents: merged };
+        });
+      }
+    } catch (err) {
+      console.warn('[safetyStore] Failed to sync incidents with DB:', err);
+    }
+  },
 
   updateIncidentEvidence: (id, evidence) => set((state) => {
     const incidents = state.incidents.map((inc) => inc.id === id ? { ...inc, evidence, deliveryState: 'queued' as const } : inc);

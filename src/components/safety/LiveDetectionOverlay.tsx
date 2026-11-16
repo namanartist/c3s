@@ -65,8 +65,19 @@ export const LiveDetectionOverlay: React.FC<LiveDetectionOverlayProps> = ({
             <span>OPENCV ENGINE</span>
             <span className="text-cyan-400/50">|</span>
             <span>{detection.persons?.length ?? count} Persons</span>
-            <span className="text-cyan-400/50">|</span>
-            <span>{detection.objects?.length ?? (detection.objectCount ?? 0)} Objects</span>
+            {(detection.harmfulObjects?.length ?? (detection.objects?.length ?? 0)) > 0 ? (
+              <>
+                <span className="text-rose-400/80">|</span>
+                <span className="text-rose-300 font-bold animate-pulse">
+                  ⚠️ {detection.harmfulObjects?.length ?? detection.objects?.length} Harmful Object{(detection.harmfulObjects?.length ?? detection.objects?.length ?? 1) > 1 ? 's' : ''}
+                </span>
+              </>
+            ) : (
+              <>
+                <span className="text-emerald-400/50">|</span>
+                <span className="text-emerald-300 font-semibold">0 Threats</span>
+              </>
+            )}
           </div>
         </div>
 
@@ -100,17 +111,17 @@ export const LiveDetectionOverlay: React.FC<LiveDetectionOverlayProps> = ({
       {/* 2. REAL-TIME BOUNDING BOXES */}
       {showBoxes &&
         humans.map((human) => {
-          const isObject = human.type === 'object';
-          const isCombatant = !isObject && (human.isFighting || human.role === 'combatant');
-          const isBystander = !isObject && human.role === 'bystander';
+          const isHarmfulObject = human.type === 'harmful_object' || (human.type === 'object' && human.role === 'threat_object');
+          const isCombatant = !isHarmfulObject && (human.isFighting || human.role === 'combatant');
+          const isBystander = !isHarmfulObject && human.role === 'bystander';
           const individualConfidence = human.fightConfidence || fightConfidence;
 
           return (
             <div
               key={`${human.type}-${human.id}`}
               className={`absolute transition-all duration-150 ease-out rounded-lg ${
-                isObject
-                  ? 'border-2 border-dashed border-amber-400/90 bg-amber-500/10 shadow-lg shadow-amber-950/30'
+                isHarmfulObject
+                  ? 'border-2 border-dashed border-red-500 bg-red-950/40 ring-2 ring-red-500/50 shadow-xl shadow-red-950/70 animate-pulse'
                   : isCombatant
                   ? 'border-2 border-red-500 bg-red-600/15 ring-2 ring-red-500/40 shadow-xl shadow-red-950/60'
                   : isBystander
@@ -127,30 +138,30 @@ export const LiveDetectionOverlay: React.FC<LiveDetectionOverlayProps> = ({
               {/* Corner targeting marks */}
               <div
                 className={`absolute -top-1 -left-1 w-2.5 h-2.5 border-t-2 border-l-2 ${
-                  isObject ? 'border-amber-400' : isCombatant ? 'border-red-400' : isBystander ? 'border-amber-300' : 'border-white'
+                  isHarmfulObject ? 'border-red-400' : isCombatant ? 'border-red-400' : isBystander ? 'border-amber-300' : 'border-white'
                 }`}
               />
               <div
                 className={`absolute -top-1 -right-1 w-2.5 h-2.5 border-t-2 border-r-2 ${
-                  isObject ? 'border-amber-400' : isCombatant ? 'border-red-400' : isBystander ? 'border-amber-300' : 'border-white'
+                  isHarmfulObject ? 'border-red-400' : isCombatant ? 'border-red-400' : isBystander ? 'border-amber-300' : 'border-white'
                 }`}
               />
               <div
                 className={`absolute -bottom-1 -left-1 w-2.5 h-2.5 border-b-2 border-l-2 ${
-                  isObject ? 'border-amber-400' : isCombatant ? 'border-red-400' : isBystander ? 'border-amber-300' : 'border-white'
+                  isHarmfulObject ? 'border-red-400' : isCombatant ? 'border-red-400' : isBystander ? 'border-amber-300' : 'border-white'
                 }`}
               />
               <div
                 className={`absolute -bottom-1 -right-1 w-2.5 h-2.5 border-b-2 border-r-2 ${
-                  isObject ? 'border-amber-400' : isCombatant ? 'border-red-400' : isBystander ? 'border-amber-300' : 'border-white'
+                  isHarmfulObject ? 'border-red-400' : isCombatant ? 'border-red-400' : isBystander ? 'border-amber-300' : 'border-white'
                 }`}
               />
 
               {/* Tag Label with Confidence Percentage */}
               <div
                 className={`absolute -top-6 left-0 px-2 py-0.5 rounded-md backdrop-blur-md text-[10px] font-mono font-bold flex items-center gap-1.5 whitespace-nowrap shadow-lg border ${
-                  isObject
-                    ? 'bg-amber-950/90 border-amber-400 text-amber-200'
+                  isHarmfulObject
+                    ? 'bg-red-950/95 border-red-500 text-red-100 shadow-red-900/50'
                     : isCombatant
                     ? 'bg-red-950/90 border-red-500 text-red-200'
                     : isBystander
@@ -160,29 +171,33 @@ export const LiveDetectionOverlay: React.FC<LiveDetectionOverlayProps> = ({
               >
                 <span
                   className={`w-1.5 h-1.5 rounded-full ${
-                    isObject ? 'bg-amber-400' : isCombatant ? 'bg-red-400 animate-ping' : isBystander ? 'bg-amber-400' : 'bg-emerald-400'
+                    isHarmfulObject ? 'bg-red-500 animate-ping' : isCombatant ? 'bg-red-400 animate-ping' : isBystander ? 'bg-amber-400' : 'bg-emerald-400'
                   }`}
                 />
                 <span className="font-extrabold">
-                  {isObject ? `OBJECT: ${human.classLabel.toUpperCase()} [ID: #${human.id}]` : human.label}
+                  {isHarmfulObject ? `⚠️ HARMFUL OBJECT: ${human.classLabel.toUpperCase()} [ID: #${human.id}]` : human.label}
                 </span>
                 {isCombatant ? (
                   <span className="rounded bg-red-600 px-1 text-[9px] font-black text-white">
                     FIGHT: {individualConfidence}%
+                  </span>
+                ) : isHarmfulObject ? (
+                  <span className="rounded bg-red-700 px-1 text-[9px] font-black text-white">
+                    THREAT: {Math.round(human.confidence * 100)}%
                   </span>
                 ) : (
                   <span className="text-slate-300 font-extrabold">[{Math.round(human.confidence * 100)}%]</span>
                 )}
               </div>
 
-              {/* Specific Action Pill on Combatant or Object */}
+              {/* Specific Action Pill on Combatant or Harmful Object */}
               {isCombatant && human.action ? (
                 <div className="absolute -bottom-5 left-0 px-1.5 py-0.5 rounded bg-black/90 border border-red-500/50 text-[9px] font-mono font-bold text-red-300 whitespace-nowrap shadow">
                   ⚡ {human.action}
                 </div>
-              ) : isObject && human.action ? (
-                <div className="absolute -bottom-5 left-0 px-1.5 py-0.5 rounded bg-black/90 border border-amber-500/40 text-[9px] font-mono font-bold text-amber-300 whitespace-nowrap shadow">
-                  📦 {human.action}
+              ) : isHarmfulObject && human.action ? (
+                <div className="absolute -bottom-5 left-0 px-1.5 py-0.5 rounded bg-red-950/90 border border-red-500/70 text-[9px] font-mono font-bold text-red-200 whitespace-nowrap shadow">
+                  🚨 {human.action}
                 </div>
               ) : null}
             </div>

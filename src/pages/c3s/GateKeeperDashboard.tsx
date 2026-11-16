@@ -23,6 +23,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
 import type { C3SMovementLog } from '@/lib/mock-data/movement';
+import { recordGateMovement } from '@/lib/api';
 
 export default function GateKeeperDashboard() {
   const navigate = useNavigate();
@@ -70,6 +71,18 @@ export default function GateKeeperDashboard() {
     };
 
     addMovementLog(newLog);
+
+    // Persist manual gate movement to MongoDB database
+    recordGateMovement({
+      userName: manualName,
+      userId: manualUniId,
+      userRole: 'Student',
+      department: 'Manual Guard Override',
+      movement: manualAction,
+      gateName: currentGate.name,
+      method: 'MANUAL_OVERRIDE'
+    });
+
     setManualSuccessMsg(`Successfully logged ${manualAction} for ${manualName} (${manualUniId})`);
     setManualName('');
     setManualUniId('');

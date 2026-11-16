@@ -25,6 +25,7 @@ import { MOCK_NOTIFICATIONS, type C3SNotification } from '@/lib/mock-data/notifi
 import { MOCK_RESPONDERS, type C3SResponder } from '@/lib/mock-data/responders';
 import { MOCK_CAMERAS, type C3SCamera } from '@/lib/mock-data/cameras';
 import { type C3SSettings, DEFAULT_SETTINGS } from '@/types/settings';
+import { recordGateMovement, createSosIncident } from '@/lib/api';
 
 export interface C3SStoreState {
   // Authentication & Role
@@ -227,6 +228,17 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
         status: 'VERIFIED'
       };
 
+      // Persist check-in movement to MongoDB database
+      recordGateMovement({
+        userName: get().currentUser.name,
+        userId: get().currentUser.universityId,
+        userRole: get().currentRole,
+        department: get().currentUser.department,
+        movement: 'CHECK-IN',
+        gateName,
+        method: 'QR_SCAN'
+      });
+
       set((state) => ({
         isInsideCampus: true,
         checkedInAt: timeStr,
@@ -265,6 +277,17 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
         verificationMethod: 'QR_SCAN',
         status: 'VERIFIED'
       };
+
+      // Persist check-out movement to MongoDB database
+      recordGateMovement({
+        userName: get().currentUser.name,
+        userId: get().currentUser.universityId,
+        userRole: get().currentRole,
+        department: get().currentUser.department,
+        movement: 'CHECK-OUT',
+        gateName,
+        method: 'QR_SCAN'
+      });
 
       set((state) => ({
         isInsideCampus: false,
@@ -431,6 +454,30 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
           `Notified: Guard (${guardInfo.name} - ${guardInfo.distance}), Faculty (${facultyInfo.name} - ${facultyInfo.distance}), Proctor (${proctorInfo.name})`
         ]
       };
+
+      // Persist SOS incident into MongoDB database
+      createSosIncident({
+        id: incidentId,
+        category: 'security',
+        severity: 'critical',
+        title: `🚨 EMERGENCY SOS: Student Distress at Node #${nodeId}`,
+        description: `1-Step Emergency SOS triggered at ${location}.`,
+        map: payload?.map || 'Campus_Map',
+        floor: payload?.floor || 0,
+        lat: payload?.lat || get().latitude || 26.23185102,
+        lng: payload?.lng || get().longitude || 78.20636481,
+        nodeId,
+        photoUrl: payload?.photoUrl,
+        videoUrl: payload?.videoUrl,
+        timestamp: Date.now(),
+        status: 'active',
+        reportedBy: get().currentUser.name || 'Student Distress Signal',
+        assignedResponder: `${guardInfo.callsign} (${guardInfo.name}) & ${facultyInfo.name}`,
+        evidence: {
+          photoUrl: payload?.photoUrl,
+          videoUrl: payload?.videoUrl
+        }
+      });
 
       set({
         sosActive: true,

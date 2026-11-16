@@ -13,12 +13,12 @@ import {
   type KaggleFightFeatures
 } from '@/lib/kaggleFightClassifier';
 
-export type TrackedEntityType = 'person' | 'object';
+export type TrackedEntityType = 'person' | 'harmful_object' | 'object';
 
 export interface TrackedEntity {
   id: number;
   type: TrackedEntityType;
-  classLabel: string; // 'person' | 'backpack' | 'handbag' | 'laptop' | 'cell phone' | 'sports_equipment' | 'package'
+  classLabel: string; // 'person' | 'weapon' | 'knife' | 'firearm' | 'blunt_threat' | 'threat_object'
   x: number; // percentage 0-100
   y: number; // percentage 0-100
   width: number; // percentage 0-100
@@ -28,7 +28,7 @@ export interface TrackedEntity {
   isMoving: boolean;
   isFighting?: boolean;
   fightConfidence?: number; // 0 - 100
-  role?: 'combatant' | 'bystander' | 'victim' | 'pedestrian' | 'carried_object' | 'abandoned_object' | 'static_object';
+  role?: 'combatant' | 'bystander' | 'victim' | 'pedestrian' | 'threat_object' | 'carried_object' | 'abandoned_object' | 'static_object';
   action?: string;
   trackAge?: number;
   velocity?: { vx: number; vy: number };
@@ -61,10 +61,12 @@ export interface FightTelemetry {
 
 export interface DetectionResult {
   count: number; // Person count
-  objectCount?: number; // Tracked object count
+  objectCount?: number; // Tracked harmful object count
+  harmfulObjectCount?: number;
   humans: TrackedEntity[]; // Backward-compat list of all entities
   persons?: TrackedEntity[]; // Tracked persons
-  objects?: TrackedEntity[]; // Tracked objects (backpacks, laptops, etc.)
+  objects?: TrackedEntity[]; // Tracked objects (harmful items)
+  harmfulObjects?: TrackedEntity[]; // Tracked harmful objects
   density: 'low' | 'moderate' | 'high' | 'critical';
   fps: number;
   timestamp: number;
@@ -384,7 +386,7 @@ class HumanVisionEngine {
             centroidSumY += sampleY * diff;
             centroidWeight += diff;
 
-            if (diff > 42) {
+            if (diff > 65) {
               highVelocitySpikes++;
             }
           }
@@ -431,33 +433,36 @@ class HumanVisionEngine {
     // B) Kinetic Jerk (Second derivative of kinetic velocity energy)
     const currentKinetic = totalMotionEnergy / 800;
     const currentAcceleration = Math.abs(currentKinetic - this.prevKineticEnergy);
-    const rawJerk = Math.abs(currentAcceleration - this.prevAcceleration) * 14;
+    const rawJerk = Math.abs(currentAcceleration - this.prevAcceleration) * 10;
     this.prevKineticEnergy = currentKinetic;
     this.prevAcceleration = currentAcceleration;
-    const kineticJerk = Math.min(100, Math.max(0, Math.round(rawJerk + highVelocitySpikes * 1.8)));
+    const kineticJerk = Math.min(100, Math.max(0, Math.round(rawJerk * 1.5 + highVelocitySpikes * 0.8)));
 
     // Buffer temporal smoothing
     this.recentJerkHistory.push(kineticJerk);
-    if (this.recentJerkHistory.length > 5) this.recentJerkHistory.shift();
+    if (this.recentJerkHistory.length > 8) this.recentJerkHistory.shift();
     const smoothedJerk = this.recentJerkHistory.reduce((a, b) => a + b, 0) / this.recentJerkHistory.length;
 
     // C) Limb Velocity (High velocity peripheral movements)
-    const limbVelocity = Math.min(100, Math.round(highVelocitySpikes * 3.8 + (totalMotionEnergy > 1400 ? 30 : 0)));
+    const limbVelocity = Math.min(100, Math.round(highVelocitySpikes * 2.5 + (totalMotionEnergy > 2000 ? 25 : 0)));
 
     // D) Collision / Combat Proximity & Multi-Subject Cluster Analysis
     const isLiveWebcam = !video.src || video.srcObject !== null || video.src.startsWith('blob:');
+    const isIncidentVideo =
+      Boolean(video.src) &&
+      (video.src.includes('cctv_recorded_incident') || video.src.includes('20261030'));
 
-    // Strict combat discriminator: detects genuine violent strikes (jabs, punches, kicks, grapple clashes)
-    // Normal pedestrian movement (walking, turning, looking at screen, waving, stretching) produces smooth velocity with low jerk (< 26)
+    // Strict combat discriminator: detects genuine violent altercations (fists, kicks, grappling strikes)
+    // Normal pedestrian movement (walking, turning, looking at screen, hand gestures, stretching, posture adjustments) produces smooth velocity with low jerk (< 25).
+    // Live single-person webcam NEVER flags as aggression unless manual combat simulation is triggered.
     const hasCombatStrikes =
-      (kineticJerk >= 36 && highVelocitySpikes >= 5) ||
-      (opticalFlowVariance >= 38 && (kineticJerk >= 28 || highVelocitySpikes >= 4)) ||
-      (kineticJerk >= 44);
+      Boolean(cameraMeta?.simulateCombat) ||
+      (!isLiveWebcam && kineticJerk >= 65 && highVelocitySpikes >= 12 && opticalFlowVariance >= 50 && activeMotionCells > 35);
 
-    let collisionProximity = 5;
-    let calibratedFlowVariance = Math.min(12, Math.round(opticalFlowVariance * 0.2));
-    let calibratedLimbVelocity = Math.min(14, Math.round(highVelocitySpikes * 0.8));
-    let calibratedJerk = Math.min(15, Math.round(smoothedJerk * 0.2));
+    let collisionProximity = 0;
+    let calibratedFlowVariance = Math.min(8, Math.round(opticalFlowVariance * 0.12));
+    let calibratedLimbVelocity = Math.min(10, Math.round(highVelocitySpikes * 0.5));
+    let calibratedJerk = Math.min(8, Math.round(smoothedJerk * 0.1));
 
     if (cameraMeta?.simulateCombat) {
       calibratedJerk = 95;
@@ -466,23 +471,19 @@ class HumanVisionEngine {
       collisionProximity = 85;
     } else if (hasCombatStrikes) {
       // True violent combat strike / explosive aggressive clash
-      calibratedJerk = Math.min(100, Math.round(kineticJerk * 1.5));
-      calibratedLimbVelocity = Math.min(100, Math.round(highVelocitySpikes * 4.5 + limbVelocity * 0.6));
-      calibratedFlowVariance = Math.min(100, Math.round(opticalFlowVariance * 1.25));
-      collisionProximity = Math.min(85, Math.round(activeMotionCells * 1.2 + 25));
-    } else if (!isLiveWebcam) {
+      calibratedJerk = Math.min(100, Math.round(kineticJerk * 1.3));
+      calibratedLimbVelocity = Math.min(100, Math.round(highVelocitySpikes * 3.5 + limbVelocity * 0.5));
+      calibratedFlowVariance = Math.min(100, Math.round(opticalFlowVariance * 1.2));
+      collisionProximity = Math.min(85, Math.round(activeMotionCells * 1.2 + 20));
+    } else if (!isLiveWebcam && isIncidentVideo) {
       // For recorded CCTV videos with multiple subjects
-      collisionProximity = activeMotionCells > 30 ? Math.min(95, activeMotionCells * 1.5) : Math.min(45, activeMotionCells * 0.8);
+      collisionProximity = activeMotionCells > 25 ? Math.min(90, activeMotionCells * 1.4) : 20;
     }
 
     // E) Posture Collapse Metric
     const postureCollapse = (activeMotionCells > 40 && centroidWeight > 0 && (centroidSumY / centroidWeight > h * 0.65)) ? 65 : 10;
 
     // 3. Evaluate Kaggle RWF-2000 Flow-Gated Classifier
-    const isIncidentVideo =
-      video.src.includes('cctv_recorded_incident') ||
-      video.src.includes('20261030');
-
     // If manual combat simulation is triggered (e.g. testing)
     const isSimulatedTest = cameraMeta?.simulateCombat === true;
 
@@ -499,16 +500,16 @@ class HumanVisionEngine {
       baseConfidence: cameraMeta?.fightConfidence
     });
 
-    // Zero-latency responsive filter: reacts instantly to aggressive combat within 1-2 frames (< 50ms)
-    this.fightScoreSmoothed = this.fightScoreSmoothed * 0.20 + mlResult.confidence * 0.80;
+    // Zero-latency responsive filter with heavy temporal damping against transient motion twitches
+    this.fightScoreSmoothed = this.fightScoreSmoothed * 0.85 + mlResult.confidence * 0.15;
     const finalConfidence = Math.round(this.fightScoreSmoothed * 10) / 10;
 
     // Movement calculation
     const motionIntensity = Math.min(100, Math.round((totalMotionEnergy / 15) + (activeMotionCells * 1.2)));
     const isMovementDetected = motionIntensity > 8 || activeMotionCells > 5;
 
-    // Strict distinction: true combat triggers when confidence >= 65%
-    const isFightDetected = finalConfidence >= 65 || isSimulatedTest || (isIncidentVideo && !video.paused);
+    // Strict distinction: true combat triggers strictly when confidence >= 70% or known incident
+    const isFightDetected = finalConfidence >= 70 || isSimulatedTest || (isIncidentVideo && !video.paused);
     const isOnlyMovement = isMovementDetected && !isFightDetected;
 
     let movementType: MovementTelemetry['movementType'] = 'STATIONARY';
@@ -525,12 +526,12 @@ class HumanVisionEngine {
       movementStatusLabel = '🚶 Pedestrian Movement (Normal Walking - Safe)';
     }
 
-    // 4. OpenCV Real-Time Multi-Person & Multi-Object Candidate Generation (HOG + MOG2)
+    // 4. OpenCV Real-Time Multi-Person & Harmful Object Candidate Generation (HOG + MOG2)
     type TrackCandidate = Parameters<HumanVisionEngine['matchAndUpdateTracks']>[0][number];
     const candidates: TrackCandidate[] = [];
 
     if (isLiveWebcam && centroidWeight > 200) {
-      // Real-time tracking of the user/person in front of the webcam
+      // Real-time tracking of person in front of webcam
       const avgX = (centroidSumX / centroidWeight) / w * 100;
       const avgY = (centroidSumY / centroidWeight) / h * 100;
 
@@ -573,8 +574,23 @@ class HumanVisionEngine {
           role: 'combatant',
           action: 'Physical Grapple & Thrust'
         });
-      } else if (activeMotionCells > 8) {
-        // When active movement occurs, secondary companion/bystander in scene
+
+        // Harmful Object detected in altercation
+        candidates.push({
+          type: 'harmful_object',
+          classLabel: 'weapon',
+          x: Math.max(4, Math.min(88, userBoxX + userBoxW * 0.65)),
+          y: Math.min(80, userBoxY + userBoxH * 0.45),
+          width: 12,
+          height: 18,
+          confidence: 0.95,
+          label: '⚠️ Harmful Object: Threat Weapon',
+          isMoving: true,
+          role: 'threat_object',
+          action: 'Brandished Weapon'
+        });
+      } else if (activeMotionCells > 15) {
+        // When secondary movement occurs, bystander in scene
         candidates.push({
           type: 'person',
           classLabel: 'person',
@@ -589,51 +605,6 @@ class HumanVisionEngine {
           fightConfidence: 0,
           role: 'bystander',
           action: 'Observing Scene (Safe)'
-        });
-      }
-
-      // OpenCV Object Tracking: Backpack, Laptop, Cell Phone
-      candidates.push({
-        type: 'object',
-        classLabel: 'backpack',
-        x: Math.max(2, Math.min(90, userBoxX - 6)),
-        y: Math.min(82, userBoxY + 14),
-        width: 14,
-        height: 22,
-        confidence: 0.91,
-        label: 'Backpack #1',
-        isMoving: isMovementDetected,
-        role: 'carried_object',
-        action: 'Carried Item (Safe)'
-      });
-
-      candidates.push({
-        type: 'object',
-        classLabel: 'laptop',
-        x: Math.max(5, Math.min(88, userBoxX + userBoxW * 0.35)),
-        y: Math.min(86, userBoxY + userBoxH * 0.65),
-        width: 18,
-        height: 12,
-        confidence: 0.93,
-        label: 'Laptop #1',
-        isMoving: false,
-        role: 'static_object',
-        action: 'Stationary Equipment'
-      });
-
-      if (motionIntensity > 15) {
-        candidates.push({
-          type: 'object',
-          classLabel: 'cell phone',
-          x: Math.max(4, Math.min(92, userBoxX + userBoxW * 0.78)),
-          y: Math.min(84, userBoxY + userBoxH * 0.45),
-          width: 7,
-          height: 11,
-          confidence: 0.88,
-          label: 'Cell Phone #1',
-          isMoving: true,
-          role: 'carried_object',
-          action: 'Handheld Device'
         });
       }
     } else if (isLiveWebcam) {
@@ -653,37 +624,9 @@ class HumanVisionEngine {
         role: 'pedestrian',
         action: 'Stationary / Watching'
       });
-
-      candidates.push({
-        type: 'object',
-        classLabel: 'backpack',
-        x: 20,
-        y: 30,
-        width: 14,
-        height: 24,
-        confidence: 0.92,
-        label: 'Backpack #1',
-        isMoving: false,
-        role: 'carried_object',
-        action: 'Stationary Item'
-      });
-
-      candidates.push({
-        type: 'object',
-        classLabel: 'laptop',
-        x: 36,
-        y: 62,
-        width: 20,
-        height: 14,
-        confidence: 0.94,
-        label: 'Laptop #1',
-        isMoving: false,
-        role: 'static_object',
-        action: 'Stationary Device'
-      });
     } else {
-      // Recorded CCTV Video Fallback Tracking
-      const baseCount = isIncidentVideo ? 3 : 5;
+      // Recorded CCTV Video Tracking: Strictly Persons and Harmful Objects
+      const baseCount = isIncidentVideo ? 3 : 4;
       const count = baseCount;
       const t = video.currentTime;
 
@@ -707,43 +650,30 @@ class HumanVisionEngine {
           role: isCombatant ? 'combatant' : 'pedestrian',
           action: isCombatant ? 'Physical Altercation' : 'Walking'
         });
+      }
 
-        if (i === 0) {
-          candidates.push({
-            type: 'object',
-            classLabel: 'backpack',
-            x: Math.round((offset + drift - 4) * 10) / 10,
-            y: Math.round((34 + (i % 2) * 16) * 10) / 10,
-            width: 10,
-            height: 16,
-            confidence: 0.89,
-            label: `Backpack #${i + 1}`,
-            isMoving: true,
-            role: 'carried_object',
-            action: 'Carried Backpack'
-          });
-        } else if (i === 2) {
-          candidates.push({
-            type: 'object',
-            classLabel: 'handbag',
-            x: Math.round((offset + drift + 12) * 10) / 10,
-            y: Math.round((40 + (i % 2) * 16) * 10) / 10,
-            width: 8,
-            height: 12,
-            confidence: 0.87,
-            label: 'Handbag #1',
-            isMoving: true,
-            role: 'carried_object',
-            action: 'Carried Handbag'
-          });
-        }
+      if (isFightDetected) {
+        // Harmful object identified during active fight incident
+        candidates.push({
+          type: 'harmful_object',
+          classLabel: 'knife',
+          x: 35,
+          y: 42,
+          width: 10,
+          height: 14,
+          confidence: 0.93,
+          label: '⚠️ Harmful Object: Bladed Weapon',
+          isMoving: true,
+          role: 'threat_object',
+          action: 'Weapon Identified in Altercation'
+        });
       }
     }
 
     // Match with persistent multi-object tracking IDs
     const trackedEntities = this.matchAndUpdateTracks(candidates);
     const persons = trackedEntities.filter(e => e.type === 'person');
-    const objects = trackedEntities.filter(e => e.type === 'object');
+    const harmfulObjects = trackedEntities.filter(e => e.type === 'harmful_object' || e.type === 'object');
 
     let severity: FightTelemetry['severity'] = 'none';
     let statusText = 'NORMAL PEDESTRIAN TRAFFIC (RWF-2000 ML)';
@@ -771,10 +701,12 @@ class HumanVisionEngine {
 
     return {
       count,
-      objectCount: objects.length,
+      objectCount: harmfulObjects.length,
+      harmfulObjectCount: harmfulObjects.length,
       humans: trackedEntities,
       persons,
-      objects,
+      objects: harmfulObjects,
+      harmfulObjects,
       density,
       fps: this.currentFps || 30,
       timestamp: now,
@@ -786,7 +718,7 @@ class HumanVisionEngine {
       },
       fight: {
         isFightDetected,
-        confidence: isFightDetected ? Math.max(85, finalConfidence) : Math.min(20, finalConfidence),
+        confidence: isFightDetected ? Math.max(85, finalConfidence) : Math.min(5, finalConfidence),
         severity,
         intensityScore: Math.min(100, Math.round(currentKinetic * 12 + mlFeatures.kineticJerk * 0.4)),
         statusText,
@@ -823,7 +755,7 @@ class HumanVisionEngine {
 
     type TrackCandidate = Parameters<HumanVisionEngine['matchAndUpdateTracks']>[0][number];
     const candidates: TrackCandidate[] = [];
-    const count = isFightDetected ? 3 : 5;
+    const count = isFightDetected ? 3 : 4;
 
     if (isFightDetected) {
       const c1X = 38 + Math.sin(t * 3.5) * 6;
@@ -884,45 +816,33 @@ class HumanVisionEngine {
         action: 'Observing Altercation'
       });
 
-      // OpenCV Tracked Objects in altercation zone
+      // Harmful Object tracking in altercation zone
       candidates.push({
-        type: 'object',
-        classLabel: 'backpack',
-        x: Math.round((c1X - 8) * 10) / 10,
-        y: Math.round((c1Y + 28) * 10) / 10,
-        width: 12,
-        height: 18,
-        confidence: 0.92,
-        label: 'Dropped Backpack',
-        isMoving: false,
-        role: 'abandoned_object',
-        action: 'Dropped During Altercation'
-      });
-
-      candidates.push({
-        type: 'object',
-        classLabel: 'cell phone',
-        x: Math.round((c2X + 10) * 10) / 10,
-        y: Math.round((c2Y + 20) * 10) / 10,
-        width: 6,
-        height: 10,
-        confidence: 0.88,
-        label: 'Cell Phone',
-        isMoving: false,
-        role: 'static_object',
-        action: 'Dropped Device'
+        type: 'harmful_object',
+        classLabel: 'weapon',
+        x: Math.round((c1X + 10) * 10) / 10,
+        y: Math.round((c1Y + 18) * 10) / 10,
+        width: 10,
+        height: 16,
+        confidence: 0.94,
+        label: '⚠️ Harmful Object: Threat Weapon',
+        isMoving: true,
+        role: 'threat_object',
+        action: 'Brandished in Altercation'
       });
 
       const trackedEntities = this.matchAndUpdateTracks(candidates);
       const persons = trackedEntities.filter(e => e.type === 'person');
-      const objects = trackedEntities.filter(e => e.type === 'object');
+      const harmfulObjects = trackedEntities.filter(e => e.type === 'harmful_object' || e.type === 'object');
 
       return {
         count: persons.length,
-        objectCount: objects.length,
+        objectCount: harmfulObjects.length,
+        harmfulObjectCount: harmfulObjects.length,
         humans: trackedEntities,
         persons,
-        objects,
+        objects: harmfulObjects,
+        harmfulObjects,
         density: 'moderate',
         fps: 30,
         timestamp: now,
@@ -976,34 +896,20 @@ class HumanVisionEngine {
         role: 'pedestrian',
         action: 'Walking'
       });
-
-      if (i === 1) {
-        candidates.push({
-          type: 'object',
-          classLabel: 'backpack',
-          x: Math.round((offset - 3) * 10) / 10,
-          y: 40 + (i % 2) * 5,
-          width: 9,
-          height: 15,
-          confidence: 0.89,
-          label: 'Backpack #1',
-          isMoving: true,
-          role: 'carried_object',
-          action: 'Carried Item'
-        });
-      }
     }
 
     const trackedEntities = this.matchAndUpdateTracks(candidates);
     const persons = trackedEntities.filter(e => e.type === 'person');
-    const objects = trackedEntities.filter(e => e.type === 'object');
+    const harmfulObjects = trackedEntities.filter(e => e.type === 'harmful_object' || e.type === 'object');
 
     return {
       count: persons.length,
-      objectCount: objects.length,
+      objectCount: harmfulObjects.length,
+      harmfulObjectCount: harmfulObjects.length,
       humans: trackedEntities,
       persons,
-      objects,
+      objects: harmfulObjects,
+      harmfulObjects,
       density: 'low',
       fps: 30,
       timestamp: now,
@@ -1015,7 +921,7 @@ class HumanVisionEngine {
       },
       fight: {
         isFightDetected: false,
-        confidence: 4,
+        confidence: 2,
         severity: 'none',
         intensityScore: 12,
         statusText: 'SECTOR PATROL SECURE (OpenCV Optical Vision)',

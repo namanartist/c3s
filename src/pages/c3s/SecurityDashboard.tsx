@@ -1,5 +1,5 @@
 // src/pages/c3s/SecurityDashboard.tsx
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { AppShell } from '@/components/c3s/AppShell';
 import { StatCard } from '@/components/c3s/StatCard';
 import { StatusBadge } from '@/components/c3s/StatusBadge';
@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
+import { useSafetyStore } from '@/store/safetyStore';
 import { IncidentEvidenceModal } from '@/components/c3s/IncidentEvidenceModal';
 
 export default function SecurityDashboard() {
@@ -27,6 +28,11 @@ export default function SecurityDashboard() {
   const [isEvidenceModalOpen, setIsEvidenceModalOpen] = useState(false);
   const [selectedIncidentId, setSelectedIncidentId] = useState<string | null>(null);
   const [radioActive, setRadioActive] = useState(false);
+
+  // Sync latest incidents from MongoDB database on dashboard load
+  useEffect(() => {
+    useSafetyStore.getState().syncIncidentsWithDb();
+  }, []);
 
   // Filter unresolved incidents, prioritizing CRITICAL severity
   const activeQueue = useMemo(() => {

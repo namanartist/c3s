@@ -56,3 +56,116 @@ export async function fetchBuildings(): Promise<Building[]> {
 export async function fetchFloors(): Promise<FloorMap[]> {
   return apiFetch<FloorMap>('/api/floors');
 }
+
+/**
+ * Creates or updates an SOS incident in the MongoDB database via /api/sos.
+ */
+export async function createSosIncident(incident: any): Promise<{ success: boolean; incident?: any }> {
+  try {
+    const res = await fetch(`${API_BASE}/api/sos`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(incident)
+    });
+    if (!res.ok) {
+      console.warn(`[api] /api/sos returned status ${res.status}`);
+      return { success: false };
+    }
+    const data = await res.json();
+    return { success: true, incident: data.incident };
+  } catch (err) {
+    console.warn('[api] Failed to persist SOS incident to database:', err);
+    return { success: false };
+  }
+}
+
+/**
+ * Fetches recent SOS incidents from the MongoDB database.
+ */
+export async function fetchSosIncidents(): Promise<any[]> {
+  try {
+    const res = await fetch(`${API_BASE}/api/sos`);
+    if (!res.ok) return [];
+    const json = await res.json();
+    return Array.isArray(json.data) ? json.data : [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Updates an SOS incident's status or responder assignment in MongoDB.
+ */
+export async function updateSosIncident(
+  id: string,
+  action: 'resolve' | 'responding' | 'accept' | 'update',
+  responder?: string
+): Promise<boolean> {
+  try {
+    const targetUrl = action === 'update' ? `${API_BASE}/api/sos` : `${API_BASE}/api/sos/${id}/${action}`;
+    const res = await fetch(targetUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, action, responder })
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Persists student / staff check-in or check-out movements to the database.
+ */
+export async function recordGateMovement(data: {
+  userId?: string;
+  userName?: string;
+  userRole?: string;
+  department?: string;
+  movement: 'CHECK-IN' | 'CHECK-OUT';
+  gateName: string;
+  gateId?: string;
+  method?: string;
+}): Promise<any> {
+  try {
+    const endpoint = data.movement === 'CHECK-IN' ? '/api/gate/check-in' : '/api/gate/check-out';
+    const res = await fetch(`${API_BASE}${endpoint}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (err) {
+    console.warn('[api] Gate movement recording failed:', err);
+    return null;
+  }
+}
+
+/**
+ * Fetches gate history from the database.
+ */
+export async function fetchGateHistory(userId?: string): Promise<any[]> {
+  try {
+    const url = userId ? `${API_BASE}/api/gate/history?userId=${encodeURIComponent(userId)}` : `${API_BASE}/api/gate/history`;
+    const res = await fetch(url);
+    if (!res.ok) return [];
+    const json = await res.json();
+    return Array.isArray(json.data) ? json.data : [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Pings the database to retrieve health and connected collection status.
+ */
+export async function fetchDbStatus(): Promise<{ success: boolean; connected: boolean; database?: string; collections?: string[] }> {
+  try {
+    const res = await fetch(`${API_BASE}/api/db-status`);
+    if (!res.ok) return { success: false, connected: false };
+    return await res.json();
+  } catch {
+    return { success: false, connected: false };
+  }
+}

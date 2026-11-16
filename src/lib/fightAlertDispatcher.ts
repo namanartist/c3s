@@ -7,6 +7,7 @@ import fallbackData from '@/lib/mock-data/campusDataFallback.json';
 import type { MapNode } from '@/types/graph';
 import { findNearestCampusNode } from '@/lib/geoProjection';
 import { globalProctorAlarm } from '@/lib/proctorAlarmAudio';
+import { createSosIncident } from '@/lib/api';
 
 export interface ActiveFightAlert {
   id: string;
@@ -397,6 +398,42 @@ class FightAlertDispatcher {
       }
     };
     safetyStore.triggerSosIncident(sosIncident);
+
+    // 5a. Persist incident & forensic evidence to MongoDB database (/api/sos)
+    createSosIncident({
+      id: incidentId,
+      category: 'security',
+      severity: 'critical',
+      title: `🚨 Violent Fight Detected (${confidence}%)`,
+      description: `Physical altercation identified by OpenCV Optical Flow AI at ${cameraName}. Responders auto-dispatched.`,
+      map: resolvedMap,
+      floor: 0,
+      x: resolvedX,
+      y: resolvedY,
+      lat: resolvedLat,
+      lng: resolvedLng,
+      nodeId: resolvedNodeId,
+      photoUrl,
+      videoUrl: incidentVideoUrl,
+      timestamp: Date.now(),
+      status: 'active',
+      reportedBy: 'OpenCV Optical AI Surveillance',
+      assignedResponder: `${responders.guard.callsign} & ${responders.faculty.name}`,
+      notifiedResponders: [responders.guard.name, responders.faculty.name, responders.proctor.name],
+      evidence: {
+        photoUrl,
+        videoUrl: incidentVideoUrl,
+        fightDetected: true,
+        fightConfidence: confidence,
+        aiClassification: {
+          category: 'security',
+          severity: 'critical',
+          detectedHazards: ['Physical Fight', 'Violent Altercation', 'Assault'],
+          modelUsed: 'OpenCV Optical Flow + MOG2 Engine',
+          confidence: confidence / 100
+        }
+      }
+    });
 
     // 5b. Trigger active SOS in C3S store so campus-wide SOS state machine & UI banners engage
     c3sStore.triggerSos({
