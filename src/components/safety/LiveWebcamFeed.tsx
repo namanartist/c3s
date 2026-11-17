@@ -5,6 +5,7 @@ import { useHumanDetection } from '@/hooks/useHumanDetection';
 import { LiveDetectionOverlay } from './LiveDetectionOverlay';
 import { globalFightDispatcher } from '@/lib/fightAlertDispatcher';
 import { globalProctorAlarm } from '@/lib/proctorAlarmAudio';
+import { SAFETY_THRESHOLDS } from '@/config/safetyThresholds';
 
 interface LiveWebcamFeedProps {
   cameraId: string;
@@ -256,7 +257,8 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
   const isAutoFlagged =
     detection.fight.isFightDetected &&
     !detection.fight.isOnlyMovement &&
-    detection.fight.confidence >= 65;
+    detection.fight.confidence >= SAFETY_THRESHOLDS.SOS_CONFIDENCE * 100 &&
+    (detection.fight.sustainedDurationMs ?? 0) >= SAFETY_THRESHOLDS.CONFIRMATION_MS;
 
   // Automatically trigger proctor alert sound and UI banner on auto-detection
   useEffect(() => {
@@ -380,7 +382,7 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
           </div>
           <h4 className="text-sm font-bold text-white">Connecting to Camera Hardware...</h4>
           <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
-            Synchronizing live video feed and initializing Kaggle RWF-2000 optical flow models.
+            Synchronizing live video feed and initialising the optical aggression models.
           </p>
         </div>
       )}

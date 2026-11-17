@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C3S Presentation Deck — Project Expo Nov 2026 | MITS Gwalior</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #030712;
+      color: #f3f4f6;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      user-select: none;
+    }
+
+    /* Presentation Wrapper */
+    #presentation {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 10% 20%, rgba(30, 58, 138, 0.25) 0%, transparent 40%),
+                  radial-gradient(circle at 90% 80%, rgba(99, 102, 241, 0.2) 0%, transparent 40%),
+                  #030712;
+    }
+
+    /* Top Progress Bar */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #38bdf8, #818cf8, #a855f7);
+      width: 0%;
+      transition: width 0.3s ease;
+      z-index: 1000;
+    }
+
+    /* Slide Container (16:9 Aspect Ratio) */
+    .slide-viewport {
+      width: 95vw;
+      height: 90vh;
+      max-width: 1600px;
+      max-height: 900px;
+      position: relative;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 40px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      transform: translateX(40px);
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    .slide.prev {
+      transform: translateX(-40px);
+    }
+
+    /* Slide Header */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 14px;
+      margin-bottom: 20px;
+    }
+
+    .slide-header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .slide-inst-tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #94a3b8;
+    }
+
+    .slide-title-group h2 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+    }
+
+    .slide-title-group .sub {
+      font-size: 13px;
+      color: #38bdf8;
+      font-weight: 500;
+    }
+
+    .slide-header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #38bdf8;
+    }
+
+    .badge-pill.red {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #f87171;
+    }
+
+    /* Slide Body */
+    .slide-body {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Slide Footer */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 14px;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .slide-footer .team-info strong {
+      color: #cbd5e1;
+    }
+
+    .slide-footer .repo-link {
+      font-family: 'JetBrains Mono', monospace;
+      color: #38bdf8;
+      text-decoration: none;
+    }
+
+    /* Common Card & Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      height: 100%;
+      align-items: center;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .card.accent {
+      border-color: rgba(56, 189, 248, 0.4);
+      background: rgba(30, 41, 59, 0.7);
+    }
+
+    .card.warning {
+      border-color: rgba(245, 158, 11, 0.4);
+      background: rgba(45, 33, 17, 0.4);
+    }
+
+    .card.success {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(6, 44, 32, 0.4);
+    }
+
+    .card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+
+    .card h3.amber { color: #fbbf24; }
+    .card h3.green { color: #34d399; }
+    .card h3.red { color: #f87171; }
+
+    .card p {
+      font-size: 14px;
+      line-height: 1.55;
+      color: #cbd5e1;
+      margin-bottom: 10px;
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    ul.bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 14px;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    ul.bullets li {
+      position: relative;
+      padding-left: 18px;
+    }
+
+    ul.bullets li::before {
+      content: "▪";
+      position: absolute;
+      left: 0;
+      color: #38bdf8;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    /* Math formulas */
+    .formula-block {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #e0e7ff;
+      margin-bottom: 14px;
+    }
+
+    .formula-block .math-head {
+      font-weight: 700;
+      color: #38bdf8;
+      margin-bottom: 6px;
+    }
+
+    /* UI Media preview in slides */
+    .slide-media-card {
+      background: #020617;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+    }
+
+    .slide-media-card img {
+      width: 100%;
+      height: auto;
+      max-height: 480px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .slide-media-caption {
+      padding: 10px 16px;
+      font-size: 12px;
+      color: #94a3b8;
+      background: rgba(15, 23, 42, 0.9);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Comparison Table / Grid */
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .comp-table th {
+      background: rgba(30, 41, 59, 0.8);
+      color: #93c5fd;
+      padding: 10px 14px;
+      text-align: left;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    .comp-table td {
+      padding: 10px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      color: #e2e8f0;
+    }
+
+    .comp-table tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Navigation Controls Bar */
+    #nav-controls {
+      position: fixed;
+      bottom: 16px;
+      right: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 30px;
+      padding: 6px 14px;
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+    }
+
+    #nav-controls button {
+      background: transparent;
+      border: none;
+      color: #cbd5e1;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    #nav-controls button:hover {
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+    }
+
+    #slide-indicator {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #94a3b8;
+      padding: 0 8px;
+    }
+
+    /* Presenter Notes Modal */
+    #presenter-notes {
+      position: fixed;
+      bottom: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80vw;
+      max-width: 900px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid #38bdf8;
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      display: none;
+      backdrop-filter: blur(12px);
+    }
+
+    #presenter-notes.open {
+      display: block;
+    }
+
+    #presenter-notes h4 {
+      font-size: 13px;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    #presenter-notes p {
+      font-size: 13px;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    /* Print / Export Styles */
+    @media print {
+      @page {
+        size: 16in 9in;
+        margin: 0;
+      }
+      *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      body {
+        overflow: visible;
+        background: #030712 !important;
+        width: 16in;
+        height: auto;
+      }
+      #presentation {
+        display: block;
+        height: auto;
+        width: 16in;
+        background: #030712 !important;
+      }
+      #progress-bar, #nav-controls, #presenter-notes {
+        display: none !important;
+      }
+      .slide-viewport {
+        width: 16in !important;
+        height: auto !important;
+        max-width: none !important;
+        max-height: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        overflow: visible !important;
+      }
+      .slide {
+        position: relative !important;
+        width: 16in !important;
+        height: 9in !important;
+        opacity: 1 !important;
+        transform: none !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        background: #0b1120 !important;
+        box-sizing: border-box !important;
+        padding: 0.5in 0.6in !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<div id="presentation">
+  <div class="slide-viewport">
+
+    <!-- ==================== SLIDE 1: TITLE SLIDE ==================== -->
+    <div class="slide active" data-notes="Good morning respected judges and faculty members. We are Team VigilantX from the Department of Mathematics and Computing, presenting C3S: Campus Safety and Security System. Our project ID is P3S-4, mentored by Dr. Dheeraj Kumar Dixit.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <img src="extracted_assets/clg_logo.webp" alt="MITS Logo" style="width: 44px; height: 44px; object-fit: contain;" />
+          <div>
+            <div class="slide-inst-tag">Madhav Institute of Technology &amp; Science, Gwalior (M.P.)</div>
+            <div style="font-size: 12px; color: #94a3b8;">Deemed to be University &bull; NAAC Accredited with 'A++' Grade &bull; Ministry of Education</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill red">PROJECT ID: P3S-4</span>
+          <span class="badge-pill">SESSION 2026-27</span>
+        </div>
+      </div>
+
+      <div class="slide-body" style="text-align: center; justify-content: center;">
+        <div style="display: inline-flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 16px;">
+          <img src="extracted_assets/c3s_logo.png" alt="C3S Logo" style="width: 80px; height: 80px; border-radius: 16px;" />
+          <div style="text-align: left;">
+            <h1 style="font-size: 42px; font-weight: 900; color: #38bdf8; line-height: 1.1; letter-spacing: -0.02em;">
+              C3S: Campus Safety &amp; Security System
+            </h1>
+            <p style="font-size: 18px; color: #cbd5e1; font-weight: 500; margin-top: 4px;">
+              "Find the room, tap SOS, get help" &bull; One-Tap Campus Emergency Response
+            </p>
+          </div>
+        </div>
+
+        <div style="max-width: 850px; margin: 0 auto; background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 18px 24px; text-align: left; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div>
+            <div style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; margin-bottom: 6px;">Student Presentation Team (VigilantX)</div>
+            <div style="font-size: 14px; font-weight: 600; color: #f8fafc; margin-bottom: 3px;">&bull; Abhinav Jaiswal (BTMC2501004) <span style="color: #fbbf24;">[Presenter]</span></div>
+            <div style="font-size: 14px; font-weight: 600; color: #f8fafc; margin-bottom: 3px;">&bull; Abhinav Gupta (BTMC2501003)</div>
+            <div style="font-size: 14px; font-weight: 600; color: #f8fafc;">&bull; Naman Lahariya (BTMC2501080)</div>
+            <div style="font-size: 12px; color: #94a3b8; margin-top: 6px;">B.Tech Engineering Mathematics &amp; Computing, 3rd Sem</div>
+          </div>
+          <div>
+            <div style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; margin-bottom: 6px;">Faculty Mentor &amp; Department</div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <img src="extracted_assets/DrDheerajDixit.jpg" alt="Dr Dheeraj Dixit" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1.5px solid #38bdf8;" />
+              <div>
+                <div style="font-size: 14px; font-weight: 700; color: #f8fafc;">Dr. Dheeraj Kumar Dixit</div>
+                <div style="font-size: 12px; color: #94a3b8;">Assistant Professor</div>
+                <div style="font-size: 11px; color: #38bdf8;">Dept. of Mathematics &amp; Computing</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="team-info">MITS Gwalior &bull; Project Expo Nov 2026</div>
+        <div>GitHub: <a class="repo-link" href="https://github.com/namanartist/c3s" target="_blank">github.com/namanartist/c3s</a></div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 2: PROJECT AT A GLANCE ==================== -->
+    <div class="slide" data-notes="Here is our project at a glance. We are addressing campus emergency navigation, surveillance, and gate logging as a unified software platform for the 45+ acre MITS campus.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Project at a Glance</h2>
+            <div class="sub">Executive Summary &bull; C3S Scope</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill">EXPO 2026</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-4" style="margin-bottom: 24px;">
+          <div class="card">
+            <div style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Project Name</div>
+            <div style="font-size: 18px; font-weight: 800; color: #38bdf8; margin: 4px 0;">C3S Platform</div>
+            <p style="font-size: 12px;">Campus Safety &amp; Security System</p>
+          </div>
+          <div class="card">
+            <div style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Target Domain</div>
+            <div style="font-size: 18px; font-weight: 800; color: #34d399; margin: 4px 0;">Web Software</div>
+            <p style="font-size: 12px;">Zero-install PWA on mobile &amp; desktop</p>
+          </div>
+          <div class="card">
+            <div style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Scale &amp; Coverage</div>
+            <div style="font-size: 18px; font-weight: 800; color: #fbbf24; margin: 4px 0;">641 Nodes</div>
+            <p style="font-size: 12px;">MITS Campus, AI Block &amp; Main Building</p>
+          </div>
+          <div class="card">
+            <div style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Response Speed</div>
+            <div style="font-size: 18px; font-weight: 800; color: #f87171; margin: 4px 0;">98s Median</div>
+            <p style="font-size: 12px;">Down from 537s baseline phone alert</p>
+          </div>
+        </div>
+
+        <div class="card accent">
+          <h3>The Core Concept: Why C3S?</h3>
+          <p>
+            On a university campus with thousands of students, accidents, sudden medical emergencies, and escalating altercations demand swift action. Today, an emergency is reported via telephone calls to security guards or wardens. Callers often struggle to explain their exact multi-floor location ("I am somewhere on the 2nd floor of AI block near the corner lab"). Guards spend crucial minutes figuring out which staircase to take.
+          </p>
+          <p>
+            <strong>C3S solves this in 1 tap:</strong> Pressing and holding the SOS button for 2 seconds transmits the student's exact floor node, camera snapshot, and initiates a turn-by-turn responder navigation route on guards' screens within 1.2 seconds.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Team VigilantX &bull; Project ID: P3S-4</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 3: THE CAMPUS PROBLEM ==================== -->
+    <div class="slide" data-notes="When we looked closely at our own campus, we observed three critical friction points: phone-call latency, fragmented tools, and indoor map blind spots.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>The Problem We Saw on Campus</h2>
+            <div class="sub">Ground Realities &amp; The Latency Penalty</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill red">FIELD STUDY</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card warning">
+            <h3 class="amber">1. Phone-Call Delay (8–9 Min)</h3>
+            <p>
+              When a fight breaks out or a student faints in a lab, witnesses panic. Locating security numbers, calling the gate, explaining the scene, and relaying the message to an on-duty guard consumes an average of <strong>537 seconds (8.95 minutes)</strong>.
+            </p>
+            <p style="font-size: 12px; color: #94a3b8;">
+              By the time responders arrive, injuries worsen or crowds disperse into chaos.
+            </p>
+          </div>
+
+          <div class="card warning">
+            <h3 class="amber">2. Disconnected Security Silos</h3>
+            <p>
+              CCTV cameras record to local DVR hard drives without real-time threat intelligence. Gate registers rely on paper logbooks that cannot be searched during emergencies. Responders communicate over noisy walkie-talkies with zero spatial coordinates.
+            </p>
+            <p style="font-size: 12px; color: #94a3b8;">
+              There is no centralized single-pane-of-glass operating picture.
+            </p>
+          </div>
+
+          <div class="card warning">
+            <h3 class="amber">3. Indoor GPS Blind Spot</h3>
+            <p>
+              Commercial navigation tools like Google Maps and Apple Maps stop at building entrance gates. They have zero visibility into indoor corridors, staircase connections, elevator locations, or classroom numbers across multiple floors.
+            </p>
+            <p style="font-size: 12px; color: #94a3b8;">
+              Responders waste 3–4 minutes simply navigating unfamiliar stairwells.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>MITS Gwalior Campus Emergency Bottleneck Analysis</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 4: PROJECT OBJECTIVES ==================== -->
+    <div class="slide" data-notes="Our core objectives are concrete and measurable: a sub-2-minute emergency interception, zero app installation required, offline resilience, and total data privacy.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Our Project Objectives</h2>
+            <div class="sub">Target Goals &amp; Engineering Deliverables</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill">TARGET SPEC</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card success">
+            <h3 class="green">Target Performance Metrics</h3>
+            <ul class="bullets">
+              <li><strong>Sub-2-Minute Interception:</strong> Reduce end-to-end incident response time $T$ from ~9 minutes to under 120 seconds ($T \le 120\text{s}$).</li>
+              <li><strong>Zero-Install Student Access:</strong> Pure browser-native web application requiring no Play Store / App Store download.</li>
+              <li><strong>Offline Queueing:</strong> Function seamlessly even if campus Wi-Fi drops, queueing SOS tickets locally in browser storage.</li>
+              <li><strong>Precise Multi-Floor Routing:</strong> Compute exact turn-by-turn indoor paths including accessible (elevator) options.</li>
+            </ul>
+          </div>
+
+          <div class="card accent">
+            <h3>Technical Commitments</h3>
+            <ul class="bullets">
+              <li><strong>Privacy by Design:</strong> Eliminate cloud video streaming; process frames client-side to protect student dignity and privacy.</li>
+              <li><strong>Low-Cost Deployment:</strong> Zero dedicated server GPUs; runs on standard institutional servers and existing security computers.</li>
+              <li><strong>Cryptographic Gate Integrity:</strong> Replace paper registers with tamper-resistant HMAC-SHA256 signed digital passes.</li>
+              <li><strong>Immutable Audit Trail:</strong> Timestamp every status change from initial SOS trigger to resolution for post-incident review.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>C3S Core Design Specification</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 5: EXISTING SYSTEMS VS C3S ==================== -->
+    <div class="slide" data-notes="When comparing C3S to commercial alternatives, proprietary systems cost lakhs, rely on cloud streaming, and do not provide integrated indoor navigation. C3S provides all four capabilities in one open web platform.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Existing Landscape vs. C3S</h2>
+            <div class="sub">Competitive &amp; Functional Comparison</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill">BENCHMARK</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Feature / Dimension</th>
+              <th>Commercial CCTV (Hikvision/Dahua)</th>
+              <th>Consumer Safety Apps (Life360)</th>
+              <th>Campus ERP Gate Log</th>
+              <th>C3S (Our Solution)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Indoor Multi-Floor Routing</strong></td>
+              <td>&#10006; None</td>
+              <td>&#10006; Outdoor GPS only</td>
+              <td>&#10006; None</td>
+              <td><strong style="color: #34d399;">&#10004; 641 Multi-Floor Nodes (Dijkstra)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Incident Detection Latency</strong></td>
+              <td>&#10006; Passive recording / human monitoring</td>
+              <td>&#10006; Manual SOS over cell network</td>
+              <td>&#10006; Post-entry logging</td>
+              <td><strong style="color: #34d399;">&#10004; &lt; 2s Edge Optical Flow + 2s SOS</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Hardware &amp; Cloud Cost</strong></td>
+              <td>High proprietary NVRs / cloud fees</td>
+              <td>Monthly subscription per user</td>
+              <td>Vendor maintenance fees</td>
+              <td><strong style="color: #34d399;">&#10004; Zero GPU / Pure Open Stack</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Privacy &amp; DPDP Compliance</strong></td>
+              <td>Stored on physical DVR drives</td>
+              <td>Location sold or stored in cloud</td>
+              <td>Plaintext SQL logs</td>
+              <td><strong style="color: #34d399;">&#10004; Ephemeral frames, HMAC signed</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Offline Resilience</strong></td>
+              <td>Local only, no mobile dispatch</td>
+              <td>Fails without active 4G/5G</td>
+              <td>Crashes on connection loss</td>
+              <td><strong style="color: #34d399;">&#10004; Bundled graph &amp; IndexedDB sync</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="slide-footer">
+        <div>Comparative Technology Audit</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 6: THREE-TIER ARCHITECTURE ==================== -->
+    <div class="slide" data-notes="This slide outlines our 3-tier architecture. Notice Tier 1 is our edge presentation running on React 19 and Vite 8 with Zustand state slices. Tier 2 is our Node serverless API. Tier 3 is MongoDB with an offline fallback.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Three-Tier System Architecture</h2>
+            <div class="sub">Presentation &bull; Compute &bull; Persistence + Offline Fallback</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill">ARCHITECTURE</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3" style="margin-bottom: 20px;">
+          <div class="card accent">
+            <h3>Tier 1: Presentation (Edge)</h3>
+            <ul class="bullets">
+              <li><strong>React 19 &amp; TypeScript 6:</strong> Strictly typed UI with zero runtime crashes.</li>
+              <li><strong>Vite 8 &amp; Tailwind CSS:</strong> High-performance instant bundling and responsive layouts.</li>
+              <li><strong>Zustand State Stores:</strong> Granular state slices (<code>safetyStore</code>, <code>mapStore</code>) minimizing re-renders.</li>
+              <li><strong>SVG Vector Map Engine:</strong> Real-time path projection and layer switching.</li>
+            </ul>
+          </div>
+
+          <div class="card accent">
+            <h3>Tier 2: Compute &amp; Dispatch API</h3>
+            <ul class="bullets">
+              <li><strong>Node.js Serverless APIs:</strong> Modular endpoints in <code>api/*.ts</code> and local dev server.</li>
+              <li><strong>Incident State Machine:</strong> Atomic state transitions for incident lifecycles.</li>
+              <li><strong>HMAC-SHA256 Token Engine:</strong> Generates tamper-proof QR codes with cryptographic nonces.</li>
+              <li><strong>RBAC Session Middleware:</strong> Validates roles (Student, Guard, Gatekeeper, Admin).</li>
+            </ul>
+          </div>
+
+          <div class="card accent">
+            <h3>Tier 3: Persistence &amp; Storage</h3>
+            <ul class="bullets">
+              <li><strong>MongoDB Database:</strong> High-throughput collections for nodes, edges, logs, and passes.</li>
+              <li><strong>Optimized Indexes:</strong> Spatial index on coordinates and compound index on timestamps.</li>
+              <li><strong>Bundled Graph Fallback:</strong> If database connection drops, app loads embedded campus graph instantly.</li>
+              <li><strong>Browser IndexedDB Sync:</strong> Stores pending SOS dispatches offline until reconnection.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="background: rgba(30, 58, 138, 0.25); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 8px; padding: 12px 20px; font-size: 13px; color: #cbd5e1; display: flex; align-items: center; gap: 14px;">
+          <span style="font-size: 20px; color: #38bdf8;">&#9889;</span>
+          <div>
+            <strong>Fault-Tolerant Resilience:</strong> If the central backend API server crashes or goes offline, student navigation, offline gate ticket reading, and local CCTV frame diffing continue executing in the browser without interruption.
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>C3S Software Architecture Design</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 7: TECH STACK ==================== -->
+    <div class="slide" data-notes="Here is our complete technology stack table. Everything is modern, free, open-source, and fully typed in TypeScript.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Technology Stack Breakdown</h2>
+            <div class="sub">Production Frameworks, Libraries &amp; Tools</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill">STACK</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Domain</th>
+              <th>Technology / Package</th>
+              <th>Version</th>
+              <th>Role &amp; Architectural Rationale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Frontend Framework</strong></td>
+              <td>React + Vite</td>
+              <td>React 19 / Vite 8</td>
+              <td>Modern concurrent rendering, lightning-fast HMR and PWA compatibility.</td>
+            </tr>
+            <tr>
+              <td><strong>Type Safety</strong></td>
+              <td>TypeScript</td>
+              <td>TypeScript 6</td>
+              <td>Strict compile-time contracts for all graph models, SOS events, and API payloads.</td>
+            </tr>
+            <tr>
+              <td><strong>State Management</strong></td>
+              <td>Zustand</td>
+              <td>v5.0.0</td>
+              <td>Decoupled store slices for map routing, camera matrix, and incident dispatches.</td>
+            </tr>
+            <tr>
+              <td><strong>Backend Microservices</strong></td>
+              <td>Node.js &amp; Express</td>
+              <td>Node.js 22+</td>
+              <td>Low-latency REST endpoints for SOS ingestion, gate validation, and audit logs.</td>
+            </tr>
+            <tr>
+              <td><strong>Database</strong></td>
+              <td>MongoDB</td>
+              <td>v8.0+</td>
+              <td>Flexible schema for geo-tagged graph nodes, edge weights, and live incident records.</td>
+            </tr>
+            <tr>
+              <td><strong>Computer Vision</strong></td>
+              <td><strong>OpenCV (Client-Side)</strong></td>
+              <td>Wasm / Canvas API</td>
+              <td>Sub-2ms frame differencing and optical flow without heavy cloud GPU overhead.</td>
+            </tr>
+            <tr>
+              <td><strong>Security &amp; Auth</strong></td>
+              <td>HMAC-SHA256 &amp; JWT</td>
+              <td>Web Crypto API</td>
+              <td>Cryptographically signed QR gate passes preventing forged student admissions.</td>
+            </tr>
+            <tr>
+              <td><strong>Deployment</strong></td>
+              <td>Docker &amp; Vercel</td>
+              <td>Docker 27 / Vercel Edge</td>
+              <td>Containerized local development and zero-downtime serverless edge hosting.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="slide-footer">
+        <div>Production Stack Specification</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 8: THE MATHEMATICAL MODELS (1) ==================== -->
+    <div class="slide" data-notes="As Engineering Mathematics and Computing students, mathematical modeling is core to C3S. Here we formulate three essential models: the emergency response time equation, crowd density calculation, and Poisson queue arrival.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>The Mathematics of C3S (Part 1)</h2>
+            <div class="sub">Empirical Equations &bull; Response Time, Density &amp; Queuing</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill">MATH MODELS</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card accent">
+            <h3>1. Response Time Model</h3>
+            <div class="formula-block">
+              <div class="math-head">$$T = t_{\text{detect}} + t_{\text{alert}} + \frac{s}{v_{\text{responder}}}$$</div>
+              <div>$t_{\text{detect}}$: Time to identify threat (&lt; 2s)<br/>
+              $t_{\text{alert}}$: Latency to dispatch guards (~1.2s)<br/>
+              $s$: Distance along shortest graph path (m)<br/>
+              $v$: Responder sprint velocity (~4 m/s)</div>
+            </div>
+            <p style="font-size: 13px;">
+              By compressing $t_{\text{alert}}$ from 300s (phone call) to 1.2s, total response time drops from <strong>537s to 98s</strong>.
+            </p>
+          </div>
+
+          <div class="card accent">
+            <h3>2. Crowd Density &amp; Kinetic Jerk</h3>
+            <div class="formula-block">
+              <div class="math-head">$$\rho = \frac{N}{A} \quad \text{and} \quad \mathbf{J} = \frac{d^2 \mathbf{v}}{dt^2}$$</div>
+              <div>$\rho$: Crowd density ($\text{people}/\text{m}^2$)<br/>
+              $N$: Detected heads/torso centroids<br/>
+              $A$: Calibrated corridor polygon area<br/>
+              $\mathbf{J}$: 2nd derivative of velocity vector</div>
+            </div>
+            <p style="font-size: 13px;">
+              When kinetic jerk $|\mathbf{J}| > \theta_{\text{threshold}}$, optical flow vectors spike, indicating sudden fighting or fleeing motions.
+            </p>
+          </div>
+
+          <div class="card accent">
+            <h3>3. Poisson Incident Arrival</h3>
+            <div class="formula-block">
+              <div class="math-head">$$P(k) = \frac{(\lambda t)^k e^{-\lambda t}}{k!}$$</div>
+              <div>$\lambda$: Campus incident arrival rate<br/>
+              $k$: Simultaneous active emergencies<br/>
+              $\mu$: Guard resolution rate ($\mu > \lambda$)</div>
+            </div>
+            <p style="font-size: 13px;">
+              Under M/M/c queuing theory, our multi-guard dispatch queue guarantees finite queue length and zero dropped emergency alerts.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Department of Mathematics and Computing &bull; Theoretical Formulations</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 9: THE MATHEMATICAL MODELS (2) DIJKSTRA ==================== -->
+    <div class="slide" data-notes="Here is our routing engine: a custom non-blocking Dijkstra pathfinder. Running standard Dijkstra on a single thread could freeze the browser on a 641-node graph. Our async solver yields to the main thread every 50 iterations.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>The Mathematics of C3S (Part 2)</h2>
+            <div class="sub">Non-Blocking Multi-Floor Dijkstra Graph Routing</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill">GRAPH THEORY</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card accent">
+            <h3>Multi-Floor Shortest Path Algorithm</h3>
+            <div class="formula-block">
+              <div class="math-head">$$d(v) = \min_{u \in \text{adj}(v)} \{ d(u) + w(u, v) \}$$</div>
+              <div>$V$: 641 digitized campus nodes<br/>
+              $E$: 1,280 bidirectional weighted edges<br/>
+              $w(u, v)$: Euclidean distance + vertical stair penalty</div>
+            </div>
+            <ul class="bullets">
+              <li><strong>Cross-Floor Edge Weighting:</strong> Vertical transitions via stairs add a physical impedance penalty factor ($\Delta z \times 1.5$) to encourage ground-level paths when viable.</li>
+              <li><strong>Step-Free Accessible Routing:</strong> Toggling the 'Wheelchair Accessible' switch sets the weight of stair edges to $\infty$, forcing the solver through elevator paths.</li>
+            </ul>
+          </div>
+
+          <div class="card success">
+            <h3 class="green">Asynchronous Yielding (UI Responsiveness)</h3>
+            <p>
+              In conventional JavaScript, solving large graphs on the main thread triggers noticeable frame drops (&gt; 50ms jank).
+            </p>
+            <div style="background: rgba(0,0,0,0.4); border-radius: 8px; padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #38bdf8; margin: 10px 0;">
+              if (iterations % 50 === 0) {<br/>
+              &nbsp;&nbsp;await yieldToMainThread(); // requestAnimationFrame<br/>
+              }
+            </div>
+            <p style="font-size: 13px;">
+              By yielding control every 50 relaxation cycles, the browser maintains a fluid <strong>60 FPS animation loop</strong> while computing paths in under 12ms.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Algorithm Design: Async Min-Heap Dijkstra</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 10: ARCHITECTURAL EVOLUTION (YOLO11 TO OPENCV) ==================== -->
+    <div class="slide" data-notes="This is one of our most important architectural lessons. In early sprints, we tried using YOLO11 for object and fight detection. But cloud GPU inferencing introduced 1-second lag, cost hundreds of dollars, and saturated campus Wi-Fi. We pivoted to client-side OpenCV, which runs sub-2ms in browser memory with zero server cost and complete data privacy.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Architectural Evolution: Migrating from YOLO11 to OpenCV</h2>
+            <div class="sub">Why We Replaced Deep Learning with Edge Computer Vision</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill amber">KEY INNOVATION</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card warning">
+            <h3 class="red">&#10006; The YOLO11 Bottleneck (Cloud DL)</h3>
+            <ul class="bullets">
+              <li><strong>High Inferencing Latency:</strong> Video frames had to be compressed, encoded, transmitted over Wi-Fi, and evaluated on a server GPU, introducing <strong>450ms–1,200ms latency</strong>.</li>
+              <li><strong>Prohibitive Infrastructure Cost:</strong> Hosting a dedicated NVIDIA GPU cluster for 12 simultaneous 1080p camera streams cost upwards of $250/month—infeasible for colleges.</li>
+              <li><strong>Bandwidth Saturation:</strong> Continuous video upload choked the MITS academic Wi-Fi network during peak hours.</li>
+              <li><strong>Student Privacy Risk:</strong> Live camera footage leaving the campus boundary violates data protection regulations.</li>
+            </ul>
+          </div>
+
+          <div class="card success">
+            <h3 class="green">&#10004; The OpenCV Solution (Edge Vision)</h3>
+            <ul class="bullets">
+              <li><strong>Sub-2ms Processing:</strong> Lightweight frame differencing, background subtraction, and optical flow vectors execute directly in the browser's HTML5 Canvas / WebAssembly.</li>
+              <li><strong>Zero Cloud GPU Cost:</strong> Runs on commodity Intel i3/i5 office laptops and guard tablets with less than 8% CPU utilization.</li>
+              <li><strong>Zero Video Bandwidth:</strong> Raw video remains inside client memory; only small event JSON payloads (&lt; 1 KB) are transmitted when anomalies occur.</li>
+              <li><strong>100% Student Privacy:</strong> No images or video ever leave the local network boundary without explicit SOS trigger authorization.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Edge Computing Optimization &bull; C3S Vision Engine</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 11: UI SHOWCASE - STUDENT SOS ==================== -->
+    <div class="slide" data-notes="Here is our live Student SOS console. To prevent accidental triggers in pockets, the student must press and hold the button for 2 full seconds. Upon trigger, it captures GPS, floor node, and a camera frame.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Live UI Walkthrough: Student SOS Console</h2>
+            <div class="sub">2-Second Hold Trigger &bull; Location Tagging &bull; Emergency Dispatch</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill">STUDENT CONSOLE</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="slide-media-card">
+            <img src="extracted_assets/fig1_student_sos.png" alt="Student SOS Screen" />
+            <div class="slide-media-caption">
+              <strong>Figure 1:</strong> Student SOS console in action with safety checks, emergency category selectors, and 2-second hold trigger.
+            </div>
+          </div>
+
+          <div class="card accent">
+            <h3>Key Features of Student Console</h3>
+            <ul class="bullets">
+              <li><strong>Haptic 2-Second Hold Guard:</strong> Prevents false alarms from inadvertent taps; progressive radial fill animation provides instant visual and haptic feedback.</li>
+              <li><strong>Automated Floor &amp; Room Tagging:</strong> Cross-references student's indoor node ID with the nearest classroom (e.g. "AI Block, 2nd Floor, Lab 204").</li>
+              <li><strong>Multi-Threat Category Selector:</strong> Medical Emergency, Physical Altercation, Harassment, Fire Hazard, or Infrastructure Failure.</li>
+              <li><strong>Offline Ticket Queue:</strong> If cellular network or Wi-Fi is lost, the ticket is instantly saved to <code>localStorage/IndexedDB</code> and synced the millisecond signal returns.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Frontend View: Student Mobile Interface</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 12: UI SHOWCASE - CAMPUS NAVIGATOR ==================== -->
+    <div class="slide" data-notes="This is the heart of our indoor navigation: vector SVG maps calibrated to WGS84 GPS. Notice the multi-floor selector: Ground Floor, First Floor, Second Floor, and Third Floor of the AI Block and Main Building.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Live UI Walkthrough: Campus Vector Map Navigator</h2>
+            <div class="sub">Multi-Floor SVG Rendering &bull; Turn-by-Turn Wayfinding &bull; Step-Free Routing</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill">INDOOR MAPS</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="slide-media-card">
+            <img src="extracted_assets/fig2_campus_navigator.png" alt="Campus Map Navigator" />
+            <div class="slide-media-caption">
+              <strong>Figure 2:</strong> Interactive vector navigator showing calibrated floor plans, step-by-step navigation instructions, and accessible lift routing.
+            </div>
+          </div>
+
+          <div class="card accent">
+            <h3>Technical Innovations in Mapping</h3>
+            <ul class="bullets">
+              <li><strong>Vector SVG Rendering:</strong> Crisp, scalable floor maps that load in under 15ms without pixelation or high raster image memory consumption.</li>
+              <li><strong>Multi-Floor Discrete Segmentation:</strong> The graph path is intelligently segmented by building and floor; switching floors updates the active SVG viewport automatically.</li>
+              <li><strong>WGS84 GPS Calibration:</strong> Indoor vector coordinates are pinned to real-world latitude and longitude for seamless outdoor-to-indoor transitions.</li>
+              <li><strong>Step-Free Accessible Mode:</strong> Dedicated toggle routes wheelchairs and emergency stretcher carts through campus elevators and ramps.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Campus Spatial Engine &bull; MITS Digitized Map</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 13: UI SHOWCASE - OPENCV EDGE VISION ==================== -->
+    <div class="slide" data-notes="Here is our OpenCV edge vision analyzer in action. On the left is normal baseline movement. On the right, when sudden violent motion or fighting occurs, kinetic jerk thresholds spike, generating dynamic red bounding boxes and triggering an alert banner in real time.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Live UI Walkthrough: OpenCV Edge Vision in Action</h2>
+            <div class="sub">Baseline Motion vs. Violent Agitation &bull; Real-time Kinetic Bounding Boxes</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill green">CV ENGINE</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="slide-media-card" style="margin-bottom: 16px;">
+          <img src="extracted_assets/fig4_flagged_camera_detection.png" alt="Edge Vision Aggression Analyzer" />
+          <div class="slide-media-caption">
+            <strong>Figure 3:</strong> Live camera frame analysis. Left: normal walking traffic (low motion score). Right: high-acceleration fight activity flagged with dynamic red bounding boxes and instant audio-visual alert triggers.
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3 class="green">1. Optical Flow Differencing</h3>
+            <p style="font-size: 13px;">Consecutive frames are converted to grayscale and differenced ($\Delta I = |I_t - I_{t-1}|$) to detect localized pixel displacement.</p>
+          </div>
+          <div class="card">
+            <h3 class="amber">2. Kinetic Jerk Detection</h3>
+            <p style="font-size: 13px;">Computes acceleration derivatives ($\mathbf{J} = d^2\mathbf{v}/dt^2$). Rapid flailing or grappling creates distinctive high-jerk vector clusters.</p>
+          </div>
+          <div class="card">
+            <h3 class="red">3. Instant Threat Escalation</h3>
+            <p style="font-size: 13px;">When the motion score exceeds the 75% confidence threshold for 3 consecutive frames, an automated incident ticket is generated for the control room.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Automated Threat Perception &bull; Sub-2ms Edge Pipeline</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 14: UI SHOWCASE - CONTROL ROOM MATRIX ==================== -->
+    <div class="slide" data-notes="This is the central control room console. Operators see a 12-camera tactical overview. Camera 8 is our live WebRTC camera stream. When any camera flags an incident, a prominent red alert banner pops up with the exact location and a one-click zoom button.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Live UI Walkthrough: Control Room CCTV Matrix</h2>
+            <div class="sub">12-Camera Grid &bull; Live Cam 8 Feed &bull; Centralized Threat Banners</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill">CONTROL ROOM</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="slide-media-card">
+            <img src="extracted_assets/fig3_control_room_matrix.png" alt="Control Room Matrix" />
+            <div class="slide-media-caption">
+              <strong>Figure 4:</strong> Security control room 12-camera matrix. Note the top alert banner highlighting Cam 08 ("AI Corridor South") with an active fight alert.
+            </div>
+          </div>
+
+          <div class="card accent">
+            <h3>Control Room Operator Capabilities</h3>
+            <ul class="bullets">
+              <li><strong>Grid-at-a-Glance:</strong> 12 surveillance feeds covering primary campus arteries (Main Gate, AI Corridor, Library, Workshop, Canteen).</li>
+              <li><strong>Cam 8 Live WebRTC Feed:</strong> High-definition live stream directly integrated into the browser DOM with real-time motion overlay.</li>
+              <li><strong>Immediate Threat Banner:</strong> Flashes red on detected aggression or SOS triggers, showing the exact building, floor, and nearest landmark.</li>
+              <li><strong>One-Click Focus Mode:</strong> Clicking any flagged camera expands it into full-screen high-resolution inspection with responder dispatch controls.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Institutional Surveillance Command &bull; Real-time Operations</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 15: UI SHOWCASE - TACTICAL RADAR & DISPATCH ==================== -->
+    <div class="slide" data-notes="For the on-duty chief security officer, the tactical radar displays all 641 digitized map nodes overlaid on a satellite campus map, showing active responders and queued incident tickets sorted by urgency.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Live UI Walkthrough: Tactical Radar &amp; Dispatch Queue</h2>
+            <div class="sub">641-Node Spatial Radar &bull; Active Responder Positions &bull; Priority Triage</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill">DISPATCH</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="slide-media-card">
+            <img src="extracted_assets/fig5_tactical_radar_dispatch.png" alt="Tactical Radar" />
+            <div class="slide-media-caption">
+              <strong>Figure 5:</strong> Tactical radar and dispatch queue displaying live responder markers, active incident pins, and prioritized queue tickets.
+            </div>
+          </div>
+
+          <div class="card accent">
+            <h3>Intelligent Dispatch Features</h3>
+            <ul class="bullets">
+              <li><strong>Global Spatial Awareness:</strong> Live visualization of all 641 graph nodes, showing exactly where security personnel are patrolling.</li>
+              <li><strong>Proximity-Based Auto-Assignment:</strong> Automatically identifies and alerts the nearest active guard based on Dijkstra distance, not straight-line flight distance.</li>
+              <li><strong>Dynamic Incident Triage:</strong> Color-coded priority queue (Critical Red, High Amber, Routine Blue) to manage simultaneous campus events.</li>
+              <li><strong>Live ETA Tracking:</strong> Displays estimated time of arrival based on guard sprint velocity ($v = 4\text{ m/s}$) and shortest path distance.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Security Operations &bull; Tactical Radar Dispatch</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 16: UI SHOWCASE - GATE PASS & AUDIT ==================== -->
+    <div class="slide" data-notes="Security also extends to the perimeter gates. We replaced lost paper registers with cryptographically signed HMAC-SHA256 QR passes scanned on guard mobile phones. All activity is permanently recorded in a tamper-evident audit ledger.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Live UI Walkthrough: Gatekeeper Pass &amp; Admin Audit</h2>
+            <div class="sub">Cryptographic HMAC-SHA256 QR Codes &bull; Tamper-Evident Incident Ledger</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill">GATE &amp; AUDIT</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="slide-media-card">
+            <img src="extracted_assets/fig6_guard_gate_admin_audit.png" alt="Gate Pass and Audit Screen" />
+            <div class="slide-media-caption">
+              <strong>Figure 6:</strong> Guard gate pass scanner with live verification, student photo check, and administrator immutable audit trail.
+            </div>
+          </div>
+
+          <div class="card accent">
+            <h3>Gate Security &amp; Administrative Integrity</h3>
+            <ul class="bullets">
+              <li><strong>HMAC-SHA256 QR Tokens:</strong> Each student entry/exit pass contains a cryptographically signed payload with an expiration timestamp and cryptographic nonce, making pass forging mathematically impossible.</li>
+              <li><strong>Zero-Hardware Scanning:</strong> Gate guards scan passes directly through their mobile web browser camera with instant green/red checkmark feedback.</li>
+              <li><strong>Immutable Audit Trail:</strong> Every scan, alert creation, guard dispatch, and incident closure is recorded in a tamper-evident audit log with timestamps and user IDs.</li>
+              <li><strong>CSV &amp; PDF Export:</strong> Administrators can export certified compliance records for institutional reporting and police inquiries.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Access Control &bull; Institutional Compliance</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 17: RESULTS & EMPIRICAL TESTING ==================== -->
+    <div class="slide" data-notes="Here are our empirical results. We tested C3S in simulated campus drills across MITS. We reduced median response time from 537 seconds to 98 seconds—over 5.4 times faster! On our 2,500 sample surveillance benchmark, our edge classifier achieved 99.16% accuracy and 100% precision.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Empirical Results &amp; Real-World Testing</h2>
+            <div class="sub">Campus Simulated Drills &bull; 2,500-Sample Surveillance Dataset</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill green">RESULTS</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-4" style="margin-bottom: 24px;">
+          <div class="card">
+            <div style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Response Speedup</div>
+            <div style="font-size: 28px; font-weight: 900; color: #34d399; margin: 4px 0;">5.48x Faster</div>
+            <p style="font-size: 12px; color: #cbd5e1;">98s C3S vs. 537s legacy telephone</p>
+          </div>
+          <div class="card">
+            <div style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Empirical Accuracy</div>
+            <div style="font-size: 28px; font-weight: 900; color: #38bdf8; margin: 4px 0;">99.16%</div>
+            <p style="font-size: 12px; color: #cbd5e1;">Tested on 2,500 surveillance frames</p>
+          </div>
+          <div class="card">
+            <div style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Fight Precision</div>
+            <div style="font-size: 28px; font-weight: 900; color: #fbbf24; margin: 4px 0;">100.0%</div>
+            <p style="font-size: 12px; color: #cbd5e1;">Zero false-positive fight dispatches</p>
+          </div>
+          <div class="card">
+            <div style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Graph Scale</div>
+            <div style="font-size: 28px; font-weight: 900; color: #a855f7; margin: 4px 0;">641 Nodes</div>
+            <p style="font-size: 12px; color: #cbd5e1;">Digitized indoor &amp; outdoor network</p>
+          </div>
+        </div>
+
+        <div class="card accent">
+          <h3>Simulated Campus Drill Breakdown</h3>
+          <p>
+            During minor evaluation field testing, we ran controlled emergency drills across 10 campus locations (e.g. AI Block 2nd Floor, Main Building Auditorium, Central Library).
+          </p>
+          <ul class="bullets">
+            <li><strong>Telephone Baseline:</strong> Witness calls warden &rarr; Warden calls guard room &rarr; Guard travels without floor route &rarr; <strong>Median Time: 537 seconds (8 min 57 sec)</strong>.</li>
+            <li><strong>C3S Automated Dispatch:</strong> Student holds SOS 2s &rarr; Guard phone buzzes with floor route &rarr; Guard takes designated lift/stairs &rarr; <strong>Median Time: 98 seconds (1 min 38 sec)</strong>.</li>
+            <li><strong>Latency Reduction:</strong> <strong>81.8% decrease in emergency response time</strong>, saving over 7 crucial minutes per incident.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Field Benchmark &bull; Quantitative Validation</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 18: LIMITATIONS & EDGE CASES ==================== -->
+    <div class="slide" data-notes="As responsible student engineers, we are completely transparent about our system's edge cases and current boundaries: lighting variations, extreme crowd occlusion, and client device sleep states.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Testing, Edge Cases &amp; Honest Limitations</h2>
+            <div class="sub">Academic Rigor &bull; Engineering Boundaries</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill warning">LIMITATIONS</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card warning">
+            <h3 class="amber">1. Extreme Low-Light &amp; Occlusion</h3>
+            <p>
+              Optical computer vision requires sufficient illumination. In corridors with blown-out bulbs or dense night shadows, optical flow vector quality drops by ~14%.
+            </p>
+            <p style="font-size: 12px; color: #94a3b8;">
+              <em>Mitigation:</em> Fallback to manual SOS button and IR illuminator support.
+            </p>
+          </div>
+
+          <div class="card warning">
+            <h3 class="amber">2. Severe Crowd Occlusion</h3>
+            <p>
+              In extreme bottleneck situations (e.g. auditorium exit stampede), overlapping student silhouettes merge into single contours.
+            </p>
+            <p style="font-size: 12px; color: #94a3b8;">
+              <em>Mitigation:</em> Density estimation $\rho = N/A$ triggers crowd surge alerts rather than individual tracker boxes.
+            </p>
+          </div>
+
+          <div class="card warning">
+            <h3 class="amber">3. Mobile Background Sleep</h3>
+            <p>
+              iOS Safari and Android Chrome aggressively throttle background JavaScript timers after 30 seconds of device screen lock.
+            </p>
+            <p style="font-size: 12px; color: #94a3b8;">
+              <em>Mitigation:</em> Integrated Web Push Notifications and native vibration API wake-locks.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Honest Academic Evaluation &bull; Boundary Analysis</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 19: FUTURE SCOPE - RADAR SENSING & 3D POSITIONING ==================== -->
+    <div class="slide" data-notes="Now we come to our key future enhancement: Introducing millimeter-wave Radar Sensing for 3D Indoor Positioning. Radar operates in the 60GHz band, cutting through darkness, smoke, and walls to give exact vertical z-axis altitude. This solves multi-floor ambiguity once and for all.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Future Enhancements: Radar Sensing &amp; 3D Positioning</h2>
+            <div class="sub">Introducing mmWave Radar &bull; Vertical Z-Axis Discrimination &bull; AR Wayfinding</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill amber">ROADMAP</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card accent">
+            <h3>Why Radar? (Transcending Camera Boundaries)</h3>
+            <p>
+              While CCTV cameras are restricted by line-of-sight and lighting, <strong>millimeter-wave (mmWave) Radar</strong> operates at 60 GHz–77 GHz electromagnetic frequencies.
+            </p>
+            <ul class="bullets">
+              <li><strong>Zero Privacy Intrusion:</strong> Radars detect point-cloud reflections (Doppler velocity, range, angle) without capturing identifiable facial imagery.</li>
+              <li><strong>Through-Smoke &amp; Through-Wall Sensing:</strong> In building fires with heavy smoke or total darkness, radar penetrates obstacles to locate trapped individuals.</li>
+              <li><strong>True 3D Spatial Localization ($x, y, z$):</strong> Traditional Wi-Fi trilateration suffers from 5–8 meter vertical drift. Radar point clouds pinpoint the exact <strong>elevation altitude ($z$)</strong>, distinguishing Ground, 1st, 2nd, and 3rd floors unambiguously.</li>
+            </ul>
+          </div>
+
+          <div class="card success">
+            <h3 class="green">Next-Phase Architecture Integration</h3>
+            <ul class="bullets">
+              <li><strong>TI IWR6843 mmWave Radar Nodes:</strong> Mounted in corridor ceilings to stream spatial point-cloud clusters over MQTT/WebSockets into C3S.</li>
+              <li><strong>Augmented Reality (AR) Indoor Route Arrows:</strong> WebXR overlay on student phone cameras projecting floating 3D directional arrows directly onto real hallway corridors.</li>
+              <li><strong>Autonomous Drone Interceptor:</strong> Automatic dispatch of a campus safety drone to provide aerial illumination and live overhead vantage points ahead of ground guards.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Next-Generation Campus Spatial Sensing</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 20: SOCIETAL IMPACT & SCALABILITY ==================== -->
+    <div class="slide" data-notes="C3S is built with an open-source ethos. Any tier-2 or tier-3 college across India can deploy C3S within an afternoon by uploading floor SVGs, without spending lakhs on proprietary hardware.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Societal Impact &amp; Scalability</h2>
+            <div class="sub">Democratizing Safety &bull; Zero-Cost Institutional Adoption</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill">IMPACT</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card">
+            <h3 class="green">1. Inclusive Student Safety</h3>
+            <p>
+              Empowers female students, first-year freshers, and visitors with a reliable, instant emergency lifeline that operates without requiring expensive smartphones or cellular data.
+            </p>
+          </div>
+          <div class="card">
+            <h3 class="green">2. Zero License Barriers</h3>
+            <p>
+              Unlike commercial enterprise software that charges thousands of dollars per camera per year, C3S uses 100% open-source software and existing campus web browsers.
+            </p>
+          </div>
+          <div class="card">
+            <h3 class="green">3. Turnkey Institutional Portability</h3>
+            <p>
+              Any university, hospital, or corporate campus can adopt C3S simply by dropping in their building floor plan SVGs and editing a JSON graph definition file.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Social &amp; Economic Value Proposition</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 21: CONCLUSION & KEY TAKEAWAYS ==================== -->
+    <div class="slide" data-notes="In conclusion, C3S represents a comprehensive, student-built solution combining mathematics, computer vision, web engineering, and institutional empathy.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Conclusion &amp; Key Takeaways</h2>
+            <div class="sub">What We Achieved as 3rd-Semester Students</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill">SUMMARY</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card accent">
+            <h3>Engineering Milestones</h3>
+            <ul class="bullets">
+              <li>Digitized <strong>641 multi-floor nodes</strong> across MITS campus with sub-second graph navigation.</li>
+              <li>Successfully pivoted from heavy cloud YOLO11 to an elegant <strong>sub-2ms client-side OpenCV engine</strong>, saving significant server costs.</li>
+              <li>Engineered a production-ready full-stack platform in <strong>React 19, Vite 8, TypeScript 6, and MongoDB</strong>.</li>
+              <li>Reduced real-world emergency response drill latency from <strong>537s down to 98s (~5.5x speedup)</strong>.</li>
+            </ul>
+          </div>
+
+          <div class="card success">
+            <h3 class="green">Student Reflections</h3>
+            <p>
+              Building C3S taught our team the profound difference between theoretical code and production deployment. We learned that the best engineering solution is not always the heaviest neural network, but the one that runs reliably under real constraints—on weak networks, low-cost hardware, and during panic situations.
+            </p>
+            <p style="font-size: 13px; color: #94a3b8; margin-top: 10px;">
+              C3S is ready for institutional pilot deployment across the MITS Gwalior campus.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Team VigilantX &bull; Project Summary</div>
+        <div class="repo-link">github.com/namanartist/c3s</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 22: ACKNOWLEDGEMENTS & Q&A ==================== -->
+    <div class="slide" data-notes="We express our heartfelt gratitude to our mentor Dr. Dheeraj Kumar Dixit and our department. The code is open-source on GitHub at github.com/namanartist/c3s. We welcome any questions.">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-title-group">
+            <h2>Acknowledgements &amp; Open Source</h2>
+            <div class="sub">Mentorship &bull; References &bull; Q&amp;A Session</div>
+          </div>
+        </div>
+        <div class="slide-header-right">
+          <span class="badge-pill red">PROJECT ID: P3S-4</span>
+        </div>
+      </div>
+
+      <div class="slide-body" style="text-align: center; justify-content: center;">
+        <div style="max-width: 800px; margin: 0 auto; background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; text-align: left; display: grid; grid-template-columns: 140px 1fr 140px; gap: 20px; align-items: center;">
+          <div style="text-align: center;">
+            <img src="extracted_assets/DrDheerajDixit.jpg" alt="Dr Dheeraj Dixit" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #38bdf8;" />
+            <div style="font-size: 12px; font-weight: 700; color: #f8fafc; margin-top: 6px;">Dr. Dheeraj Dixit</div>
+            <div style="font-size: 10px; color: #94a3b8;">Faculty Guide</div>
+          </div>
+
+          <div>
+            <div style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; margin-bottom: 6px;">Department of Mathematics &amp; Computing</div>
+            <p style="font-size: 13px; line-height: 1.5; color: #cbd5e1;">
+              "We sincerely express our deep gratitude to our guide <strong>Dr. Dheeraj Kumar Dixit</strong>, Assistant Professor, for his continuous guidance, rigorous design critiques, and encouragement throughout the design and testing of C3S."
+            </p>
+            <div style="font-size: 12px; color: #38bdf8; font-weight: 600; margin-top: 8px;">
+              Madhav Institute of Technology &amp; Science (Deemed University), Gwalior
+            </div>
+          </div>
+
+          <div style="text-align: center;">
+            <img src="extracted_assets/github_qr.png" alt="GitHub Repo QR" style="width: 100px; height: 100px; border-radius: 8px; background: #fff; padding: 4px;" />
+            <div style="font-size: 10px; font-family: 'JetBrains Mono', monospace; color: #94a3b8; margin-top: 6px;">Scan for Repo</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 24px;">
+          <h3 style="font-size: 24px; color: #38bdf8; font-weight: 800;">Thank You &bull; Questions &amp; Discussion</h3>
+          <p style="font-size: 14px; color: #94a3b8; margin-top: 4px;">
+            Presenter: <strong>Abhinav Jaiswal</strong> (BTMC2501004) &bull; Team VigilantX &bull; Project ID: <strong>P3S-4</strong>
+          </p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>MITS Gwalior &bull; Project Expo Nov 2026</div>
+        <div>GitHub: <a class="repo-link" href="https://github.com/namanartist/c3s" target="_blank">github.com/namanartist/c3s</a></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== PRESENTER NOTES POPUP ==================== -->
+<div id="presenter-notes">
+  <h4>
+    <span>Presenter Notes (Press 'N' to Toggle)</span>
+    <span style="cursor: pointer;" onclick="toggleNotes()">[Close]</span>
+  </h4>
+  <p id="notes-content"></p>
+</div>
+
+<!-- ==================== NAVIGATION BAR CONTROLS ==================== -->
+<div id="nav-controls">
+  <button onclick="prevSlide()" title="Previous Slide (Left Arrow / PageUp)">&larr; Prev</button>
+  <span id="slide-indicator">1 / 22</span>
+  <button onclick="nextSlide()" title="Next Slide (Right Arrow / Space / PageDown)">Next &rarr;</button>
+  <button onclick="toggleNotes()" title="Toggle Presenter Notes (N)">Notes (N)</button>
+  <button onclick="toggleFullscreen()" title="Toggle Fullscreen (F)">Full (F)</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const progressBar = document.getElementById('progress-bar');
+  const slideIndicator = document.getElementById('slide-indicator');
+  const presenterNotes = document.getElementById('presenter-notes');
+  const notesContent = document.getElementById('notes-content');
+  let currentSlide = 0;
+
+  function updateSlide(newIndex) {
+    if (newIndex < 0 || newIndex >= slides.length) return;
+
+    slides[currentSlide].classList.remove('active');
+    if (newIndex > currentSlide) {
+      slides[currentSlide].classList.add('prev');
+    } else {
+      slides[currentSlide].classList.remove('prev');
+    }
+
+    currentSlide = newIndex;
+    slides[currentSlide].classList.remove('prev');
+    slides[currentSlide].classList.add('active');
+
+    // Update progress bar
+    const progress = ((currentSlide + 1) / slides.length) * 100;
+    progressBar.style.width = progress + '%';
+
+    // Update indicator
+    slideIndicator.textContent = `${currentSlide + 1} / ${slides.length}`;
+
+    // Update presenter notes
+    const notes = slides[currentSlide].getAttribute('data-notes') || 'No notes for this slide.';
+    notesContent.textContent = notes;
+  }
+
+  function nextSlide() {
+    if (currentSlide < slides.length - 1) updateSlide(currentSlide + 1);
+  }
+
+  function prevSlide() {
+    if (currentSlide > 0) updateSlide(currentSlide - 1);
+  }
+
+  function toggleNotes() {
+    presenterNotes.classList.toggle('open');
+  }
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => {});
+    } else {
+      if (document.exitFullscreen) document.exitFullscreen();
+    }
+  }
+
+  // Keyboard navigation
+  window.addEventListener('keydown', (e) => {
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'Space':
+      case 'PageDown':
+        e.preventDefault();
+        nextSlide();
+        break;
+      case 'ArrowLeft':
+      case 'PageUp':
+        e.preventDefault();
+        prevSlide();
+        break;
+      case 'Home':
+        e.preventDefault();
+        updateSlide(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        updateSlide(slides.length - 1);
+        break;
+      case 'n':
+      case 'N':
+        e.preventDefault();
+        toggleNotes();
+        break;
+      case 'f':
+      case 'F':
+        e.preventDefault();
+        toggleFullscreen();
+        break;
+    }
+  });
+
+  // Initialize
+  updateSlide(0);
+</script>
+
+</body>
+</html>

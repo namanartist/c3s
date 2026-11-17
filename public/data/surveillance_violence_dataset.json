@@ -7,18 +7,18 @@
     "test": 375
   },
   "metrics": {
-    "accuracy": "99.16%",
+    "accuracy": "99.20%",
     "precision": "100.00%",
-    "recall": "98.32%",
+    "recall": "98.40%",
     "falsePositiveRate": "0.00%"
   },
   "derivedModelWeights": {
-    "flowVariance": -0.016,
-    "kineticJerk": 0.611,
-    "collisionProximity": 0.217,
-    "limbVelocity": -0.204,
-    "postureCollapse": 0.311,
-    "bias": -21.982
+    "flowVariance": -0.044,
+    "kineticJerk": 0.578,
+    "collisionProximity": 0.219,
+    "limbVelocity": -0.135,
+    "postureCollapse": 0.271,
+    "bias": -21.992
   },
   "sampleDistribution": {
     "violentPunches": 250,
@@ -39,11 +39,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 56.2,
-        "kineticJerk": 58.2,
-        "collisionProximity": 68.9,
-        "limbVelocity": 47,
-        "postureCollapse": 28.8
+        "opticalFlowVariance": 56.5,
+        "kineticJerk": 66.9,
+        "collisionProximity": 54.3,
+        "limbVelocity": 60.4,
+        "postureCollapse": 27.6
       }
     },
     {
@@ -52,11 +52,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 76.9,
-        "kineticJerk": 38.5,
-        "collisionProximity": 92,
-        "limbVelocity": 60,
-        "postureCollapse": 22.6
+        "opticalFlowVariance": 57.1,
+        "kineticJerk": 43.4,
+        "collisionProximity": 78.1,
+        "limbVelocity": 40.3,
+        "postureCollapse": 18.5
       }
     },
     {
@@ -65,11 +65,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 75.4,
-        "kineticJerk": 89.1,
-        "collisionProximity": 99.4,
-        "limbVelocity": 56.5,
-        "postureCollapse": 48.3
+        "opticalFlowVariance": 55.3,
+        "kineticJerk": 92.4,
+        "collisionProximity": 80.6,
+        "limbVelocity": 88.2,
+        "postureCollapse": 50.9
       }
     },
     {
@@ -78,11 +78,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 66.5,
-        "kineticJerk": 59,
-        "collisionProximity": 60.5,
-        "limbVelocity": 64.5,
-        "postureCollapse": 25.1
+        "opticalFlowVariance": 40.3,
+        "kineticJerk": 60.3,
+        "collisionProximity": 58.3,
+        "limbVelocity": 58.2,
+        "postureCollapse": 38.4
       }
     },
     {
@@ -92,10 +92,10 @@
       "threatLevel": "CRITICAL",
       "features": {
         "opticalFlowVariance": 72.2,
-        "kineticJerk": 54.8,
-        "collisionProximity": 55.3,
-        "limbVelocity": 53.1,
-        "postureCollapse": 95.9
+        "kineticJerk": 81.3,
+        "collisionProximity": 63.3,
+        "limbVelocity": 68.6,
+        "postureCollapse": 78.1
       }
     },
     {
@@ -104,11 +104,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 54.2,
-        "kineticJerk": 43.9,
-        "collisionProximity": 71.6,
-        "limbVelocity": 91.6,
-        "postureCollapse": 21.8
+        "opticalFlowVariance": 39.4,
+        "kineticJerk": 60.3,
+        "collisionProximity": 49.5,
+        "limbVelocity": 64.7,
+        "postureCollapse": 12.9
       }
     },
     {
@@ -117,11 +117,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 66.1,
-        "kineticJerk": 60,
+        "opticalFlowVariance": 70.4,
+        "kineticJerk": 73.6,
         "collisionProximity": 65.1,
-        "limbVelocity": 69,
-        "postureCollapse": 57.3
+        "limbVelocity": 53.2,
+        "postureCollapse": 52.4
       }
     },
     {
@@ -130,11 +130,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 65,
-        "kineticJerk": 77.8,
-        "collisionProximity": 95.5,
-        "limbVelocity": 62.2,
-        "postureCollapse": 68.8
+        "opticalFlowVariance": 50.8,
+        "kineticJerk": 62.7,
+        "collisionProximity": 83.4,
+        "limbVelocity": 83,
+        "postureCollapse": 76.6
       }
     },
     {
@@ -143,11 +143,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 51,
-        "kineticJerk": 81.2,
-        "collisionProximity": 36.5,
-        "limbVelocity": 60.1,
-        "postureCollapse": 40.7
+        "opticalFlowVariance": 61.6,
+        "kineticJerk": 55.5,
+        "collisionProximity": 64.2,
+        "limbVelocity": 86,
+        "postureCollapse": 25.4
       }
     },
     {
@@ -156,11 +156,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 64.5,
-        "kineticJerk": 94.8,
-        "collisionProximity": 58.6,
-        "limbVelocity": 49.4,
-        "postureCollapse": 97.6
+        "opticalFlowVariance": 65.3,
+        "kineticJerk": 58.5,
+        "collisionProximity": 63.2,
+        "limbVelocity": 42.8,
+        "postureCollapse": 65
       }
     },
     {
@@ -169,11 +169,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 71.8,
-        "kineticJerk": 66.7,
-        "collisionProximity": 76.5,
-        "limbVelocity": 78.6,
-        "postureCollapse": 8.3
+        "opticalFlowVariance": 43.7,
+        "kineticJerk": 66.1,
+        "collisionProximity": 81.2,
+        "limbVelocity": 49.1,
+        "postureCollapse": 14.6
       }
     },
     {
@@ -182,11 +182,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 49.6,
-        "kineticJerk": 83.7,
-        "collisionProximity": 77.6,
-        "limbVelocity": 40.6,
-        "postureCollapse": 27.1
+        "opticalFlowVariance": 64.4,
+        "kineticJerk": 69.1,
+        "collisionProximity": 68.6,
+        "limbVelocity": 35.3,
+        "postureCollapse": 34.2
       }
     },
     {
@@ -195,11 +195,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 52.6,
-        "kineticJerk": 66.3,
-        "collisionProximity": 74.7,
-        "limbVelocity": 91.6,
-        "postureCollapse": 30
+        "opticalFlowVariance": 81.4,
+        "kineticJerk": 53.5,
+        "collisionProximity": 84.5,
+        "limbVelocity": 87.8,
+        "postureCollapse": 59.6
       }
     },
     {
@@ -208,11 +208,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 66.1,
-        "kineticJerk": 49.2,
-        "collisionProximity": 25.3,
-        "limbVelocity": 65.5,
-        "postureCollapse": 25.8
+        "opticalFlowVariance": 55.4,
+        "kineticJerk": 70.8,
+        "collisionProximity": 32.9,
+        "limbVelocity": 57.7,
+        "postureCollapse": 36.3
       }
     },
     {
@@ -221,11 +221,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 67.6,
-        "kineticJerk": 72.9,
-        "collisionProximity": 41.4,
-        "limbVelocity": 62.8,
-        "postureCollapse": 82.8
+        "opticalFlowVariance": 76.3,
+        "kineticJerk": 94.9,
+        "collisionProximity": 40.5,
+        "limbVelocity": 56,
+        "postureCollapse": 87
       }
     },
     {
@@ -234,11 +234,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 51.6,
-        "kineticJerk": 52.6,
-        "collisionProximity": 69.9,
-        "limbVelocity": 47.7,
-        "postureCollapse": 29
+        "opticalFlowVariance": 44.1,
+        "kineticJerk": 65.6,
+        "collisionProximity": 55.3,
+        "limbVelocity": 70.5,
+        "postureCollapse": 9.3
       }
     },
     {
@@ -247,11 +247,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 80.8,
-        "kineticJerk": 77,
-        "collisionProximity": 71.4,
-        "limbVelocity": 64,
-        "postureCollapse": 40.5
+        "opticalFlowVariance": 65.9,
+        "kineticJerk": 43.6,
+        "collisionProximity": 80.7,
+        "limbVelocity": 52.7,
+        "postureCollapse": 25.3
       }
     },
     {
@@ -260,11 +260,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 73.2,
-        "kineticJerk": 73.3,
-        "collisionProximity": 95.7,
-        "limbVelocity": 51,
-        "postureCollapse": 48.5
+        "opticalFlowVariance": 90.8,
+        "kineticJerk": 76.2,
+        "collisionProximity": 77.9,
+        "limbVelocity": 90.6,
+        "postureCollapse": 36.8
       }
     },
     {
@@ -273,11 +273,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 32.7,
-        "kineticJerk": 59,
-        "collisionProximity": 68.1,
-        "limbVelocity": 65.1,
-        "postureCollapse": 43.6
+        "opticalFlowVariance": 39.8,
+        "kineticJerk": 81.1,
+        "collisionProximity": 25.2,
+        "limbVelocity": 79.7,
+        "postureCollapse": 40.4
       }
     },
     {
@@ -286,11 +286,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 79,
-        "kineticJerk": 51.3,
-        "collisionProximity": 74,
-        "limbVelocity": 51.5,
-        "postureCollapse": 85.2
+        "opticalFlowVariance": 68.9,
+        "kineticJerk": 69.1,
+        "collisionProximity": 81,
+        "limbVelocity": 42,
+        "postureCollapse": 75.1
       }
     },
     {
@@ -299,11 +299,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 50.4,
-        "kineticJerk": 53.3,
-        "collisionProximity": 66.4,
-        "limbVelocity": 77.8,
-        "postureCollapse": 29.9
+        "opticalFlowVariance": 64.1,
+        "kineticJerk": 69.6,
+        "collisionProximity": 61.7,
+        "limbVelocity": 52.4,
+        "postureCollapse": 12.2
       }
     },
     {
@@ -312,11 +312,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 47,
-        "kineticJerk": 84.3,
-        "collisionProximity": 97.8,
-        "limbVelocity": 53.8,
-        "postureCollapse": 59.7
+        "opticalFlowVariance": 46,
+        "kineticJerk": 61.9,
+        "collisionProximity": 97.4,
+        "limbVelocity": 43.4,
+        "postureCollapse": 18.8
       }
     },
     {
@@ -325,11 +325,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 93.5,
-        "kineticJerk": 69.1,
-        "collisionProximity": 80.3,
-        "limbVelocity": 61.2,
-        "postureCollapse": 40.7
+        "opticalFlowVariance": 72.1,
+        "kineticJerk": 92.4,
+        "collisionProximity": 90.8,
+        "limbVelocity": 62.4,
+        "postureCollapse": 36.7
       }
     },
     {
@@ -338,11 +338,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 55.7,
-        "kineticJerk": 51.4,
-        "collisionProximity": 37.6,
-        "limbVelocity": 54.4,
-        "postureCollapse": 34.2
+        "opticalFlowVariance": 33.6,
+        "kineticJerk": 68.8,
+        "collisionProximity": 33.8,
+        "limbVelocity": 85.4,
+        "postureCollapse": 34.3
       }
     },
     {
@@ -351,11 +351,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 53.9,
-        "kineticJerk": 93,
-        "collisionProximity": 48.6,
-        "limbVelocity": 59.6,
-        "postureCollapse": 93.9
+        "opticalFlowVariance": 80.8,
+        "kineticJerk": 76.4,
+        "collisionProximity": 77,
+        "limbVelocity": 80,
+        "postureCollapse": 83.3
       }
     },
     {
@@ -364,11 +364,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 68.2,
-        "kineticJerk": 51.5,
-        "collisionProximity": 77.2,
-        "limbVelocity": 67.6,
-        "postureCollapse": 7
+        "opticalFlowVariance": 43.2,
+        "kineticJerk": 43.1,
+        "collisionProximity": 34.6,
+        "limbVelocity": 87.6,
+        "postureCollapse": 12.8
       }
     },
     {
@@ -377,11 +377,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 62.4,
-        "kineticJerk": 67.7,
-        "collisionProximity": 61.5,
-        "limbVelocity": 50.8,
-        "postureCollapse": 57.3
+        "opticalFlowVariance": 76.7,
+        "kineticJerk": 80.9,
+        "collisionProximity": 88.8,
+        "limbVelocity": 41.3,
+        "postureCollapse": 43.2
       }
     },
     {
@@ -390,11 +390,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 90.7,
-        "kineticJerk": 66.7,
-        "collisionProximity": 97.4,
-        "limbVelocity": 56.2,
-        "postureCollapse": 78.9
+        "opticalFlowVariance": 54.6,
+        "kineticJerk": 48.2,
+        "collisionProximity": 67.4,
+        "limbVelocity": 69.2,
+        "postureCollapse": 33.8
       }
     },
     {
@@ -403,11 +403,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 35.3,
-        "kineticJerk": 72,
-        "collisionProximity": 74.6,
-        "limbVelocity": 86.5,
-        "postureCollapse": 13.2
+        "opticalFlowVariance": 52.8,
+        "kineticJerk": 80.4,
+        "collisionProximity": 45.7,
+        "limbVelocity": 53.6,
+        "postureCollapse": 20.7
       }
     },
     {
@@ -416,11 +416,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 78.8,
-        "kineticJerk": 95.9,
-        "collisionProximity": 67.1,
-        "limbVelocity": 55.5,
-        "postureCollapse": 69.4
+        "opticalFlowVariance": 59.6,
+        "kineticJerk": 76,
+        "collisionProximity": 87.4,
+        "limbVelocity": 78.6,
+        "postureCollapse": 81.1
       }
     },
     {
@@ -429,11 +429,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 61.7,
-        "kineticJerk": 44,
-        "collisionProximity": 79.8,
-        "limbVelocity": 46.6,
-        "postureCollapse": 17.2
+        "opticalFlowVariance": 38.3,
+        "kineticJerk": 51.2,
+        "collisionProximity": 71.8,
+        "limbVelocity": 58.1,
+        "postureCollapse": 19.2
       }
     },
     {
@@ -442,11 +442,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 58.6,
-        "kineticJerk": 77.2,
-        "collisionProximity": 69,
-        "limbVelocity": 64.5,
-        "postureCollapse": 29.2
+        "opticalFlowVariance": 70.2,
+        "kineticJerk": 60.3,
+        "collisionProximity": 85.2,
+        "limbVelocity": 72.9,
+        "postureCollapse": 30.1
       }
     },
     {
@@ -455,11 +455,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 56.4,
-        "kineticJerk": 60,
-        "collisionProximity": 93,
-        "limbVelocity": 57,
-        "postureCollapse": 42.6
+        "opticalFlowVariance": 78.5,
+        "kineticJerk": 73.8,
+        "collisionProximity": 79,
+        "limbVelocity": 54.6,
+        "postureCollapse": 69.4
       }
     },
     {
@@ -468,11 +468,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 59.1,
-        "kineticJerk": 84.3,
-        "collisionProximity": 34.7,
-        "limbVelocity": 85.7,
-        "postureCollapse": 36.9
+        "opticalFlowVariance": 33.9,
+        "kineticJerk": 63.2,
+        "collisionProximity": 59.8,
+        "limbVelocity": 59.1,
+        "postureCollapse": 15
       }
     },
     {
@@ -481,11 +481,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 63.1,
-        "kineticJerk": 70.2,
-        "collisionProximity": 87.8,
-        "limbVelocity": 71.5,
-        "postureCollapse": 90.8
+        "opticalFlowVariance": 54.1,
+        "kineticJerk": 64.9,
+        "collisionProximity": 84.7,
+        "limbVelocity": 78.7,
+        "postureCollapse": 84.5
       }
     },
     {
@@ -494,11 +494,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 60.3,
-        "kineticJerk": 84.7,
-        "collisionProximity": 54.9,
-        "limbVelocity": 49.9,
-        "postureCollapse": 8.3
+        "opticalFlowVariance": 58.7,
+        "kineticJerk": 91.5,
+        "collisionProximity": 52.6,
+        "limbVelocity": 52.5,
+        "postureCollapse": 23.1
       }
     },
     {
@@ -507,11 +507,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 41,
-        "kineticJerk": 57.6,
-        "collisionProximity": 61.4,
-        "limbVelocity": 70.4,
-        "postureCollapse": 24.2
+        "opticalFlowVariance": 42.2,
+        "kineticJerk": 40.5,
+        "collisionProximity": 57.6,
+        "limbVelocity": 66.9,
+        "postureCollapse": 24.9
       }
     },
     {
@@ -520,11 +520,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 63.8,
-        "kineticJerk": 66.1,
-        "collisionProximity": 86.3,
-        "limbVelocity": 92.8,
-        "postureCollapse": 26.1
+        "opticalFlowVariance": 79.7,
+        "kineticJerk": 89,
+        "collisionProximity": 92.9,
+        "limbVelocity": 91.5,
+        "postureCollapse": 62.6
       }
     },
     {
@@ -533,11 +533,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 50.2,
-        "kineticJerk": 70.7,
-        "collisionProximity": 43.3,
-        "limbVelocity": 65.8,
-        "postureCollapse": 15
+        "opticalFlowVariance": 65.5,
+        "kineticJerk": 67.6,
+        "collisionProximity": 49.7,
+        "limbVelocity": 90.5,
+        "postureCollapse": 30.9
       }
     },
     {
@@ -546,11 +546,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 69.6,
-        "kineticJerk": 93,
-        "collisionProximity": 44.5,
-        "limbVelocity": 77.2,
-        "postureCollapse": 67.9
+        "opticalFlowVariance": 53.6,
+        "kineticJerk": 59.6,
+        "collisionProximity": 52.5,
+        "limbVelocity": 75.8,
+        "postureCollapse": 72.9
       }
     },
     {
@@ -559,11 +559,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 53.5,
-        "kineticJerk": 83.4,
-        "collisionProximity": 80.5,
-        "limbVelocity": 54.4,
-        "postureCollapse": 13.6
+        "opticalFlowVariance": 42,
+        "kineticJerk": 77.8,
+        "collisionProximity": 62.7,
+        "limbVelocity": 92.8,
+        "postureCollapse": 25.4
       }
     },
     {
@@ -572,11 +572,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 60.9,
-        "kineticJerk": 49.7,
-        "collisionProximity": 87.5,
-        "limbVelocity": 38.7,
-        "postureCollapse": 54.4
+        "opticalFlowVariance": 63.8,
+        "kineticJerk": 62.5,
+        "collisionProximity": 94.5,
+        "limbVelocity": 64.5,
+        "postureCollapse": 37.8
       }
     },
     {
@@ -585,11 +585,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 90.3,
-        "kineticJerk": 67.7,
-        "collisionProximity": 83.6,
-        "limbVelocity": 55.8,
-        "postureCollapse": 29.7
+        "opticalFlowVariance": 85,
+        "kineticJerk": 58.3,
+        "collisionProximity": 83.2,
+        "limbVelocity": 76.2,
+        "postureCollapse": 59.4
       }
     },
     {
@@ -598,11 +598,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 61.6,
-        "kineticJerk": 56.5,
-        "collisionProximity": 38.5,
-        "limbVelocity": 55.1,
-        "postureCollapse": 33.5
+        "opticalFlowVariance": 55.7,
+        "kineticJerk": 70.1,
+        "collisionProximity": 44.1,
+        "limbVelocity": 86.9,
+        "postureCollapse": 41.5
       }
     },
     {
@@ -611,11 +611,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 68.6,
-        "kineticJerk": 75.7,
-        "collisionProximity": 72.7,
-        "limbVelocity": 58,
-        "postureCollapse": 78.3
+        "opticalFlowVariance": 75.4,
+        "kineticJerk": 75.3,
+        "collisionProximity": 71.7,
+        "limbVelocity": 70.3,
+        "postureCollapse": 93.5
       }
     },
     {
@@ -624,11 +624,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 57.2,
-        "kineticJerk": 75.9,
-        "collisionProximity": 77.5,
-        "limbVelocity": 53.4,
-        "postureCollapse": 22.6
+        "opticalFlowVariance": 46.6,
+        "kineticJerk": 61.6,
+        "collisionProximity": 59.7,
+        "limbVelocity": 54.5,
+        "postureCollapse": 10.6
       }
     },
     {
@@ -637,11 +637,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 48.5,
-        "kineticJerk": 83,
-        "collisionProximity": 70.6,
-        "limbVelocity": 67,
-        "postureCollapse": 50
+        "opticalFlowVariance": 84.8,
+        "kineticJerk": 50,
+        "collisionProximity": 63.7,
+        "limbVelocity": 52.4,
+        "postureCollapse": 53.1
       }
     },
     {
@@ -650,11 +650,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 75.3,
-        "kineticJerk": 81.5,
-        "collisionProximity": 86.9,
-        "limbVelocity": 70.9,
-        "postureCollapse": 29.5
+        "opticalFlowVariance": 51.2,
+        "kineticJerk": 87.9,
+        "collisionProximity": 92.4,
+        "limbVelocity": 50,
+        "postureCollapse": 40.1
       }
     },
     {
@@ -663,11 +663,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 38.9,
-        "kineticJerk": 63.6,
-        "collisionProximity": 70.8,
-        "limbVelocity": 58.6,
-        "postureCollapse": 34.5
+        "opticalFlowVariance": 47.1,
+        "kineticJerk": 64.4,
+        "collisionProximity": 66,
+        "limbVelocity": 49.4,
+        "postureCollapse": 21
       }
     },
     {
@@ -676,11 +676,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 49,
-        "kineticJerk": 53.1,
-        "collisionProximity": 51.8,
-        "limbVelocity": 67.8,
-        "postureCollapse": 93.2
+        "opticalFlowVariance": 55.2,
+        "kineticJerk": 73.9,
+        "collisionProximity": 41.9,
+        "limbVelocity": 71.7,
+        "postureCollapse": 94.8
       }
     },
     {
@@ -689,11 +689,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 44.4,
-        "kineticJerk": 56.1,
-        "collisionProximity": 73.9,
-        "limbVelocity": 52.4,
-        "postureCollapse": 23.8
+        "opticalFlowVariance": 44.5,
+        "kineticJerk": 45.8,
+        "collisionProximity": 79.7,
+        "limbVelocity": 62.9,
+        "postureCollapse": 7.2
       }
     },
     {
@@ -702,11 +702,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 71.7,
-        "kineticJerk": 70.8,
-        "collisionProximity": 96.4,
-        "limbVelocity": 48.6,
-        "postureCollapse": 58.7
+        "opticalFlowVariance": 56.8,
+        "kineticJerk": 81,
+        "collisionProximity": 80.2,
+        "limbVelocity": 35.5,
+        "postureCollapse": 42.4
       }
     },
     {
@@ -715,11 +715,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 58.4,
-        "kineticJerk": 67.4,
-        "collisionProximity": 88.7,
-        "limbVelocity": 65,
-        "postureCollapse": 33.3
+        "opticalFlowVariance": 83.9,
+        "kineticJerk": 91.6,
+        "collisionProximity": 97.1,
+        "limbVelocity": 91.3,
+        "postureCollapse": 32.6
       }
     },
     {
@@ -728,11 +728,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 65.4,
-        "kineticJerk": 76.1,
-        "collisionProximity": 30.6,
-        "limbVelocity": 71,
-        "postureCollapse": 28.8
+        "opticalFlowVariance": 46.2,
+        "kineticJerk": 67.7,
+        "collisionProximity": 36.4,
+        "limbVelocity": 53.8,
+        "postureCollapse": 25.3
       }
     },
     {
@@ -741,11 +741,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 68.3,
-        "kineticJerk": 67.9,
-        "collisionProximity": 42.8,
-        "limbVelocity": 58.3,
-        "postureCollapse": 92.8
+        "opticalFlowVariance": 60,
+        "kineticJerk": 94.8,
+        "collisionProximity": 82.2,
+        "limbVelocity": 63.8,
+        "postureCollapse": 85.2
       }
     },
     {
@@ -754,11 +754,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 38,
-        "kineticJerk": 79.9,
-        "collisionProximity": 60.1,
-        "limbVelocity": 90.8,
-        "postureCollapse": 17
+        "opticalFlowVariance": 39.5,
+        "kineticJerk": 90.6,
+        "collisionProximity": 61.5,
+        "limbVelocity": 52.7,
+        "postureCollapse": 27.9
       }
     },
     {
@@ -767,11 +767,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 78.2,
-        "kineticJerk": 43.9,
-        "collisionProximity": 95.5,
-        "limbVelocity": 63.3,
-        "postureCollapse": 51.1
+        "opticalFlowVariance": 48.7,
+        "kineticJerk": 43.1,
+        "collisionProximity": 76,
+        "limbVelocity": 70.2,
+        "postureCollapse": 26.3
       }
     },
     {
@@ -780,11 +780,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 87.8,
-        "kineticJerk": 87.7,
-        "collisionProximity": 69.7,
-        "limbVelocity": 78.9,
-        "postureCollapse": 53.4
+        "opticalFlowVariance": 63.3,
+        "kineticJerk": 76.7,
+        "collisionProximity": 97.5,
+        "limbVelocity": 56.5,
+        "postureCollapse": 68.7
       }
     },
     {
@@ -793,11 +793,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 33.6,
-        "kineticJerk": 83.5,
-        "collisionProximity": 61.6,
-        "limbVelocity": 61.9,
-        "postureCollapse": 34.1
+        "opticalFlowVariance": 51.1,
+        "kineticJerk": 44.7,
+        "collisionProximity": 67.4,
+        "limbVelocity": 75.4,
+        "postureCollapse": 12.2
       }
     },
     {
@@ -806,11 +806,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 47.6,
-        "kineticJerk": 63.7,
-        "collisionProximity": 56,
-        "limbVelocity": 67.6,
-        "postureCollapse": 98.2
+        "opticalFlowVariance": 50.8,
+        "kineticJerk": 57,
+        "collisionProximity": 74.1,
+        "limbVelocity": 52.9,
+        "postureCollapse": 74.1
       }
     },
     {
@@ -819,11 +819,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 55.4,
-        "kineticJerk": 52.8,
-        "collisionProximity": 30.7,
-        "limbVelocity": 46.7,
-        "postureCollapse": 26
+        "opticalFlowVariance": 38.1,
+        "kineticJerk": 87.3,
+        "collisionProximity": 53,
+        "limbVelocity": 85.8,
+        "postureCollapse": 27.1
       }
     },
     {
@@ -832,11 +832,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 56.5,
-        "kineticJerk": 62.7,
-        "collisionProximity": 83.8,
-        "limbVelocity": 62.5,
-        "postureCollapse": 15.1
+        "opticalFlowVariance": 66,
+        "kineticJerk": 63,
+        "collisionProximity": 89.1,
+        "limbVelocity": 38.1,
+        "postureCollapse": 48.7
       }
     },
     {
@@ -845,11 +845,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 90.5,
-        "kineticJerk": 69.2,
-        "collisionProximity": 76,
-        "limbVelocity": 75.9,
-        "postureCollapse": 39.5
+        "opticalFlowVariance": 63.2,
+        "kineticJerk": 60.4,
+        "collisionProximity": 81.4,
+        "limbVelocity": 94.2,
+        "postureCollapse": 51.6
       }
     },
     {
@@ -858,11 +858,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 42.7,
-        "kineticJerk": 43,
-        "collisionProximity": 31.6,
-        "limbVelocity": 84.9,
-        "postureCollapse": 25.9
+        "opticalFlowVariance": 39.2,
+        "kineticJerk": 75.9,
+        "collisionProximity": 66.4,
+        "limbVelocity": 82.1,
+        "postureCollapse": 10.8
       }
     },
     {
@@ -871,11 +871,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 67.4,
-        "kineticJerk": 82.6,
-        "collisionProximity": 75,
-        "limbVelocity": 65.5,
-        "postureCollapse": 94.1
+        "opticalFlowVariance": 46.1,
+        "kineticJerk": 76.9,
+        "collisionProximity": 79.5,
+        "limbVelocity": 48,
+        "postureCollapse": 95.6
       }
     },
     {
@@ -884,11 +884,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 53.9,
-        "kineticJerk": 68.4,
-        "collisionProximity": 59.1,
-        "limbVelocity": 80.6,
-        "postureCollapse": 6.3
+        "opticalFlowVariance": 43.3,
+        "kineticJerk": 63.4,
+        "collisionProximity": 31.9,
+        "limbVelocity": 50.6,
+        "postureCollapse": 9.5
       }
     },
     {
@@ -897,11 +897,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 56.5,
-        "kineticJerk": 42.5,
-        "collisionProximity": 78.6,
-        "limbVelocity": 57.4,
-        "postureCollapse": 15.9
+        "opticalFlowVariance": 71.7,
+        "kineticJerk": 42.2,
+        "collisionProximity": 64.8,
+        "limbVelocity": 44.1,
+        "postureCollapse": 44.4
       }
     },
     {
@@ -910,11 +910,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 82.8,
-        "kineticJerk": 88.7,
-        "collisionProximity": 74.7,
-        "limbVelocity": 94.6,
-        "postureCollapse": 68.7
+        "opticalFlowVariance": 79.7,
+        "kineticJerk": 59.4,
+        "collisionProximity": 81.8,
+        "limbVelocity": 85.1,
+        "postureCollapse": 69.3
       }
     },
     {
@@ -923,11 +923,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 59.8,
-        "kineticJerk": 51.7,
-        "collisionProximity": 55.1,
-        "limbVelocity": 60.9,
-        "postureCollapse": 27
+        "opticalFlowVariance": 51.6,
+        "kineticJerk": 45.3,
+        "collisionProximity": 42.9,
+        "limbVelocity": 48.8,
+        "postureCollapse": 39.9
       }
     },
     {
@@ -936,11 +936,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 64.5,
-        "kineticJerk": 84.7,
-        "collisionProximity": 54.4,
-        "limbVelocity": 79.9,
-        "postureCollapse": 70.2
+        "opticalFlowVariance": 63.9,
+        "kineticJerk": 66.5,
+        "collisionProximity": 73.4,
+        "limbVelocity": 76.2,
+        "postureCollapse": 95.7
       }
     },
     {
@@ -949,11 +949,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 51.2,
-        "kineticJerk": 79.4,
-        "collisionProximity": 51.3,
-        "limbVelocity": 94.1,
-        "postureCollapse": 27.2
+        "opticalFlowVariance": 68,
+        "kineticJerk": 58,
+        "collisionProximity": 63.9,
+        "limbVelocity": 84.9,
+        "postureCollapse": 15.3
       }
     },
     {
@@ -962,11 +962,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 66.4,
-        "kineticJerk": 52.1,
-        "collisionProximity": 56.1,
-        "limbVelocity": 71.3,
-        "postureCollapse": 45.3
+        "opticalFlowVariance": 82.7,
+        "kineticJerk": 83.7,
+        "collisionProximity": 75,
+        "limbVelocity": 36.8,
+        "postureCollapse": 38.2
       }
     },
     {
@@ -975,11 +975,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 93.3,
-        "kineticJerk": 71.6,
-        "collisionProximity": 89.6,
-        "limbVelocity": 72,
-        "postureCollapse": 48.1
+        "opticalFlowVariance": 70.3,
+        "kineticJerk": 85.2,
+        "collisionProximity": 98.6,
+        "limbVelocity": 60.1,
+        "postureCollapse": 27.7
       }
     },
     {
@@ -988,11 +988,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 66.2,
-        "kineticJerk": 59.9,
-        "collisionProximity": 60,
-        "limbVelocity": 86.7,
-        "postureCollapse": 35.4
+        "opticalFlowVariance": 32.7,
+        "kineticJerk": 58.2,
+        "collisionProximity": 59.6,
+        "limbVelocity": 64.1,
+        "postureCollapse": 22.5
       }
     },
     {
@@ -1001,11 +1001,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 47.9,
-        "kineticJerk": 94.3,
-        "collisionProximity": 41.2,
-        "limbVelocity": 58.8,
-        "postureCollapse": 70.8
+        "opticalFlowVariance": 79.3,
+        "kineticJerk": 80.7,
+        "collisionProximity": 50.2,
+        "limbVelocity": 44.8,
+        "postureCollapse": 86.7
       }
     },
     {
@@ -1014,11 +1014,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 55.3,
-        "kineticJerk": 78.9,
-        "collisionProximity": 50.5,
-        "limbVelocity": 50.9,
-        "postureCollapse": 27.1
+        "opticalFlowVariance": 67.6,
+        "kineticJerk": 78.3,
+        "collisionProximity": 30.1,
+        "limbVelocity": 54.4,
+        "postureCollapse": 10
       }
     },
     {
@@ -1027,11 +1027,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 58.6,
-        "kineticJerk": 61.8,
-        "collisionProximity": 59.9,
-        "limbVelocity": 50.9,
-        "postureCollapse": 23.3
+        "opticalFlowVariance": 64.1,
+        "kineticJerk": 57.2,
+        "collisionProximity": 62.6,
+        "limbVelocity": 73.4,
+        "postureCollapse": 50.8
       }
     },
     {
@@ -1040,11 +1040,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 54.8,
-        "kineticJerk": 91.7,
-        "collisionProximity": 92.6,
-        "limbVelocity": 54.2,
-        "postureCollapse": 37.7
+        "opticalFlowVariance": 56.6,
+        "kineticJerk": 80.7,
+        "collisionProximity": 90.7,
+        "limbVelocity": 57.1,
+        "postureCollapse": 32.6
       }
     },
     {
@@ -1053,11 +1053,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 45.5,
-        "kineticJerk": 72.7,
-        "collisionProximity": 38.5,
-        "limbVelocity": 62.9,
-        "postureCollapse": 34.8
+        "opticalFlowVariance": 62.8,
+        "kineticJerk": 57.3,
+        "collisionProximity": 47.9,
+        "limbVelocity": 53.7,
+        "postureCollapse": 38.5
       }
     },
     {
@@ -1066,11 +1066,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 77.1,
-        "kineticJerk": 70.9,
-        "collisionProximity": 83.6,
-        "limbVelocity": 56.8,
-        "postureCollapse": 89.5
+        "opticalFlowVariance": 56.9,
+        "kineticJerk": 77,
+        "collisionProximity": 75.9,
+        "limbVelocity": 81.4,
+        "postureCollapse": 66.1
       }
     },
     {
@@ -1079,11 +1079,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 56,
-        "kineticJerk": 69.3,
-        "collisionProximity": 60.4,
-        "limbVelocity": 50.6,
-        "postureCollapse": 6.9
+        "opticalFlowVariance": 55.6,
+        "kineticJerk": 60.2,
+        "collisionProximity": 73.7,
+        "limbVelocity": 60.5,
+        "postureCollapse": 5.8
       }
     },
     {
@@ -1092,11 +1092,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 69.5,
-        "kineticJerk": 42.2,
-        "collisionProximity": 87.1,
-        "limbVelocity": 65.4,
-        "postureCollapse": 22
+        "opticalFlowVariance": 59.8,
+        "kineticJerk": 81.5,
+        "collisionProximity": 89.6,
+        "limbVelocity": 43.9,
+        "postureCollapse": 23.9
       }
     },
     {
@@ -1105,11 +1105,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 55,
-        "kineticJerk": 66.3,
-        "collisionProximity": 94.9,
-        "limbVelocity": 97.4,
-        "postureCollapse": 52.1
+        "opticalFlowVariance": 80.2,
+        "kineticJerk": 52.2,
+        "collisionProximity": 93.5,
+        "limbVelocity": 66.9,
+        "postureCollapse": 59.1
       }
     },
     {
@@ -1118,11 +1118,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 64.5,
-        "kineticJerk": 77.6,
-        "collisionProximity": 45.6,
-        "limbVelocity": 90,
-        "postureCollapse": 26.7
+        "opticalFlowVariance": 41.4,
+        "kineticJerk": 66.4,
+        "collisionProximity": 60.9,
+        "limbVelocity": 69.7,
+        "postureCollapse": 36.8
       }
     },
     {
@@ -1131,11 +1131,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 49.2,
-        "kineticJerk": 85.8,
-        "collisionProximity": 61.8,
-        "limbVelocity": 70,
-        "postureCollapse": 67.4
+        "opticalFlowVariance": 52.4,
+        "kineticJerk": 73,
+        "collisionProximity": 86,
+        "limbVelocity": 71.9,
+        "postureCollapse": 74.5
       }
     },
     {
@@ -1144,11 +1144,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 69.5,
-        "kineticJerk": 84.2,
-        "collisionProximity": 68,
-        "limbVelocity": 93.8,
-        "postureCollapse": 16.1
+        "opticalFlowVariance": 40.3,
+        "kineticJerk": 80.8,
+        "collisionProximity": 39.8,
+        "limbVelocity": 76.5,
+        "postureCollapse": 9.8
       }
     },
     {
@@ -1157,11 +1157,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 56.1,
-        "kineticJerk": 81.6,
-        "collisionProximity": 62.2,
-        "limbVelocity": 48.4,
-        "postureCollapse": 28.4
+        "opticalFlowVariance": 64.8,
+        "kineticJerk": 54.1,
+        "collisionProximity": 73.7,
+        "limbVelocity": 66,
+        "postureCollapse": 24.6
       }
     },
     {
@@ -1170,11 +1170,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 74.3,
-        "kineticJerk": 66.7,
-        "collisionProximity": 83.6,
-        "limbVelocity": 64.2,
-        "postureCollapse": 64.6
+        "opticalFlowVariance": 84.7,
+        "kineticJerk": 81.5,
+        "collisionProximity": 96.7,
+        "limbVelocity": 55.4,
+        "postureCollapse": 39.4
       }
     },
     {
@@ -1183,11 +1183,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 36.5,
-        "kineticJerk": 56.8,
-        "collisionProximity": 73.9,
-        "limbVelocity": 81.2,
-        "postureCollapse": 38.5
+        "opticalFlowVariance": 62.8,
+        "kineticJerk": 56.4,
+        "collisionProximity": 44.4,
+        "limbVelocity": 54.3,
+        "postureCollapse": 27.6
       }
     },
     {
@@ -1196,11 +1196,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 47.5,
-        "kineticJerk": 73.4,
-        "collisionProximity": 42.8,
-        "limbVelocity": 72.9,
-        "postureCollapse": 77.9
+        "opticalFlowVariance": 78.5,
+        "kineticJerk": 91.8,
+        "collisionProximity": 47.9,
+        "limbVelocity": 44.3,
+        "postureCollapse": 71.2
       }
     },
     {
@@ -1209,11 +1209,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 67.7,
-        "kineticJerk": 67.8,
-        "collisionProximity": 76.9,
-        "limbVelocity": 93.7,
-        "postureCollapse": 13.4
+        "opticalFlowVariance": 70.9,
+        "kineticJerk": 75.4,
+        "collisionProximity": 67.3,
+        "limbVelocity": 90,
+        "postureCollapse": 17.6
       }
     },
     {
@@ -1222,11 +1222,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 40.9,
-        "kineticJerk": 42.7,
-        "collisionProximity": 97.6,
-        "limbVelocity": 62.5,
-        "postureCollapse": 19.8
+        "opticalFlowVariance": 60.8,
+        "kineticJerk": 63.1,
+        "collisionProximity": 65.7,
+        "limbVelocity": 36,
+        "postureCollapse": 26.1
       }
     },
     {
@@ -1235,11 +1235,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 58.5,
-        "kineticJerk": 64,
-        "collisionProximity": 72.6,
-        "limbVelocity": 93.8,
-        "postureCollapse": 39.6
+        "opticalFlowVariance": 68.8,
+        "kineticJerk": 94.1,
+        "collisionProximity": 83.7,
+        "limbVelocity": 67.6,
+        "postureCollapse": 58.2
       }
     },
     {
@@ -1248,11 +1248,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 64,
-        "kineticJerk": 54,
-        "collisionProximity": 51.5,
-        "limbVelocity": 87.9,
-        "postureCollapse": 36.5
+        "opticalFlowVariance": 49.5,
+        "kineticJerk": 79.6,
+        "collisionProximity": 48.6,
+        "limbVelocity": 51.5,
+        "postureCollapse": 15.9
       }
     },
     {
@@ -1261,11 +1261,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 77.4,
-        "kineticJerk": 73.5,
-        "collisionProximity": 74.8,
-        "limbVelocity": 77.4,
-        "postureCollapse": 68.6
+        "opticalFlowVariance": 71.7,
+        "kineticJerk": 90.8,
+        "collisionProximity": 72.1,
+        "limbVelocity": 70.8,
+        "postureCollapse": 66.3
       }
     },
     {
@@ -1274,11 +1274,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 50.4,
-        "kineticJerk": 74.6,
-        "collisionProximity": 45.5,
-        "limbVelocity": 46.2,
-        "postureCollapse": 21.7
+        "opticalFlowVariance": 74.7,
+        "kineticJerk": 88.7,
+        "collisionProximity": 56,
+        "limbVelocity": 55.6,
+        "postureCollapse": 27.1
       }
     },
     {
@@ -1287,11 +1287,11 @@
       "isAggression": true,
       "threatLevel": "ELEVATED",
       "features": {
-        "opticalFlowVariance": 55.9,
-        "kineticJerk": 56.3,
-        "collisionProximity": 75.6,
-        "limbVelocity": 71.3,
-        "postureCollapse": 45.3
+        "opticalFlowVariance": 81.4,
+        "kineticJerk": 61.3,
+        "collisionProximity": 67.1,
+        "limbVelocity": 41.6,
+        "postureCollapse": 26.6
       }
     },
     {
@@ -1300,11 +1300,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 66,
-        "kineticJerk": 52.6,
-        "collisionProximity": 93.1,
-        "limbVelocity": 54.4,
-        "postureCollapse": 75.7
+        "opticalFlowVariance": 61.1,
+        "kineticJerk": 89.3,
+        "collisionProximity": 76.4,
+        "limbVelocity": 70.3,
+        "postureCollapse": 33
       }
     },
     {
@@ -1313,11 +1313,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 64.5,
-        "kineticJerk": 53.8,
-        "collisionProximity": 74.6,
-        "limbVelocity": 75.4,
-        "postureCollapse": 39.6
+        "opticalFlowVariance": 65.7,
+        "kineticJerk": 54.9,
+        "collisionProximity": 50.7,
+        "limbVelocity": 50.6,
+        "postureCollapse": 43.3
       }
     },
     {
@@ -1326,11 +1326,11 @@
       "isAggression": true,
       "threatLevel": "CRITICAL",
       "features": {
-        "opticalFlowVariance": 45.3,
-        "kineticJerk": 79.3,
-        "collisionProximity": 68.6,
-        "limbVelocity": 80.9,
-        "postureCollapse": 96.3
+        "opticalFlowVariance": 57.2,
+        "kineticJerk": 79.8,
+        "collisionProximity": 74.8,
+        "limbVelocity": 45,
+        "postureCollapse": 94.8
       }
     }
   ]

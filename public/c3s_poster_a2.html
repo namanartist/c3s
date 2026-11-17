@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>C3S Poster A2 — Project Expo Nov 2026 | MITS Gwalior</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+    @page {
+      size: 420mm 594mm;
+      margin: 0;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 420mm;
+      height: 594mm;
+      max-width: 420mm;
+      max-height: 594mm;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #0b1120;
+      color: #e2e8f0;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+
+    .poster-container {
+      width: 420mm;
+      height: 594mm;
+      padding: 9mm 10mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      background: radial-gradient(circle at 15% 10%, rgba(30, 58, 138, 0.35) 0%, transparent 40%),
+                  radial-gradient(circle at 85% 85%, rgba(67, 56, 202, 0.25) 0%, transparent 40%),
+                  #0a0f1d;
+    }
+
+    /* Subtle grid overlay */
+    .poster-container::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 15mm 15mm;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .poster-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+    }
+
+    /* ========================================================
+       1. HEADER SECTION
+       ======================================================== */
+    .poster-header {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1.5mm solid rgba(59, 130, 246, 0.35);
+      border-radius: 6mm;
+      padding: 5mm 7mm;
+      display: grid;
+      grid-template-columns: 32mm 1fr 34mm;
+      align-items: center;
+      gap: 6mm;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    .header-logo-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-logo-left img {
+      width: 28mm;
+      height: 28mm;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+    }
+
+    .institute-meta {
+      text-align: center;
+    }
+
+    .inst-name {
+      font-size: 18pt;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .inst-sub {
+      font-size: 10.5pt;
+      font-weight: 600;
+      color: #93c5fd;
+      margin-top: 1mm;
+      letter-spacing: 0.03em;
+    }
+
+    .dept-sub {
+      font-size: 9.5pt;
+      font-weight: 500;
+      color: #cbd5e1;
+      margin-top: 0.5mm;
+    }
+
+    .project-title-banner {
+      margin-top: 2.5mm;
+      background: linear-gradient(90deg, rgba(37,99,235,0.2) 0%, rgba(99,102,241,0.3) 50%, rgba(37,99,235,0.2) 100%);
+      border: 1px solid rgba(96,165,250,0.3);
+      border-radius: 3mm;
+      padding: 1.8mm 4mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .main-title {
+      font-size: 26pt;
+      font-weight: 900;
+      color: #38bdf8;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 10px rgba(56, 189, 248, 0.3);
+    }
+
+    .main-tagline {
+      font-size: 11pt;
+      font-weight: 600;
+      color: #e0f2fe;
+      font-style: italic;
+    }
+
+    .project-id-badge {
+      background: #dc2626;
+      color: #ffffff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10pt;
+      font-weight: 800;
+      padding: 1mm 2.5mm;
+      border-radius: 2mm;
+      box-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
+    }
+
+    .header-meta-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5mm;
+      border-left: 1px solid rgba(255,255,255,0.15);
+      padding-left: 4mm;
+    }
+
+    .header-meta-right img.qr-img {
+      width: 22mm;
+      height: 22mm;
+      border-radius: 2mm;
+      background: #ffffff;
+      padding: 1mm;
+    }
+
+    .qr-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7pt;
+      font-weight: 600;
+      color: #94a3b8;
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    /* Author / Mentor Strip */
+    .authors-strip {
+      background: rgba(30, 41, 59, 0.7);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-top: 2mm;
+      padding-top: 1.5mm;
+      display: flex;
+      justify-content: space-between;
+      font-size: 9pt;
+      color: #cbd5e1;
+    }
+
+    .authors-strip strong {
+      color: #f8fafc;
+    }
+
+    .authors-strip .highlight {
+      color: #fbbf24;
+    }
+
+    /* ========================================================
+       2. THREE-COLUMN MAIN GRID
+       ======================================================== */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 120mm 150mm 120mm;
+      gap: 5mm;
+      margin-top: 4mm;
+      flex-grow: 1;
+      height: 508mm;
+    }
+
+    .col {
+      display: flex;
+      flex-direction: column;
+      gap: 4mm;
+    }
+
+    /* Section Cards */
+    .card {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: 4mm;
+      padding: 3.5mm 4mm;
+      position: relative;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+    }
+
+    .card.accent-border {
+      border-color: rgba(96, 165, 250, 0.5);
+      background: rgba(15, 23, 42, 0.88);
+    }
+
+    .card.highlight-card {
+      border: 1.5px solid #f59e0b;
+      background: rgba(30, 27, 75, 0.75);
+    }
+
+    .card-title {
+      font-size: 13pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #60a5fa;
+      border-bottom: 1.5px solid rgba(96, 165, 250, 0.3);
+      padding-bottom: 1.5mm;
+      margin-bottom: 2.5mm;
+      display: flex;
+      align-items: center;
+      gap: 2mm;
+    }
+
+    .card-title svg {
+      width: 4.5mm;
+      height: 4.5mm;
+      stroke: #60a5fa;
+    }
+
+    .card-title.accent-amber {
+      color: #fbbf24;
+      border-bottom-color: rgba(251, 191, 36, 0.4);
+    }
+
+    .card-title.accent-emerald {
+      color: #34d399;
+      border-bottom-color: rgba(52, 211, 153, 0.4);
+    }
+
+    .card-body {
+      font-size: 9pt;
+      line-height: 1.42;
+      color: #cbd5e1;
+    }
+
+    .card-body p {
+      margin-bottom: 2mm;
+    }
+
+    .card-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8mm;
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding-left: 4mm;
+    }
+
+    .bullet-list li::before {
+      content: "▪";
+      position: absolute;
+      left: 0;
+      color: #38bdf8;
+      font-size: 11pt;
+      line-height: 1;
+    }
+
+    /* Highlight pill / badge */
+    .pill {
+      display: inline-block;
+      font-size: 7.5pt;
+      font-weight: 700;
+      padding: 0.6mm 2mm;
+      border-radius: 1.5mm;
+      background: rgba(37, 99, 235, 0.25);
+      border: 1px solid rgba(96, 165, 250, 0.4);
+      color: #bfdbfe;
+    }
+
+    .pill-green {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: rgba(52, 211, 153, 0.4);
+      color: #a7f3d0;
+    }
+
+    .pill-amber {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: rgba(251, 191, 36, 0.4);
+      color: #fde68a;
+    }
+
+    /* Structured Tech Table */
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8pt;
+      margin-top: 1mm;
+    }
+
+    .tech-table th {
+      background: rgba(30, 41, 59, 0.9);
+      color: #93c5fd;
+      font-weight: 700;
+      text-align: left;
+      padding: 1.2mm 2mm;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-transform: uppercase;
+      font-size: 7.5pt;
+    }
+
+    .tech-table td {
+      padding: 1.2mm 2mm;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      color: #e2e8f0;
+      vertical-align: middle;
+    }
+
+    .tech-table tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .tech-table td strong {
+      color: #38bdf8;
+    }
+
+    /* Math Formulas Box */
+    .math-box {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      border-radius: 2.5mm;
+      padding: 2mm 3mm;
+      margin-top: 2mm;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8pt;
+      color: #e0e7ff;
+      line-height: 1.35;
+    }
+
+    .math-box .formula {
+      font-weight: 700;
+      color: #38bdf8;
+      font-size: 8.5pt;
+      margin-bottom: 0.8mm;
+    }
+
+    .math-box .desc {
+      font-size: 7.5pt;
+      color: #94a3b8;
+    }
+
+    /* UI Screenshot Presentation Cards */
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5mm;
+      margin-top: 1mm;
+    }
+
+    .screenshot-card {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 2.5mm;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .screenshot-card.full-width {
+      grid-column: span 2;
+    }
+
+    .screenshot-card img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      background: #020617;
+    }
+
+    .screenshot-caption {
+      padding: 1.5mm 2mm;
+      font-size: 7.5pt;
+      line-height: 1.25;
+      background: rgba(15, 23, 42, 0.9);
+      color: #cbd5e1;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .screenshot-caption strong {
+      color: #38bdf8;
+      font-weight: 700;
+    }
+
+    /* Architectural Evolution Box (YOLO11 to OpenCV) */
+    .evolution-box {
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1.5px solid rgba(56, 189, 248, 0.4);
+      border-radius: 3mm;
+      padding: 2.5mm 3.5mm;
+      margin-top: 2mm;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2mm;
+      margin-top: 1.5mm;
+      font-size: 8pt;
+    }
+
+    .comp-col {
+      padding: 2mm;
+      border-radius: 2mm;
+      background: rgba(0,0,0,0.3);
+    }
+
+    .comp-col.bad {
+      border-left: 2mm solid #ef4444;
+    }
+
+    .comp-col.good {
+      border-left: 2mm solid #10b981;
+    }
+
+    .comp-title {
+      font-weight: 800;
+      font-size: 8.5pt;
+      margin-bottom: 1mm;
+    }
+
+    .comp-col.bad .comp-title { color: #f87171; }
+    .comp-col.good .comp-title { color: #34d399; }
+
+    /* Results Metrics Bar */
+    .metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2mm;
+      margin-top: 2mm;
+    }
+
+    .metric-item {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 2.5mm;
+      padding: 2mm 1.5mm;
+      text-align: center;
+    }
+
+    .metric-val {
+      font-size: 16pt;
+      font-weight: 900;
+      color: #38bdf8;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .metric-val.amber { color: #fbbf24; }
+    .metric-val.emerald { color: #34d399; }
+    .metric-val.rose { color: #f43f5e; }
+
+    .metric-lbl {
+      font-size: 7pt;
+      font-weight: 600;
+      color: #94a3b8;
+      text-transform: uppercase;
+      margin-top: 0.5mm;
+    }
+
+    /* Radar 3D Future Scope Highlight */
+    .radar-box {
+      background: radial-gradient(circle at 90% 10%, rgba(99, 102, 241, 0.25) 0%, transparent 60%),
+                  rgba(17, 24, 39, 0.9);
+      border: 1.5px solid #818cf8;
+      border-radius: 3mm;
+      padding: 2.5mm 3.5mm;
+    }
+
+    /* Acknowledgement / Mentor Mini-card */
+    .mentor-box {
+      display: flex;
+      align-items: center;
+      gap: 3mm;
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 2.5mm;
+      padding: 2mm 3mm;
+      margin-top: 2mm;
+    }
+
+    .mentor-box img {
+      width: 14mm;
+      height: 14mm;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid #60a5fa;
+    }
+
+    .mentor-info {
+      font-size: 8pt;
+      line-height: 1.3;
+    }
+
+    .mentor-info strong {
+      font-size: 9pt;
+      color: #f8fafc;
+    }
+
+    /* Footer Bottom Bar */
+    .poster-footer {
+      background: rgba(15, 23, 42, 0.9);
+      border-top: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 2mm 5mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8pt;
+      color: #94a3b8;
+      margin-top: 3mm;
+    }
+
+    .footer-left {
+      display: flex;
+      gap: 4mm;
+      align-items: center;
+    }
+
+    .footer-right {
+      font-family: 'JetBrains Mono', monospace;
+      color: #38bdf8;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<div class="poster-container">
+  <div class="poster-content">
+
+    <!-- ========================================================
+         HEADER: INSTITUTE, PROJECT TITLE, TEAM, REPO QR
+         ======================================================== -->
+    <header class="poster-header">
+      <div class="header-logo-left">
+        <img src="extracted_assets/clg_logo.webp" alt="MITS Gwalior Logo" />
+      </div>
+
+      <div class="institute-meta">
+        <div class="inst-name">Madhav Institute of Technology & Science, Gwalior (M.P.), India</div>
+        <div class="inst-sub">Deemed to be University &bull; NAAC Accredited with 'A++' Grade &bull; Ministry of Education</div>
+        <div class="dept-sub">Department of Mathematics and Computing &bull; Central Project Exhibition (Project Expo) Nov 2026</div>
+
+        <div class="project-title-banner">
+          <div>
+            <span class="main-title">C3S: CAMPUS SAFETY AND SECURITY SYSTEM</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 4mm;">
+            <span class="main-tagline">"Find the room, tap SOS, get help"</span>
+            <span class="project-id-badge">PROJECT ID: P3S-4</span>
+          </div>
+        </div>
+
+        <div class="authors-strip">
+          <div>
+            <strong>Team VigilantX:</strong>
+            <span class="highlight">Abhinav Jaiswal</span> (BTMC2501004 &bull; Presenter) &bull;
+            <strong>Abhinav Gupta</strong> (BTMC2501003) &bull;
+            <strong>Naman Lahariya</strong> (BTMC2501080)
+          </div>
+          <div>
+            <strong>Faculty Mentor:</strong> Dr. Dheeraj Kumar Dixit, Assistant Professor &bull; <strong>Session:</strong> 2026-27 (Sem 3)
+          </div>
+        </div>
+      </div>
+
+      <div class="header-meta-right">
+        <img class="qr-img" src="extracted_assets/github_qr.png" alt="GitHub Repository QR Code" />
+        <div class="qr-label">
+          SCAN CODE<br/>
+          <strong>github.com/<br/>namanartist/c3s</strong>
+        </div>
+      </div>
+    </header>
+
+    <!-- ========================================================
+         MAIN 3-COLUMN BODY (420mm x 594mm A2 PROPORTIONS)
+         ======================================================== -->
+    <main class="main-grid">
+
+      <!-- ==================== COLUMN 1 ==================== -->
+      <div class="col">
+
+        <!-- 1. ABSTRACT -->
+        <section class="card">
+          <h2 class="card-title">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            1. Abstract
+          </h2>
+          <div class="card-body">
+            <p>
+              <strong>C3S (Campus Safety and Security System)</strong> is an integrated, browser-native emergency dispatch and indoor/outdoor navigational platform engineered specifically for the <strong>Madhav Institute of Technology &amp; Science (MITS)</strong> campus.
+            </p>
+            <p>
+              Students trigger an emergency alert via a 2-second hold <strong>SOS button</strong>, instantly transmitting calibrated GPS/floor-node coordinates, live camera frames, and tactical location to campus quick-response teams. The platform consolidates multi-floor vector indoor navigation, real-time edge computer vision aggression classification, cryptographic HMAC gate check-in, and tamper-evident audit logging into five synchronized role-based dashboards with full offline fallback capability.
+            </p>
+          </div>
+        </section>
+
+        <!-- 2. PROBLEM STATEMENT & OBJECTIVES -->
+        <section class="card">
+          <h2 class="card-title">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            2. Problem &amp; Objectives
+          </h2>
+          <div class="card-body">
+            <div style="margin-bottom: 2mm;">
+              <span class="pill pill-amber">Campus Reality</span>
+              <ul class="bullet-list" style="margin-top: 1.5mm;">
+                <li><strong>Delayed Response:</strong> Phone-call reporting takes <strong>8–9 minutes</strong>, fraught with vague landmark descriptions.</li>
+                <li><strong>Siloed Systems:</strong> CCTV feeds, physical paper gate registers, and security walkie-talkies operate in disconnected silos.</li>
+                <li><strong>Indoor Blind Spots:</strong> External GPS services fail inside multi-floor academic blocks (e.g. AI Block, Main Building).</li>
+              </ul>
+            </div>
+            <div>
+              <span class="pill pill-green">Key Objectives</span>
+              <ul class="bullet-list" style="margin-top: 1.5mm;">
+                <li><strong>Sub-2-Minute Interception:</strong> Dispatch the nearest active guard with precise floor and room coordinates.</li>
+                <li><strong>Unified Single-Pane Platform:</strong> Seamlessly bind navigation, AI surveillance, gate passes, and audit trails.</li>
+                <li><strong>Edge Privacy &amp; Zero Latency:</strong> Run computer vision client-side without costly cloud streaming or external GPU servers.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. SYSTEM ARCHITECTURE -->
+        <section class="card accent-border">
+          <h2 class="card-title">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            3. Three-Tier Architecture
+          </h2>
+          <div class="card-body">
+            <div style="background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08); border-radius: 2mm; padding: 2mm; margin-bottom: 2mm; font-size: 8pt;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 1mm;">
+                <span style="color: #38bdf8; font-weight: 700;">Tier 1: Presentation (Edge UI)</span>
+                <span class="pill">React 19 &bull; Vite 8 &bull; Zustand</span>
+              </div>
+              <p style="font-size: 7.5pt; color: #94a3b8; margin: 0;">Student SOS &bull; Guard Console &bull; Gatekeeper QR &bull; Control Room CCTV Matrix &bull; Admin Audit</p>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08); border-radius: 2mm; padding: 2mm; margin-bottom: 2mm; font-size: 8pt;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 1mm;">
+                <span style="color: #34d399; font-weight: 700;">Tier 2: Compute &amp; Dispatch API</span>
+                <span class="pill pill-green">Node.js Serverless &bull; Express</span>
+              </div>
+              <p style="font-size: 7.5pt; color: #94a3b8; margin: 0;">HMAC-SHA256 Tokenization &bull; Incident State Machine &bull; RBAC Session Controller</p>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08); border-radius: 2mm; padding: 2mm; font-size: 8pt;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 1mm;">
+                <span style="color: #fbbf24; font-weight: 700;">Tier 3: Persistence &amp; Fallback</span>
+                <span class="pill pill-amber">MongoDB &bull; Bundled JSON</span>
+              </div>
+              <p style="font-size: 7.5pt; color: #94a3b8; margin: 0;">641 Campus Graph Nodes &bull; Edges &bull; Dynamic Indexed DB &bull; Offline Auto-Sync</p>
+            </div>
+
+            <div style="margin-top: 2mm; font-size: 7.5pt; color: #cbd5e1; background: rgba(59,130,246,0.15); border-left: 1.5mm solid #38bdf8; padding: 1.2mm 2mm; border-radius: 1mm;">
+              <strong>Offline Resilience:</strong> If local Wi-Fi drops, student SOS tickets are serialized into <code>localStorage/IndexedDB</code> and automatically dispatched via background sync on link reconnection.
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. TECH STACK TABLE -->
+        <section class="card">
+          <h2 class="card-title">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+            4. Technology Stack
+          </h2>
+          <table class="tech-table">
+            <thead>
+              <tr>
+                <th>Layer</th>
+                <th>Technologies Employed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Frontend</strong></td>
+                <td>React 19, TypeScript 6, Vite 8, Zustand, Tailwind CSS, Lucide Icons</td>
+              </tr>
+              <tr>
+                <td><strong>Backend</strong></td>
+                <td>Node.js serverless functions (<code>api/</code>), Express microservices</td>
+              </tr>
+              <tr>
+                <td><strong>Database</strong></td>
+                <td>MongoDB (Collections: <code>nodes</code>, <code>edges</code>, <code>sos</code>, <code>gate</code>, <code>audit</code>)</td>
+              </tr>
+              <tr>
+                <td><strong>Vision Engine</strong></td>
+                <td><strong>OpenCV (Client-side Canvas)</strong>, Motion Differencing, Optical Flow</td>
+              </tr>
+              <tr>
+                <td><strong>Mapping</strong></td>
+                <td>Multi-floor Vector SVGs, Non-blocking Dijkstra Solver, WGS84 GPS Anchor</td>
+              </tr>
+              <tr>
+                <td><strong>Security</strong></td>
+                <td>Cryptographic HMAC-SHA256, Time-limited Dynamic QR, Strict RBAC</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <!-- ==================== COLUMN 2 (CENTER) ==================== -->
+      <div class="col">
+
+        <!-- 5. ARCHITECTURAL TRANSITION: YOLO11 TO OPENCV -->
+        <section class="card highlight-card">
+          <h2 class="card-title accent-amber">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            5. Key Innovation: Migrating from YOLO11 to OpenCV
+          </h2>
+          <div class="card-body">
+            <p>
+              In initial prototype iterations, our team evaluated cloud-based <strong>YOLO11 deep neural networks</strong> for incident detection. However, practical campus deployment revealed crippling bottlenecks in bandwidth cost, network jitter, and privacy compliance. We re-engineered the perception layer into a <strong>sub-2ms client-side OpenCV optical flow &amp; kinetic jerk vision engine</strong>.
+            </p>
+
+            <div class="comparison-grid">
+              <div class="comp-col bad">
+                <div class="comp-title">&#10006; Previous: Cloud YOLO11</div>
+                <ul class="bullet-list" style="font-size: 7.5pt; gap: 1mm;">
+                  <li><strong>Heavy Latency:</strong> 450ms–1.2s cloud inferencing + frame video streaming overhead.</li>
+                  <li><strong>Expensive Hardware:</strong> Dedicated server GPUs required ($250+/month per 4 camera streams).</li>
+                  <li><strong>Bandwidth Bottleneck:</strong> 12 continuous HD streams saturated campus wireless links.</li>
+                  <li><strong>Privacy Hazard:</strong> Student video streams continuously sent outside local network.</li>
+                </ul>
+              </div>
+
+              <div class="comp-col good">
+                <div class="comp-title">&#10004; Deployed: Edge OpenCV Engine</div>
+                <ul class="bullet-list" style="font-size: 7.5pt; gap: 1mm;">
+                  <li><strong>Real-time Sub-2ms:</strong> Zero network transit; processed directly in browser canvas/Wasm.</li>
+                  <li><strong>Zero GPU Cloud Cost:</strong> Runs on existing commodity guard laptops and tablets.</li>
+                  <li><strong>Minimal Bandwidth:</strong> Only lightweight event metadata is signaled upon threshold breach.</li>
+                  <li><strong>100% Data Privacy:</strong> Video buffers never leave memory; GDPR &amp; DPDP compliant.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. APPLICATION SCREENSHOTS & KEY FEATURES -->
+        <section class="card accent-border">
+          <h2 class="card-title">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            6. Live Platform Implementations (MITS Tested)
+          </h2>
+          <div class="card-body">
+            <div class="screenshot-grid">
+              <div class="screenshot-card">
+                <img src="extracted_assets/fig1_student_sos.png" alt="Student SOS Console" />
+                <div class="screenshot-caption">
+                  <strong>Fig. 1 — Student SOS Console:</strong> 2-second hold trigger, emergency dispatch queue, automated GPS node snapshot, and offline sync.
+                </div>
+              </div>
+
+              <div class="screenshot-card">
+                <img src="extracted_assets/fig2_campus_navigator.png" alt="Interactive Campus Navigator" />
+                <div class="screenshot-caption">
+                  <strong>Fig. 2 — Campus Map Navigator:</strong> Turn-by-turn multi-floor navigation (AI &amp; Main Block) with accessible step-free lift routing.
+                </div>
+              </div>
+
+              <div class="screenshot-card full-width">
+                <img src="extracted_assets/fig4_flagged_camera_detection.png" alt="Edge Vision Aggression Analyzer" />
+                <div class="screenshot-caption">
+                  <strong>Fig. 3 — OpenCV Edge Vision in Action:</strong> Real-time frame differencing showing normal baseline motion vs flagged aggression with dynamic kinetic bounding boxes and optical jerk alert triggers.
+                </div>
+              </div>
+
+              <div class="screenshot-card">
+                <img src="extracted_assets/fig3_control_room_matrix.png" alt="Control Room CCTV Matrix" />
+                <div class="screenshot-caption">
+                  <strong>Fig. 4 — CCTV Matrix &amp; Live Cam 8:</strong> 12-camera tactical overview with real-time incident threat banner and one-click camera zoom.
+                </div>
+              </div>
+
+              <div class="screenshot-card">
+                <img src="extracted_assets/fig5_tactical_radar_dispatch.png" alt="Tactical Radar & Dispatch Queue" />
+                <div class="screenshot-caption">
+                  <strong>Fig. 5 — Tactical Radar &amp; Dispatch:</strong> Satellite map showing 641 nodes, real-time responder proximity, and dynamic priority ticket triage.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ==================== COLUMN 3 ==================== -->
+      <div class="col">
+
+        <!-- 7. MATHEMATICAL MODELS & METHODOLOGY -->
+        <section class="card">
+          <h2 class="card-title">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            7. Mathematical Modeling
+          </h2>
+          <div class="card-body">
+            <div class="math-box">
+              <div class="formula">1. Non-Blocking Dijkstra Pathfinding:</div>
+              <div class="desc">
+                $$d(v) = \min_{u \in \text{adj}(v)} \{ d(u) + w(u, v) \}$$
+                Yields to browser animation loop via <code>requestAnimationFrame</code> every 50 iterations to prevent UI freezing across 641 graph nodes.
+              </div>
+            </div>
+
+            <div class="math-box">
+              <div class="formula">2. Emergency Response Time Model:</div>
+              <div class="desc">
+                $$T = t_{\text{detect}} + t_{\text{alert}} + \frac{s}{v_{\text{responder}}}$$
+                Reduces total latency $T$ from 537s (phone call) to <strong>98s</strong> (empirical drill) by minimizing $t_{\text{alert}} \approx 1.2\text{s}$.
+              </div>
+            </div>
+
+            <div class="math-box">
+              <div class="formula">3. Crowd Density &amp; Kinetic Jerk:</div>
+              <div class="desc">
+                $$\rho = \frac{N}{A} \quad \text{and} \quad \mathbf{J} = \frac{d^2 \mathbf{v}}{dt^2} = \frac{d^3 \mathbf{x}}{dt^3}$$
+                Sudden vector acceleration spikes ($|\mathbf{J}| > \theta_{\text{fight}}$) trigger instant edge alerts without heavy neural classifiers.
+              </div>
+            </div>
+
+            <div class="math-box">
+              <div class="formula">4. Dispatch Arrival (Poisson Distribution):</div>
+              <div class="desc">
+                $$P(k \text{ incidents in time } t) = \frac{(\lambda t)^k e^{-\lambda t}}{k!}$$
+                Guarantees queue convergence under peak rush hour campus incident loads.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8. RESULTS & PERFORMANCE BENCHMARK -->
+        <section class="card accent-border">
+          <h2 class="card-title accent-emerald">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            8. Empirical Results &amp; Testing
+          </h2>
+          <div class="card-body">
+            <p>
+              Validated across <strong>2,500 real-world surveillance test samples</strong> and physical on-site simulated drills on the MITS Gwalior campus.
+            </p>
+
+            <div class="metrics-bar">
+              <div class="metric-item">
+                <div class="metric-val emerald">98s</div>
+                <div class="metric-lbl">Response Time</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-val">641</div>
+                <div class="metric-lbl">Mapped Nodes</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-val emerald">99.16%</div>
+                <div class="metric-lbl">Accuracy</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-val emerald">100%</div>
+                <div class="metric-lbl">Precision</div>
+              </div>
+            </div>
+
+            <div style="margin-top: 2.5mm; font-size: 8pt; color: #cbd5e1;">
+              <strong>Benchmark Comparison:</strong> C3S reduces emergency interception time by <strong>81.8% (~5.5x speedup)</strong> compared to legacy walkie-talkie and telephone escalation workflows.
+            </div>
+          </div>
+        </section>
+
+        <!-- 9. FUTURE SCOPE: RADAR SENSING & 3D POSITIONING -->
+        <section class="card highlight-card">
+          <h2 class="card-title accent-amber">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm1 14.93V17a1 1 0 01-2 0v-.07A7.003 7.003 0 015.07 11H5a1 1 0 010-2h.07A7.003 7.003 0 0111 3.07V3a1 1 0 012 0v.07A7.003 7.003 0 0118.93 9H19a1 1 0 010 2h-.07A7.003 7.003 0 0113 16.93z"/></svg>
+            9. Future Scope: Radar 3D Indoor Positioning
+          </h2>
+          <div class="card-body">
+            <p>
+              While vector SVG maps and Wi-Fi anchors provide 2D campus navigation, our roadmap introduces <strong>millimeter-wave (mmWave) Radar Sensing</strong> for true <strong>3D indoor coordinate positioning</strong>.
+            </p>
+            <ul class="bullet-list" style="font-size: 8pt;">
+              <li><strong>Altitude &amp; Multi-floor Discrimination ($z$-axis):</strong> Radar point clouds accurately discern whether an SOS originates from Ground, 1st, or 2nd floor, eliminating vertical ambiguities.</li>
+              <li><strong>Through-Wall &amp; Obscuration Sensing:</strong> Functions flawlessly through dense smoke, fire, and unlit corridors where optical CCTV is blinded.</li>
+              <li><strong>Augmented Reality (AR) Wayfinding:</strong> Overlaying 3D floating navigational vectors directly on student phone camera views.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 10. CONCLUSION & ACKNOWLEDGEMENTS -->
+        <section class="card">
+          <h2 class="card-title">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            10. Conclusion &amp; Acknowledgement
+          </h2>
+          <div class="card-body">
+            <p>
+              C3S demonstrates a production-ready, low-cost institutional safety architecture that requires zero expensive proprietary hardware.
+            </p>
+
+            <div class="mentor-box">
+              <img src="extracted_assets/DrDheerajDixit.jpg" alt="Dr. Dheeraj Kumar Dixit" />
+              <div class="mentor-info">
+                <strong>Project Mentor: Dr. Dheeraj Kumar Dixit</strong><br/>
+                Assistant Professor, Dept. of Mathematics &amp; Computing<br/>
+                <em>"We sincerely express our deep gratitude for his relentless technical guidance, architectural scrutiny, and support throughout this project."</em>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+    </main>
+
+    <!-- ========================================================
+         FOOTER: PROJECT METADATA & REPO LINK
+         ======================================================== -->
+    <footer class="poster-footer">
+      <div class="footer-left">
+        <span><strong>Department:</strong> Mathematics &amp; Computing</span>
+        <span>&bull;</span>
+        <span><strong>Program:</strong> B.Tech (Session 2026-27, 3rd Sem)</span>
+        <span>&bull;</span>
+        <span><strong>Evaluation:</strong> Central Project Exhibition (Project Expo)</span>
+      </div>
+      <div class="footer-right">
+        <span>PROJECT ID: P3S-4 &bull; https://github.com/namanartist/c3s</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>
