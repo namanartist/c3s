@@ -359,44 +359,40 @@ export function CctvSocDashboard() {
                 </span>
               </div>
 
-              {/* Top Right Mode Switchers */}
+              {/* Top Right Mode Switchers - For Cam 8, Recorded and HUD are permanently removed */}
               <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
-                {(focusedCamera.id === 'cam_jubilee' || focusedCamera.id === 'CAM-08') && (
-                  <button
-                    onClick={() => setStreamMode('webcam')}
-                    className={`px-3 py-1 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                      streamMode === 'webcam'
-                        ? 'bg-red-600 text-white shadow-lg shadow-red-500/40'
-                        : 'bg-black/60 border border-white/10 text-neutral-300 hover:bg-black/80'
-                    }`}
-                  >
+                {(focusedCamera.id === 'cam_jubilee' || focusedCamera.id === 'CAM-08') ? (
+                  <div className="px-3 py-1 rounded-lg font-mono text-xs font-bold flex items-center gap-1.5 bg-red-600 text-white shadow-lg shadow-red-500/40">
                     <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                    <span>LIVE WEBCAM</span>
-                  </button>
+                    <span>LIVE CAM ONLY</span>
+                  </div>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => {
+                        setStreamMode('stream');
+                        setFeedError(false);
+                      }}
+                      className={`px-3 py-1 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${
+                        streamMode === 'stream' && !feedError
+                          ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
+                          : 'bg-black/60 border border-white/10 text-neutral-300 hover:bg-black/80'
+                      }`}
+                    >
+                      RECORDED
+                    </button>
+                    <button
+                      onClick={() => setStreamMode('hud')}
+                      className={`px-3 py-1 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${
+                        streamMode === 'hud'
+                          ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
+                          : 'bg-black/60 border border-white/10 text-neutral-300 hover:bg-black/80'
+                      }`}
+                    >
+                      BLUEPRINT
+                    </button>
+                  </>
                 )}
-                <button
-                  onClick={() => {
-                    setStreamMode('stream');
-                    setFeedError(false);
-                  }}
-                  className={`px-3 py-1 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${
-                    streamMode === 'stream' && !feedError
-                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
-                      : 'bg-black/60 border border-white/10 text-neutral-300 hover:bg-black/80'
-                  }`}
-                >
-                  RECORDED
-                </button>
-                <button
-                  onClick={() => setStreamMode('hud')}
-                  className={`px-3 py-1 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${
-                    streamMode === 'hud'
-                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
-                      : 'bg-black/60 border border-white/10 text-neutral-300 hover:bg-black/80'
-                  }`}
-                >
-                  BLUEPRINT
-                </button>
                 <button
                   onClick={() => setIsNightVision(!isNightVision)}
                   className={`px-3 py-1 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${

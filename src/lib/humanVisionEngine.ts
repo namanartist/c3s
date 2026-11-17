@@ -524,61 +524,30 @@ class HumanVisionEngine {
     // E) Collision / Combat Proximity & Multi-Subject Cluster Analysis
     const isLiveWebcam = !video.src || video.srcObject !== null || video.src.startsWith('blob:');
 
+    // Collision / Combat Proximity & Multi-Subject Cluster Analysis
     let collisionProximity = 0;
     if (cameraMeta?.simulateCombat) {
       collisionProximity = 85;
-    } else if (!isLiveWebcam && activeMotionCells > 28) {
-      // In multi-person recorded altercation footage, multiple subjects grapple
-      collisionProximity = Math.min(85, Math.round(activeMotionCells * 0.9 + 15));
+    } else if (activeMotionCells > 8) {
+      // Measures multi-focal kinetic spread and cluster density across the grid
+      collisionProximity = Math.min(95, Math.max(15, Math.round(activeMotionCells * 2.2 + highVelocitySpikes * 3.5)));
     }
 
     // F) Posture Collapse Metric
     const postureCollapse =
-      activeMotionCells > 40 && centroidWeight > 0 && centroidSumY / centroidWeight > h * 0.65
+      activeMotionCells > 35 && centroidWeight > 0 && centroidSumY / centroidWeight > h * 0.62
         ? 65
         : 10;
 
-    // Combat action discriminator:
-    // Requires true aggressive physical violence:
-    // 1. Explicit operator drill (simulateCombat)
-    // 2. Multi-person grappling with high kinetic jerk & turbulent flow
-    // 3. Fast oscillating strikes with high jerk, limb velocity & directional reversals
-    // 4. Violent explosive burst with sustained high jerk and limb velocity
-    // Normal pedestrian walking, turning, stretching and gesturing produce low
-    // jerk (< 25), low flow variance (< 25) and near-zero reversal rate (< 0.2).
     const isSimulatedTest = Boolean(cameraMeta?.simulateCombat);
 
-    const hasCombatStrikes =
-      isSimulatedTest ||
-      (collisionProximity >= 35 && kineticJerk >= 40 && opticalFlowVariance >= 35) ||
-      (kineticJerk >= 50 && limbVelocity >= 45 && opticalFlowVariance >= 35 && reversalRate >= 0.35) ||
-      (kineticJerk >= 65 && limbVelocity >= 55 && opticalFlowVariance >= 40 && reversalRate >= 0.35);
-
-    let calibratedFlowVariance = Math.min(20, Math.round(opticalFlowVariance * 0.35));
-    let calibratedLimbVelocity = Math.min(22, Math.round(limbVelocity * 0.35));
-    let calibratedJerk = Math.min(20, Math.round(kineticJerk * 0.35));
-    let calibratedCollision = Math.min(15, Math.round(collisionProximity * 0.3));
-
-    if (isSimulatedTest) {
-      // Explicit operator-triggered simulation (the "combat drill" button).
-      calibratedJerk = 95;
-      calibratedLimbVelocity = 90;
-      calibratedFlowVariance = 88;
-      calibratedCollision = 85;
-    } else if (hasCombatStrikes) {
-      // True aggressive strike / physical clash
-      calibratedJerk = Math.min(100, Math.max(70, Math.round(kineticJerk * 1.3)));
-      calibratedLimbVelocity = Math.min(100, Math.max(65, Math.round(limbVelocity * 1.25)));
-      calibratedFlowVariance = Math.min(100, Math.max(60, Math.round(opticalFlowVariance * 1.2)));
-      calibratedCollision = Math.min(90, Math.max(50, Math.round(collisionProximity * 1.15)));
-    }
-
     // 3. Evaluate the calibrated kinematic discriminator.
+    // Passes uncorrupted, real physical optical features into the classifier
     const mlFeatures: KaggleFightFeatures = {
-      opticalFlowVariance: isSimulatedTest ? 88 : calibratedFlowVariance,
-      kineticJerk: isSimulatedTest ? 92 : calibratedJerk,
-      collisionProximity: isSimulatedTest ? 85 : calibratedCollision,
-      limbVelocity: isSimulatedTest ? 80 : calibratedLimbVelocity,
+      opticalFlowVariance: isSimulatedTest ? 88 : opticalFlowVariance,
+      kineticJerk: isSimulatedTest ? 92 : kineticJerk,
+      collisionProximity: isSimulatedTest ? 85 : collisionProximity,
+      limbVelocity: isSimulatedTest ? 80 : limbVelocity,
       postureCollapse: isSimulatedTest ? 60 : postureCollapse,
     };
 

@@ -451,14 +451,17 @@ const server = http.createServer(async (req, res) => {
       }
     }
     // ----------------------------------------------------
-    // GET & POST /api/sos
+    // GET & POST /api/sos & /api/incidents (MongoDB Primary Storage)
     // ----------------------------------------------------
-    else if (pathname === '/api/sos') {
+    else if (pathname === '/api/sos' || pathname === '/api/incidents') {
       if (req.method === 'GET') {
         let items = [];
         if (activeDb) {
           try {
             items = await activeDb.collection('sos_incidents').find({}, { projection: { _id: 0 } }).sort({ timestamp: -1 }).limit(50).toArray();
+            if (items.length === 0) {
+              items = await activeDb.collection('incidents').find({}, { projection: { _id: 0 } }).sort({ timestamp: -1 }).limit(50).toArray();
+            }
           } catch {}
         }
         if (items.length === 0) items = inMemorySos;
@@ -501,13 +504,20 @@ const server = http.createServer(async (req, res) => {
               { $set: incident },
               { upsert: true }
             );
-          } catch {}
+            await activeDb.collection('incidents').updateOne(
+              { id: incident.id },
+              { $set: incident },
+              { upsert: true }
+            );
+          } catch (dbErr) {
+            console.warn('[MongoDB] Failed writing incident:', dbErr.message);
+          }
         }
         res.writeHead(201, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, incident }));
       }
     }
-    else if (pathname.startsWith('/api/sos/') && req.method === 'POST') {
+    else if ((pathname.startsWith('/api/sos/') || pathname.startsWith('/api/incidents/')) && req.method === 'POST') {
       const parts = pathname.split('/').filter(Boolean);
       const id = parts[2];
       const action = parts[3];
@@ -520,14 +530,52 @@ const server = http.createServer(async (req, res) => {
       }
       if (activeDb) {
         try {
-          await activeDb.collection('sos_incidents').updateOne(
-            { id },
-            { $set: { status: newStatus, ...(body.responder ? { assignedResponder: body.responder } : {}) } }
-          );
+          const updatePayload = { status: newStatus, ...(body.responder ? { assignedResponder: body.responder } : {}) };
+          await activeDb.collection('sos_incidents').updateOne({ id }, { $set: updatePayload });
+          await activeDb.collection('incidents').updateOne({ id }, { $set: updatePayload });
         } catch {}
       }
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ success: true, id, status: newStatus }));
+    }
+    // ----------------------------------------------------
+    // GET /api/users (MongoDB Primary)
+    // ----------------------------------------------------
+    else if (req.method === 'GET' && pathname === '/api/users') {
+      let users = [];
+      if (activeDb) {
+        try {
+          users = await activeDb.collection('users').find({}, { projection: { _id: 0 } }).toArray();
+        } catch {}
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, data: users }));
+    }
+    // ----------------------------------------------------
+    // GET /api/gates (MongoDB Primary)
+    // ----------------------------------------------------
+    else if (req.method === 'GET' && pathname === '/api/gates') {
+      let gates = [];
+      if (activeDb) {
+        try {
+          gates = await activeDb.collection('gates').find({}, { projection: { _id: 0 } }).toArray();
+        } catch {}
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, data: gates }));
+    }
+    // ----------------------------------------------------
+    // GET /api/cameras (MongoDB Primary)
+    // ----------------------------------------------------
+    else if (req.method === 'GET' && pathname === '/api/cameras') {
+      let cameras = [];
+      if (activeDb) {
+        try {
+          cameras = await activeDb.collection('cctv_cameras').find({}, { projection: { _id: 0 } }).toArray();
+        } catch {}
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, data: cameras }));
     }
     // ----------------------------------------------------
     // GET & PUT /api/settings — real MongoDB-backed preferences.

@@ -33,6 +33,8 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
   const [simulateCombat, setSimulateCombat] = useState<boolean>(false);
   const [sosStatusText, setSosStatusText] = useState<string | null>(null);
 
+  const isCam08 = camera?.id === 'CAM-08' || camera?.id === 'cam-08' || camera?.id === 'cam_jubilee' || cameraId === 'CAM-08' || cameraId === 'cam-08' || cameraId === 'cam_jubilee';
+
   // Helper to compile real recorded video blob from live webcam
   const getRealRecordedVideoUrl = useCallback((): string | undefined => {
     if (recordedChunksRef.current.length > 0) {
@@ -266,8 +268,16 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
       const camName = camera?.name || `Live CCTV #${cameraId}`;
       globalProctorAlarm.triggerAlarm(`Aggression Auto-Detected at ${camName}`);
       setSosStatusText(`🚨 AUTO-FLAGGED: AGGRESSION DETECTED (${Math.round(detection.fight.confidence)}%) • SOS ACTIVE`);
+      globalFightDispatcher.handleFightDetection({
+        cameraId,
+        cameraName: camName,
+        location: camera?.location || 'Surveillance Zone',
+        confidence: Math.round(detection.fight.confidence),
+        videoElement: videoRef.current,
+        videoUrl: getRealRecordedVideoUrl() || camera?.videoUrl
+      });
     }
-  }, [isAutoFlagged, camera?.name, cameraId, detection.fight.confidence]);
+  }, [isAutoFlagged, camera?.name, camera?.location, camera?.videoUrl, cameraId, detection.fight.confidence, getRealRecordedVideoUrl]);
 
   return (
     <div className={`relative flex items-center justify-center overflow-hidden bg-black ${className}`}>
@@ -285,7 +295,8 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
       {/* 2. Optical AI Overlay for Real-time Headcount & Altercation Telemetry */}
       {permissionState === 'granted' && (
         <>
-          <LiveDetectionOverlay detection={detection} />
+          {/* Render tactical bounding boxes only on non-Cam08 feeds; Cam 8 has HUD removed per user instruction */}
+          {!isCam08 && <LiveDetectionOverlay detection={detection} />}
 
           {/* Active Live Hardware / Stream Badge */}
           <div className="absolute top-3 left-3 z-30 flex items-center gap-2">
@@ -352,25 +363,27 @@ export const LiveWebcamFeed: React.FC<LiveWebcamFeedProps> = ({
             </div>
           )}
 
-          {/* Real-time ML Telemetry Strip at Bottom */}
-          <div className="absolute bottom-3 left-3 right-3 z-30 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
-            <div className="flex items-center gap-2 bg-black/80 border border-white/10 px-3 py-1.5 rounded-xl text-[10px] font-mono text-slate-300 backdrop-blur-md">
-              <span className="text-emerald-400 font-bold flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                RWF-2000 ML ACTIVE
-              </span>
-              <span className="text-slate-600">|</span>
-              <span>JERK: <strong className={ml && ml.kineticJerk > 40 ? 'text-red-400' : 'text-slate-200'}>{ml?.kineticJerk || 0}%</strong></span>
-              <span className="text-slate-600">|</span>
-              <span>FLOW VAR: <strong className={ml && ml.opticalFlowVariance > 45 ? 'text-red-400' : 'text-slate-200'}>{ml?.opticalFlowVariance || 0}%</strong></span>
-              <span className="text-slate-600">|</span>
-              <span>LIMB VEL: <strong className="text-slate-200">{ml?.limbVelocity || 0}%</strong></span>
-            </div>
+          {/* Real-time ML Telemetry Strip at Bottom (hidden on Cam 8 per user request) */}
+          {!isCam08 && (
+            <div className="absolute bottom-3 left-3 right-3 z-30 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
+              <div className="flex items-center gap-2 bg-black/80 border border-white/10 px-3 py-1.5 rounded-xl text-[10px] font-mono text-slate-300 backdrop-blur-md">
+                <span className="text-emerald-400 font-bold flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  RWF-2000 ML ACTIVE
+                </span>
+                <span className="text-slate-600">|</span>
+                <span>JERK: <strong className={ml && ml.kineticJerk > 40 ? 'text-red-400' : 'text-slate-200'}>{ml?.kineticJerk || 0}%</strong></span>
+                <span className="text-slate-600">|</span>
+                <span>FLOW VAR: <strong className={ml && ml.opticalFlowVariance > 45 ? 'text-red-400' : 'text-slate-200'}>{ml?.opticalFlowVariance || 0}%</strong></span>
+                <span className="text-slate-600">|</span>
+                <span>LIMB VEL: <strong className="text-slate-200">{ml?.limbVelocity || 0}%</strong></span>
+              </div>
 
-            <div className="px-2.5 py-1 rounded-xl bg-black/80 border border-white/10 text-[10px] font-mono text-cyan-400 backdrop-blur-md">
-              <span>{detection.fps || 30} FPS • 720p HD</span>
+              <div className="px-2.5 py-1 rounded-xl bg-black/80 border border-white/10 text-[10px] font-mono text-cyan-400 backdrop-blur-md">
+                <span>{detection.fps || 30} FPS • 720p HD</span>
+              </div>
             </div>
-          </div>
+          )}
         </>
       )}
 

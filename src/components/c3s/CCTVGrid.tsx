@@ -357,41 +357,37 @@ export const CCTVGrid: React.FC = () => {
                 </div>
               )}
 
-              {/* Mode switcher tabs */}
+              {/* Mode switcher tabs - For CAM-08, Recorded and HUD are permanently removed */}
               <div className="absolute top-3 right-3 z-30 flex items-center gap-1.5 bg-black/80 p-1 rounded-xl border border-white/15 backdrop-blur-md">
-                {selectedCam.id === 'CAM-08' && (
-                  <button
-                    onClick={() => setModalStreamMode('webcam')}
-                    className={`px-2.5 py-1 rounded-lg font-mono text-[11px] font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                      modalStreamMode === 'webcam'
-                        ? 'bg-red-600 text-white shadow-md'
-                        : 'text-slate-300 hover:text-white'
-                    }`}
-                  >
+                {selectedCam.id === 'CAM-08' ? (
+                  <div className="px-3 py-1 rounded-lg font-mono text-[11px] font-bold flex items-center gap-1.5 bg-red-600 text-white shadow-md">
                     <Video className="w-3.5 h-3.5" />
-                    <span>LIVE WEBCAM</span>
-                  </button>
+                    <span>LIVE CAM ONLY</span>
+                  </div>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => setModalStreamMode('stream')}
+                      className={`px-2.5 py-1 rounded-lg font-mono text-[11px] font-bold transition-all cursor-pointer ${
+                        modalStreamMode === 'stream'
+                          ? 'bg-blue-600 text-white shadow-md'
+                          : 'text-slate-300 hover:text-white'
+                      }`}
+                    >
+                      RECORDED
+                    </button>
+                    <button
+                      onClick={() => setModalStreamMode('hud')}
+                      className={`px-2.5 py-1 rounded-lg font-mono text-[11px] font-bold transition-all cursor-pointer ${
+                        modalStreamMode === 'hud'
+                          ? 'bg-blue-600 text-white shadow-md'
+                          : 'text-slate-300 hover:text-white'
+                      }`}
+                    >
+                      HUD
+                    </button>
+                  </>
                 )}
-                <button
-                  onClick={() => setModalStreamMode('stream')}
-                  className={`px-2.5 py-1 rounded-lg font-mono text-[11px] font-bold transition-all cursor-pointer ${
-                    modalStreamMode === 'stream'
-                      ? 'bg-blue-600 text-white shadow-md'
-                      : 'text-slate-300 hover:text-white'
-                  }`}
-                >
-                  RECORDED
-                </button>
-                <button
-                  onClick={() => setModalStreamMode('hud')}
-                  className={`px-2.5 py-1 rounded-lg font-mono text-[11px] font-bold transition-all cursor-pointer ${
-                    modalStreamMode === 'hud'
-                      ? 'bg-blue-600 text-white shadow-md'
-                      : 'text-slate-300 hover:text-white'
-                  }`}
-                >
-                  HUD
-                </button>
               </div>
             </div>
 

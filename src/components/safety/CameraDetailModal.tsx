@@ -189,41 +189,37 @@ export const CameraDetailModal: React.FC = () => {
             </div>
           )}
 
-          {/* Mode Switcher Tabs */}
+          {/* Mode Switcher Tabs - For Cam 8, Recorded and HUD are permanently removed */}
           <div className="absolute top-3 right-3 z-30 flex items-center gap-1.5 bg-black/80 p-1 rounded-xl border border-white/20 backdrop-blur-md">
-            {isLiveCapable && (
-              <button
-                onClick={() => setStreamMode('webcam')}
-                className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer flex items-center gap-1 ${
-                  streamMode === 'webcam'
-                    ? 'bg-red-600 text-white shadow-md'
-                    : 'text-slate-300 hover:text-white'
-                }`}
-              >
+            {isLiveCapable ? (
+              <div className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold flex items-center gap-1 bg-red-600 text-white shadow-md">
                 <Video className="w-3 h-3" />
-                <span>LIVE WEBCAM</span>
-              </button>
+                <span>LIVE CAM ONLY</span>
+              </div>
+            ) : (
+              <>
+                <button
+                  onClick={() => setStreamMode('video')}
+                  className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer ${
+                    streamMode === 'video'
+                      ? 'bg-blue-600 text-white shadow-md'
+                      : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  RECORDED
+                </button>
+                <button
+                  onClick={() => setStreamMode('hud')}
+                  className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer ${
+                    streamMode === 'hud'
+                      ? 'bg-blue-600 text-white shadow-md'
+                      : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  HUD
+                </button>
+              </>
             )}
-            <button
-              onClick={() => setStreamMode('video')}
-              className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer ${
-                streamMode === 'video'
-                  ? 'bg-blue-600 text-white shadow-md'
-                  : 'text-slate-300 hover:text-white'
-              }`}
-            >
-              RECORDED
-            </button>
-            <button
-              onClick={() => setStreamMode('hud')}
-              className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer ${
-                streamMode === 'hud'
-                  ? 'bg-blue-600 text-white shadow-md'
-                  : 'text-slate-300 hover:text-white'
-              }`}
-            >
-              HUD
-            </button>
           </div>
         </div>
 

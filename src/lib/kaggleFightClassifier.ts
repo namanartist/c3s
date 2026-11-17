@@ -103,9 +103,9 @@ const LOGISTIC_SCALE = 0.12;
  * Normal walking, turning, stretching, typing or waving remain far below these thresholds.
  */
 const GATES = {
-  combatStrikes: { jerk: 50, limb: 45, flow: 35 },
-  combatTurbulence: { flow: 40, jerk: 42, collision: 35 },
-  violentBurst: { jerk: 65, limb: 60 },
+  combatStrikes: { jerk: 45, limb: 40, flow: 32 },
+  combatTurbulence: { flow: 36, jerk: 38, collision: 30 },
+  violentBurst: { jerk: 58, limb: 52 },
 } as const;
 
 const clamp = (value: number): number => Math.min(100, Math.max(0, value));

@@ -15,17 +15,17 @@
 
 export const SAFETY_THRESHOLDS = {
   /** A single frame above this is treated as an *alert* (not a dispatch). */
-  ALERT_CONFIDENCE: 0.7,
+  ALERT_CONFIDENCE: 0.65,
   /** A sustained detection at or above this raises an emergency SOS. */
-  SOS_CONFIDENCE: 0.82,
+  SOS_CONFIDENCE: 0.75,
   /** The alert latches on and only releases below this value. */
-  ALERT_RELEASE: 0.55,
+  ALERT_RELEASE: 0.50,
   /** Below this the camera is considered clear and may re-arm. */
-  SOS_RELEASE: 0.62,
+  SOS_RELEASE: 0.55,
   /** Minimum number of consecutive qualifying frames before a dispatch. */
-  CONFIRMATION_FRAMES: 5,
+  CONFIRMATION_FRAMES: 3,
   /** Minimum sustained duration (ms) before a dispatch. */
-  CONFIRMATION_MS: 900,
+  CONFIRMATION_MS: 600,
   /** Per-camera cooldown between two dispatches (ms). */
   DEBOUNCE_MS: 30_000,
   /** A camera must have been released before it may open a new incident. */
