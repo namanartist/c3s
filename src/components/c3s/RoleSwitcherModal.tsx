@@ -36,7 +36,6 @@ export const RoleSwitcherModal: React.FC<RoleSwitcherModalProps> = ({ isOpen, on
     'SECURITY_GUARD',
     'CONTROL_ROOM_OPERATOR',
     'SUPER_ADMIN',
-    'FACULTY',
     'CLASS_COORDINATOR',
     'PROCTOR',
     'HOD',
@@ -97,7 +96,7 @@ export const RoleSwitcherModal: React.FC<RoleSwitcherModalProps> = ({ isOpen, on
                 className={`group flex cursor-pointer flex-col justify-between rounded-2xl border p-3.5 transition-all ${
                   isCurrent
                     ? 'border-blue-600 bg-blue-50/60 shadow-sm ring-1 ring-blue-500'
-                    : 'border-slate-200 bg-white hover:border-blue-300 hover:bg-slate-50/80 shadow-xs'
+                    : 'border-slate-200 bg-white hover:border-blue-300 hover:bg-slate-50/80 shadow-sm'
                 }`}
               >
                 <div>
@@ -112,7 +111,7 @@ export const RoleSwitcherModal: React.FC<RoleSwitcherModalProps> = ({ isOpen, on
                     </div>
 
                     {isCurrent ? (
-                      <span className="flex items-center gap-1 rounded-full bg-blue-600 px-2 py-0.5 text-[9px] font-black text-white shadow-xs">
+                      <span className="flex items-center gap-1 rounded-full bg-blue-600 px-2 py-0.5 text-[9px] font-black text-white shadow-sm">
                         <Check className="h-2.5 w-2.5" /> ACTIVE
                       </span>
                     ) : (

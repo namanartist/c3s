@@ -1,6 +1,6 @@
 export interface SosNotifiedEntities {
   guard: { name: string; callsign: string; distance: string; status: string; radio: string };
-  faculty: { name: string; department: string; distance: string; status: string; cabin: string };
+  hod: { name: string; department: string; distance: string; status: string; cabin: string };
   proctor: { name: string; office: string; status: string; channel: string };
 }
 
@@ -25,7 +25,7 @@ import { MOCK_NOTIFICATIONS, type C3SNotification } from '@/lib/mock-data/notifi
 import { MOCK_RESPONDERS, type C3SResponder } from '@/lib/mock-data/responders';
 import { MOCK_CAMERAS, type C3SCamera } from '@/lib/mock-data/cameras';
 import { type C3SSettings, DEFAULT_SETTINGS } from '@/types/settings';
-import { recordGateMovement, createSosIncident } from '@/lib/api';
+import { recordGateMovement, createSosIncident, fetchSettings, saveSettings } from '@/lib/api';
 
 export interface C3SStoreState {
   // Authentication & Role
@@ -39,7 +39,13 @@ export interface C3SStoreState {
 
   // Preferences & System Settings
   settings: C3SSettings;
+  /** Where the current settings object came from: localStorage / MongoDB / defaults. */
+  settingsSource: 'local' | 'mongodb' | 'default';
+  /** True once the initial settings hydration from MongoDB has completed. */
+  settingsHydrated: boolean;
   updateSettings: (updates: Partial<C3SSettings>) => void;
+  /** Pulls persisted settings from MongoDB and merges them over the current store. */
+  syncSettingsWithDb: () => Promise<void>;
 
   // Campus Presence (Check-in / Check-out)
   isInsideCampus: boolean;
@@ -84,6 +90,14 @@ export interface C3SStoreState {
   gates: C3SGate[];
   setSelectedGateId: (id: string) => void;
   regenerateGateQr: (gateId: string) => void;
+  /**
+   * Boom barrier state per gate. This used to live in component state, which
+   * meant a page refresh silently re-opened a locked barrier - a
+   * safety-relevant bug. It is now persisted with the rest of the session.
+   */
+  barrierStates: Record<string, 'OPEN' | 'LOCKED'>;
+  setBarrierState: (gateId: string, state: 'OPEN' | 'LOCKED') => void;
+  toggleBarrierState: (gateId: string) => void;
 
   // Incidents
   incidents: C3SIncident[];
@@ -92,6 +106,15 @@ export interface C3SStoreState {
   advanceIncidentStatus: (incidentId: string) => void;
   resolveIncident: (incidentId: string) => void;
   addIncidentNote: (incidentId: string, note: string) => void;
+  /**
+   * Operator triage of an AI-generated incident.
+   * - `confirm` accepts the detection and moves it into the response workflow.
+   * - `falsePositive` rejects the detection; the incident is closed and the
+   *   label is recorded so that it can be fed back into the model as a
+   *   hard negative.
+   */
+  markIncidentFalsePositive: (incidentId: string, reason?: string) => void;
+  confirmIncident: (incidentId: string) => void;
 
   // Live Activity & Feeds
   movementLogs: C3SMovementLog[];
@@ -124,6 +147,7 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
   let initialSettings: C3SSettings = { ...DEFAULT_SETTINGS };
   let initialProfile: Partial<C3SUser> = {};
   let initialAuth = false;
+  let initialBarrierStates: Record<string, 'OPEN' | 'LOCKED'> = {};
 
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -136,6 +160,9 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
       if (parsed.isLocationActive !== undefined) initialLocActive = parsed.isLocationActive;
       if (parsed.settings) initialSettings = { ...DEFAULT_SETTINGS, ...parsed.settings };
       if (parsed.profile) initialProfile = parsed.profile;
+      if (parsed.barrierStates && typeof parsed.barrierStates === 'object') {
+        initialBarrierStates = parsed.barrierStates;
+      }
     }
   } catch {
     // Ignore storage parse issues
@@ -152,6 +179,32 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
     isAuthenticated: initialAuth,
 
     settings: initialSettings,
+    settingsSource: 'local',
+    settingsHydrated: false,
+
+    syncSettingsWithDb: async () => {
+      try {
+        const userId = get().currentUser?.universityId ?? 'global';
+        const { settings, source } = await fetchSettings(userId);
+        if (settings) {
+          set((state) => ({
+            settings: { ...DEFAULT_SETTINGS, ...state.settings, ...settings },
+            settingsSource: source === 'mongodb' ? 'mongodb' : 'default',
+            settingsHydrated: true,
+          }));
+          try {
+            const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...saved, settings }));
+          } catch {
+            // ignore
+          }
+        } else {
+          set({ settingsHydrated: true });
+        }
+      } catch {
+        set({ settingsHydrated: true });
+      }
+    },
 
     updateSettings: (updates: Partial<C3SSettings>) => {
       set((state) => {
@@ -159,8 +212,12 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
         try {
           const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
           localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...saved, settings: nextSettings }));
-        } catch {}
-        return { settings: nextSettings };
+        } catch {
+          // Storage unavailable (private mode / quota) - MongoDB remains the source of truth.
+        }
+        // Debounced fire-and-forget persist to MongoDB — the source of truth for multi-device.
+        void saveSettings(nextSettings, state.currentUser?.universityId ?? 'global');
+        return { settings: nextSettings, settingsSource: 'mongodb' };
       });
     },
 
@@ -407,7 +464,7 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
         status: 'DISPATCHED',
         radio: 'VHF CH-4'
       };
-      const facultyInfo = payload?.notifiedEntities?.faculty || {
+      const HODInfo = payload?.notifiedEntities?.hod || {
         name: 'Dr. A. K. Verma',
         department: 'Dept. of CSE',
         distance: '35m',
@@ -434,7 +491,7 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
         status: 'ALERT SENT',
         priority: 'CRITICAL',
         distanceMeters: parseInt(guardInfo.distance) || 85,
-        assignedResponder: `${guardInfo.callsign} (${guardInfo.name}) & ${facultyInfo.name}`,
+        assignedResponder: `${guardInfo.callsign} (${guardInfo.name}) & ${HODInfo.name}`,
         latitude: payload?.lat || get().latitude || 26.23185102,
         longitude: payload?.lng || get().longitude || 78.20636481,
         photoUrl: payload?.photoUrl,
@@ -445,13 +502,13 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
         },
         timeline: [
           { time: now, event: `1-Step 2s Hold SOS initiated by student at Node #${nodeId}. Video & photo evidence captured.`, actor: 'System Dispatch' },
-          { time: now, event: `Dispatched Nearest Guard ${guardInfo.name} (${guardInfo.distance}) & Alerted Faculty Warden ${facultyInfo.name} (${facultyInfo.distance}).`, actor: 'Emergency AI Router' },
+          { time: now, event: `Dispatched Nearest Guard ${guardInfo.name} (${guardInfo.distance}) & Alerted HOD Warden ${HODInfo.name} (${HODInfo.distance}).`, actor: 'Emergency AI Router' },
           { time: now, event: `Incident telemetry and live camera evidence dispatched to Chief Proctor ${proctorInfo.name}.`, actor: 'Proctorial Mesh' }
         ],
         notes: [
           `Node Location: ${nodeId} - ${location}`,
           `Evidence: Photo snapshot & video clip attached`,
-          `Notified: Guard (${guardInfo.name} - ${guardInfo.distance}), Faculty (${facultyInfo.name} - ${facultyInfo.distance}), Proctor (${proctorInfo.name})`
+          `Notified: Guard (${guardInfo.name} - ${guardInfo.distance}), HOD (${HODInfo.name} - ${HODInfo.distance}), Proctor (${proctorInfo.name})`
         ]
       };
 
@@ -472,7 +529,7 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
         timestamp: Date.now(),
         status: 'active',
         reportedBy: get().currentUser.name || 'Student Distress Signal',
-        assignedResponder: `${guardInfo.callsign} (${guardInfo.name}) & ${facultyInfo.name}`,
+        assignedResponder: `${guardInfo.callsign} (${guardInfo.name}) & ${HODInfo.name}`,
         evidence: {
           photoUrl: payload?.photoUrl,
           videoUrl: payload?.videoUrl
@@ -484,7 +541,7 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
         sosIncidentId: incidentId,
         sosStatus: 'ALERT SENT',
         sosRespondersNotified: 3,
-        sosAssignedResponder: `${guardInfo.callsign} (${guardInfo.name}) & ${facultyInfo.name}`,
+        sosAssignedResponder: `${guardInfo.callsign} (${guardInfo.name}) & ${HODInfo.name}`,
         sosDistanceMeters: parseInt(guardInfo.distance) || 85,
         sosLocation: `${location} [Node: ${nodeId}]`,
         sosNodeId: nodeId,
@@ -494,7 +551,7 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
         sosLng: payload?.lng || get().longitude || 78.20636481,
         sosNotifiedEntities: {
           guard: guardInfo,
-          faculty: facultyInfo,
+          hod: HODInfo,
           proctor: proctorInfo
         },
         incidents: [newIncident, ...get().incidents],
@@ -511,10 +568,10 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
             link: '/student/sos'
           },
           {
-            id: `notif-sos-faculty-${Date.now() + 1}`,
+            id: `notif-sos-HOD-${Date.now() + 1}`,
             category: 'Emergency',
-            title: '🎓 [FACULTY ALERT] Nearest Faculty Warden Notified',
-            message: `Faculty Warden ${facultyInfo.name} (${facultyInfo.department}, ${facultyInfo.cabin}) alerted. Distance: ${facultyInfo.distance} to Node #${nodeId}.`,
+            title: '🎓 [HOD ALERT] Nearest HOD Warden Notified',
+            message: `HOD Warden ${HODInfo.name} (${HODInfo.department}, ${HODInfo.cabin}) alerted. Distance: ${HODInfo.distance} to Node #${nodeId}.`,
             time: now,
             date: 'Today',
             priority: 'CRITICAL',
@@ -571,6 +628,38 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
     selectedGateId: 'gate-main',
     gates: MOCK_GATES,
     setSelectedGateId: (id: string) => set({ selectedGateId: id }),
+
+    barrierStates: initialBarrierStates,
+    setBarrierState: (gateId: string, barrierState: 'OPEN' | 'LOCKED') =>
+      set((state) => {
+        const barrierStates: Record<string, 'OPEN' | 'LOCKED'> = {
+          ...state.barrierStates,
+          [gateId]: barrierState,
+        };
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...saved, barrierStates }));
+        } catch {
+          // Storage is unavailable (private mode / quota) - keep the in-memory state.
+        }
+        return { barrierStates };
+      }),
+    toggleBarrierState: (gateId: string) =>
+      set((state) => {
+        const nextState: 'OPEN' | 'LOCKED' =
+          state.barrierStates[gateId] === 'LOCKED' ? 'OPEN' : 'LOCKED';
+        const barrierStates: Record<string, 'OPEN' | 'LOCKED'> = {
+          ...state.barrierStates,
+          [gateId]: nextState,
+        };
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...saved, barrierStates }));
+        } catch {
+          // Storage is unavailable (private mode / quota) - keep the in-memory state.
+        }
+        return { barrierStates };
+      }),
 
     regenerateGateQr: (gateId: string) => {
       const randomSuffix = Math.random().toString(36).substring(2, 7).toUpperCase();
@@ -713,6 +802,53 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
       }));
     },
 
+    confirmIncident: (incidentId: string) => {
+      const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const actor = get().currentUser.name;
+      set((state) => ({
+        incidents: state.incidents.map((inc) => {
+          if (inc.id !== incidentId) return inc;
+          return {
+            ...inc,
+            status: inc.status === 'ALERT SENT' ? 'ACKNOWLEDGED' : inc.status,
+            notes: [...(inc.notes || []), 'AI detection confirmed by the operator on duty.'],
+            timeline: [
+              ...inc.timeline,
+              { time: now, event: 'AI detection confirmed by operator', actor }
+            ]
+          };
+        })
+      }));
+    },
+
+    markIncidentFalsePositive: (incidentId: string, reason?: string) => {
+      const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const actor = get().currentUser.name;
+      set((state) => ({
+        incidents: state.incidents.map((inc) => {
+          if (inc.id !== incidentId) return inc;
+          return {
+            ...inc,
+            status: 'RESOLVED',
+            priority: 'LOW',
+            notes: [
+              ...(inc.notes || []),
+              `Marked as a false positive by ${actor}${reason ? `: ${reason}` : ''}.`,
+            ],
+            timeline: [
+              ...inc.timeline,
+              {
+                time: now,
+                event: 'AI detection marked as false positive',
+                actor,
+                detail: reason || 'Logged as a hard negative for model calibration.',
+              }
+            ]
+          };
+        })
+      }));
+    },
+
     // Movement Logs & Notifications & Responders
     movementLogs: MOCK_MOVEMENTS,
     addMovementLog: (log: C3SMovementLog) => {
@@ -767,6 +903,7 @@ export const useC3SStore = create<C3SStoreState>((set, get) => {
         sosIncidentId: null,
         sosStatus: 'ALERT SENT',
         gates: MOCK_GATES,
+        barrierStates: {},
         incidents: MOCK_INCIDENTS,
         movementLogs: MOCK_MOVEMENTS,
         notifications: MOCK_NOTIFICATIONS,

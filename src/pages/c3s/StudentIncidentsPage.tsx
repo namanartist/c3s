@@ -1,6 +1,7 @@
 // src/pages/c3s/StudentIncidentsPage.tsx
 import React, { useState } from 'react';
 import { AppShell } from '@/components/c3s/AppShell';
+import { PageHeader } from '@/components/c3s/PageHeader';
 import { StatusBadge } from '@/components/c3s/StatusBadge';
 import { Plus, Navigation } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -40,10 +41,7 @@ export default function StudentIncidentsPage() {
     <AppShell>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 uppercase tracking-tight">CAMPUS INCIDENTS</h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Report safety concerns, medical events, or security hazards.</p>
-          </div>
+          <PageHeader eyebrow="Incident Reports" statusTone="danger" title="CAMPUS INCIDENTS" subtitle="Report safety concerns, medical events, or security hazards." />
           <button
             onClick={() => setShowModal(true)}
             className="flex items-center gap-2 rounded-xl bg-rose-600 px-4 py-2.5 text-xs font-bold text-white shadow-md shadow-rose-600/30 hover:bg-rose-500 transition-colors cursor-pointer"
@@ -54,7 +52,7 @@ export default function StudentIncidentsPage() {
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {incidents.map((inc) => (
-            <div key={inc.id} className="flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/70 p-5 backdrop-blur-md shadow-xs dark:shadow-none transition-colors">
+            <div key={inc.id} className="flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/70 p-5 backdrop-blur-md shadow-sm dark:shadow-none transition-colors">
               <div>
                 <div className="flex items-start justify-between">
                   <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">{inc.id}</span>
@@ -71,7 +69,7 @@ export default function StudentIncidentsPage() {
                 </div>
                 <button
                   onClick={() => navigate(`/map?incident=${encodeURIComponent(inc.id)}`)}
-                  className="flex items-center justify-center gap-1.5 w-full rounded-xl bg-cyan-50 dark:bg-cyan-600/15 hover:bg-cyan-100 dark:hover:bg-cyan-600/25 border border-cyan-200 dark:border-cyan-500/30 py-2 text-xs font-bold text-cyan-700 dark:text-cyan-300 transition-colors cursor-pointer shadow-xs"
+                  className="flex items-center justify-center gap-1.5 w-full rounded-xl bg-cyan-50 dark:bg-cyan-600/15 hover:bg-cyan-100 dark:hover:bg-cyan-600/25 border border-cyan-200 dark:border-cyan-500/30 py-2 text-xs font-bold text-cyan-700 dark:text-cyan-300 transition-colors cursor-pointer shadow-sm"
                 >
                   <Navigation className="h-3.5 w-3.5" />
                   <span>Navigate to Incident Location</span>

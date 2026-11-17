@@ -26,7 +26,7 @@ export default function NotFoundPage() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const quickLinks = [
-    { label: 'Campus Map & Safe Route', to: '/map', icon: Compass, desc: 'Turn-by-turn multi-floor indoor navigation' },
+    { label: 'Campus Grid & SOS Route', to: '/map', icon: Compass, desc: 'Multi-floor responder routing to any point on campus' },
     { label: 'Student Terminal', to: '/student', icon: Home, desc: 'Active pass, presence ledger & rapid SOS' },
     { label: 'Emergency Broadcast Hub', to: '/student/sos', icon: ShieldAlert, desc: '1-tap instant responder dispatch', alert: true },
     { label: 'Gate Access Portal', to: '/gate-keeper', icon: DoorOpen, desc: 'Dynamic QR screening & ingress ledger' },
@@ -91,7 +91,7 @@ export default function NotFoundPage() {
           <ThemeToggle />
           <button
             onClick={() => window.location.reload()}
-            className="flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.04] hover:bg-slate-100 dark:hover:bg-white/[0.08] px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 transition-colors cursor-pointer shadow-xs"
+            className="flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.04] hover:bg-slate-100 dark:hover:bg-white/[0.08] px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 transition-colors cursor-pointer shadow-sm"
           >
             <RefreshCw className="h-3.5 w-3.5" />
             <span>Reload</span>
@@ -125,7 +125,7 @@ export default function NotFoundPage() {
             placeholder="Search valid campus hubs, maps, or gates..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.04] py-2.5 pl-10 pr-4 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-blue-500 focus:bg-slate-50 dark:focus:bg-white/[0.07] focus:outline-none transition-all shadow-xs"
+            className="w-full rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.04] py-2.5 pl-10 pr-4 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-blue-500 focus:bg-slate-50 dark:focus:bg-white/[0.07] focus:outline-none transition-all shadow-sm"
           />
         </div>
 
@@ -137,7 +137,7 @@ export default function NotFoundPage() {
               <button
                 key={item.to}
                 onClick={() => navigate(item.to)}
-                className={`group flex items-start gap-3.5 rounded-2xl border p-4 text-left transition-all cursor-pointer shadow-xs ${
+                className={`group flex items-start gap-3.5 rounded-2xl border p-4 text-left transition-all cursor-pointer shadow-sm ${
                   item.alert
                     ? 'border-rose-500/30 bg-rose-50/50 dark:bg-rose-500/[0.04] hover:bg-rose-100/60 dark:hover:bg-rose-500/10 hover:border-rose-500/50'
                     : 'border-slate-200 dark:border-white/[0.08] bg-white dark:bg-white/[0.02] hover:bg-slate-50 dark:hover:bg-white/[0.06] hover:border-blue-500/40'
@@ -167,7 +167,7 @@ export default function NotFoundPage() {
         </div>
 
         {/* Actions & Diagnostic Footprint */}
-        <div className="rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-white/[0.02] p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
+        <div className="rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-white/[0.02] p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
           <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 font-mono">
             <span className="h-2 w-2 rounded-full bg-amber-500" />
             <span>Target: {location.pathname}</span>

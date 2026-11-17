@@ -213,21 +213,21 @@ export function IncidentEvidenceModal({ incident, isOpen, onClose }: IncidentEvi
               <div className="flex items-center justify-between text-slate-300 font-bold">
                 <span className="flex items-center gap-1.5 text-cyan-400">
                   <Sparkles className="w-4 h-4" />
-                  <span>C3S NEURAL RECOGNITION (Kaggle RWF-2000 AI)</span>
+                  <span>C3S NEURAL RECOGNITION (calibrated aggression detector)</span>
                 </span>
                 <span className="font-mono text-xs bg-cyan-950 text-cyan-300 border border-cyan-800 px-2 py-0.5 rounded-full">
                   {confidence}% CONFIDENCE
                 </span>
               </div>
               <p className="text-slate-400 text-xs leading-relaxed">
-                Optical telemetry confirms incident signature at {incident.location}. Dispatched telemetry synced to Nearest Guard, Faculty Warden, and Chief Proctorial SOC.
+                Optical telemetry confirms incident signature at {incident.location}. Dispatched telemetry synced to Nearest Guard, HOD, and Chief Proctorial SOC.
               </p>
               <div className="pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-[11px]">
                 <span className="text-slate-400">
                   Assigned Responder: <strong className="text-blue-400">{incident.assignedResponder || 'QRF Tactical Unit'}</strong>
                 </span>
                 <span className="text-emerald-400 font-semibold flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> Telemetry Delivered to Guard, Faculty & Proctor
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Telemetry Delivered to Guard, HOD & Proctor
                 </span>
               </div>
             </div>

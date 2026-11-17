@@ -160,7 +160,7 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
     ctx.fillStyle = '#10b981';
     ctx.font = 'bold 14px monospace';
     ctx.fillText('✓ NEAREST GUARD DISPATCHED: Vikram Rathore (Guard 02 - 85m)', 50, 385);
-    ctx.fillText('✓ NEAREST FACULTY ALERTED: Dr. A.K. Verma (Floor Warden - 35m)', 50, 415);
+    ctx.fillText('✓ NEAREST HOD ALERTED: Dr. A.K. Verma (Floor Warden - 35m)', 50, 415);
     ctx.fillText('✓ CHIEF PROCTOR ENGAGED: Prof. S.K. Jain (Command Desk)', 50, 445);
 
     return canvas.toDataURL('image/jpeg', 0.85);
@@ -275,7 +275,7 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
       }
     }
 
-    // 4. Define the 3 targeted notification recipients: Nearest Faculty, Nearest Guard, Proctor
+    // 4. Define the 3 targeted notification recipients: Nearest HOD, Nearest Guard, Proctor
     const notifiedEntities: SosNotifiedEntities = {
       guard: {
         name: 'Vikram Rathore',
@@ -284,12 +284,12 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
         status: 'DISPATCHED',
         radio: 'VHF CH-4 (Emergency Dispatch)'
       },
-      faculty: {
+      hod: {
         name: 'Dr. A. K. Verma',
         department: 'Dept. of CSE',
         distance: '35m',
         status: 'ALERTED',
-        cabin: 'Faculty Cabin 204, Floor 1 (Academic Block A)'
+        cabin: 'HOD Cabin 204, Floor 1 (Academic Block A)'
       },
       proctor: {
         name: 'Prof. S. K. Jain',
@@ -318,7 +318,7 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
         category: 'security',
         severity: 'critical',
         title: `EMERGENCY SOS: Student Distress at Node #${resolvedNodeId}`,
-        description: `1-Step 2s Hold SOS triggered at ${resolvedNodeName}. Nearest Guard Vikram Rathore (85m), Faculty Warden Dr. A.K. Verma (35m), and Chief Proctor Prof. S.K. Jain notified.`,
+        description: `1-Step 2s Hold SOS triggered at ${resolvedNodeName}. Nearest Guard Vikram Rathore (85m), HOD Warden Dr. A.K. Verma (35m), and Chief Proctor Prof. S.K. Jain notified.`,
         map: resolvedMap,
         floor: resolvedFloor,
         x: resolvedX,
@@ -334,7 +334,7 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
         responderNodeId: resolvedNodeId,
         notifiedResponders: [
           'Guard Vikram Rathore (Guard 02 - 85m)',
-          'Dr. A. K. Verma (Faculty Warden - 35m)',
+          'Dr. A. K. Verma (HOD Warden - 35m)',
           'Prof. S. K. Jain (Chief Proctor)'
         ],
         evidence: {
@@ -505,7 +505,7 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
           </div>
         </div>
 
-        {/* 3 Notified Responders: Guard, Faculty, Proctor */}
+        {/* 3 Notified Responders: Guard, HOD, Proctor */}
         <div className="mt-4 space-y-2 text-left">
           <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
             🚨 NOTIFIED RESPONDERS ({sosRespondersNotified} ENTITIES DISPATCHED)
@@ -529,17 +529,17 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
               </span>
             </div>
 
-            {/* 2. Nearest Faculty */}
+            {/* 2. Nearest HOD */}
             <div className="rounded-xl border border-amber-500/40 bg-amber-950/30 p-2.5">
               <div className="flex items-center gap-1.5 text-amber-400 font-bold text-xs">
                 <UserCheck className="h-3.5 w-3.5" />
-                <span>NEAREST FACULTY</span>
+                <span>NEAREST HOD</span>
               </div>
               <p className="mt-1 text-xs font-black text-white">
-                {sosNotifiedEntities?.faculty?.name || 'Dr. A. K. Verma'}
+                {sosNotifiedEntities?.hod?.name || 'Dr. A. K. Verma'}
               </p>
               <p className="text-[10px] text-amber-300 font-mono">
-                {sosNotifiedEntities?.faculty?.department || 'Dept. of CSE'} • {sosNotifiedEntities?.faculty?.distance || '35m'}
+                {sosNotifiedEntities?.hod?.department || 'Dept. of CSE'} • {sosNotifiedEntities?.hod?.distance || '35m'}
               </p>
               <span className="mt-1 inline-block text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-600/30 text-amber-300 border border-amber-500/30">
                 ALERTED (Cabin 204)
@@ -764,7 +764,7 @@ export const SOSButton: React.FC<SOSButtonProps> = ({
           {statusMessage}
         </p>
         <p className="text-[11px] text-slate-400">
-          Auto-dispatches: <span className="text-slate-200 font-semibold">Guard</span> • <span className="text-slate-200 font-semibold">Faculty</span> • <span className="text-slate-200 font-semibold">Proctor</span>
+          Auto-dispatches: <span className="text-slate-200 font-semibold">Guard</span> • <span className="text-slate-200 font-semibold">HOD</span> • <span className="text-slate-200 font-semibold">Proctor</span>
         </p>
       </div>
     </div>

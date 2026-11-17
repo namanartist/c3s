@@ -14,25 +14,36 @@ import {
   Flame,
   Film,
   Volume2,
-  VolumeX
+  VolumeX,
+  CheckCircle2,
+  Ban,
+  TrendingUp
 } from 'lucide-react';
 import {
   globalFightDispatcher,
   type ActiveFightAlert
 } from '@/lib/fightAlertDispatcher';
 import { globalProctorAlarm } from '@/lib/proctorAlarmAudio';
+import { useC3SStore } from '@/store/c3sStore';
+import { useSafetyStore } from '@/store/safetyStore';
 
 export const FightAlertBanner: React.FC = () => {
   const [activeAlert, setActiveAlert] = useState<ActiveFightAlert | null>(null);
   const [showEvidenceModal, setShowEvidenceModal] = useState(false);
   const [isSirenMuted, setIsSirenMuted] = useState(false);
+  const [triageNote, setTriageNote] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  const confirmIncident = useC3SStore((state) => state.confirmIncident);
+  const markIncidentFalsePositive = useC3SStore((state) => state.markIncidentFalsePositive);
+  const clearCampusAlert = useSafetyStore((state) => state.clearCampusAlert);
 
   useEffect(() => {
     const unsubAlert = globalFightDispatcher.subscribe((alert) => {
       setActiveAlert(alert);
       if (!alert) {
         setShowEvidenceModal(false);
+        setTriageNote(null);
       }
     });
     const unsubAudio = globalProctorAlarm.subscribe((active, muted) => {
@@ -60,6 +71,33 @@ export const FightAlertBanner: React.FC = () => {
     document.body.removeChild(a);
   };
 
+  /**
+   * Operator triage.
+   *
+   * Previously the only options were "navigate", "view evidence" and
+   * "dismiss", and dismissing cleared the banner without touching the
+   * incident - so the incident stayed active forever and there was no record
+   * of whether the detection was genuine. Now the operator can confirm the
+   * detection, reject it as a false positive (which closes the incident and
+   * records the label for model calibration) or escalate.
+   */
+  const handleConfirm = () => {
+    confirmIncident(activeAlert.id);
+    setTriageNote('Detection confirmed. Incident is now in the response workflow.');
+  };
+
+  const handleFalsePositive = () => {
+    markIncidentFalsePositive(activeAlert.id, 'Operator review of the archived evidence');
+    clearCampusAlert();
+    globalProctorAlarm.dismissAlarm();
+    globalFightDispatcher.clearActiveAlert();
+    setTriageNote('Marked as a false positive. The incident has been closed.');
+  };
+
+  const handleEscalate = () => {
+    navigate(`/security/incidents/${activeAlert.id}`);
+  };
+
   return (
     <>
       {/* Floating Top Alert Banner */}
@@ -80,12 +118,12 @@ export const FightAlertBanner: React.FC = () => {
 
               <div className="min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="px-2 py-0.5 rounded text-[11px] font-black uppercase tracking-wider bg-red-600 text-white animate-pulse">
-                    CRITICAL FIGHT • {activeAlert.confidence}%
+                  <span className="px-2 py-0.5 rounded text-[11px] font-black uppercase tracking-wider bg-red-600 text-white">
+                    AGGRESSION ALERT • {activeAlert.confidence}%
                   </span>
                   <span className="text-[11px] font-mono text-red-300 bg-red-950/60 px-1.5 py-0.5 rounded border border-red-900/50 flex items-center gap-1">
                     <Flame className="w-3 h-3 text-red-400" />
-                    Kaggle RWF-2000 AI
+                    C3S aggression detector
                   </span>
                   <span className="text-xs text-slate-400 flex items-center gap-1">
                     <Clock className="w-3 h-3" />
@@ -103,7 +141,7 @@ export const FightAlertBanner: React.FC = () => {
                   <UserCheck className="w-3.5 h-3.5 flex-shrink-0" />
                   <span className="truncate">
                     Dispatched: <strong>{activeAlert.responders.guard.name}</strong> ({activeAlert.responders.guard.distance}),{' '}
-                    <strong>{activeAlert.responders.faculty.name}</strong>, Proctor Notified
+                    <strong>{activeAlert.responders.hod.name}</strong>, Proctor Notified
                   </span>
                 </div>
               </div>
@@ -153,12 +191,56 @@ export const FightAlertBanner: React.FC = () => {
                 type="button"
                 onClick={() => globalFightDispatcher.clearActiveAlert()}
                 className="p-2 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white transition"
-                title="Dismiss alert"
+                title="Dismiss banner (the incident stays open)"
+                aria-label="Dismiss banner"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
           </div>
+
+          {/* Operator triage row */}
+          <div className="mt-3 flex flex-col gap-2 border-t border-slate-800 pt-3 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-[11px] font-semibold text-slate-400">
+              Operator triage — every AI alert must be confirmed or rejected so the model can be
+              calibrated.
+            </p>
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={handleConfirm}
+                className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-1.5 text-[11px] font-bold text-white transition hover:bg-emerald-500"
+              >
+                <CheckCircle2 className="w-3.5 h-3.5" aria-hidden="true" />
+                Confirm detection
+              </button>
+              <button
+                type="button"
+                onClick={handleFalsePositive}
+                className="inline-flex items-center gap-1.5 rounded-lg bg-slate-800 px-3 py-1.5 text-[11px] font-bold text-slate-200 transition hover:bg-slate-700"
+              >
+                <Ban className="w-3.5 h-3.5" aria-hidden="true" />
+                False positive
+              </button>
+              <button
+                type="button"
+                onClick={handleEscalate}
+                className="inline-flex items-center gap-1.5 rounded-lg bg-amber-600 px-3 py-1.5 text-[11px] font-bold text-white transition hover:bg-amber-500"
+              >
+                <TrendingUp className="w-3.5 h-3.5" aria-hidden="true" />
+                Escalate
+              </button>
+            </div>
+          </div>
+
+          {triageNote && (
+            <p
+              role="status"
+              className="mt-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-[11px] font-semibold text-emerald-300"
+            >
+              {triageNote}
+            </p>
+          )}
         </div>
       </div>
 
@@ -177,7 +259,8 @@ export const FightAlertBanner: React.FC = () => {
                     AI Fight Incident Evidence Archive
                   </h3>
                   <p className="text-xs text-slate-400 font-mono">
-                    Incident ID: {activeAlert.id} • Model: Kaggle RWF-2000 (Confidence: {activeAlert.confidence}%)
+                    Incident ID: {activeAlert.id} • Model: C3S calibrated aggression detector
+                    (Confidence: {activeAlert.confidence}%)
                   </p>
                 </div>
               </div>
@@ -274,10 +357,10 @@ export const FightAlertBanner: React.FC = () => {
                   </div>
 
                   <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
-                    <div className="text-slate-400 font-mono text-[10px]">NEAREST FACULTY / WARDEN</div>
-                    <div className="font-bold text-slate-200 mt-0.5">{activeAlert.responders.faculty.name}</div>
+                    <div className="text-slate-400 font-mono text-[10px]">NEAREST HOD / WARDEN</div>
+                    <div className="font-bold text-slate-200 mt-0.5">{activeAlert.responders.hod.name}</div>
                     <div className="text-slate-400 text-[11px] mt-0.5">
-                      {activeAlert.responders.faculty.department} • {activeAlert.responders.faculty.distance}
+                      {activeAlert.responders.hod.department} • {activeAlert.responders.hod.distance}
                     </div>
                   </div>
 

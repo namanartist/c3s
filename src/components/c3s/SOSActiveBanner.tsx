@@ -29,7 +29,7 @@ export const SOSActiveBanner: React.FC = () => {
   };
 
   return (
-    <div className="sticky top-16 z-40 w-full border-b border-rose-500/50 bg-rose-950/95 px-4 py-2.5 text-white backdrop-blur-md shadow-lg shadow-rose-950/50">
+    <div className="sticky top-11 z-40 w-full border-b border-rose-500/50 bg-rose-950/95 px-3 py-2.5 text-white backdrop-blur-md shadow-lg shadow-rose-950/50 sm:top-12 sm:px-4 md:top-14">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-600 animate-pulse shadow-md shadow-rose-600/50">
@@ -50,7 +50,7 @@ export const SOSActiveBanner: React.FC = () => {
             <p className="text-xs text-rose-300 flex flex-wrap items-center gap-2 mt-0.5">
               <span>Status: <strong className="text-white">{sosStatus}</strong></span>
               <span className="text-rose-500">•</span>
-              <span>Responders: <strong className="text-emerald-300">Guard, Faculty &amp; Proctor Dispatched</strong> ({sosRespondersNotified})</span>
+              <span>Responders: <strong className="text-emerald-300">Guard, HOD &amp; Proctor Dispatched</strong> ({sosRespondersNotified})</span>
               {sosLocation && (
                 <>
                   <span className="text-rose-500 hidden md:inline">•</span>

@@ -44,7 +44,7 @@ export function OfflineMeshBridge() {
             reporterPhone: '+91 751-2409300',
             status: remoteIncident.status === 'resolved' ? 'RESOLVED' : 'ALERT SENT',
             distanceMeters: 45,
-            assignedResponder: remoteIncident.responderAssigned || 'Guard 02 & Faculty',
+            assignedResponder: remoteIncident.responderAssigned || 'Guard 02 & HOD',
             latitude: remoteIncident.lat,
             longitude: remoteIncident.lng,
             timeline: [
@@ -67,7 +67,7 @@ export function OfflineMeshBridge() {
           type: 'lockdown',
           active: true,
           title: remoteIncident.title,
-          message: `Location: ${remoteIncident.map} • Dispatched: Guard, Faculty & Proctor.`,
+          message: `Location: ${remoteIncident.map} • Dispatched: Guard, HOD & Proctor.`,
           issuedBy: 'Emergency C3S Network'
         });
       }

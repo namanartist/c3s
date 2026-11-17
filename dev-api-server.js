@@ -7,6 +7,22 @@ const DEFAULT_CROWD_LOGS = [
   { id: 'log-library', label: 'Central Library Plaza', count: 5, coordinates: { latitude: 26.2172, longitude: 78.1820 }, timestamp: new Date().toISOString() }
 ];
 
+// Fallback default settings (mirrors src/types/settings.ts DEFAULT_SETTINGS).
+const DEFAULT_SETTINGS = {
+  theme: 'dark', accentColor: 'blue', reducedMotion: false, soundEffects: true,
+  biometricPass: true, nfcSimulation: true, autoLockMinutes: 15,
+  highPrecisionGps: true, stealthEmergencyMode: false,
+  pushNotifications: true, smsEmergencyBroadcast: true, emailCriticalAlerts: true,
+  zoneIntrusionAlerts: true, audioAlarmVolume: 80,
+  accessibleRouting: false, autoFloorSwitch: true, distanceUnit: 'meters',
+  bloodGroup: 'O+', emergencyContactName: 'Rajesh Lakhotia',
+  emergencyContactPhone: '+91 94251 12345', emergencyContactRelation: 'Parent / Guardian',
+  dormitoryAddress: 'Hostel Block-B, Room 312'
+};
+
+// In-memory fallback store for resilient development when MongoDB is unavailable.
+const memoryStore = new Map();
+
 // dev-api-server.js
 import http from 'http';
 import fs from 'fs';
@@ -86,6 +102,7 @@ const inMemoryGateLogs = [];
 const inMemoryAuditLogs = [];
 const inMemoryPasses = [];
 const inMemorySos = [];
+const inMemoryVisitorRegistrations = [];
 
 function readBody(req) {
   return new Promise((resolve) => {
@@ -511,6 +528,227 @@ const server = http.createServer(async (req, res) => {
       }
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ success: true, id, status: newStatus }));
+    }
+    // ----------------------------------------------------
+    // GET & PUT /api/settings — real MongoDB-backed preferences.
+    // ----------------------------------------------------
+    else if (pathname === '/api/settings') {
+      // Read the body once so we don't consume the stream twice.
+      const incoming = req.method === 'PUT' ? await readBody(req) : null;
+      const userKey =
+        url.searchParams.get('userId') ||
+        url.searchParams.get('key') ||
+        req.headers['x-user-id'] ||
+        (incoming && typeof incoming === 'object' ? incoming.userId : null) ||
+        'global';
+
+      if (req.method === 'GET') {
+        let doc = null;
+        if (activeDb) {
+          try {
+            doc = await activeDb.collection('user_settings').findOne(
+              { userId: userKey },
+              { projection: { _id: 0 } }
+            );
+          } catch {}
+        }
+        if (!doc) {
+          doc = memoryStore.get(`settings:${userKey}`) ?? null;
+        }
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          success: true,
+          source: doc && activeDb ? 'mongodb' : doc ? 'memory' : 'default',
+          userId: userKey,
+          data: doc ? { ...DEFAULT_SETTINGS, ...doc } : DEFAULT_SETTINGS,
+          ...(doc && doc.updatedAt ? { updatedAt: doc.updatedAt } : {}),
+        }));
+      } else if (req.method === 'PUT') {
+        const sanitised = {};
+        for (const key of Object.keys(DEFAULT_SETTINGS)) {
+          if (incoming && incoming[key] !== undefined) {
+            sanitised[key] = incoming[key];
+          }
+        }
+        const merged = { ...DEFAULT_SETTINGS, ...sanitised };
+        const nowIso = new Date().toISOString();
+        if (activeDb) {
+          try {
+            await activeDb.collection('user_settings').updateOne(
+              { userId: userKey },
+              { $set: { ...merged, updatedAt: nowIso }, $setOnInsert: { createdAt: nowIso, userId: userKey } },
+              { upsert: true }
+            );
+          } catch (dbErr) {
+            console.warn('[dev-api] user_settings upsert failed:', dbErr.message);
+          }
+        } else {
+          memoryStore.set(`settings:${userKey}`, { ...merged, updatedAt: nowIso });
+        }
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, userId: userKey, data: merged, updatedAt: nowIso }));
+      } else {
+        res.writeHead(405, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Method Not Allowed' }));
+      }
+    }
+    // ----------------------------------------------------
+    // GET & POST /api/visitor — public visitor self-registration (gate QR deep-link)
+    // ----------------------------------------------------
+    else if (pathname === '/api/visitor') {
+      if (req.method === 'GET') {
+        // Sanitized view for the gate desk — no Aadhaar hashes or face snapshots.
+        let registrations = [];
+        if (activeDb) {
+          try {
+            registrations = await activeDb.collection('visitor_registrations')
+              .find({}, { projection: { _id: 0, faceSnapshot: 0, aadhaarHash: 0 } })
+              .sort({ timestamp: -1 })
+              .limit(50)
+              .toArray();
+          } catch {}
+        }
+        if (!registrations.length && inMemoryVisitorRegistrations.length) {
+          registrations = inMemoryVisitorRegistrations.slice(-50).reverse()
+            .map(({ faceSnapshot, aadhaarHash, ...safe }) => safe);
+        }
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, count: registrations.length, data: registrations }));
+      } else if (req.method === 'POST') {
+        const body = await readBody(req);
+        const str = (v, max = 200) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
+        const VALID_ROLES = ['VISITOR', 'VENDOR', 'DELIVERY', 'MAINTENANCE', 'VIP', 'OTHER'];
+        const roleRaw = str(body.visitorRole, 20).toUpperCase();
+        const sanitized = {
+          name: str(body.name, 120),
+          phone: str(body.phone, 20),
+          aadhaarHash: str(body.aadhaarHash, 128),
+          aadhaarLast4: str(body.aadhaarLast4, 4),
+          visitorRole: VALID_ROLES.includes(roleRaw) ? roleRaw : 'VISITOR',
+          company: str(body.company, 120),
+          purpose: str(body.purpose, 500),
+          vehicleNumber: str(body.vehicleNumber, 20).toUpperCase(),
+          hostName: str(body.hostName, 120) || undefined,
+          hostDepartment: str(body.hostDepartment, 120) || undefined,
+          workOrderNumber: str(body.workOrderNumber, 40).toUpperCase() || undefined,
+          gate: str(body.gate, 40) || 'GATE-MAIN',
+          qrToken: str(body.qrToken, 128),
+          faceSnapshot: typeof body.faceSnapshot === 'string' && body.faceSnapshot.length <= 900 * 1024
+            ? body.faceSnapshot : undefined,
+          latitude: typeof body.latitude === 'number' ? body.latitude : undefined,
+          longitude: typeof body.longitude === 'number' ? body.longitude : undefined,
+        };
+
+        if (sanitized.name.length < 2) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Visitor name is required.' }));
+          return;
+        }
+        if (!/^[0-9+\-\s]{10,16}$/.test(sanitized.phone)) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'A valid phone number is required.' }));
+          return;
+        }
+        if (!/^[a-f0-9]{16,64}$/i.test(sanitized.aadhaarHash)) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Aadhaar verification failed. Please re-enter the Aadhaar number.' }));
+          return;
+        }
+        if (['VIP', 'OTHER'].includes(sanitized.visitorRole) && sanitized.purpose.length < 3) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Purpose of visit is required.' }));
+          return;
+        }
+        if (sanitized.visitorRole === 'VISITOR' && (!sanitized.hostName || !sanitized.hostDepartment)) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Host name and department are required for visitors.' }));
+          return;
+        }
+        if (['VENDOR', 'MAINTENANCE'].includes(sanitized.visitorRole) && (!sanitized.company || !sanitized.workOrderNumber)) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Company and work order number are required for vendor/maintenance visits.' }));
+          return;
+        }
+        if (sanitized.visitorRole === 'DELIVERY' && (!sanitized.company || !sanitized.vehicleNumber)) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Courier company and vehicle number are required for deliveries.' }));
+          return;
+        }
+
+        const now = new Date();
+        const registrationId = `VIS-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+        const registration = {
+          id: registrationId,
+          ...sanitized,
+          status: 'REGISTERED',
+          timestamp: Date.now(),
+          createdAt: now.toISOString(),
+        };
+        const gateLog = {
+          id: `mov_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+          personName: sanitized.name,
+          universityId: registrationId,
+          role: 'VISITOR',
+          visitorRole: sanitized.visitorRole,
+          department: sanitized.hostDepartment || sanitized.company || 'Visitor',
+          movement: 'CHECK-IN',
+          time: now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
+          date: now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+          gate: sanitized.gate,
+          gateId: sanitized.gate,
+          verificationMethod: 'VISITOR_SELF_SERVICE',
+          status: 'VERIFIED',
+          purpose: sanitized.purpose || `${sanitized.visitorRole} visit${sanitized.hostName ? ` — host: ${sanitized.hostName}` : ''}`,
+          vehicleNumber: sanitized.vehicleNumber || null,
+          hostName: sanitized.hostName ?? null,
+          hostDepartment: sanitized.hostDepartment ?? null,
+          workOrderNumber: sanitized.workOrderNumber ?? null,
+          timestamp: Date.now(),
+          qrToken: sanitized.qrToken || null,
+          lat: sanitized.latitude ?? null,
+          lng: sanitized.longitude ?? null,
+          hasFaceSnapshot: Boolean(sanitized.faceSnapshot),
+        };
+        const auditEntry = {
+          id: `audit_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+          timestamp: Date.now(),
+          actor: sanitized.name,
+          role: 'VISITOR',
+          action: 'VISITOR_SELF_CHECK_IN',
+          resource: sanitized.gate,
+          result: 'SUCCESS',
+          details: `${sanitized.name} self-registered at ${sanitized.gate} as ${sanitized.visitorRole} (Aadhaar ···${sanitized.aadhaarLast4}).`,
+        };
+
+        let source = 'mongodb';
+        if (activeDb) {
+          try {
+            await activeDb.collection('visitor_registrations').insertOne(registration);
+            await activeDb.collection('gate_logs').insertOne(gateLog);
+            await activeDb.collection('audit_logs').insertOne(auditEntry);
+          } catch (dbErr) {
+            console.warn('[dev-api] visitor insert failed, using memory fallback:', dbErr.message);
+            source = 'memory';
+            inMemoryVisitorRegistrations.push(registration);
+            inMemoryGateLogs.push(gateLog);
+            inMemoryAuditLogs.push(auditEntry);
+          }
+        } else {
+          source = 'memory';
+          inMemoryVisitorRegistrations.push(registration);
+          inMemoryGateLogs.push(gateLog);
+          inMemoryAuditLogs.push(auditEntry);
+        }
+        res.writeHead(201, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          success: true,
+          source,
+          registration: { id: registrationId, name: sanitized.name, gate: sanitized.gate, time: registration.createdAt },
+        }));
+      } else {
+        res.writeHead(405, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Method Not Allowed' }));
+      }
     }
     // ----------------------------------------------------
     // POST /api/auth/login

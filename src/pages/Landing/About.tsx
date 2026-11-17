@@ -1,71 +1,79 @@
 // src/pages/Landing/About.tsx
 import { Info, Compass, HelpCircle, Users, RefreshCw } from 'lucide-react';
+import { motion } from 'motion/react';
 
 export default function About() {
   return (
-    <section className="w-full py-24 px-4 md:px-8 relative overflow-hidden bg-[#fcfaf6] dark:bg-[#050505] border-t border-neutral-200/20">
-      {/* Decorative background glows */}
-      <div className="radial-glow top-10 left-1/4" />
+    <section className="lp-section bg-[#fcfaf6] dark:bg-[#050505]">
+      <div className="lp-container">
+        <motion.div
+          className="mx-auto flex max-w-3xl flex-col items-center text-center"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.55, ease: 'easeOut' }}
+        >
+          <span className="lp-eyebrow lp-eyebrow-accent">
+            <Info className="h-3.5 w-3.5" />
+            Our mission
+          </span>
+          <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-neutral-900 dark:text-white sm:text-4xl md:text-5xl">
+            One campus. One defence grid.
+          </h2>
+          <p className="mt-5 max-w-2xl text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 sm:text-base">
+            We believe campus safety and navigation should be unified. C3S fuses MITS Gwalior's
+            indoor mapping, 24/7 AI-validated surveillance and instant responder dispatch into a
+            single, trusted defence grid for{' '}
+            <strong className="text-neutral-900 dark:text-white">Madhav Institute of Technology and Science</strong>.
+          </p>
+        </motion.div>
 
-      <div className="max-w-4xl mx-auto flex flex-col items-center">
-        {/* Section Header */}
-        <div className="inline-flex items-center gap-2 bg-[#ff602e]/10 border border-[#ff602e]/20 px-3 py-1 rounded-full mb-6">
-          <Info size={12} className="text-[#ff602e]" />
-          <span className="text-[10px] uppercase tracking-wider font-extrabold text-[#ff602e]">Our Mission</span>
-        </div>
-
-        <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white mb-6 text-center">
-          About C3S Initiative
-        </h2>
-        <p className="text-sm md:text-base text-neutral-600 dark:text-neutral-400 max-w-2xl text-center leading-relaxed mb-16">
-          We believe campus navigation and personal safety should be unified. C3S (Campus Safety and Surveillance System) brings precision indoor mapping and 24/7 smart emergency response to <strong>Madhav Institute of Technology and Science (MITS) Gwalior</strong>.
-        </p>
-
-        {/* Human-focused Panels */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mb-16">
-          {/* Card 1: Why C3S Exists */}
-          <div className="bg-white dark:bg-[#0a0a0a] border border-neutral-200/50 dark:border-white/5 rounded-[24px] p-6 text-left shadow-sm">
-            <h3 className="text-base font-bold text-neutral-900 dark:text-white mb-4 flex items-center gap-2.5">
-              <Compass size={18} className="text-blue-600" />
-              Why C3S Exists
-            </h3>
-            <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-              The MITS campus is an extensive ecosystem of halls, labs, and gates. C3S was engineered to combine high-precision multi-floor navigation with real-time emergency safety, CCTV surveillance, and instant responder dispatch.
-            </p>
-          </div>
-
-          {/* Card 2: The Problem We Solve */}
-          <div className="bg-white dark:bg-[#0a0a0a] border border-neutral-200/50 dark:border-white/5 rounded-[24px] p-6 text-left shadow-sm">
-            <h3 className="text-base font-bold text-neutral-900 dark:text-white mb-4 flex items-center gap-2.5">
-              <HelpCircle size={18} className="text-cyan-500" />
-              The Problem We Solve
-            </h3>
-            <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-              Standard navigation apps stop at the entrance. Finding a specific classroom, laboratory, or seminar hall inside the academic blocks can be challenging. C3S provides the official campus map level of detail to guide you indoors.
-            </p>
-          </div>
-
-          {/* Card 3: Built for Everyone */}
-          <div className="bg-white dark:bg-[#0a0a0a] border border-neutral-200/50 dark:border-white/5 rounded-[24px] p-6 text-left shadow-sm">
-            <h3 className="text-base font-bold text-neutral-900 dark:text-white mb-4 flex items-center gap-2.5">
-              <Users size={18} className="text-[#ff602e]" />
-              Students, Visitors & Faculty
-            </h3>
-            <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-              Whether you're a student rushing to your next lecture, a visitor attending a seminar, or a faculty member locating a department office, C3S makes campus navigation seamless for everyone.
-            </p>
-          </div>
-
-          {/* Card 4: Always Improving */}
-          <div className="bg-white dark:bg-[#0a0a0a] border border-neutral-200/50 dark:border-white/5 rounded-[24px] p-6 text-left shadow-sm">
-            <h3 className="text-base font-bold text-neutral-900 dark:text-white mb-4 flex items-center gap-2.5">
-              <RefreshCw size={18} className="text-cyan-500" />
-              Continuously Monitored
-            </h3>
-            <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-              As campuses grow, so does C3S. Built as a live surveillance grid that continuously refines route accuracy, updates layout plans, and coordinates emergency response units to ensure 100% safe corridors.
-            </p>
-          </div>
+        <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {[
+            {
+              icon: Compass,
+              tone: 'text-blue-600 bg-blue-500/10 border-blue-500/20',
+              title: 'Why C3S exists',
+              body: 'MITS is an extensive ecosystem of blocks, labs and gates. C3S combines precision indoor mapping with real-time emergency safety — one grid, not two tools.',
+            },
+            {
+              icon: HelpCircle,
+              tone: 'text-cyan-600 bg-cyan-500/10 border-cyan-500/20',
+              title: 'The problem we solve',
+              body: 'Standard navigation stops at the entrance. C3S picks up indoors — room-level guidance to lecture halls, labs and safety points across every floor.',
+            },
+            {
+              icon: Users,
+              tone: 'text-[#ff602e] bg-orange-500/10 border-orange-500/20',
+              title: 'Built for everyone',
+              body: 'Students rushing to lectures, visitors finding the conclave, heads of departments locating their office — and guards responding to an SOS in under three seconds.',
+            },
+            {
+              icon: RefreshCw,
+              tone: 'text-emerald-600 bg-emerald-500/10 border-emerald-500/20',
+              title: 'Always improving',
+              body: 'Every verified incident calibrates the system: thresholds tune to the campus, routes sharpen, and response gets measurably faster over time.',
+            },
+          ].map(({ icon: Icon, tone, title, body }, index) => (
+            <motion.div
+              key={title}
+              className="lp-card p-6"
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.5, delay: index * 0.09, ease: 'easeOut' }}
+            >
+              <span
+                className={`flex h-11 w-11 items-center justify-center rounded-2xl border ${tone}`}
+              >
+                <Icon className="h-5 w-5" />
+              </span>
+              <h3 className="mt-4 font-bold text-neutral-900 dark:text-white">{title}</h3>
+              <p className="mt-2 text-xs leading-relaxed text-neutral-500 dark:text-neutral-400">
+                {body}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

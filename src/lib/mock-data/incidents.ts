@@ -89,7 +89,7 @@ export const MOCK_INCIDENTS: C3SIncident[] = [
     location: 'AI & CSE Building First Floor Corridor (Near M103)',
     zone: 'AI & CSE Building',
     reportedAt: '20:22',
-    reportedBy: 'Faculty Cabin Report (Dr. Archana Acharya)',
+    reportedBy: 'HOD Cabin Report (Dr. Archana Acharya)',
     reportedById: 'FAC-AI-01',
     reporterPhone: '+91 98765 43250',
     status: 'RESOLVED',
@@ -108,10 +108,10 @@ export const MOCK_INCIDENTS: C3SIncident[] = [
     },
     notes: [
       'Minor confrontation between students outside classroom M103',
-      'Faculty intervened immediately; campus guard arrived within 90 seconds. Dispersed peacefully.'
+      'HOD intervened immediately; campus guard arrived within 90 seconds. Dispersed peacefully.'
     ],
     timeline: [
-      { time: '20:22', event: 'Altercation reported by faculty', actor: 'Dr. Archana Acharya' },
+      { time: '20:22', event: 'Altercation reported by HOD', actor: 'Dr. Archana Acharya' },
       { time: '20:23', event: 'Guard arrived on scene', actor: 'Guard 02' },
       { time: '20:26', event: 'Incident resolved & students counseled', actor: 'Chief Proctor Office' }
     ]

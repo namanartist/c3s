@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AppShell } from '@/components/c3s/AppShell';
+import { PageHeader } from '@/components/c3s/PageHeader';
 import { StatusBadge } from '@/components/c3s/StatusBadge';
 import { ShieldAlert, ArrowRight, Video, Camera } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -22,10 +23,7 @@ export default function SecurityIncidentsPage() {
     <AppShell>
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-black text-slate-100 uppercase">INCIDENT DISPATCH HUB</h1>
-            <p className="text-xs text-slate-400">Campus-wide emergency incident tracking, priority queues, and guard assignment.</p>
-          </div>
+          <PageHeader eyebrow="Incident Hub" statusTone="danger" title="INCIDENT DISPATCH HUB" subtitle="Campus-wide emergency incident tracking, priority queues, and guard assignment." />
 
           <div className="flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-900 p-1">
             {['ALL', 'CRITICAL', 'ACTIVE', 'RESOLVED'].map((f) => (

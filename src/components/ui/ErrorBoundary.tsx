@@ -161,7 +161,7 @@ export class ErrorBoundary extends Component<Props, State> {
             </p>
 
             {/* Error Message Box */}
-            <div className="rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 p-4 mb-6 font-mono text-xs text-red-900 dark:text-red-200 break-words shadow-xs">
+            <div className="rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 p-4 mb-6 font-mono text-xs text-red-900 dark:text-red-200 break-words shadow-sm">
               <div className="flex items-center gap-1.5 text-red-600 dark:text-red-400 font-bold mb-1 uppercase text-[10px]">
                 <Terminal className="w-3.5 h-3.5" />
                 <span>Diagnostics Code:</span>
@@ -183,7 +183,7 @@ export class ErrorBoundary extends Component<Props, State> {
               <button
                 type="button"
                 onClick={this.handleReset}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-white/10 font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer shadow-xs"
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-white/10 font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer shadow-sm"
               >
                 <RefreshCw className="w-4 h-4" />
                 <span>Retry View</span>
@@ -194,7 +194,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 onClick={() => {
                   window.location.href = '/student';
                 }}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer shadow-xs"
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer shadow-sm"
               >
                 <Home className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                 <span>Return to Student Base</span>
@@ -203,7 +203,7 @@ export class ErrorBoundary extends Component<Props, State> {
               <button
                 type="button"
                 onClick={this.handleClearStorageAndReset}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-amber-50 hover:bg-amber-100 dark:bg-amber-600/20 dark:hover:bg-amber-600/30 text-amber-800 dark:text-amber-200 border border-amber-200 dark:border-amber-500/30 font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer shadow-xs"
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-amber-50 hover:bg-amber-100 dark:bg-amber-600/20 dark:hover:bg-amber-600/30 text-amber-800 dark:text-amber-200 border border-amber-200 dark:border-amber-500/30 font-bold text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer shadow-sm"
               >
                 <Trash2 className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                 <span>Reset Local Cache</span>

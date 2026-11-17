@@ -228,7 +228,7 @@ export const IpPermissionAndPwaBanner: React.FC = () => {
                 <button
                   type="button"
                   onClick={copyOriginFlag}
-                  className="w-full mt-2 py-1.5 px-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-[11px] flex items-center justify-center gap-1.5 cursor-pointer transition-all shadow-xs"
+                  className="w-full mt-2 py-1.5 px-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-[11px] flex items-center justify-center gap-1.5 cursor-pointer transition-all shadow-sm"
                 >
                   {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copied ? 'Copied Site Origin!' : 'Copy Site Origin to Clipboard'}</span>

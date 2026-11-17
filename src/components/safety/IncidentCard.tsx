@@ -285,7 +285,7 @@ export function IncidentCard() {
             </div>
           )}
 
-          {/* Notified Responders: Guard, Faculty, Proctor */}
+          {/* Notified Responders: Guard, HOD, Proctor */}
           {selectedIncident.notifiedResponders && selectedIncident.notifiedResponders.length > 0 && (
             <div className="p-2.5 rounded-xl border border-emerald-500/30 bg-emerald-950/20 text-xs">
               <div className="text-[10px] font-mono uppercase text-emerald-400 font-bold mb-1 flex items-center gap-1">

@@ -161,7 +161,7 @@ export const CCTVGrid: React.FC = () => {
                   ? 'border-blue-500/80 bg-blue-950/20 hover:border-blue-400 hover:shadow-blue-950/40 ring-1 ring-blue-500/30'
                   : hasFight
                   ? 'border-red-500/80 bg-red-950/20 hover:border-red-400 hover:shadow-red-950/50 ring-1 ring-red-500/30'
-                  : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 hover:border-blue-500/60 hover:shadow-lg dark:hover:shadow-blue-950/30 shadow-xs dark:shadow-none'
+                  : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 hover:border-blue-500/60 hover:shadow-lg dark:hover:shadow-blue-950/30 shadow-sm dark:shadow-none'
               }`}
             >
               <div
@@ -256,7 +256,7 @@ export const CCTVGrid: React.FC = () => {
                       e.stopPropagation();
                       handleOpenCam(cam, 'webcam');
                     }}
-                    className="shrink-0 px-2.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-1 shadow-xs cursor-pointer active:scale-95"
+                    className="shrink-0 px-2.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-1 shadow-sm cursor-pointer active:scale-95"
                   >
                     <Video className="w-3.5 h-3.5" />
                     <span>Live Cam</span>

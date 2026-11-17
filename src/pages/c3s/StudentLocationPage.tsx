@@ -1,6 +1,7 @@
 // src/pages/c3s/StudentLocationPage.tsx
 import React, { useState } from 'react';
 import { AppShell } from '@/components/c3s/AppShell';
+import { PageHeader } from '@/components/c3s/PageHeader';
 import { CampusMap } from '@/components/c3s/CampusMap';
 import { StatusBadge } from '@/components/c3s/StatusBadge';
 import { MapPin } from 'lucide-react';
@@ -20,15 +21,12 @@ export default function StudentLocationPage() {
       <div className="space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 uppercase tracking-tight">MY LOCATION</h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Device geofence status and high-precision campus navigation.</p>
-          </div>
+          <PageHeader eyebrow="My Location" statusTone="primary" title="MY LOCATION" subtitle="Device geofence status and high-precision campus navigation." />
 
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowPermissionModal(true)}
-              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-xs cursor-pointer"
+              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm cursor-pointer"
             >
               Configure GPS Permission
             </button>
@@ -37,24 +35,24 @@ export default function StudentLocationPage() {
 
         {/* Location Telemetry Cards */}
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 shadow-xs dark:shadow-none transition-colors">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 shadow-sm dark:shadow-none transition-colors">
             <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase">Status</p>
             <div className="mt-2">
               <StatusBadge status={isLocationActive ? 'ACTIVE' : 'OFFLINE'} pulse={isLocationActive} size="md" />
             </div>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 shadow-xs dark:shadow-none transition-colors">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 shadow-sm dark:shadow-none transition-colors">
             <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase">Latitude</p>
             <p className="mt-1 font-mono text-lg font-bold text-slate-900 dark:text-slate-100">{latitude}</p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 shadow-xs dark:shadow-none transition-colors">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 shadow-sm dark:shadow-none transition-colors">
             <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase">Longitude</p>
             <p className="mt-1 font-mono text-lg font-bold text-slate-900 dark:text-slate-100">{longitude}</p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 shadow-xs dark:shadow-none transition-colors">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 shadow-sm dark:shadow-none transition-colors">
             <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase">Accuracy</p>
             <p className="mt-1 text-lg font-bold text-emerald-600 dark:text-emerald-400">±{gpsAccuracy}m</p>
           </div>

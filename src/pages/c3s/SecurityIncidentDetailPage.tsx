@@ -46,7 +46,7 @@ export default function SecurityIncidentDetailPage() {
         </button>
 
         {/* Top Header Card */}
-        <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 p-6 sm:p-8 backdrop-blur-xl shadow-xs dark:shadow-2xl transition-colors">
+        <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 p-6 sm:p-8 backdrop-blur-xl shadow-sm dark:shadow-2xl transition-colors">
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-5">
             <div>
               <div className="flex items-center gap-2">
@@ -116,8 +116,8 @@ export default function SecurityIncidentDetailPage() {
           </div>
         </div>
 
-        {/* CCTV & Photo Evidence Archive (Visible to Guard, Faculty & Proctor) */}
-        <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 p-6 sm:p-8 backdrop-blur-xl shadow-xs dark:shadow-xl space-y-4">
+        {/* CCTV & Photo Evidence Archive (Visible to Guard, HOD & Proctor) */}
+        <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 p-6 sm:p-8 backdrop-blur-xl shadow-sm dark:shadow-xl space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-4">
             <div>
               <h2 className="text-base font-black text-slate-900 dark:text-white uppercase tracking-tight flex items-center gap-2">
@@ -125,7 +125,7 @@ export default function SecurityIncidentDetailPage() {
                 CCTV Footage & Photographic Evidence Archive
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Automated optical capture verified across Guard, Faculty and Proctorial command stations.
+                Automated optical capture verified across Guard, HOD and Proctorial command stations.
               </p>
             </div>
             <button
@@ -208,7 +208,7 @@ export default function SecurityIncidentDetailPage() {
         {/* Timeline & Map Split */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Timeline */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 backdrop-blur-md shadow-xs dark:shadow-none transition-colors">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 backdrop-blur-md shadow-sm dark:shadow-none transition-colors">
             <h2 className="mb-4 text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Incident Response Timeline</h2>
             <IncidentTimeline timeline={incident.timeline} />
 
@@ -239,9 +239,9 @@ export default function SecurityIncidentDetailPage() {
           </div>
 
           {/* Tactical Map */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 backdrop-blur-md space-y-3 shadow-xs dark:shadow-none transition-colors">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 backdrop-blur-md space-y-3 shadow-sm dark:shadow-none transition-colors">
             <h2 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Incident Location Map</h2>
-            <CampusMap height="h-[380px]" highlightLocation="Academic Block A" />
+            <CampusMap height="h-[40vh] min-h-[280px]" highlightLocation="Academic Block A" />
           </div>
         </div>
 

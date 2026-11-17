@@ -30,8 +30,7 @@ export const MOCK_ANALYTICS = {
   totalOccupancy: 3120,
   breakdown: {
     students: 2420,
-    faculty: 380,
-    staff: 215,
+    staff: 595,
     visitors: 105
   },
   gatesSummary: {

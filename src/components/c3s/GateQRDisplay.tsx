@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { RefreshCw, Clock, ShieldCheck, CheckCircle2, Download, Copy, Maximize2 } from 'lucide-react';
+import { RefreshCw, Clock, ShieldCheck, CheckCircle2, Download, Copy, Maximize2, Scan } from 'lucide-react';
 import QRCode from 'qrcode';
 import { useC3SStore } from '@/store/c3sStore';
 import { useGateStore } from '@/store/gateStore';
@@ -35,9 +35,14 @@ export const GateQRDisplay: React.FC = () => {
   const activeTokenObj = getGateQr(gateId) || { token: currentGate.qrToken };
   const tokenString = activeTokenObj?.token || currentGate.qrToken || 'TOKEN_GATE_MAIN';
 
+  // Build a deep-link URL that Google Lens / any modern phone camera will
+  // open as a website — the scanner lands on the visitor self check-in page.
+  const origin = typeof window !== 'undefined' ? window.location.origin : '';
+  const qrUrl = `${origin}/visitor/check-in?gate=${encodeURIComponent(gateId)}&token=${encodeURIComponent(tokenString)}`;
+
   useEffect(() => {
     let isMounted = true;
-    QRCode.toDataURL(tokenString, {
+    QRCode.toDataURL(qrUrl, {
       width: 340,
       margin: 2,
       color: {
@@ -56,7 +61,7 @@ export const GateQRDisplay: React.FC = () => {
     return () => {
       isMounted = false;
     };
-  }, [tokenString]);
+  }, [qrUrl]);
 
   const handleRegenerate = () => {
     setIsRegenerating(true);
@@ -68,7 +73,24 @@ export const GateQRDisplay: React.FC = () => {
   };
 
   const handleCopy = () => {
-    navigator.clipboard?.writeText(tokenString);
+    const link = qrUrl;
+    if (navigator.clipboard?.writeText) {
+      void navigator.clipboard.writeText(link);
+    } else {
+      // Clipboard API requires a secure context; fall back gracefully.
+      const ta = document.createElement('textarea');
+      ta.value = link;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+      } catch {
+        // ignore — nothing else we can do
+      }
+      document.body.removeChild(ta);
+    }
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -133,16 +155,19 @@ export const GateQRDisplay: React.FC = () => {
           )}
         </div>
 
-        <div className="mt-3 flex items-center gap-1.5 text-xs font-mono font-bold text-slate-900">
-          <ShieldCheck className="h-4 w-4 text-blue-600 shrink-0" />
-          <span className="truncate max-w-[220px]">{tokenString}</span>
+        <div className="mt-3 flex w-full flex-col items-center gap-1.5 text-center">
+          <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-slate-900">
+            <ShieldCheck className="h-4 w-4 text-blue-600 shrink-0" />
+            <span>{currentGate.code} · Self Check-In</span>
+          </div>
+          <p className="max-w-[260px] break-all font-mono text-[9px] leading-snug text-slate-500">{qrUrl}</p>
         </div>
       </div>
 
       <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs font-medium">
-        <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-emerald-400">
-          <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
-          CRYPTOGRAPHIC TOKEN ACTIVE
+        <div className="flex items-center gap-1.5 rounded-full border border-sky-500/30 bg-sky-500/10 px-3 py-1 text-sky-300">
+          <Scan className="h-3.5 w-3.5" />
+          SCAN WITH GOOGLE LENS / CAMERA
         </div>
         <div className="flex items-center gap-1.5 text-slate-300">
           <Clock className="h-3.5 w-3.5 text-slate-400" />
@@ -179,7 +204,7 @@ export const GateQRDisplay: React.FC = () => {
           className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-800/80 px-4 py-3 text-xs font-bold text-slate-300 transition-all hover:bg-slate-700 active:scale-95"
         >
           {copied ? <CheckCircle2 className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
-          {copied ? 'Copied Token!' : 'Copy Token'}
+          {copied ? 'Copied Link!' : 'Copy Link'}
         </button>
         <button
           onClick={handleDownload}

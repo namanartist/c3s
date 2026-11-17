@@ -121,7 +121,7 @@ export function startRealtimeSosSync(
               status: raw.status || 'active',
               reportedBy: raw.reportedBy || 'Student Distress Signal',
               responderAssigned: raw.assignedResponder || raw.responderAssigned,
-              notifiedResponders: raw.notifiedResponders || ['Guard 02', 'Faculty Warden', 'Chief Proctor'],
+              notifiedResponders: raw.notifiedResponders || ['Guard 02', 'HOD', 'Chief Proctor'],
               evidence: raw.evidence || {
                 photoUrl: raw.photoUrl,
                 videoUrl: raw.videoUrl

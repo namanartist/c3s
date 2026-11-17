@@ -1,24 +1,40 @@
-// src/pages/c3s/GateKeeperDashboard.tsx
-import React, { useState } from 'react';
+/**
+ * src/pages/c3s/GateKeeperDashboard.tsx
+ *
+ * Redesigned gate terminal.
+ *
+ * Workflow improvements over the original:
+ * - **The boom barrier state is persisted.** It lived in component state, so
+ *   reloading the page silently re-opened a locked barrier. It now lives in
+ *   the Zustand store and is written to local storage.
+ * - **Manual check-in failures are surfaced.** `recordGateMovement` was
+ *   fire-and-forget: the success message was shown even when the database
+ *   write failed. The write is now awaited and errors are reported.
+ * - **The success state is readable.** It auto-closed after 1.5 s, which was
+ *   too fast to read; it now stays until it is dismissed.
+ * - The manual-entry modal has Escape handling, an accessible dialog role and
+ *   a Lucide icon instead of a raw glyph.
+ */
+import React, { useState, useEffect, useRef } from 'react';
 import { AppShell } from '@/components/c3s/AppShell';
+import { PageHeader } from '@/components/c3s/PageHeader';
 import { StatCard } from '@/components/c3s/StatCard';
 import { GateQRDisplay } from '@/components/c3s/GateQRDisplay';
-import { DataTable } from '@/components/c3s/DataTable';
+import { DataTable, type Column } from '@/components/c3s/DataTable';
 import { StatusBadge } from '@/components/c3s/StatusBadge';
 import {
   DoorOpen,
-  Scan,
-  Activity,
   ArrowRight,
   Users,
   ShieldCheck,
   QrCode,
-  Sparkles,
   Lock,
   Unlock,
   UserCheck,
   CheckCircle2,
-  AlertCircle
+  ChevronDown,
+  X,
+  AlertTriangle,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
@@ -27,34 +43,57 @@ import { recordGateMovement } from '@/lib/api';
 
 export default function GateKeeperDashboard() {
   const navigate = useNavigate();
-  const { gates, selectedGateId, setSelectedGateId, movementLogs, addMovementLog } = useC3SStore();
+  const gates = useC3SStore((state) => state.gates);
+  const selectedGateId = useC3SStore((state) => state.selectedGateId);
+  const setSelectedGateId = useC3SStore((state) => state.setSelectedGateId);
+  const movementLogs = useC3SStore((state) => state.movementLogs);
+  const addMovementLog = useC3SStore((state) => state.addMovementLog);
+  const barrierStates = useC3SStore((state) => state.barrierStates);
+  const toggleBarrierState = useC3SStore((state) => state.toggleBarrierState);
 
   const [manualModalOpen, setManualModalOpen] = useState(false);
   const [manualName, setManualName] = useState('');
   const [manualUniId, setManualUniId] = useState('');
   const [manualAction, setManualAction] = useState<'CHECK-IN' | 'CHECK-OUT'>('CHECK-IN');
   const [manualSuccessMsg, setManualSuccessMsg] = useState<string | null>(null);
-  const [barrierState, setBarrierState] = useState<'OPEN' | 'LOCKED'>('OPEN');
+  const [manualErrorMsg, setManualErrorMsg] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const defaultGate = {
     id: 'gate-01',
     name: 'Gate 1 - Main Campus Gate',
     code: 'G1-MAIN',
-    status: 'OPEN' as const,
+    status: 'ACTIVE' as const,
     currentGateKeeper: 'Ramesh Singh',
     keeperId: 'GK-01',
     checkInCount: 1420,
     checkOutCount: 980,
     currentlyInside: 3480,
     activeAlerts: 0,
-    qrToken: 'TOKEN_G1_20261104'
+    qrStatus: 'ACTIVE' as const,
+    qrToken: 'TOKEN_G1_20261104',
   };
 
-  const currentGate = gates.find((g) => g.id === selectedGateId) || gates[0] || defaultGate;
+  const currentGate = gates.find((gate) => gate.id === selectedGateId) ?? gates[0] ?? defaultGate;
+  const barrierState = barrierStates[currentGate.id] ?? 'OPEN';
 
-  const handleManualSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!manualName || !manualUniId) return;
+  // Escape closes the manual-entry modal.
+  useEffect(() => {
+    if (!manualModalOpen) return undefined;
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') setManualModalOpen(false);
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [manualModalOpen]);
+
+  const handleManualSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!manualName || !manualUniId || isSaving) return;
+
+    setIsSaving(true);
+    setManualErrorMsg(null);
 
     const newLog: C3SMovementLog = {
       id: `mov-${Date.now()}`,
@@ -67,158 +106,182 @@ export default function GateKeeperDashboard() {
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       date: 'Today',
       verificationMethod: 'MANUAL_OVERRIDE',
-      status: 'VERIFIED'
+      status: 'VERIFIED',
     };
 
-    addMovementLog(newLog);
-
-    // Persist manual gate movement to MongoDB database
-    recordGateMovement({
-      userName: manualName,
-      userId: manualUniId,
-      userRole: 'Student',
-      department: 'Manual Guard Override',
-      movement: manualAction,
-      gateName: currentGate.name,
-      method: 'MANUAL_OVERRIDE'
-    });
-
-    setManualSuccessMsg(`Successfully logged ${manualAction} for ${manualName} (${manualUniId})`);
-    setManualName('');
-    setManualUniId('');
-    setTimeout(() => {
-      setManualSuccessMsg(null);
-      setManualModalOpen(false);
-    }, 1500);
+    try {
+      // Await the persistence so that a failure is visible to the operator
+      // instead of being swallowed.
+      await recordGateMovement({
+        userName: manualName,
+        userId: manualUniId,
+        userRole: 'Student',
+        department: 'Manual Guard Override',
+        movement: manualAction,
+        gateName: currentGate.name,
+        method: 'MANUAL_OVERRIDE',
+      });
+      addMovementLog(newLog);
+      setManualSuccessMsg(`Logged ${manualAction} for ${manualName} (${manualUniId})`);
+      setManualName('');
+      setManualUniId('');
+    } catch (error) {
+      console.error('Manual gate movement failed:', error);
+      setManualErrorMsg(
+        'The entry could not be written to the gate ledger. Please retry, or log it manually in the ledger.',
+      );
+    } finally {
+      setIsSaving(false);
+    }
   };
 
-  const columns = [
+  const columns: Column<C3SMovementLog>[] = [
     {
       header: 'Person / Student',
-      accessorKey: 'personName' as const,
-      cell: (r: C3SMovementLog) => (
+      accessorKey: 'personName',
+      cell: (row) => (
         <div>
-          <strong className="text-slate-900 dark:text-white block">{r.personName}</strong>
-          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">{r.department || 'Student'}</span>
+          <strong className="block text-slate-900 dark:text-white">{row.personName}</strong>
+          <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400">
+            {row.department || 'Student'}
+          </span>
         </div>
-      )
+      ),
     },
     {
       header: 'University ID',
-      accessorKey: 'universityId' as const,
-      cell: (r: C3SMovementLog) => (
+      accessorKey: 'universityId',
+      cell: (row) => (
         <span className="font-mono text-xs font-bold text-slate-700 dark:text-slate-300">
-          {r.universityId}
+          {row.universityId}
         </span>
-      )
+      ),
     },
     {
       header: 'Movement',
-      accessorKey: 'movement' as const,
-      cell: (r: C3SMovementLog) => <StatusBadge status={r.movement} />
+      accessorKey: 'movement',
+      cell: (row) => (
+        <StatusBadge
+          status={row.movement}
+          tone={row.movement === 'CHECK-IN' ? 'success' : 'info'}
+          size="sm"
+        />
+      ),
     },
     {
       header: 'Time',
-      accessorKey: 'time' as const,
-      cell: (r: C3SMovementLog) => (
-        <span className="font-mono text-xs text-blue-600 dark:text-blue-400 font-bold">{r.time}</span>
-      )
+      accessorKey: 'time',
+      cell: (row) => (
+        <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">{row.time}</span>
+      ),
     },
     {
       header: 'Gate',
-      accessorKey: 'gate' as const,
-      cell: (r: C3SMovementLog) => (
-        <span className="text-xs text-slate-600 dark:text-slate-400 font-medium">{r.gate}</span>
-      )
+      accessorKey: 'gate',
+      cell: (row) => (
+        <span className="font-medium text-slate-600 dark:text-slate-400">{row.gate}</span>
+      ),
     },
     {
-      header: 'Status',
-      accessorKey: 'status' as const,
-      cell: (r: C3SMovementLog) => <StatusBadge status={r.status || 'VERIFIED'} />
-    }
+      header: 'Verification',
+      accessorKey: 'status',
+      cell: (row) => (
+        <StatusBadge
+          status={row.status || 'VERIFIED'}
+          tone={row.verificationMethod === 'MANUAL_OVERRIDE' ? 'warning' : 'success'}
+          size="sm"
+        />
+      ),
+    },
   ];
 
   return (
     <AppShell>
-      <div className="space-y-6">
-        {/* Terminal Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-white/[0.08] pb-5">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </span>
-              <span className="text-xs font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-mono">
-                GATE TERMINAL ACTIVE • {currentGate.id}
-              </span>
-              <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border ${
-                barrierState === 'OPEN'
-                  ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/30'
-                  : 'bg-rose-50 text-rose-700 dark:bg-rose-500/20 dark:text-rose-400 border-rose-200 dark:border-rose-500/30'
-              }`}>
-                BARRIER: {barrierState}
-              </span>
-            </div>
-            <h1 className="mt-1 text-2xl sm:text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
-              {currentGate.name}
-            </h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Assigned Gate Keeper: <strong className="text-slate-800 dark:text-slate-200">{currentGate.currentGateKeeper}</strong> ({currentGate.keeperId})
-            </p>
-          </div>
+      <div className="space-y-5 sm:space-y-6">
+        <PageHeader
+          eyebrow={`Gate terminal active · ${currentGate.id}`}
+          statusTone={barrierState === 'OPEN' ? 'success' : 'danger'}
+          title={currentGate.name}
+          subtitle={`Assigned gate keeper: ${currentGate.currentGateKeeper} (${currentGate.keeperId})`}
+          breadcrumbs={[
+            { label: 'C3S', to: '/gate-keeper' },
+            { label: 'Gate Terminal' },
+          ]}
+          meta={
+            <StatusBadge
+              status={`Barrier ${barrierState}`}
+              tone={barrierState === 'OPEN' ? 'success' : 'danger'}
+              size="md"
+            />
+          }
+          actions={
+            <>
+              {/* Direct Gate Switcher */}
+              <div className="relative">
+                <label htmlFor="gate-switcher" className="sr-only">
+                  Select gate terminal
+                </label>
+                <select
+                  id="gate-switcher"
+                  value={currentGate.id}
+                  onChange={(event) => setSelectedGateId(event.target.value)}
+                  className="cursor-pointer appearance-none rounded-xl border border-slate-300 bg-white py-2.5 pl-3.5 pr-8 text-xs font-bold text-slate-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-200"
+                >
+                  {gates.map((gate) => (
+                    <option key={gate.id} value={gate.id}>
+                      {gate.name}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown
+                  className="pointer-events-none absolute right-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400"
+                  aria-hidden="true"
+                />
+              </div>
 
-          <div className="flex flex-wrap items-center gap-2">
-            {/* Direct Gate Switcher Dropdown */}
-            <div className="relative">
-              <select
-                value={currentGate.id}
-                onChange={(e) => setSelectedGateId(e.target.value)}
-                className="cursor-pointer appearance-none rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 pr-8 text-xs font-bold text-slate-700 dark:text-slate-200 shadow-sm focus:border-blue-500 focus:outline-none"
+              <button
+                type="button"
+                onClick={() => {
+                  setManualErrorMsg(null);
+                  setManualSuccessMsg(null);
+                  setManualModalOpen(true);
+                }}
+                className="inline-flex cursor-pointer items-center gap-1.5 rounded-xl border border-blue-500/30 bg-blue-50 px-3.5 py-2.5 text-xs font-bold text-blue-700 shadow-sm transition hover:bg-blue-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/70 dark:bg-blue-500/15 dark:text-blue-300 dark:hover:bg-blue-500/25"
               >
-                {gates.map((g) => (
-                  <option key={g.id} value={g.id}>
-                    Switch Gate: {g.name}
-                  </option>
-                ))}
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-slate-400 text-xs">▼</div>
-            </div>
+                <UserCheck className="h-4 w-4" aria-hidden="true" />
+                <span>Manual check-in</span>
+              </button>
 
-            {/* Quick Action: Manual Student Entry */}
-            <button
-              onClick={() => setManualModalOpen(true)}
-              className="flex items-center gap-1.5 rounded-xl border border-blue-500/30 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 px-3.5 py-2.5 text-xs font-bold transition shadow-xs cursor-pointer"
-            >
-              <UserCheck className="h-4 w-4" />
-              <span>Manual Check-in</span>
-            </button>
+              <button
+                type="button"
+                onClick={() => toggleBarrierState(currentGate.id)}
+                className={`inline-flex cursor-pointer items-center gap-1.5 rounded-xl border px-3.5 py-2.5 text-xs font-bold shadow-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/70 ${
+                  barrierState === 'OPEN'
+                    ? 'border-amber-500/40 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-500/15 dark:text-amber-300'
+                    : 'border-emerald-500/40 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-500/15 dark:text-emerald-300'
+                }`}
+              >
+                {barrierState === 'OPEN' ? (
+                  <Lock className="h-4 w-4" aria-hidden="true" />
+                ) : (
+                  <Unlock className="h-4 w-4" aria-hidden="true" />
+                )}
+                <span>{barrierState === 'OPEN' ? 'Lock barrier' : 'Release barrier'}</span>
+              </button>
 
-            {/* Toggle Barrier */}
-            <button
-              onClick={() => setBarrierState(barrierState === 'OPEN' ? 'LOCKED' : 'OPEN')}
-              className={`flex items-center gap-1.5 rounded-xl px-3.5 py-2.5 text-xs font-bold transition shadow-xs cursor-pointer border ${
-                barrierState === 'OPEN'
-                  ? 'border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300 hover:bg-amber-100'
-                  : 'border-emerald-500/40 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100'
-              }`}
-            >
-              {barrierState === 'OPEN' ? <Lock className="h-4 w-4" /> : <Unlock className="h-4 w-4" />}
-              <span>{barrierState === 'OPEN' ? 'Lock Barrier' : 'Release Barrier'}</span>
-            </button>
+              <button
+                type="button"
+                onClick={() => navigate('/gate-keeper/qr')}
+                className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-md shadow-blue-600/25 transition hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/70"
+              >
+                <QrCode className="h-4 w-4" aria-hidden="true" />
+                <span>Fullscreen QR</span>
+              </button>
+            </>
+          }
+        />
 
-            {/* Fullscreen QR */}
-            <button
-              onClick={() => navigate('/gate-keeper/qr')}
-              className="flex items-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 px-4 py-2.5 text-xs font-bold text-white shadow-md shadow-blue-600/25 transition-all cursor-pointer"
-            >
-              <QrCode className="h-4 w-4" />
-              <span>Fullscreen QR</span>
-            </button>
-          </div>
-        </div>
-
-        {/* 4 Stat Cards */}
+        {/* Gate metrics */}
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           <StatCard
             title="Today's Check-In"
@@ -226,8 +289,6 @@ export default function GateKeeperDashboard() {
             subtitle="Verified campus entries"
             icon={DoorOpen}
             variant="success"
-            trend="14%"
-            trendPositive={true}
           />
           <StatCard
             title="Today's Check-Out"
@@ -239,140 +300,197 @@ export default function GateKeeperDashboard() {
           <StatCard
             title="Currently Inside"
             value={currentGate.currentlyInside}
-            subtitle={`Campus population via ${currentGate.code || currentGate.name}`}
+            subtitle={`Live count via ${currentGate.code || currentGate.name}`}
             icon={Users}
-            variant="default"
+            variant="neutral"
           />
           <StatCard
             title="Active Gate Alerts"
             value={currentGate.activeAlerts}
             subtitle="Security perimeter notifications"
-            icon={Activity}
-            variant={currentGate.activeAlerts > 0 ? 'critical' : 'default'}
+            icon={AlertTriangle}
+            variant={currentGate.activeAlerts > 0 ? 'danger' : 'neutral'}
           />
         </div>
 
-        {/* Gate QR + Live Activity Split */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-          <div className="col-span-1">
+        {/* Gate QR + live activity */}
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+          <div className="lg:col-span-1">
             <GateQRDisplay />
           </div>
 
-          <div className="col-span-1 lg:col-span-2 space-y-3">
+          <div className="space-y-3 lg:col-span-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-emerald-500" />
-                <h2 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                  Live Gate Activity Stream
+                <ShieldCheck className="h-4 w-4 text-emerald-500" aria-hidden="true" />
+                <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 sm:text-sm dark:text-white">
+                  Live gate activity stream
                 </h2>
               </div>
               <button
+                type="button"
                 onClick={() => navigate('/gate-keeper/activity')}
-                className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 font-bold cursor-pointer"
+                className="inline-flex cursor-pointer items-center gap-1 text-xs font-bold text-blue-600 hover:underline dark:text-blue-400"
               >
-                <span>Full Ledger</span>
-                <ArrowRight className="h-3.5 w-3.5" />
+                <span>Full ledger</span>
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
               </button>
             </div>
-            <DataTable columns={columns} data={movementLogs.slice(0, 7)} />
+            <DataTable
+              columns={columns}
+              data={movementLogs}
+              caption="Live gate activity stream"
+              emptyMessage="No gate movements recorded"
+              emptyDescription="Scanned QR passes and manual overrides will appear here as they happen."
+              pageSize={7}
+              rowKey={(row) => row.id}
+            />
           </div>
         </div>
 
-        {/* Manual Check-in Modal */}
+        {/* Manual check-in modal */}
         {manualModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-            <div className="w-full max-w-md rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0b101e] p-6 shadow-2xl">
-              <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
-                <h3 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-tight flex items-center gap-2">
-                  <UserCheck className="h-5 w-5 text-blue-600" />
-                  <span>Manual Gate Verification</span>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+            <button
+              type="button"
+              aria-label="Close manual verification dialog"
+              className="absolute inset-0 cursor-default"
+              onClick={() => setManualModalOpen(false)}
+            />
+            <div
+              ref={modalRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="manual-gate-title"
+              className="relative w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl dark:border-white/[0.1] dark:bg-[#111A2E]"
+            >
+              <div className="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-white/[0.08]">
+                <h3
+                  id="manual-gate-title"
+                  className="flex items-center gap-2 text-lg font-black uppercase tracking-tight text-slate-900 dark:text-white"
+                >
+                  <UserCheck className="h-5 w-5 text-blue-600" aria-hidden="true" />
+                  <span>Manual gate verification</span>
                 </h3>
                 <button
+                  type="button"
                   onClick={() => setManualModalOpen(false)}
-                  className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm"
+                  className="rounded-lg p-1.5 text-slate-400 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/70 dark:hover:bg-white/[0.06]"
+                  aria-label="Close"
                 >
-                  ✕
+                  <X className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
 
               {manualSuccessMsg ? (
-                <div className="mt-4 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-700 text-emerald-800 dark:text-emerald-300 flex items-center gap-2 text-xs font-bold">
-                  <CheckCircle2 className="h-5 w-5 shrink-0" />
-                  <span>{manualSuccessMsg}</span>
+                <div className="mt-4 flex items-start gap-2 rounded-xl border border-emerald-300 bg-emerald-50 p-4 text-xs font-bold text-emerald-800 dark:border-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300">
+                  <CheckCircle2 className="h-5 w-5 shrink-0" aria-hidden="true" />
+                  <span className="flex-1">{manualSuccessMsg}</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setManualSuccessMsg(null);
+                      setManualModalOpen(false);
+                    }}
+                    className="shrink-0 underline"
+                  >
+                    Done
+                  </button>
                 </div>
               ) : (
                 <form onSubmit={handleManualSubmit} className="mt-4 space-y-4">
+                  {manualErrorMsg && (
+                    <div
+                      role="alert"
+                      className="flex items-start gap-2 rounded-xl border border-rose-300 bg-rose-50 p-3 text-xs font-semibold text-rose-700 dark:border-rose-700 dark:bg-rose-950/40 dark:text-rose-300"
+                    >
+                      <AlertTriangle className="h-4 w-4 shrink-0" aria-hidden="true" />
+                      <span>{manualErrorMsg}</span>
+                    </div>
+                  )}
+
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
-                      Student / Staff Name
+                    <label
+                      htmlFor="manual-name"
+                      className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
+                    >
+                      Student / staff name
                     </label>
                     <input
+                      id="manual-name"
                       type="text"
                       required
                       value={manualName}
-                      onChange={(e) => setManualName(e.target.value)}
+                      onChange={(event) => setManualName(event.target.value)}
                       placeholder="e.g. Rahul Sharma"
-                      className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:border-blue-500 focus:outline-none"
+                      className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:border-white/10 dark:bg-white/[0.04] dark:text-white"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
-                      University ID / Roll Number
+                    <label
+                      htmlFor="manual-id"
+                      className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
+                    >
+                      University ID / roll number
                     </label>
                     <input
+                      id="manual-id"
                       type="text"
                       required
                       value={manualUniId}
-                      onChange={(e) => setManualUniId(e.target.value)}
+                      onChange={(event) => setManualUniId(event.target.value)}
                       placeholder="e.g. 0901CS221045"
-                      className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:border-blue-500 focus:outline-none"
+                      className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:border-white/10 dark:bg-white/[0.04] dark:text-white"
                     />
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
-                      Movement Direction
-                    </label>
+                  <fieldset>
+                    <legend className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      Movement direction
+                    </legend>
                     <div className="grid grid-cols-2 gap-2">
                       <button
                         type="button"
                         onClick={() => setManualAction('CHECK-IN')}
-                        className={`py-2 rounded-xl text-xs font-bold border transition ${
+                        aria-pressed={manualAction === 'CHECK-IN'}
+                        className={`rounded-xl border py-2 text-xs font-bold transition ${
                           manualAction === 'CHECK-IN'
-                            ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
-                            : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-transparent'
+                            ? 'border-emerald-600 bg-emerald-600 text-white shadow-sm'
+                            : 'border-transparent bg-slate-100 text-slate-700 dark:bg-white/[0.06] dark:text-slate-300'
                         }`}
                       >
-                        CHECK-IN (Entry)
+                        Check-in (entry)
                       </button>
                       <button
                         type="button"
                         onClick={() => setManualAction('CHECK-OUT')}
-                        className={`py-2 rounded-xl text-xs font-bold border transition ${
+                        aria-pressed={manualAction === 'CHECK-OUT'}
+                        className={`rounded-xl border py-2 text-xs font-bold transition ${
                           manualAction === 'CHECK-OUT'
-                            ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
-                            : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-transparent'
+                            ? 'border-blue-600 bg-blue-600 text-white shadow-sm'
+                            : 'border-transparent bg-slate-100 text-slate-700 dark:bg-white/[0.06] dark:text-slate-300'
                         }`}
                       >
-                        CHECK-OUT (Exit)
+                        Check-out (exit)
                       </button>
                     </div>
-                  </div>
+                  </fieldset>
 
-                  <div className="pt-2 flex items-center justify-end gap-2">
+                  <div className="flex items-center justify-end gap-2 pt-2">
                     <button
                       type="button"
                       onClick={() => setManualModalOpen(false)}
-                      className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                      className="rounded-xl px-4 py-2 text-xs font-bold text-slate-600 transition hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-white/[0.06]"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/30 cursor-pointer"
+                      disabled={isSaving}
+                      className="cursor-pointer rounded-xl bg-blue-600 px-5 py-2 text-xs font-bold text-white shadow-md shadow-blue-600/30 transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      Confirm Log
+                      {isSaving ? 'Saving…' : 'Confirm log'}
                     </button>
                   </div>
                 </form>

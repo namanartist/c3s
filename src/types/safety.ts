@@ -1,7 +1,7 @@
 // src/types/safety.ts
 
 export type DashboardMode = 'nav' | 'soc' | 'analytics' | 'patrol' | 'gate';
-export type UserRole = 'student' | 'faculty' | 'guard' | 'proctor' | 'admin' | 'gate_keeper' | 'other';
+export type UserRole = 'student' | 'guard' | 'proctor' | 'admin' | 'gate_keeper' | 'other';
 
 export interface IncidentEvidence {
   recordingUrl?: string;

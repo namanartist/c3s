@@ -342,9 +342,9 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
           </div>
 
           {/* Compass & Simulation Control Banner */}
-          <div className="flex items-center justify-between p-3.5 bg-gradient-to-r from-emerald-500/10 via-teal-500/5 to-transparent border border-emerald-500/20 rounded-2xl shadow-xs">
+          <div className="flex items-center justify-between p-3.5 bg-gradient-to-r from-emerald-500/10 via-teal-500/5 to-transparent border border-emerald-500/20 rounded-2xl shadow-sm">
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-9 h-9 rounded-xl bg-white dark:bg-slate-900 border border-emerald-500/30 flex items-center justify-center shrink-0 shadow-xs">
+              <div className="w-9 h-9 rounded-xl bg-white dark:bg-slate-900 border border-emerald-500/30 flex items-center justify-center shrink-0 shadow-sm">
                 <Compass
                   className="w-5 h-5 text-emerald-600 dark:text-emerald-400 transition-transform duration-300 ease-out"
                   style={{ transform: `rotate(${compassHeading}deg)` }}
@@ -363,7 +363,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
             <button
               type="button"
               onClick={() => setIsSimulating(!isSimulating)}
-              className="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 font-bold text-[11px] flex items-center gap-1.5 shadow-xs hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer"
+              className="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 font-bold text-[11px] flex items-center gap-1.5 shadow-sm hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer"
             >
               {isSimulating ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 fill-current" />}
               <span>{isSimulating ? 'Pause' : 'Simulate'}</span>
@@ -437,7 +437,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
                   type="button"
                   disabled={activeStepIndex === 0}
                   onClick={() => setActiveStepIndex((p) => Math.max(0, p - 1))}
-                  className="h-9 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 font-bold text-xs disabled:opacity-40 hover:bg-slate-100 active:scale-95 transition-all cursor-pointer shadow-xs"
+                  className="h-9 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 font-bold text-xs disabled:opacity-40 hover:bg-slate-100 active:scale-95 transition-all cursor-pointer shadow-sm"
                 >
                   Previous Segment
                 </button>
@@ -454,7 +454,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
               <div className="space-y-2.5 max-h-[180px] overflow-y-auto pr-1 custom-scrollbar">
                 {navigationDirections.map((step, index) => (
                   <div key={index} className="flex items-start gap-2.5 p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-white/5">
-                    <div className="w-7 h-7 rounded-lg bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 shadow-xs">
+                    <div className="w-7 h-7 rounded-lg bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 shadow-sm">
                       {renderDirectionIcon(step.direction)}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -590,7 +590,7 @@ export const RoutePanel = memo(function RoutePanel({ }: RoutePanelProps) {
                   key={loc.id}
                   type="button"
                   onClick={() => handleDestinationSelect(loc)}
-                  className="bg-white dark:bg-slate-900/80 hover:bg-blue-50/40 dark:hover:bg-blue-950/20 border border-slate-200/80 dark:border-white/5 hover:border-blue-400 dark:hover:border-blue-500/40 rounded-2xl p-3.5 shadow-xs flex items-center gap-3.5 transition-all text-left active:scale-[0.99] group cursor-pointer"
+                  className="bg-white dark:bg-slate-900/80 hover:bg-blue-50/40 dark:hover:bg-blue-950/20 border border-slate-200/80 dark:border-white/5 hover:border-blue-400 dark:hover:border-blue-500/40 rounded-2xl p-3.5 shadow-sm flex items-center gap-3.5 transition-all text-left active:scale-[0.99] group cursor-pointer"
                 >
                   <div className={`w-10 h-10 rounded-2xl ${loc.color} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform`}>
                     <Icon className="w-5 h-5" />

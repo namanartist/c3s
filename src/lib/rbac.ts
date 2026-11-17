@@ -153,7 +153,6 @@ export const ROLE_DEFINITIONS: Record<C3SRole, RoleDefinition> = {
   SECURITY_GUARD: GUARD_DEF,
   PROCTOR: PROCTOR_DEF,
   CONTROL_ROOM_OPERATOR: PROCTOR_DEF,
-  FACULTY: PROCTOR_DEF,
   CLASS_COORDINATOR: PROCTOR_DEF,
   HOD: PROCTOR_DEF,
   GATEKEEPER: GATEKEEPER_DEF,
@@ -170,7 +169,7 @@ export function normalizeRole(role: C3SRole): C3SRole {
   if (role === 'SECURITY_GUARD' || role === 'GUARD') return 'GUARD';
   if (role === 'GATE_KEEPER' || role === 'GATEKEEPER') return 'GATEKEEPER';
   if (role === 'SUPER_ADMIN' || role === 'DEAN' || role === 'ADMIN') return 'ADMIN';
-  if (role === 'CONTROL_ROOM_OPERATOR' || role === 'FACULTY' || role === 'CLASS_COORDINATOR' || role === 'HOD' || role === 'PROCTOR') return 'PROCTOR';
+  if (role === 'CONTROL_ROOM_OPERATOR' || role === 'CLASS_COORDINATOR' || role === 'HOD' || role === 'PROCTOR') return 'PROCTOR';
   return role;
 }
 

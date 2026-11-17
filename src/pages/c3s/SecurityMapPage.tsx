@@ -1,16 +1,14 @@
 import React from 'react';
 import { AppShell } from '@/components/c3s/AppShell';
+import { PageHeader } from '@/components/c3s/PageHeader';
 import { CampusMap } from '@/components/c3s/CampusMap';
 
 export default function SecurityMapPage() {
   return (
     <AppShell>
       <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-black text-slate-100 uppercase">GUARD PATROL & DISPATCH MAP</h1>
-          <p className="text-xs text-slate-400">Tactical geo-grid overlay with patrol coordinates, zones, and active beacons.</p>
-        </div>
-        <CampusMap height="h-[620px]" highlightLocation="Academic Block A" />
+        <PageHeader eyebrow="Dispatch Map" statusTone="primary" title="GUARD PATROL & DISPATCH MAP" subtitle="Tactical geo-grid overlay with patrol coordinates, zones, and active beacons." />
+        <CampusMap height="h-[62vh] min-h-[420px]" highlightLocation="Academic Block A" />
       </div>
     </AppShell>
   );

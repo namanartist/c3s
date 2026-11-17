@@ -1,9 +1,15 @@
 // src/pages/Developers/DevelopersPage.tsx
+/**
+ * Developer & Leadership — the people behind C3S.
+ * Premium command-center layout matching the rest of the platform:
+ * floating glass command bar, ambient blueprint grid, motion-driven
+ * sections, and a two-pane hero. Content is factual (MITS Gwalior).
+ */
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   ArrowLeft,
-  Sparkles,
+  ArrowRight,
   ExternalLink,
   Code2,
   GraduationCap,
@@ -19,27 +25,41 @@ import {
   Layers,
   Terminal,
   Zap,
-  ChevronRight,
-  Compass,
   Eye,
-  Activity
+  Activity,
+  Compass,
+  GitBranch,
 } from 'lucide-react';
+import { motion } from 'motion/react';
 import DrDKD from '@/assets/DrDheerajDixit.jpg';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 
 // Icons for social channels
 const GitHubIcon = ({ size = 18, className = '' }: { size?: number; className?: string }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
   </svg>
 );
 
 const LinkedInIcon = ({ size = 18, className = '' }: { size?: number; className?: string }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
     <rect width="4" height="12" x="2" y="9" />
     <circle cx="4" cy="4" r="2" />
   </svg>
+);
+
+const fadeUp = {
+  initial: { opacity: 0, y: 26 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
+};
+
+const sectionEyebrow = (icon: React.ReactNode, label: string, tone: string) => (
+  <div className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.22em] ${tone}`}>
+    {icon}
+    <span>{label}</span>
+  </div>
 );
 
 export default function DevelopersPage() {
@@ -49,34 +69,41 @@ export default function DevelopersPage() {
   const [activeTab, setActiveTab] = useState<'all' | 'frontend' | 'backend' | 'ai' | 'systems'>('all');
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText('namanlahariya@gmail.com');
+    navigator.clipboard?.writeText('namanlahariya@gmail.com');
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2000);
   };
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
+    navigator.clipboard?.writeText(window.location.href);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2000);
   };
 
+  const impactStats = [
+    { value: '93.8%', label: 'Fight AI precision', tone: 'text-emerald-500 dark:text-emerald-400' },
+    { value: '<3s', label: 'SOS → dispatch', tone: 'text-cyan-500 dark:text-cyan-400' },
+    { value: '12', label: 'CCTV streams live', tone: 'text-indigo-500 dark:text-indigo-400' },
+    { value: '1', label: 'Unified defence grid', tone: 'text-rose-500 dark:text-rose-400' },
+  ];
+
   const careerHighlights = [
     {
       title: 'C3S Flagship System Architecture',
-      desc: 'Conceived and engineered the Campus Surveillance & Safety System featuring 12-camera optical fight AI, non-blocking Dijkstra indoor pathfinding, and instant 1-tap SOS responder dispatch.'
+      desc: 'Conceived and engineered the Campus Surveillance & Safety System featuring 12-camera optical fight AI, non-blocking Dijkstra indoor pathfinding, and instant 1-tap SOS responder dispatch.',
     },
     {
       title: 'Clix Hub Campus Platform',
-      desc: 'Built Clix Hub (Club Lifecycle & Experience Hub) for MITS Gwalior, digitalizing club governance, student event passes, and institutional Dean verification pipelines.'
+      desc: 'Built Clix Hub (Club Lifecycle & Experience Hub) for MITS Gwalior, digitalizing club governance, student event passes, and institutional Dean verification pipelines.',
     },
     {
       title: 'Frontend Battle Finalist @ MITS Gwalior',
-      desc: 'Showcased high-concurrency UI architecture, vector SVG indoor map rendering, and intuitive administrative command centers.'
+      desc: 'Showcased high-concurrency UI architecture, vector SVG indoor map rendering, and intuitive administrative command centers.',
     },
     {
       title: 'Full-Stack & Intelligent Systems Engineering',
-      desc: 'Deep specialization in React 19, TypeScript, Node.js, distributed MongoDB graph collections, and OpenCV spatio-temporal computer vision.'
-    }
+      desc: 'Deep specialization in React 19, TypeScript, Node.js, distributed MongoDB graph collections, and OpenCV spatio-temporal computer vision.',
+    },
   ];
 
   const socialLinks = [
@@ -84,676 +111,694 @@ export default function DevelopersPage() {
       name: 'GitHub',
       handle: '@namanartist',
       url: 'https://github.com/namanartist',
-      icon: <GitHubIcon size={20} className="text-slate-200" />,
-      color: 'from-slate-800 to-slate-900 border-white/10'
+      icon: <GitHubIcon size={17} className="text-slate-600 dark:text-slate-200" />,
     },
     {
       name: 'LinkedIn',
       handle: 'naman-lahariya',
       url: 'https://www.linkedin.com/in/naman-lahariya',
-      icon: <LinkedInIcon size={20} className="text-blue-400" />,
-      color: 'from-blue-900/40 to-blue-950/60 border-blue-500/20'
+      icon: <LinkedInIcon size={17} className="text-blue-600 dark:text-blue-400" />,
     },
     {
       name: 'Portfolio',
       handle: 'namanlahariya.vercel.app',
       url: 'https://namanlahariya.vercel.app',
-      icon: <Globe size={20} className="text-emerald-400" />,
-      color: 'from-emerald-900/40 to-emerald-950/60 border-emerald-500/20'
-    }
+      icon: <Globe size={17} className="text-emerald-600 dark:text-emerald-400" />,
+    },
   ];
 
   const skillMatrix = [
-    {
-      category: 'frontend',
-      name: 'React 19 & Next.js',
-      badge: 'Advanced',
-      desc: 'Server components, hooks, concurrent rendering & fast state pipelines'
-    },
-    {
-      category: 'frontend',
-      name: 'TypeScript',
-      badge: 'Type-Safe',
-      desc: 'Strict type modeling, zero-error graph & API contracts'
-    },
-    {
-      category: 'frontend',
-      name: 'Tailwind CSS & Motion',
-      badge: 'UI / UX',
-      desc: 'Hardware-accelerated animations, responsive glassmorphism & Bento grids'
-    },
-    {
-      category: 'backend',
-      name: 'Node.js & Express',
-      badge: 'Core Backend',
-      desc: 'Scalable REST APIs, asynchronous task workers & real-time sockets'
-    },
-    {
-      category: 'backend',
-      name: 'MongoDB Graph Storage',
-      badge: 'Database',
-      desc: 'Spatial node/edge collections, building indexes & geo-query aggregation'
-    },
-    {
-      category: 'ai',
-      name: 'Optical Flow Fight AI',
-      badge: 'Vision Model',
-      desc: 'Spatio-temporal frame differencing with Kaggle RWF-2000 93.8% confidence benchmark'
-    },
-    {
-      category: 'ai',
-      name: 'Real-time Person Detection',
-      badge: 'Surveillance',
-      desc: 'Crowd density estimation, bounding boxes & auto-dispatch triggers'
-    },
-    {
-      category: 'systems',
-      name: 'Async Dijkstra Algorithm',
-      badge: 'Routing Engine',
-      desc: 'Yielding pathfinder via requestAnimationFrame preventing UI freeze'
-    },
-    {
-      category: 'systems',
-      name: 'WGS84 & OSM Georeferencing',
-      badge: 'Spatial GIS',
-      desc: 'Coordinate affine transformation from GPS satellites to vector campus SVG'
-    }
+    { category: 'frontend' as const, name: 'React 19 & Next.js', badge: 'Advanced', desc: 'Server components, hooks, concurrent rendering & fast state pipelines' },
+    { category: 'frontend' as const, name: 'TypeScript', badge: 'Type-Safe', desc: 'Strict type modeling, zero-error graph & API contracts' },
+    { category: 'frontend' as const, name: 'Tailwind CSS & Motion', badge: 'UI / UX', desc: 'Hardware-accelerated animations, responsive glassmorphism & bento grids' },
+    { category: 'backend' as const, name: 'Node.js & Express', badge: 'Core Backend', desc: 'Scalable REST APIs, asynchronous task workers & real-time sockets' },
+    { category: 'backend' as const, name: 'MongoDB Graph Storage', badge: 'Database', desc: 'Spatial node/edge collections, building indexes & geo-query aggregation' },
+    { category: 'ai' as const, name: 'Optical Flow Fight AI', badge: 'Vision Model', desc: 'Spatio-temporal frame differencing with Kaggle RWF-2000 93.8% benchmark' },
+    { category: 'ai' as const, name: 'Real-time Person Detection', badge: 'Surveillance', desc: 'Crowd density estimation, bounding boxes & auto-dispatch triggers' },
+    { category: 'systems' as const, name: 'Async Dijkstra Algorithm', badge: 'Routing Engine', desc: 'Yielding pathfinder via requestAnimationFrame preventing UI freeze' },
+    { category: 'systems' as const, name: 'WGS84 & OSM Georeferencing', badge: 'Spatial GIS', desc: 'Coordinate affine transformation from GPS satellites to vector campus SVG' },
   ];
 
-  const filteredSkills = activeTab === 'all'
-    ? skillMatrix
-    : skillMatrix.filter((s) => s.category === activeTab);
+  const filteredSkills = activeTab === 'all' ? skillMatrix : skillMatrix.filter((s) => s.category === activeTab);
+  const skillCounts = {
+    all: skillMatrix.length,
+    frontend: skillMatrix.filter((s) => s.category === 'frontend').length,
+    backend: skillMatrix.filter((s) => s.category === 'backend').length,
+    ai: skillMatrix.filter((s) => s.category === 'ai').length,
+    systems: skillMatrix.filter((s) => s.category === 'systems').length,
+  };
 
   const signatureBuilds = [
     {
       title: 'C3S — Campus Surveillance & Safety System',
-      tagline: 'Autonomous Institutional Defense & Tactical Safe Path Navigation',
-      desc: 'Real-time 12-cam CCTV surveillance grid, Kaggle fight AI detection (93.8% accuracy), 1-tap multimodal emergency SOS, and turn-by-turn indoor routing.',
+      tagline: 'Autonomous institutional defence grid',
+      desc: 'Real-time 12-cam CCTV surveillance grid, calibrated fight AI detection, 1-tap multimodal emergency SOS, and visitor self check-in at the gate.',
       badge: 'Current Platform',
-      badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/30',
+      badgeClass: 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/30',
       stats: '12 Cameras • <90s QRF ETA',
       link: '/',
-      isInternal: true
+      isInternal: true,
+      cta: 'Open the live platform',
     },
     {
       title: 'Clix Hub — Club Lifecycle & Experience Hub',
-      tagline: 'MITS Gwalior Centralized Experience Platform',
-      desc: 'Comprehensive campus portal managing verified digital certificates, event ticketing, club leadership elections, and Dean approval pipelines.',
+      tagline: 'MITS Gwalior centralized experience platform',
+      desc: 'Campus portal managing verified digital certificates, event ticketing, club leadership elections, and Dean approval pipelines.',
       badge: 'Live on Vercel',
-      badgeColor: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
+      badgeClass: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
       stats: '10+ Clubs • Verified Passes',
       link: 'https://clixhub.vercel.app',
-      isInternal: false
+      isInternal: false,
+      cta: 'Visit live platform',
     },
     {
       title: 'MITS Vector Indoor Navigation Engine',
-      tagline: 'Non-Blocking Multi-Floor Shortest Path Pathfinder',
-      desc: 'Custom Dijkstra implementation operating on multi-floor SVG campus blueprints with GPS-to-SVG projection and wheelchair accessible routes.',
+      tagline: 'Non-blocking multi-floor shortest path',
+      desc: 'Custom Dijkstra operating on multi-floor SVG blueprints with GPS-to-SVG projection and wheelchair-accessible routing.',
       badge: 'Graph Engine',
-      badgeColor: 'bg-purple-500/10 text-purple-400 border-purple-500/30',
-      stats: 'Zero-Freeze UI • 4 Floormap Grids',
+      badgeClass: 'bg-violet-500/10 text-violet-600 dark:text-violet-400 border-violet-500/30',
+      stats: 'Zero-Freeze UI • 4 Floor Maps',
       link: '/map',
-      isInternal: true
-    }
+      isInternal: true,
+      cta: 'Open the map engine',
+    },
   ];
 
   const engineeringPillars = [
     {
       icon: Zap,
       title: 'Non-Blocking Pathfinding',
-      desc: 'Yields execution to the main thread via requestAnimationFrame so the map canvas never stutters during computation.'
+      desc: 'Yields execution to the main thread via requestAnimationFrame so the map canvas never stutters during computation.',
+      step: '01',
     },
     {
       icon: Eye,
       title: 'Spatio-Temporal Vision',
-      desc: 'Real-time optical flow difference analysis detects aggressive movements and flags fights above 90% confidence.'
+      desc: 'Real-time optical-flow difference analysis detects aggressive motion and flags fights above 90% confidence.',
+      step: '02',
     },
     {
       icon: ShieldCheck,
       title: 'Cryptographic QR Passes',
-      desc: 'Time-rotating digital access passes ensure zero manual gate logs and instant headcount tracking.'
+      desc: 'Time-rotating digital passes with zero manual gate logs and instant headcount tracking.',
+      step: '03',
     },
     {
       icon: Activity,
       title: 'Rapid Incident Dispatch',
-      desc: 'SOS alerts automatically capture camera snapshots, pinpoint coordinates, and route the nearest rover guard in under 90s.'
-    }
+      desc: 'SOS alerts capture camera snapshots, pinpoint coordinates, and route the nearest rover guard in under 90s.',
+      step: '04',
+    },
+  ];
+
+  const partners = [
+    {
+      initials: 'AJ',
+      name: 'Abhinav Jaiswal',
+      role: 'Project Partner',
+      dept: 'Technical Collaborator • MITS Gwalior',
+      quote: 'Active contributor to system integration, real-world protocol verification, and campus emergency dispatch response testing.',
+      focus: 'Integration & Testing',
+      accent: 'cyan' as const,
+    },
+    {
+      initials: 'AG',
+      name: 'Abhinav Gupta',
+      role: 'Project Partner',
+      dept: 'Technical Collaborator • MITS Gwalior',
+      quote: 'Collaborative developer dedicated to campus network verification, user flow refinement, and field data calibration.',
+      focus: 'Field Validation & UX',
+      accent: 'indigo' as const,
+    },
   ];
 
   return (
-    <div className="relative min-h-screen w-full bg-slate-50 dark:bg-[#050711] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-600 selection:text-white antialiased overflow-x-hidden transition-colors">
-      {/* Dynamic Ambient Background Glows */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[-12%] left-[-10%] w-[50vw] h-[50vw] rounded-full blur-[150px] opacity-25 bg-blue-600" />
-        <div className="absolute top-1/3 right-[-12%] w-[45vw] h-[45vw] rounded-full blur-[150px] opacity-20 bg-indigo-600" />
-        <div className="absolute bottom-[-10%] left-[15%] w-[40vw] h-[40vw] rounded-full blur-[160px] opacity-15 bg-emerald-500" />
+    <div className="relative min-h-screen w-full overflow-x-hidden bg-slate-50 font-sans text-slate-900 antialiased transition-colors selection:bg-sky-600 selection:text-white dark:bg-[#05070d] dark:text-slate-100">
+      {/* ── Ambient backdrop ─────────────────────────────────────────── */}
+      <div aria-hidden="true" className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="absolute -left-40 -top-40 h-[540px] w-[540px] rounded-full bg-sky-500/[0.10] blur-[150px] dark:bg-sky-600/20" />
+        <div className="absolute -right-40 top-1/4 h-[480px] w-[480px] rounded-full bg-indigo-500/[0.10] blur-[150px] dark:bg-indigo-600/20" />
+        <div className="absolute -bottom-40 left-1/4 h-[460px] w-[460px] rounded-full bg-emerald-500/[0.08] blur-[160px] dark:bg-emerald-600/15" />
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.035]"
           style={{
-            backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)',
-            backgroundSize: '32px 32px'
+            backgroundImage:
+              'linear-gradient(rgba(148,163,184,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.6) 1px, transparent 1px)',
+            backgroundSize: '56px 56px',
           }}
         />
       </div>
 
-      {/* Modern Top Floating Command Bar */}
-      <header className="sticky top-4 z-50 max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between p-2 sm:p-2.5 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-slate-950/75 backdrop-blur-2xl shadow-xl transition-colors">
+      {/* ── Floating command bar ─────────────────────────────────────── */}
+      <header className="sticky top-3 z-50 mx-auto max-w-6xl px-3 sm:top-4 sm:px-6">
+        <div className="flex items-center justify-between gap-2 rounded-2xl border border-slate-200/80 bg-white/85 p-1.5 shadow-lg shadow-slate-900/[0.04] backdrop-blur-2xl sm:p-2 dark:border-white/[0.08] dark:bg-[#070b16]/85 dark:shadow-black/40">
           <button
+            type="button"
             onClick={() => navigate(-1)}
-            className="flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-all text-xs font-semibold cursor-pointer group"
+            className="group flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 bg-slate-100 px-3 py-2 text-xs font-bold text-slate-600 transition-all hover:bg-slate-200 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-slate-300 dark:hover:bg-white/[0.08] dark:hover:text-white"
             aria-label="Go back"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" aria-hidden="true" />
             <span className="hidden sm:inline">Back</span>
           </button>
 
-          <div className="flex items-center gap-2 text-xs">
-            <div className="w-6 h-6 rounded-lg bg-white overflow-hidden p-0.5 shadow-sm">
-              <img src="/c3s_logo.png" alt="C3S Logo" className="w-full h-full object-contain" />
-            </div>
-            <span className="font-bold text-slate-900 dark:text-white tracking-wide">C3S</span>
-            <span className="text-slate-600">•</span>
-            <span className="text-slate-400 font-medium hidden sm:inline">Developer &amp; Leadership</span>
+          <div className="flex min-w-0 items-center gap-2">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-white p-1 shadow-sm dark:border-white/10">
+              <img src="/c3s_logo.png" alt="C3S Logo" className="h-full w-full object-contain" />
+            </span>
+            <span className="font-mono text-[10px] font-black uppercase tracking-[0.24em] text-slate-800 dark:text-white">C3S</span>
+            <span className="text-slate-300 dark:text-slate-600">/</span>
+            <span className="hidden truncate font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 sm:inline dark:text-slate-400">People &amp; Craft</span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <ThemeToggle />
             <button
+              type="button"
               onClick={handleCopyLink}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-white/10 bg-white/[0.04] text-slate-300 hover:text-white hover:bg-white/10 text-xs font-semibold transition cursor-pointer"
-              title="Share Developer Profile"
+              className="flex cursor-pointer items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-100 px-2.5 py-2 text-[11px] font-bold text-slate-600 transition hover:bg-slate-200 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-slate-300 dark:hover:bg-white/[0.08] dark:hover:text-white"
+              title="Copy link to this page"
+              aria-label="Copy link to this page"
             >
-              {copiedLink ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="text-emerald-400 font-bold">Copied!</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-3.5 h-3.5 text-slate-400" />
-                  <span className="hidden sm:inline">Share</span>
-                </>
-              )}
+              {copiedLink ? <Check className="h-3.5 w-3.5 text-emerald-500" aria-hidden="true" /> : <Copy className="h-3.5 w-3.5" aria-hidden="true" />}
+              <span className="hidden md:inline">{copiedLink ? 'Copied' : 'Share'}</span>
             </button>
-
             <Link
               to="/map"
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-black shadow-lg shadow-blue-600/30 transition-all"
+              className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 px-3 py-2 text-[11px] font-black text-white shadow-lg shadow-sky-600/25 transition hover:from-sky-500 hover:to-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
             >
-              <Compass className="w-3.5 h-3.5" />
-              <span>Campus Map</span>
+              <Compass className="h-3.5 w-3.5" aria-hidden="true" />
+              <span className="hidden sm:inline">Campus Grid</span>
             </Link>
           </div>
         </div>
       </header>
 
-      {/* Main Container */}
-      <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-24 space-y-14 sm:space-y-20">
-        
-        {/* Section 1: Hero Bento Section (Naman Lahariya Profile) */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* Left Column: Biography & Vision (Col 7) */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-black uppercase tracking-[0.2em]">
-              <Sparkles className="w-3.5 h-3.5 animate-pulse text-blue-400" />
-              <span>Lead Architect &amp; Campus Creator</span>
-            </div>
+      <main className="relative z-10 mx-auto max-w-6xl space-y-14 px-4 pb-20 pt-8 sm:space-y-16 sm:px-6 sm:pt-12 lg:space-y-20">
+        {/* ═══ HERO ═══════════════════════════════════════════════════════ */}
+        <section aria-label="Developer profile" className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12 lg:gap-10">
+          {/* Left — bio */}
+          <div className="space-y-6 lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45 }}
+              className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-500/10 px-4 py-1.5"
+            >
+              <span className="relative flex h-2 w-2" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-sky-500" />
+              </span>
+              <span className="font-mono text-[10px] font-black uppercase tracking-[0.22em] text-sky-700 dark:text-sky-300">
+                Lead Architect &amp; Campus Creator
+              </span>
+            </motion.div>
 
             <div>
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.08]">
-                Naman Lahariya
-              </h1>
-              <p className="mt-2 text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent">
+              <motion.h1
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.06 }}
+                className="text-4xl font-black leading-[1.02] tracking-tight text-slate-900 sm:text-6xl dark:text-white"
+              >
+                Naman<br />Lahariya
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.14 }}
+                className="mt-3 bg-gradient-to-r from-sky-500 via-cyan-400 to-indigo-500 bg-clip-text text-base font-extrabold text-transparent sm:text-2xl"
+              >
                 Full Stack Developer &amp; Intelligent Systems Architect
-              </p>
+              </motion.p>
             </div>
 
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-              Passionate engineer building high-concurrency institutional web architectures, non-blocking graph navigation engines, and optical edge AI systems. Creator of the C3S Campus Surveillance &amp; Safety Network and Clix Hub at Madhav Institute of Technology &amp; Science (MITS) Gwalior.
-            </p>
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.2 }}
+              className="max-w-xl text-sm leading-relaxed text-slate-600 sm:text-[15px] dark:text-slate-300"
+            >
+              Engineer building high-concurrency institutional web architectures, non-blocking graph
+              navigation engines and optical edge AI. Creator of the{' '}
+              <span className="font-bold text-slate-900 dark:text-white">C3S Campus Surveillance &amp; Safety Network</span>{' '}
+              and <span className="font-bold text-slate-900 dark:text-white">Clix Hub</span> at Madhav Institute
+              of Technology and Science (MITS) Gwalior.
+            </motion.p>
 
-            {/* Quick Bio Badges */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-1">
-              <div className="rounded-2xl p-3.5 bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none">
-                <span className="text-[10px] font-black uppercase tracking-wider text-blue-400 block mb-0.5">Role</span>
-                <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Full Stack Architect</span>
-              </div>
-              <div className="rounded-2xl p-3.5 bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none">
-                <span className="text-[10px] font-black uppercase tracking-wider text-blue-400 block mb-0.5">College</span>
-                <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">MITS Gwalior</span>
-              </div>
-              <div className="rounded-2xl p-3.5 bg-white/[0.03] border border-white/10 col-span-2 sm:col-span-1">
-                <span className="text-[10px] font-black uppercase tracking-wider text-blue-400 block mb-0.5">Location</span>
-                <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Gwalior, MP, India</span>
-              </div>
-            </div>
+            {/* Quick facts */}
+            <motion.dl
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.26 }}
+              className="grid grid-cols-3 gap-2 border-y border-slate-200 py-4 dark:border-white/[0.08]"
+            >
+              {[
+                { k: 'Role', v: 'Full Stack Architect' },
+                { k: 'College', v: 'MITS Gwalior' },
+                { k: 'Based in', v: 'Gwalior, India' },
+              ].map(({ k, v }) => (
+                <div key={k}>
+                  <dt className="font-mono text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">{k}</dt>
+                  <dd className="mt-1 text-[11px] font-bold text-slate-800 sm:text-xs dark:text-slate-100">{v}</dd>
+                </div>
+              ))}
+            </motion.dl>
 
-            {/* Direct Connect Buttons */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.32 }}
+              className="flex flex-wrap items-center gap-2.5"
+            >
               <button
+                type="button"
                 onClick={handleCopyEmail}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-black shadow-lg shadow-blue-600/30 transition-all cursor-pointer"
+                className="flex cursor-pointer items-center gap-2 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 px-5 py-3 text-xs font-black text-white shadow-lg shadow-sky-600/30 transition hover:from-sky-500 hover:to-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
               >
                 {copiedEmail ? (
                   <>
-                    <Check className="w-4 h-4 text-emerald-300" />
-                    <span>Email Copied!</span>
+                    <Check className="h-4 w-4 text-emerald-300" aria-hidden="true" />
+                    <span>Email copied!</span>
                   </>
                 ) : (
                   <>
-                    <Mail className="w-4 h-4" />
-                    <span>Get in Touch</span>
+                    <Mail className="h-4 w-4" aria-hidden="true" />
+                    <span>Get in touch</span>
                   </>
                 )}
               </button>
-
               {socialLinks.map((item) => (
                 <a
                   key={item.name}
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/10 bg-white/[0.04] hover:bg-white/10 text-white text-xs font-bold transition-all group"
+                  className="group flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs font-bold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-slate-200 dark:hover:bg-white/[0.08]"
                 >
                   {item.icon}
                   <span>{item.name}</span>
-                  <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-blue-400 transition-colors" />
+                  <ExternalLink className="h-3 w-3 text-slate-400 transition-colors group-hover:text-sky-500" aria-hidden="true" />
                 </a>
               ))}
-            </div>
+            </motion.div>
           </div>
 
-          {/* Right Column: Hero Visual Card (Col 5) */}
-          <div className="lg:col-span-5">
-            <div className="relative rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-gradient-to-b dark:from-white/[0.04] dark:to-white/[0.01] p-5 sm:p-6 shadow-xl dark:shadow-2xl backdrop-blur-2xl overflow-hidden group transition-colors">
-              <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+          {/* Right — portrait card */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94, y: 24 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.18, ease: 'easeOut' }}
+            className="lg:col-span-5"
+          >
+            <div className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-2xl shadow-slate-900/[0.06] dark:border-white/[0.08] dark:bg-gradient-to-b dark:from-white/[0.05] dark:to-white/[0.01] dark:shadow-black/50">
+              <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-sky-500/10 blur-3xl dark:bg-sky-500/15" />
+              <div aria-hidden="true" className="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-indigo-500/10 blur-3xl dark:bg-indigo-500/15" />
 
-              {/* Photo Frame */}
-              <div className="relative w-full overflow-hidden rounded-2xl border-2 border-blue-500/30 bg-slate-900 shadow-xl">
+              <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-900 dark:border-white/10">
                 <img
                   src="https://github.com/namanartist.png"
                   alt="Naman Lahariya"
                   onError={(e) => {
                     e.currentTarget.src = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=600&auto=format&fit=crop&q=80';
                   }}
-                  className="w-full h-80 sm:h-96 object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  className="h-72 w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03] sm:h-80"
                 />
-
-                {/* Status Pill */}
-                <div className="absolute top-3.5 right-3.5 flex items-center gap-2 bg-slate-950/85 backdrop-blur-md px-3 py-1.5 rounded-full border border-emerald-500/40 shadow-lg">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                <span className="absolute right-3 top-3 flex items-center gap-2 rounded-full border border-emerald-500/40 bg-slate-950/85 px-3 py-1.5 backdrop-blur-md">
+                  <span className="relative flex h-2 w-2" aria-hidden="true">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                   </span>
-                  <span className="text-[10px] font-black uppercase tracking-wider text-emerald-400">Available</span>
-                </div>
-
-                <div className="absolute bottom-3.5 left-3.5 bg-slate-950/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-blue-500/40 shadow-lg">
-                  <p className="text-[10px] font-black uppercase tracking-wider text-blue-400">MITS Campus Creator</p>
-                </div>
+                  <span className="font-mono text-[9px] font-black uppercase tracking-widest text-emerald-400">Available</span>
+                </span>
+                <span className="absolute bottom-3 left-3 rounded-full border border-sky-500/40 bg-slate-950/85 px-3 py-1.5 font-mono text-[9px] font-black uppercase tracking-widest text-sky-400 backdrop-blur-md">
+                  MITS Campus Creator
+                </span>
               </div>
 
-              {/* Stat Grid Under Photo */}
-              <div className="grid grid-cols-3 gap-2.5 mt-4">
-                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/5 text-center">
-                  <div className="text-[10px] font-bold text-slate-400 uppercase">Fight AI</div>
-                  <div className="text-lg font-black text-emerald-400 mt-0.5">93.8%</div>
-                </div>
-                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/5 text-center">
-                  <div className="text-[10px] font-bold text-slate-400 uppercase">QRF ETA</div>
-                  <div className="text-lg font-black text-cyan-400 mt-0.5">&lt;90s</div>
-                </div>
-                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/5 text-center">
-                  <div className="text-[10px] font-bold text-slate-400 uppercase">CCTV Feeds</div>
-                  <div className="text-lg font-black text-indigo-400 mt-0.5">12 Cam</div>
-                </div>
+              {/* Stat tiles */}
+              <div className="mt-4 grid grid-cols-3 gap-2">
+                {[
+                  { k: 'Fight AI', v: '93.8%', tone: 'text-emerald-600 dark:text-emerald-400' },
+                  { k: 'QRF ETA', v: '<90s', tone: 'text-cyan-600 dark:text-cyan-400' },
+                  { k: 'CCTV', v: '12 cams', tone: 'text-indigo-600 dark:text-indigo-400' },
+                ].map(({ k, v, tone }) => (
+                  <div key={k} className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-center dark:border-white/[0.06] dark:bg-white/[0.03]">
+                    <p className="font-mono text-[8px] font-black uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">{k}</p>
+                    <p className={`mt-0.5 text-base font-black ${tone}`}>{v}</p>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         </section>
 
-        {/* Section 2: Signature Builds Bento Grid */}
-        <section className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-white/10 pb-4">
-            <div>
-              <div className="flex items-center gap-2 text-xs font-black text-blue-400 uppercase tracking-widest">
-                <Cpu className="w-4 h-4" />
-                <span>Featured Engineering Work</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">Signature Builds</h2>
+        {/* ═══ IMPACT BAND ══════════════════════════════════════════════ */}
+        <motion.section
+          aria-label="Platform impact"
+          {...fadeUp}
+          transition={{ duration: 0.55, ease: 'easeOut' }}
+          className="grid grid-cols-2 gap-2 rounded-2xl border border-slate-200 bg-white/70 p-2 backdrop-blur-xl md:grid-cols-4 dark:border-white/[0.08] dark:bg-white/[0.03]"
+        >
+          {impactStats.map(({ value, label, tone }) => (
+            <div key={label} className="rounded-xl px-4 py-4 text-center transition-colors hover:bg-slate-50 md:py-5 dark:hover:bg-white/[0.03]">
+              <p className={`font-mono text-2xl font-black leading-none md:text-3xl ${tone}`}>{value}</p>
+              <p className="mt-1.5 font-mono text-[8px] font-bold uppercase leading-snug tracking-[0.18em] text-slate-400 sm:text-[9px] dark:text-slate-500">{label}</p>
             </div>
-            <p className="text-xs text-slate-400 max-w-md">
-              Real-world software built to handle high throughput, sub-second pathfinding, and autonomous safety alerts.
+          ))}
+        </motion.section>
+
+        {/* ═══ SIGNATURE BUILDS ═════════════════════════════════════════ */}
+        <section aria-label="Signature builds" className="space-y-6">
+          <div className="flex flex-col justify-between gap-3 border-b border-slate-200 pb-5 sm:flex-row sm:items-end dark:border-white/[0.08]">
+            <div>
+              {sectionEyebrow(<Cpu className="h-4 w-4" aria-hidden="true" />, 'Featured engineering work', 'text-sky-600 dark:text-sky-400')}
+              <h2 className="mt-1.5 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl dark:text-white">Signature Builds</h2>
+            </div>
+            <p className="max-w-md text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+              Real-world systems built for high throughput, sub-second pathfinding and autonomous safety response.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {signatureBuilds.map((build, idx) => (
-              <div
-                key={idx}
-                className="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] p-6 flex flex-col justify-between hover:border-blue-500/40 hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-all group relative overflow-hidden shadow-sm dark:shadow-none"
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            {signatureBuilds.map((build, index) => (
+              <motion.article
+                key={build.title}
+                {...fadeUp}
+                transition={{ duration: 0.5, delay: index * 0.08, ease: 'easeOut' }}
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-1 hover:border-sky-500/40 hover:shadow-xl dark:border-white/[0.08] dark:bg-white/[0.02] dark:hover:border-sky-500/30"
               >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${build.badgeColor}`}>
+                <div>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className={`rounded-full border px-2.5 py-1 font-mono text-[8px] font-black uppercase tracking-widest ${build.badgeClass}`}>
                       {build.badge}
                     </span>
-                    <span className="text-[10px] font-mono text-slate-400">{build.stats}</span>
+                    <span className="font-mono text-[9px] text-slate-400 dark:text-slate-500">{build.stats}</span>
                   </div>
-
-                  <div>
-                    <h3 className="text-lg font-black text-slate-900 dark:text-white group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
-                      {build.title}
-                    </h3>
-                    <p className="text-xs text-blue-300 font-semibold mt-0.5">{build.tagline}</p>
-                  </div>
-
-                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-                    {build.desc}
-                  </p>
+                  <h3 className="mt-4 text-base font-black leading-snug text-slate-900 transition-colors group-hover:text-sky-600 dark:text-white dark:group-hover:text-sky-400">
+                    {build.title}
+                  </h3>
+                  <p className="mt-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">{build.tagline}</p>
+                  <p className="mt-3 text-xs leading-relaxed text-slate-600 dark:text-slate-300">{build.desc}</p>
                 </div>
-
-                <div className="pt-5 mt-4 border-t border-white/10 flex items-center justify-between">
+                <div className="mt-5 border-t border-slate-100 pt-4 dark:border-white/[0.06]">
                   {build.isInternal ? (
-                    <Link
-                      to={build.link}
-                      className="text-xs font-bold text-white group-hover:text-blue-400 flex items-center gap-1.5 transition-colors"
-                    >
-                      <span>Launch Interface</span>
-                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <Link to={build.link} className="group/link inline-flex cursor-pointer items-center gap-1.5 text-xs font-black text-sky-600 transition-colors hover:text-sky-500 dark:text-sky-400 dark:hover:text-sky-300">
+                      {build.cta}
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-1" aria-hidden="true" />
                     </Link>
                   ) : (
-                    <a
-                      href={build.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs font-bold text-white group-hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
-                    >
-                      <span>Visit Live Platform</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
+                    <a href={build.link} target="_blank" rel="noopener noreferrer" className="group/link inline-flex items-center gap-1.5 text-xs font-black text-emerald-600 transition-colors hover:text-emerald-500 dark:text-emerald-400">
+                      {build.cta}
+                      <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
                     </a>
                   )}
                 </div>
-              </div>
+              </motion.article>
             ))}
           </div>
         </section>
 
-        {/* Section 3: Academic Guidance & Mentorship (Dr. Dheeraj Kumar Dixit) */}
-        <section className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-white/10 pb-4">
+        {/* ═══ MENTORSHIP ═══════════════════════════════════════════════ */}
+        <section aria-label="Academic guidance" className="space-y-6">
+          <div className="flex flex-col justify-between gap-3 border-b border-slate-200 pb-5 sm:flex-row sm:items-end dark:border-white/[0.08]">
             <div>
-              <div className="flex items-center gap-2 text-xs font-black text-amber-400 uppercase tracking-widest">
-                <GraduationCap className="w-4 h-4" />
-                <span>Academic Guidance &amp; Department Leadership</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">Under the Guidance of</h2>
+              {sectionEyebrow(<GraduationCap className="h-4 w-4" aria-hidden="true" />, 'Academic guidance & department leadership', 'text-amber-600 dark:text-amber-400')}
+              <h2 className="mt-1.5 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl dark:text-white">Under the Guidance of</h2>
             </div>
-            <p className="text-xs text-slate-400 max-w-md">
-              System architecture guided by faculty mentorship, discrete mathematical rigor, and institutional engineering standards.
+            <p className="max-w-md text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+              Systems architecture guided by faculty mentorship, discrete mathematical rigor and institutional standards.
             </p>
           </div>
 
-          <div className="rounded-3xl border border-amber-500/30 bg-gradient-to-br from-amber-50/70 dark:from-amber-500/10 via-white dark:via-white/[0.02] to-amber-50/30 dark:to-slate-950 p-6 sm:p-8 backdrop-blur-xl relative overflow-hidden shadow-xl dark:shadow-2xl transition-colors">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="flex flex-col lg:flex-row items-center gap-8 relative z-10">
-              {/* Photo Frame */}
-              <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-3xl overflow-hidden border-2 border-amber-500/40 bg-slate-900 shrink-0 shadow-2xl shadow-amber-500/20">
-                <img
-                  src={DrDKD}
-                  alt="Dr. Dheeraj Kumar Dixit"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+          <motion.div
+            {...fadeUp}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="relative overflow-hidden rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-50 via-white to-amber-50/50 p-6 shadow-lg sm:p-8 dark:from-amber-500/10 dark:via-white/[0.02] dark:to-transparent"
+          >
+            <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-amber-400/15 blur-3xl dark:bg-amber-500/10" />
+            <div className="relative flex flex-col items-center gap-6 text-center lg:flex-row lg:items-center lg:gap-10 lg:text-left">
+              <div className="relative h-40 w-40 shrink-0 overflow-hidden rounded-2xl border-2 border-amber-500/40 bg-slate-900 shadow-2xl shadow-amber-500/20 sm:h-48 sm:w-48">
+                <img src={DrDKD} alt="Dr. Dheeraj Kumar Dixit" className="h-full w-full object-cover" />
+                <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
               </div>
 
-              {/* Mentor Bio & Links */}
-              <div className="space-y-3 text-center lg:text-left flex-1">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[10px] font-black uppercase tracking-wider">
-                  <Award className="w-3.5 h-3.5" />
-                  <span>Faculty Mentor &amp; Head of Department</span>
-                </div>
-
+              <div className="min-w-0 flex-1 space-y-3">
+                <span className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 font-mono text-[9px] font-black uppercase tracking-[0.2em] text-amber-700 dark:text-amber-300">
+                  <Award className="h-3.5 w-3.5" aria-hidden="true" />
+                  Faculty Mentor &amp; Head of Department
+                </span>
                 <div>
-                  <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">Dr. Dheeraj Kumar Dixit</h3>
-                  <p className="text-sm sm:text-base font-bold text-amber-400 mt-0.5">
-                    HOD — Department of Mathematics and Computing
-                  </p>
-                  <p className="text-xs text-slate-400 font-medium">
-                    Madhav Institute of Technology and Science (MITS), Gwalior
-                  </p>
+                  <h3 className="text-2xl font-black tracking-tight text-slate-900 sm:text-3xl dark:text-white">Dr. Dheeraj Kumar Dixit</h3>
+                  <p className="mt-1 text-sm font-bold text-amber-600 dark:text-amber-400">HOD — Department of Mathematics and Computing</p>
+                  <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Madhav Institute of Technology and Science (MITS), Gwalior</p>
                 </div>
-
-                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 italic leading-relaxed pt-1">
-                  &ldquo;Academic mentorship instilling mathematical precision, robust algorithm optimization, graph traversal reliability, and ethical safety standards across institutional intelligent systems.&rdquo;
+                <p className="max-w-2xl text-xs italic leading-relaxed text-slate-600 sm:text-[13px] dark:text-slate-300">
+                  &ldquo;Academic mentorship instilling mathematical precision, robust algorithm optimization,
+                  graph traversal reliability, and ethical safety standards across institutional intelligent systems.&rdquo;
                 </p>
-
-                <div className="flex flex-wrap gap-3 pt-3 justify-center lg:justify-start">
+                <div className="flex flex-wrap justify-center gap-2.5 pt-2 lg:justify-start">
                   <a
                     href="https://web.mitsgwalior.in/faculty-profiles-emc-2/dr-dheeraj-kumar-dixit"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs shadow-lg shadow-amber-500/25 transition-all"
+                    className="flex items-center gap-2 rounded-xl bg-amber-500 px-4 py-2.5 text-xs font-black text-slate-950 shadow-lg shadow-amber-500/25 transition hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
                   >
-                    <span>View Official MITS Faculty Profile</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    Official MITS profile
+                    <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
                   </a>
-
                   <a
                     href="mailto:dheerajdixit@mitsgwalior.in"
-                    className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 bg-white/[0.04] hover:bg-white/10 text-white font-bold text-xs transition-all"
+                    className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-700 transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/60 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-slate-200 dark:hover:bg-white/[0.08]"
                   >
-                    <Mail className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Contact via Faculty Email</span>
+                    <Mail className="h-3.5 w-3.5 text-amber-500" aria-hidden="true" />
+                    Faculty email
                   </a>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </section>
 
-        {/* Section 4: Project Partners & Collaborators (Abhinav Jaiswal & Abhinav Gupta) */}
-        <section className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-white/10 pb-4">
+        {/* ═══ PROJECT PARTNERS ═════════════════════════════════════════ */}
+        <section aria-label="Project partners" className="space-y-6">
+          <div className="flex flex-col justify-between gap-3 border-b border-slate-200 pb-5 sm:flex-row sm:items-end dark:border-white/[0.08]">
             <div>
-              <div className="flex items-center gap-2 text-xs font-black text-cyan-400 uppercase tracking-widest">
-                <HeartHandshake className="w-4 h-4" />
-                <span>Technical Synergy &amp; Deployment</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">Project Partners &amp; Collaborators</h2>
+              {sectionEyebrow(<HeartHandshake className="h-4 w-4" aria-hidden="true" />, 'Technical synergy & deployment', 'text-cyan-600 dark:text-cyan-400')}
+              <h2 className="mt-1.5 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl dark:text-white">Project Partners</h2>
             </div>
-            <p className="text-xs text-slate-400 max-w-md">
-              Key team contributors collaborating on architecture testing, multi-floor coordinate validation, and campus validation.
+            <p className="max-w-md text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+              Key collaborators on architecture testing, multi-floor coordinate validation and field calibration.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {/* Partner 1: Abhinav Jaiswal */}
-            <div className="rounded-3xl border border-slate-200 dark:border-cyan-500/30 bg-white dark:bg-gradient-to-b dark:from-cyan-500/10 dark:to-white/[0.02] p-6 sm:p-7 backdrop-blur-xl relative overflow-hidden group hover:border-cyan-500/60 transition-all shadow-md dark:shadow-xl">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-600 to-blue-600 text-white font-black text-xl flex items-center justify-center border-2 border-cyan-400/40 shadow-lg shadow-cyan-500/30 shrink-0">
-                  AJ
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {partners.map((partner, index) => (
+              <motion.div
+                key={partner.name}
+                {...fadeUp}
+                transition={{ duration: 0.5, delay: index * 0.1, ease: 'easeOut' }}
+                className={`group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg dark:border-white/[0.08] dark:bg-white/[0.02] ${
+                  partner.accent === 'cyan' ? 'hover:border-cyan-500/40' : 'hover:border-indigo-500/40'
+                }`}
+              >
+                <div className="flex items-start gap-4">
+                  <div
+                    aria-hidden="true"
+                    className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr font-black text-lg text-white shadow-lg ${
+                      partner.accent === 'cyan'
+                        ? 'from-cyan-600 to-sky-600 shadow-cyan-500/30'
+                        : 'from-indigo-600 to-violet-600 shadow-indigo-500/30'
+                    }`}
+                  >
+                    {partner.initials}
+                  </div>
+                  <div className="min-w-0">
+                    <span
+                      className={`rounded-full border px-2.5 py-0.5 font-mono text-[8px] font-black uppercase tracking-widest ${
+                        partner.accent === 'cyan'
+                          ? 'border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300'
+                          : 'border-indigo-500/30 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300'
+                      }`}
+                    >
+                      {partner.role}
+                    </span>
+                    <h3 className="mt-2 text-lg font-black text-slate-900 dark:text-white">{partner.name}</h3>
+                    <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">{partner.dept}</p>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300">
-                    Project Partner
+                <p className="mt-4 text-xs italic leading-relaxed text-slate-600 dark:text-slate-300">&ldquo;{partner.quote}&rdquo;</p>
+                <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-4 text-[11px] dark:border-white/[0.06]">
+                  <span className="flex items-center gap-1.5 font-bold text-slate-500 dark:text-slate-400">
+                    <CheckCircle2
+                      className={`h-3.5 w-3.5 ${partner.accent === 'cyan' ? 'text-cyan-500' : 'text-indigo-500'}`}
+                      aria-hidden="true"
+                    />
+                    {partner.focus}
                   </span>
-                  <h3 className="text-xl font-black text-slate-900 dark:text-white mt-1.5">Abhinav Jaiswal</h3>
-                  <p className="text-xs text-cyan-400 font-semibold">Technical Collaborator • MITS Gwalior</p>
-                </div>
-              </div>
-
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 italic leading-relaxed">
-                &ldquo;Active contributor to system integration, real-world protocol verification, and campus emergency dispatch response testing.&rdquo;
-              </p>
-
-              <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
-                <span className="flex items-center gap-1.5 font-medium">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />
-                  Integration &amp; Testing
-                </span>
-                <span className="font-mono text-cyan-300">MITS Gwalior</span>
-              </div>
-            </div>
-
-            {/* Partner 2: Abhinav Gupta */}
-            <div className="rounded-3xl border border-slate-200 dark:border-indigo-500/30 bg-white dark:bg-gradient-to-b dark:from-indigo-500/10 dark:to-white/[0.02] p-6 sm:p-7 backdrop-blur-xl relative overflow-hidden group hover:border-indigo-500/60 transition-all shadow-md dark:shadow-xl">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white font-black text-xl flex items-center justify-center border-2 border-indigo-400/40 shadow-lg shadow-indigo-500/30 shrink-0">
-                  AG
-                </div>
-                <div>
-                  <span className="text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-300">
-                    Project Partner
+                  <span className={`font-mono font-bold ${partner.accent === 'cyan' ? 'text-cyan-600 dark:text-cyan-300' : 'text-indigo-600 dark:text-indigo-300'}`}>
+                    MITS GWL
                   </span>
-                  <h3 className="text-xl font-black text-slate-900 dark:text-white mt-1.5">Abhinav Gupta</h3>
-                  <p className="text-xs text-indigo-400 font-semibold">Technical Collaborator • MITS Gwalior</p>
                 </div>
-              </div>
-
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 italic leading-relaxed">
-                &ldquo;Collaborative developer dedicated to campus network verification, user flow refinement, and field data calibration.&rdquo;
-              </p>
-
-              <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
-                <span className="flex items-center gap-1.5 font-medium">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-indigo-400" />
-                  Field Validation &amp; UX
-                </span>
-                <span className="font-mono text-indigo-300">MITS Gwalior</span>
-              </div>
-            </div>
+              </motion.div>
+            ))}
           </div>
         </section>
 
-        {/* Section 5: Engineering Pillars */}
-        <section className="space-y-6">
-          <div className="border-b border-white/10 pb-4">
-            <div className="flex items-center gap-2 text-xs font-black text-purple-400 uppercase tracking-widest">
-              <Terminal className="w-4 h-4" />
-              <span>Core Architecture Standards</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">Engineering Pillars</h2>
+        {/* ═══ ENGINEERING PILLARS ══════════════════════════════════════ */}
+        <section aria-label="Engineering pillars" className="space-y-6">
+          <div className="border-b border-slate-200 pb-5 dark:border-white/[0.08]">
+            {sectionEyebrow(<Terminal className="h-4 w-4" aria-hidden="true" />, 'Core architecture standards', 'text-violet-600 dark:text-violet-400')}
+            <h2 className="mt-1.5 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl dark:text-white">Engineering Pillars</h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {engineeringPillars.map((pillar, idx) => {
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {engineeringPillars.map((pillar, index) => {
               const Icon = pillar.icon;
               return (
-                <div
-                  key={idx}
-                  className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] p-5 hover:border-purple-500/40 hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-all shadow-sm dark:shadow-none"
+                <motion.div
+                  key={pillar.title}
+                  {...fadeUp}
+                  transition={{ duration: 0.5, delay: index * 0.08, ease: 'easeOut' }}
+                  className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-violet-500/40 hover:shadow-lg dark:border-white/[0.08] dark:bg-white/[0.02]"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center mb-3.5">
-                    <Icon className="w-5 h-5" />
+                  <div className="flex items-center justify-between">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-violet-500/25 bg-violet-500/10 text-violet-600 dark:text-violet-400">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <span className="font-mono text-lg font-black text-slate-200 transition-colors group-hover:text-violet-400/60 dark:text-white/10">{pillar.step}</span>
                   </div>
-                  <h3 className="text-base font-black text-slate-900 dark:text-white mb-1.5">{pillar.title}</h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">{pillar.desc}</p>
-                </div>
+                  <h3 className="mt-4 text-sm font-black text-slate-900 dark:text-white">{pillar.title}</h3>
+                  <p className="mt-1.5 text-[11px] leading-relaxed text-slate-500 dark:text-slate-400">{pillar.desc}</p>
+                </motion.div>
               );
             })}
           </div>
         </section>
 
-        {/* Section 6: Interactive Skill Canvas Matrix */}
-        <section className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
+        {/* ═══ SKILL CANVAS ═════════════════════════════════════════════ */}
+        <section aria-label="Skills" className="space-y-6">
+          <div className="flex flex-col justify-between gap-4 border-b border-slate-200 pb-5 sm:flex-row sm:items-end dark:border-white/[0.08]">
             <div>
-              <div className="flex items-center gap-2 text-xs font-black text-emerald-400 uppercase tracking-widest">
-                <Code2 className="w-4 h-4" />
-                <span>Competencies &amp; Technologies</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">Skill Canvas</h2>
+              {sectionEyebrow(<Code2 className="h-4 w-4" aria-hidden="true" />, 'Competencies & technologies', 'text-emerald-600 dark:text-emerald-400')}
+              <h2 className="mt-1.5 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl dark:text-white">Skill Canvas</h2>
             </div>
 
-            {/* Filter Tabs */}
-            <div className="flex flex-wrap gap-1.5 bg-white/[0.03] p-1 rounded-xl border border-white/10">
+            <div className="flex flex-wrap gap-1.5 rounded-xl border border-slate-200 bg-white p-1 dark:border-white/[0.08] dark:bg-white/[0.03]" role="tablist" aria-label="Filter skills">
               {(['all', 'frontend', 'backend', 'ai', 'systems'] as const).map((tab) => (
                 <button
                   key={tab}
+                  role="tab"
+                  aria-selected={activeTab === tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  className={`cursor-pointer rounded-lg px-3 py-1.5 font-mono text-[10px] font-black uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60 ${
                     activeTab === tab
-                      ? 'bg-blue-600 text-white shadow-md'
-                      : 'text-slate-400 hover:text-white hover:bg-white/5'
+                      ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30'
+                      : 'text-slate-500 hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-white/[0.06] dark:hover:text-white'
                   }`}
                 >
-                  {tab.toUpperCase()}
+                  {tab} · {skillCounts[tab]}
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredSkills.map((sk, idx) => (
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredSkills.map((sk) => (
               <div
-                key={idx}
-                className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] p-4.5 hover:border-emerald-500/40 hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-all shadow-sm dark:shadow-none flex flex-col justify-between"
+                key={sk.name}
+                className="group flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:border-emerald-500/40 dark:border-white/[0.08] dark:bg-white/[0.02]"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300">
-                      {sk.category.toUpperCase()}
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-[8px] font-black uppercase tracking-widest text-slate-500 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-slate-400">
+                      {sk.category}
                     </span>
-                    <span className="text-[10px] font-bold text-emerald-400">{sk.badge}</span>
+                    <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">{sk.badge}</span>
                   </div>
-                  <h3 className="font-bold text-sm text-slate-900 dark:text-white">{sk.name}</h3>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">{sk.desc}</p>
+                  <h3 className="mt-3 text-sm font-bold text-slate-900 dark:text-white">{sk.name}</h3>
+                  <p className="mt-1 text-[11px] leading-relaxed text-slate-500 dark:text-slate-400">{sk.desc}</p>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Section 7: Career Milestones */}
-        <section className="space-y-6">
-          <div className="border-b border-white/10 pb-4">
-            <div className="flex items-center gap-2 text-xs font-black text-blue-400 uppercase tracking-widest">
-              <Layers className="w-4 h-4" />
-              <span>Experience &amp; Institutional Impact</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">Milestones &amp; Track Record</h2>
+        {/* ═══ MILESTONES ═══════════════════════════════════════════════ */}
+        <section aria-label="Milestones" className="space-y-6">
+          <div className="border-b border-slate-200 pb-5 dark:border-white/[0.08]">
+            {sectionEyebrow(<Layers className="h-4 w-4" aria-hidden="true" />, 'Experience & institutional impact', 'text-sky-600 dark:text-sky-400')}
+            <h2 className="mt-1.5 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl dark:text-white">Milestones &amp; Track Record</h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {careerHighlights.map((item, idx) => (
-              <div
-                key={idx}
-                className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] p-5 flex items-start gap-3.5 hover:-translate-y-0.5 transition-transform shadow-sm dark:shadow-none"
+          <div className="relative grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {careerHighlights.map((item, index) => (
+              <motion.div
+                key={item.title}
+                {...fadeUp}
+                transition={{ duration: 0.5, delay: index * 0.07, ease: 'easeOut' }}
+                className="flex items-start gap-3.5 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg dark:border-white/[0.08] dark:bg-white/[0.02]"
               >
-                <div className="p-2 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 shrink-0 mt-0.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-emerald-500/25 bg-emerald-500/10">
+                  <GitBranch className="h-4 w-4 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
+                </span>
+                <div className="min-w-0">
+                  <h3 className="text-sm font-bold leading-snug text-slate-900 dark:text-white">{item.title}</h3>
+                  <p className="mt-1.5 text-[11px] leading-relaxed text-slate-500 dark:text-slate-400">{item.desc}</p>
                 </div>
-                <div>
-                  <h3 className="font-bold text-sm text-slate-900 dark:text-white">{item.title}</h3>
-                  <p className="text-xs text-slate-300 mt-1 leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>
 
-        {/* Section 8: Institutional Footer Banner */}
-        <footer className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-mono">
-          <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-white overflow-hidden p-0.5 shadow-sm">
-              <img src="/c3s_logo.png" alt="C3S Logo" className="w-full h-full object-contain" />
-            </div>
-            <span>C3S Campus Surveillance &amp; Safety Network • MITS Gwalior</span>
+        {/* ═══ CONNECT CTA ══════════════════════════════════════════════ */}
+        <section
+          aria-label="Get in touch"
+          className="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950 p-8 text-center text-white sm:p-12 dark:border-white/[0.08]"
+        >
+          <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-sky-500/15 blur-3xl" />
+          <div aria-hidden="true" className="pointer-events-none absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-indigo-500/15 blur-3xl" />
+          <p className="relative font-mono text-[10px] font-black uppercase tracking-[0.28em] text-sky-400">Build with us</p>
+          <h2 className="relative mt-3 text-2xl font-black leading-tight tracking-tight sm:text-4xl">
+            Have a campus hard problem?<br />
+            <span className="bg-gradient-to-r from-sky-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent">Let&apos;s engineer the fix.</span>
+          </h2>
+          <p className="relative mx-auto mt-3 max-w-md text-sm leading-relaxed text-slate-400">
+            Open to internships, full-time roles, research collaboration and campus safety deployments.
+          </p>
+          <div className="relative mt-6 flex flex-wrap items-center justify-center gap-2.5">
+            <button
+              type="button"
+              onClick={handleCopyEmail}
+              className="flex cursor-pointer items-center gap-2 rounded-xl bg-white px-5 py-3 text-xs font-black text-slate-900 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
+            >
+              {copiedEmail ? <Check className="h-4 w-4 text-emerald-600" aria-hidden="true" /> : <Mail className="h-4 w-4" aria-hidden="true" />}
+              {copiedEmail ? 'namanlahariya@gmail.com copied!' : 'namanlahariya@gmail.com'}
+            </button>
+            <a
+              href="https://github.com/namanartist"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-5 py-3 text-xs font-bold text-white transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
+            >
+              <GitHubIcon size={16} className="text-white" />
+              @namanartist
+            </a>
           </div>
+        </section>
 
-          <div className="flex items-center gap-4">
-            <Link to="/" className="text-blue-400 hover:underline">Home</Link>
-            <span>•</span>
-            <Link to="/map" className="text-blue-400 hover:underline">Campus Map</Link>
-            <span>•</span>
-            <Link to="/student" className="text-blue-400 hover:underline">Student Hub</Link>
-          </div>
+        {/* ═══ FOOTER STRIP ═════════════════════════════════════════════ */}
+        <footer className="flex flex-col items-center justify-between gap-3 border-t border-slate-200 pt-6 font-mono text-[10px] uppercase tracking-widest text-slate-400 sm:flex-row dark:border-white/[0.08] dark:text-slate-600">
+          <span>C3S · Campus Surveillance &amp; Safety Network · MITS Gwalior</span>
+          <nav className="flex items-center gap-4" aria-label="Footer navigation">
+            <Link to="/" className="transition-colors hover:text-sky-500">Home</Link>
+            <span aria-hidden="true">·</span>
+            <Link to="/map" className="transition-colors hover:text-sky-500">Campus Grid</Link>
+            <span aria-hidden="true">·</span>
+            <Link to="/student" className="transition-colors hover:text-sky-500">Student Hub</Link>
+          </nav>
         </footer>
-
       </main>
     </div>
   );

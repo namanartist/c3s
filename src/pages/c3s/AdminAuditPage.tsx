@@ -1,6 +1,7 @@
 // src/pages/c3s/AdminAuditPage.tsx
 import React from 'react';
 import { AppShell } from '@/components/c3s/AppShell';
+import { PageHeader } from '@/components/c3s/PageHeader';
 import { DataTable } from '@/components/c3s/DataTable';
 import { StatusBadge } from '@/components/c3s/StatusBadge';
 
@@ -52,10 +53,7 @@ export default function AdminAuditPage() {
   return (
     <AppShell>
       <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 uppercase tracking-tight">SECURITY AUDIT LOGS</h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400">Cryptographically verifiable trail of all security transactions and overrides.</p>
-        </div>
+        <PageHeader eyebrow="Audit Trail" statusTone="warning" title="SECURITY AUDIT LOGS" subtitle="Cryptographically verifiable trail of all security transactions and overrides." />
         <DataTable columns={columns} data={MOCK_AUDIT} />
       </div>
     </AppShell>

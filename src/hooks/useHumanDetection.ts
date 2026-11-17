@@ -6,6 +6,8 @@ import {
 } from '@/lib/humanVisionEngine';
 import { useSafetyStore } from '@/store/safetyStore';
 import { globalFightDispatcher } from '@/lib/fightAlertDispatcher';
+import { updateAggressionStreak } from '@/lib/kaggleFightClassifier';
+import { SAFETY_THRESHOLDS } from '@/config/safetyThresholds';
 
 export interface CameraVisionMeta {
   id?: string;
@@ -89,27 +91,32 @@ export function useHumanDetection(
       const nowMs = Date.now();
       const isAggressive =
         detection.fight.isFightDetected &&
-        detection.fight.confidence >= 65 &&
+        detection.fight.confidence >= SAFETY_THRESHOLDS.SOS_CONFIDENCE * 100 &&
         !detection.fight.isOnlyMovement;
 
-      // Aggression momentum accumulator: avoids single-frame recoil dropouts
-      if (isAggressive) {
-        aggressionStreakRef.current = Math.min(10, aggressionStreakRef.current + 2);
-        if (fightStartTimeRef.current === null) {
-          fightStartTimeRef.current = nowMs;
-        }
-      } else {
-        aggressionStreakRef.current = Math.max(0, aggressionStreakRef.current - 1);
-        if (aggressionStreakRef.current === 0) {
-          fightStartTimeRef.current = null;
-        }
+      // Asymmetric leaky streak: evidence accumulates twice as fast as it
+      // decays, so a single dropped frame cannot destroy a confirmed episode.
+      // This is the same hysteresis the Python decision engine uses, so the
+      // browser and the service agree on the operating point.
+      aggressionStreakRef.current = updateAggressionStreak(aggressionStreakRef.current, isAggressive);
+      if (aggressionStreakRef.current <= 0) {
+        fightStartTimeRef.current = null;
+      } else if (fightStartTimeRef.current === null) {
+        fightStartTimeRef.current = nowMs;
       }
 
       const sustainedMs = fightStartTimeRef.current ? nowMs - fightStartTimeRef.current : 0;
       detection.fight.sustainedDurationMs = sustainedMs;
 
-      // Auto-dispatch emergency SOS promptly when fight is confirmed (streak >= 4 frames or sustained >= 600ms)
-      if ((aggressionStreakRef.current >= 4 || sustainedMs >= 600) && nowMs - lastSosTriggeredTimeRef.current > 12000) {
+      // Auto-dispatch once the episode is confirmed by *either* the frame
+      // streak or the sustained duration, and only once per re-arm window.
+      const frameConfirmed =
+        aggressionStreakRef.current >= SAFETY_THRESHOLDS.CONFIRMATION_FRAMES * SAFETY_THRESHOLDS.STREAK_GAIN;
+      const durationConfirmed = sustainedMs >= SAFETY_THRESHOLDS.CONFIRMATION_MS;
+      const outsideCooldown =
+        nowMs - lastSosTriggeredTimeRef.current > SAFETY_THRESHOLDS.DEBOUNCE_MS;
+
+      if ((frameConfirmed || durationConfirmed) && outsideCooldown) {
         lastSosTriggeredTimeRef.current = nowMs;
         const targetCamId = cameraId || currentMeta?.id || 'cam_cctv_01';
         const targetCamName = currentMeta?.name || `CCTV Camera #${targetCamId}`;

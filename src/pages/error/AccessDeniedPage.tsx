@@ -73,7 +73,7 @@ export default function AccessDeniedPage() {
         </div>
 
         {/* Current Credential Capsule */}
-        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-4 text-left flex items-center gap-3 shadow-xs">
+        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-4 text-left flex items-center gap-3 shadow-sm">
           <img
             src={currentUser?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80'}
             alt={currentUser?.name || 'User'}
@@ -101,7 +101,7 @@ export default function AccessDeniedPage() {
 
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.05] hover:bg-slate-100 dark:hover:bg-white/[0.1] px-4 py-3 text-xs font-bold text-slate-700 dark:text-slate-200 transition-all cursor-pointer shadow-xs"
+            className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.05] hover:bg-slate-100 dark:hover:bg-white/[0.1] px-4 py-3 text-xs font-bold text-slate-700 dark:text-slate-200 transition-all cursor-pointer shadow-sm"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Return to Previous View</span>

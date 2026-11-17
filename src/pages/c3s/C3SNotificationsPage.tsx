@@ -1,6 +1,7 @@
 // src/pages/c3s/C3SNotificationsPage.tsx
 import React from 'react';
 import { AppShell } from '@/components/c3s/AppShell';
+import { PageHeader } from '@/components/c3s/PageHeader';
 import { StatusBadge } from '@/components/c3s/StatusBadge';
 import { useC3SStore } from '@/store/c3sStore';
 
@@ -11,13 +12,10 @@ export default function C3SNotificationsPage() {
     <AppShell>
       <div className="space-y-6 max-w-4xl mx-auto">
         <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 uppercase tracking-tight">NOTIFICATION CENTER</h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Emergency dispatch alerts, gate updates, and campus bulletins.</p>
-          </div>
+          <PageHeader eyebrow="Notifications" statusTone="info" title="NOTIFICATION CENTER" subtitle="Emergency dispatch alerts, gate updates, and campus bulletins." />
           <button
             onClick={clearAllNotifications}
-            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 shadow-xs cursor-pointer transition-colors"
+            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 shadow-sm cursor-pointer transition-colors"
           >
             Mark all read
           </button>
@@ -31,7 +29,7 @@ export default function C3SNotificationsPage() {
               className={`rounded-2xl border p-4 transition-all cursor-pointer ${
                 n.read
                   ? 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 text-slate-500 dark:text-slate-400'
-                  : 'border-blue-400 dark:border-blue-500/40 bg-blue-50/60 dark:bg-blue-950/20 text-slate-900 dark:text-slate-200 shadow-xs dark:shadow-md dark:shadow-blue-950/30'
+                  : 'border-blue-400 dark:border-blue-500/40 bg-blue-50/60 dark:bg-blue-950/20 text-slate-900 dark:text-slate-200 shadow-sm dark:shadow-md dark:shadow-blue-950/30'
               }`}
             >
               <div className="flex items-center justify-between">

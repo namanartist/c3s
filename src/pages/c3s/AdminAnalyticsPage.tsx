@@ -1,6 +1,7 @@
 // src/pages/c3s/AdminAnalyticsPage.tsx
 import React from 'react';
 import { AppShell } from '@/components/c3s/AppShell';
+import { PageHeader } from '@/components/c3s/PageHeader';
 import { MOCK_ANALYTICS } from '@/lib/mock-data/analytics';
 
 export default function AdminAnalyticsPage() {
@@ -9,15 +10,12 @@ export default function AdminAnalyticsPage() {
   return (
     <AppShell>
       <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 uppercase tracking-tight">SECURITY &amp; TRAFFIC ANALYTICS</h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400">Campus occupancy curves, response time benchmarking, and gate throughput.</p>
-        </div>
+        <PageHeader eyebrow="Safety Analytics" statusTone="info" title="SECURITY &amp; TRAFFIC ANALYTICS" subtitle="Campus occupancy curves, response time benchmarking, and gate throughput." />
 
         {/* Charts Grid */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Chart 1: Hourly Gate Flow */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 backdrop-blur-md shadow-xs dark:shadow-none transition-colors">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 backdrop-blur-md shadow-sm dark:shadow-none transition-colors">
             <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Hourly Gate Flow (Entries vs Exits)</h3>
             <div className="mt-6 flex h-64 items-end gap-2 border-b border-slate-100 dark:border-slate-800 pb-2">
               {hourlyTraffic.slice(2, 12).map((item) => (
@@ -45,7 +43,7 @@ export default function AdminAnalyticsPage() {
           </div>
 
           {/* Chart 2: Incidents Breakdown */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 backdrop-blur-md shadow-xs dark:shadow-none transition-colors">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 backdrop-blur-md shadow-sm dark:shadow-none transition-colors">
             <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Incident Categorization</h3>
             <div className="mt-6 space-y-4">
               {incidentBreakdown.map((item) => (
@@ -67,7 +65,7 @@ export default function AdminAnalyticsPage() {
         </div>
 
         {/* Response Time Trend */}
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 backdrop-blur-md shadow-xs dark:shadow-none transition-colors">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 backdrop-blur-md shadow-sm dark:shadow-none transition-colors">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Average Incident Response Time (Minutes)</h3>
             <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold font-mono">2.14 MIN AVG (SEPTEMBER)</span>

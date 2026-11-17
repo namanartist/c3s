@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppShell } from '@/components/c3s/AppShell';
+import { PageHeader } from '@/components/c3s/PageHeader';
 import { DataTable } from '@/components/c3s/DataTable';
 import { StatusBadge } from '@/components/c3s/StatusBadge';
 import { useC3SStore } from '@/store/c3sStore';
@@ -32,10 +33,13 @@ export default function AdminIncidentsPage() {
   return (
     <AppShell>
       <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-black text-slate-100 uppercase">ALL CAMPUS INCIDENTS</h1>
-          <p className="text-xs text-slate-400">Master safety log and post-incident investigation dossiers.</p>
-        </div>
+        <PageHeader
+          eyebrow="Incident Logs"
+          statusTone="danger"
+          title="All Campus Incidents"
+          subtitle="Master safety log and post-incident investigation dossiers."
+          breadcrumbs={[{ label: 'Admin', to: '/admin' }, { label: 'Incident Logs' }]}
+        />
         <DataTable columns={columns} data={incidents} />
       </div>
     </AppShell>

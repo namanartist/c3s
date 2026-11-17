@@ -8,8 +8,10 @@ import { FightAlertBanner } from '@/components/safety/FightAlertBanner';
 import { IpPermissionAndPwaBanner } from '@/components/ui/IpPermissionAndPwaBanner';
 import { RoleGuard } from '@/components/c3s/RoleGuard';
 import { lazyWithRetry } from '@/lib/lazyWithRetry';
+import { useC3SStore } from '@/store/c3sStore';
 
 // C3S Resilient Lazy Loaded Page Components
+const VisitGatePage = lazyWithRetry(() => import('@/pages/VisitGatePage'), 'VisitGatePage');
 const C3SLoginPage = lazyWithRetry(() => import('@/pages/c3s/C3SLoginPage'), 'C3SLoginPage');
 const StudentDashboard = lazyWithRetry(() => import('@/pages/c3s/StudentDashboard'), 'StudentDashboard');
 const StudentScanPage = lazyWithRetry(() => import('@/pages/c3s/StudentScanPage'), 'StudentScanPage');
@@ -36,7 +38,7 @@ const ControlRoomIncidentsPage = lazyWithRetry(() => import('@/pages/c3s/Control
 const ControlRoomMapPage = lazyWithRetry(() => import('@/pages/c3s/ControlRoomMapPage'), 'ControlRoomMapPage');
 const ControlRoomCamerasPage = lazyWithRetry(() => import('@/pages/c3s/ControlRoomCamerasPage'), 'ControlRoomCamerasPage');
 const ControlRoomOccupancyPage = lazyWithRetry(() => import('@/pages/c3s/ControlRoomOccupancyPage'), 'ControlRoomOccupancyPage');
-const StaffDashboard = lazyWithRetry(() => import('@/pages/Staff/StaffDashboard'), 'StaffDashboard');
+
 
 const AdminDashboard = lazyWithRetry(() => import('@/pages/c3s/AdminDashboard'), 'AdminDashboard');
 const AdminUsersPage = lazyWithRetry(() => import('@/pages/c3s/AdminUsersPage'), 'AdminUsersPage');
@@ -76,6 +78,18 @@ function ScrollToTop() {
   return null;
 }
 
+/**
+ * Hydrates persisted settings from MongoDB on first mount so the terminal
+ * reflects the server-side record, not just whatever localStorage holds.
+ */
+function SettingsHydrator() {
+  const syncSettingsWithDb = useC3SStore((s) => s.syncSettingsWithDb);
+  useEffect(() => {
+    void syncSettingsWithDb();
+  }, [syncSettingsWithDb]);
+  return null;
+}
+
 export default function App() {
   useSmoothScroll();
 
@@ -85,6 +99,7 @@ export default function App() {
       <FightAlertBanner />
       <IpPermissionAndPwaBanner />
       <ScrollToTop />
+      <SettingsHydrator />
       <Suspense fallback={<LoadingFallback />}>
         <Routes>
           {/* Public & Entry Routes */}
@@ -119,9 +134,6 @@ export default function App() {
           <Route path="/security/map" element={<RoleGuard allowedRoles={['GUARD', 'SECURITY_GUARD', 'ADMIN', 'SUPER_ADMIN', 'CONTROL_ROOM_OPERATOR', 'PROCTOR']}><SecurityMapPage /></RoleGuard>} />
           <Route path="/guard" element={<RoleGuard allowedRoles={['GUARD', 'SECURITY_GUARD', 'ADMIN', 'SUPER_ADMIN', 'CONTROL_ROOM_OPERATOR', 'PROCTOR']}><SecurityDashboard /></RoleGuard>} />
 
-          {/* Faculty Suite */}
-          <Route path="/faculty" element={<RoleGuard allowedRoles={['FACULTY', 'HOD', 'DEAN', 'CLASS_COORDINATOR', 'ADMIN', 'SUPER_ADMIN']}><StaffDashboard role="faculty" /></RoleGuard>} />
-
           {/* Control Room Suite */}
           <Route path="/control-room" element={<RoleGuard allowedRoles={['CONTROL_ROOM_OPERATOR', 'PROCTOR', 'ADMIN', 'SUPER_ADMIN', 'HOD', 'DEAN']}><ControlRoomDashboard /></RoleGuard>} />
           <Route path="/control-room/incidents" element={<RoleGuard allowedRoles={['CONTROL_ROOM_OPERATOR', 'PROCTOR', 'ADMIN', 'SUPER_ADMIN']}><ControlRoomIncidentsPage /></RoleGuard>} />
@@ -129,7 +141,7 @@ export default function App() {
           <Route
             path="/control-room/cameras"
             element={
-              <RoleGuard allowedRoles={['CONTROL_ROOM_OPERATOR', 'PROCTOR', 'ADMIN', 'SUPER_ADMIN', 'GUARD', 'SECURITY_GUARD', 'FACULTY', 'HOD', 'DEAN', 'CLASS_COORDINATOR']}>
+              <RoleGuard allowedRoles={['CONTROL_ROOM_OPERATOR', 'PROCTOR', 'ADMIN', 'SUPER_ADMIN', 'GUARD', 'SECURITY_GUARD', 'HOD', 'DEAN', 'CLASS_COORDINATOR']}>
                 <ControlRoomCamerasPage />
               </RoleGuard>
             }
@@ -169,6 +181,9 @@ export default function App() {
           <Route path="/support" element={<SupportPage />} />
           <Route path="/developers" element={<DevelopersPage />} />
           <Route path="/developer" element={<DevelopersPage />} />
+          {/* Public visitor self-registration — reachable via Google Lens QR scan */}
+          <Route path="/visitor" element={<VisitGatePage />} />
+          <Route path="/visitor/check-in" element={<VisitGatePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>

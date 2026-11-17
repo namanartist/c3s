@@ -1,7 +1,8 @@
 // src/components/safety/LiveDetectionOverlay.tsx
 import React from 'react';
 import type { DetectionResult } from '@/lib/humanVisionEngine';
-import { ShieldAlert, Users, Activity, Flame } from 'lucide-react';
+import { ShieldAlert, Users, Activity, Flame, Radio } from 'lucide-react';
+import { SAFETY_THRESHOLDS } from '@/config/safetyThresholds';
 
 interface LiveDetectionOverlayProps {
   detection: DetectionResult;
@@ -14,7 +15,13 @@ export const LiveDetectionOverlay: React.FC<LiveDetectionOverlayProps> = ({
 }) => {
   const { count, humans, density, fps, fight } = detection;
   const isFight = fight?.isFightDetected;
+  // The confidence is now the calibrated probability, so it can legitimately
+  // sit anywhere in the range. It used to be clamped into [85, 100] for a
+  // detection and [0, 5] otherwise, so the HUD could never show a
+  // mid-range value.
   const fightConfidence = Math.round(fight?.confidence ?? 0);
+  const isMetadataDerived = Boolean(detection.modelMeta?.isMetadataDerived);
+  const sustainedSeconds = fight?.sustainedDurationMs ? fight.sustainedDurationMs / 1000 : 0;
 
   return (
     <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden select-none">
@@ -23,16 +30,17 @@ export const LiveDetectionOverlay: React.FC<LiveDetectionOverlayProps> = ({
         {/* Left Telemetry Pill */}
         <div className="flex items-center gap-2">
           {isFight ? (
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-red-950/90 backdrop-blur-md border border-red-500 text-white font-mono text-xs font-black shadow-xl shadow-red-950/80 animate-pulse">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-red-950/90 backdrop-blur-md border border-red-500 text-white font-mono text-xs font-black shadow-xl shadow-red-950/80">
               <span className="h-2.5 w-2.5 rounded-full bg-red-500 animate-ping" />
               <ShieldAlert className="w-4 h-4 text-red-400" />
               <span>VIOLENT ALTERCATION DETECTED</span>
               <span className="px-2 py-0.5 rounded-lg bg-red-600 text-white text-[11px] font-black tracking-wider">
                 {fightConfidence}% CONFIDENCE
               </span>
-              {fight?.sustainedDurationMs != null && fight.sustainedDurationMs > 0 && (
+              {sustainedSeconds > 0 && (
                 <span className="px-1.5 py-0.5 rounded bg-black/60 text-amber-300 text-[10px] font-mono font-bold">
-                  Sustained: {(fight.sustainedDurationMs / 1000).toFixed(1)}s / 5.0s
+                  Sustained {sustainedSeconds.toFixed(1)}s /{' '}
+                  {(SAFETY_THRESHOLDS.CONFIRMATION_MS / 1000).toFixed(1)}s to dispatch
                 </span>
               )}
             </div>
@@ -42,7 +50,9 @@ export const LiveDetectionOverlay: React.FC<LiveDetectionOverlayProps> = ({
               <Activity className="w-3.5 h-3.5 text-cyan-400" />
               <span>MOVEMENT: {detection.movement.statusLabel}</span>
               <span className="text-slate-400 font-normal">|</span>
-              <span className="text-emerald-400 font-bold">NO AGGRESSION</span>
+              <span className="text-emerald-400 font-bold">
+                AGGRESSION SCORE {fightConfidence}%
+              </span>
             </div>
           ) : (
             <div className="flex items-center gap-2 px-3 py-1 rounded-xl bg-black/75 backdrop-blur-md border border-emerald-500/40 text-emerald-300 font-mono text-[11px] font-bold shadow-lg">
@@ -59,17 +69,18 @@ export const LiveDetectionOverlay: React.FC<LiveDetectionOverlayProps> = ({
             <span>{fps} FPS</span>
           </div>
 
-          {/* OpenCV Multi-Object Tracking Telemetry Badge */}
+          {/* Engine Telemetry Badge */}
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-cyan-950/80 backdrop-blur-md border border-cyan-500/60 text-cyan-200 font-mono text-[10px] font-bold shadow-lg">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span>OPENCV ENGINE</span>
+            <span>{isMetadataDerived ? 'METADATA FEED' : 'OPTICAL AI'}</span>
             <span className="text-cyan-400/50">|</span>
             <span>{detection.persons?.length ?? count} Persons</span>
             {(detection.harmfulObjects?.length ?? (detection.objects?.length ?? 0)) > 0 ? (
               <>
                 <span className="text-rose-400/80">|</span>
-                <span className="text-rose-300 font-bold animate-pulse">
-                  ⚠️ {detection.harmfulObjects?.length ?? detection.objects?.length} Harmful Object{(detection.harmfulObjects?.length ?? detection.objects?.length ?? 1) > 1 ? 's' : ''}
+                <span className="text-rose-300 font-bold">
+                  ⚠️ {detection.harmfulObjects?.length ?? detection.objects?.length} Threat Object
+                  {(detection.harmfulObjects?.length ?? detection.objects?.length ?? 1) > 1 ? 's' : ''}
                 </span>
               </>
             ) : (
@@ -84,9 +95,9 @@ export const LiveDetectionOverlay: React.FC<LiveDetectionOverlayProps> = ({
         {/* Right Status / Threat Badge */}
         <div className="flex items-center gap-2">
           {isFight && (
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-red-900/80 backdrop-blur-md border border-red-400 text-red-100 font-mono text-[11px] font-extrabold shadow-lg animate-bounce">
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-red-900/80 backdrop-blur-md border border-red-400 text-red-100 font-mono text-[11px] font-extrabold shadow-lg">
               <Flame className="w-3.5 h-3.5 text-amber-300" />
-              <span>FIGHT CONF: {fightConfidence}%</span>
+              <span>AGGRESSION {fightConfidence}%</span>
             </div>
           )}
 
@@ -210,21 +221,26 @@ export const LiveDetectionOverlay: React.FC<LiveDetectionOverlayProps> = ({
           className={`w-2 h-2 rounded-full ${isFight ? 'bg-red-500 animate-ping' : 'bg-cyan-400 animate-pulse'}`}
         />
         <span>
-          AIR-SURVEILLANCE &amp; UCF-CRIME AI: <strong>{isFight ? 'PHYSICAL ALTERCATION IN PROGRESS' : 'SURVEILLANCE RADAR SECURE (0ms LATENCY)'}</strong>
+          C3S AGGRESSION AI:{' '}
+          <strong>
+            {isFight ? 'PHYSICAL ALTERCATION IN PROGRESS' : 'SECTOR MONITORING ACTIVE'}
+          </strong>
         </span>
-        {isFight ? (
+        <span className="text-slate-600">|</span>
+        <span className={isFight ? 'text-rose-400 font-black' : 'text-slate-300'}>
+          AGGRESSION SCORE: <strong>{fightConfidence}%</strong>
+        </span>
+        <span className="text-slate-600">|</span>
+        <span className="text-slate-400">
+          DISPATCH THRESHOLD: <strong>{SAFETY_THRESHOLDS.SOS_CONFIDENCE * 100}%</strong>
+        </span>
+        {isMetadataDerived && (
           <>
             <span className="text-slate-600">|</span>
-            <span className="text-rose-400 font-black">
-              FIGHT CONFIDENCE: <strong>{fightConfidence}%</strong>
+            <span className="flex items-center gap-1 text-amber-300 font-bold">
+              <Radio className="w-3 h-3" aria-hidden="true" />
+              METADATA FEED - NO PIXEL ACCESS
             </span>
-            <span className="text-slate-600">|</span>
-            <span className="text-amber-300 font-bold">DISPATCH: NOTIFIED</span>
-          </>
-        ) : (
-          <>
-            <span className="text-slate-600">|</span>
-            <span className="text-emerald-400 font-bold">FIGHT CHANCE: &lt; 5%</span>
           </>
         )}
       </div>

@@ -38,7 +38,7 @@ export default function StudentSosPage() {
             CAMPUS EMERGENCY SOS
           </h1>
           <p className="mx-auto max-w-xl text-xs sm:text-sm text-slate-600 dark:text-slate-400">
-            Press and hold the red circle for 2 seconds. Automatically captures video and photo evidence, determines your node location, and immediately alerts the nearest Faculty, Guard, and Chief Proctor.
+            Press and hold the red circle for 2 seconds. Automatically captures video and photo evidence, determines your node location, and immediately alerts the nearest HOD, Guard, and Chief Proctor.
           </p>
 
           {sosActive && (
@@ -58,7 +58,7 @@ export default function StudentSosPage() {
 
         {/* Information & Feature Pillars */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 text-left shadow-xs dark:shadow-none transition-colors">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 text-left shadow-sm dark:shadow-none transition-colors">
             <div className="flex items-center gap-2 text-rose-400 text-xs font-bold uppercase font-mono">
               <Camera className="h-4 w-4 text-cyan-400" />
               <span>Auto Video &amp; Photo</span>
@@ -68,7 +68,7 @@ export default function StudentSosPage() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 text-left shadow-xs dark:shadow-none transition-colors">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 text-left shadow-sm dark:shadow-none transition-colors">
             <div className="flex items-center gap-2 text-rose-400 text-xs font-bold uppercase font-mono">
               <MapPin className="h-4 w-4 text-emerald-400" />
               <span>Exact Node Location</span>
@@ -78,13 +78,13 @@ export default function StudentSosPage() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 text-left shadow-xs dark:shadow-none transition-colors">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 text-left shadow-sm dark:shadow-none transition-colors">
             <div className="flex items-center gap-2 text-rose-400 text-xs font-bold uppercase font-mono">
               <Radio className="h-4 w-4 text-blue-400" />
               <span>Triple Alert Routing</span>
             </div>
             <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
-              Simultaneously notifies the nearest Security Guard, nearest Faculty Floor Warden, and Chief Proctor.
+              Simultaneously notifies the nearest Security Guard, nearest HOD Floor Warden, and Chief Proctor.
             </p>
           </div>
         </div>
@@ -102,7 +102,7 @@ export default function StudentSosPage() {
               </span>
               <button
                 onClick={handleNavigateToMap}
-                className="flex items-center gap-1 rounded-lg bg-blue-50 hover:bg-blue-100 dark:bg-blue-600/20 dark:hover:bg-blue-600/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30 px-2.5 py-1 text-xs font-semibold transition-colors cursor-pointer shadow-xs"
+                className="flex items-center gap-1 rounded-lg bg-blue-50 hover:bg-blue-100 dark:bg-blue-600/20 dark:hover:bg-blue-600/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30 px-2.5 py-1 text-xs font-semibold transition-colors cursor-pointer shadow-sm"
               >
                 <Navigation className="h-3 w-3" />
                 Open Full Navigation

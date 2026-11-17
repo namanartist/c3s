@@ -496,7 +496,7 @@ export const CampusMap: React.FC<CampusMapProps> = ({
               type="button"
               onClick={() => setShowHeatmap(!showHeatmap)}
               className={`flex items-center gap-1 rounded-lg px-2 py-1 text-[11px] font-bold transition-colors cursor-pointer ${
-                showHeatmap ? 'bg-rose-50 text-rose-700 border border-rose-200 shadow-xs' : 'text-slate-500 hover:text-slate-700'
+                showHeatmap ? 'bg-rose-50 text-rose-700 border border-rose-200 shadow-sm' : 'text-slate-500 hover:text-slate-700'
               }`}
               title="Toggle Real-Time Campus Headcount / Density Heatmap"
             >

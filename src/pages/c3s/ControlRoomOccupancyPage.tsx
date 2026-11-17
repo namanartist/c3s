@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppShell } from '@/components/c3s/AppShell';
+import { PageHeader } from '@/components/c3s/PageHeader';
 import { StatCard } from '@/components/c3s/StatCard';
 import { MOCK_ANALYTICS } from '@/lib/mock-data/analytics';
 import { Users, DoorOpen, Activity, BarChart3 } from 'lucide-react';
@@ -10,10 +11,7 @@ export default function ControlRoomOccupancyPage() {
   return (
     <AppShell>
       <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-black text-slate-100 uppercase">CAMPUS OCCUPANCY DASHBOARD</h1>
-          <p className="text-xs text-slate-400">Real-time gate telemetry, total campus headcount, and population flow rate.</p>
-        </div>
+        <PageHeader eyebrow="Occupancy Radar" statusTone="primary" title="CAMPUS OCCUPANCY DASHBOARD" subtitle="Real-time gate telemetry, total campus headcount, and population flow rate." />
 
         {/* Main Metric Hero */}
         <div className="rounded-3xl border border-blue-500/40 bg-gradient-to-r from-blue-950/40 via-slate-900 to-indigo-950/40 p-8 backdrop-blur-xl shadow-2xl">
@@ -29,8 +27,8 @@ export default function ControlRoomOccupancyPage() {
               <p className="mt-1 text-2xl font-black text-blue-400">{breakdown.students.toLocaleString()}</p>
             </div>
             <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-4">
-              <span className="text-slate-400 text-xs font-semibold">Faculty</span>
-              <p className="mt-1 text-2xl font-black text-emerald-400">{breakdown.faculty.toLocaleString()}</p>
+              <span className="text-slate-400 text-xs font-semibold">Staff</span>
+              <p className="mt-1 text-2xl font-black text-emerald-400">{breakdown.staff.toLocaleString()}</p>
             </div>
             <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-4">
               <span className="text-slate-400 text-xs font-semibold">Staff</span>

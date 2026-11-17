@@ -10,7 +10,6 @@ export type C3SRole =
   | 'GATE_KEEPER'
   | 'SUPER_ADMIN'
   | 'CONTROL_ROOM_OPERATOR'
-  | 'FACULTY'
   | 'CLASS_COORDINATOR'
   | 'HOD'
   | 'DEAN';
@@ -101,7 +100,6 @@ export const ROLE_LABELS: Record<C3SRole, { title: string; desc: string; badgeCo
   SECURITY_GUARD: { title: 'Guard', desc: 'Tactical patrol, incident queue, rapid emergency response', badgeColor: 'bg-orange-500/20 text-orange-400 border-orange-500/30' },
   PROCTOR: { title: 'Proctor', desc: 'SOC video wall, campus security operations, emergency alerts', badgeColor: 'bg-purple-500/20 text-purple-400 border-purple-500/30' },
   CONTROL_ROOM_OPERATOR: { title: 'Proctor', desc: 'SOC video wall, campus security operations, emergency alerts', badgeColor: 'bg-purple-500/20 text-purple-400 border-purple-500/30' },
-  FACULTY: { title: 'Proctor', desc: 'Academic safety oversight, incident review', badgeColor: 'bg-purple-500/20 text-purple-400 border-purple-500/30' },
   CLASS_COORDINATOR: { title: 'Proctor', desc: 'Student roll oversight, safety tracking', badgeColor: 'bg-purple-500/20 text-purple-400 border-purple-500/30' },
   HOD: { title: 'Proctor', desc: 'Department security oversight', badgeColor: 'bg-purple-500/20 text-purple-400 border-purple-500/30' },
   GATEKEEPER: { title: 'Gatekeeper', desc: 'Gate QR verification, live entry/exit registers, barrier control', badgeColor: 'bg-amber-500/20 text-amber-400 border-amber-500/30' },

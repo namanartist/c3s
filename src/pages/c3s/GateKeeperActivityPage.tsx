@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { AppShell } from '@/components/c3s/AppShell';
+import { PageHeader } from '@/components/c3s/PageHeader';
 import { DataTable } from '@/components/c3s/DataTable';
 import { StatusBadge } from '@/components/c3s/StatusBadge';
 import { useC3SStore } from '@/store/c3sStore';
@@ -188,12 +189,7 @@ export default function GateKeeperActivityPage() {
     <AppShell>
       <div className="space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">LIVE GATE ACTIVITY STREAM</h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Real-time ingress and egress token verifications synced across all campus gates.
-            </p>
-          </div>
+          <PageHeader eyebrow="Live Activity" statusTone="primary" title="LIVE GATE ACTIVITY STREAM" subtitle="Real-time ingress and egress token verifications synced across all campus gates." />
 
           <div className="flex items-center gap-2">
             <button
@@ -209,7 +205,7 @@ export default function GateKeeperActivityPage() {
 
         {/* Live Counters */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 shadow-xs dark:shadow-none transition-colors">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 shadow-sm dark:shadow-none transition-colors">
             <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Streamed Events</span>
             <div className="mt-1 flex items-center gap-2">
               <Users className="h-4 w-4 text-blue-400" />
@@ -217,7 +213,7 @@ export default function GateKeeperActivityPage() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 shadow-xs dark:shadow-none transition-colors">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 shadow-sm dark:shadow-none transition-colors">
             <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Entries (Check-Ins)</span>
             <div className="mt-1 flex items-center gap-2">
               <CheckCircle2 className="h-4 w-4 text-emerald-400" />
@@ -225,7 +221,7 @@ export default function GateKeeperActivityPage() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 shadow-xs dark:shadow-none transition-colors">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 shadow-sm dark:shadow-none transition-colors">
             <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Exits (Check-Outs)</span>
             <div className="mt-1 flex items-center gap-2">
               <DoorOpen className="h-4 w-4 text-amber-400" />
@@ -235,7 +231,7 @@ export default function GateKeeperActivityPage() {
         </div>
 
         {/* Filters */}
-        <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-3 text-xs shadow-xs dark:shadow-none transition-colors">
+        <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-3 text-xs shadow-sm dark:shadow-none transition-colors">
           <div className="flex items-center gap-1.5 text-slate-400 font-semibold">
             <Filter className="h-3.5 w-3.5 text-blue-400" />
             Filter Gate:

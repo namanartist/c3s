@@ -18,8 +18,8 @@ export default function MapPage() {
   const isStudent = currentRole === 'STUDENT';
 
   usePageMeta(
-    'Interactive MITS Map - Campus Navigation',
-    'Navigate Madhav Institute of Technology and Science (MITS) Gwalior campus. Plan routes to classrooms, departments, laboratories, and blocks with ease.'
+    'C3S Campus Grid - SOS Responder Routing & Safe Navigation',
+    'Route responders straight to an active SOS, or plan a safe path through Madhav Institute of Technology and Science (MITS) Gwalior campus to classrooms, laboratories and blocks.'
   );
 
   return (

@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppShell } from '@/components/c3s/AppShell';
+import { PageHeader } from '@/components/c3s/PageHeader';
 import { MOCK_ANALYTICS } from '@/lib/mock-data/analytics';
 import { useC3SStore } from '@/store/c3sStore';
 
@@ -9,10 +10,7 @@ export default function GateKeeperOccupancyPage() {
   return (
     <AppShell>
       <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-black text-slate-100 uppercase">GATE OCCUPANCY BREAKDOWN</h1>
-          <p className="text-xs text-slate-400">Turnstile traffic metrics and gate throughput.</p>
-        </div>
+        <PageHeader eyebrow="Gate Occupancy" statusTone="primary" title="GATE OCCUPANCY BREAKDOWN" subtitle="Turnstile traffic metrics and gate throughput." />
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
           {gates.map((g) => (

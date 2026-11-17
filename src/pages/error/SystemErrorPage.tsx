@@ -101,7 +101,7 @@ export default function SystemErrorPage({ error, resetErrorBoundary }: SystemErr
         </div>
 
         {/* Diagnostics Output */}
-        <div className="rounded-2xl border border-rose-500/20 dark:border-red-900/50 bg-rose-50/50 dark:bg-red-950/40 p-4 text-left font-mono text-xs text-rose-900 dark:text-red-200 break-words shadow-xs">
+        <div className="rounded-2xl border border-rose-500/20 dark:border-red-900/50 bg-rose-50/50 dark:bg-red-950/40 p-4 text-left font-mono text-xs text-rose-900 dark:text-red-200 break-words shadow-sm">
           <div className="flex items-center gap-1.5 text-rose-600 dark:text-red-400 font-bold mb-1.5 uppercase text-[10px]">
             <Terminal className="h-3.5 w-3.5" />
             <span>Trace Diagnostic:</span>
@@ -124,7 +124,7 @@ export default function SystemErrorPage({ error, resetErrorBoundary }: SystemErr
 
           <button
             onClick={handlePurgeAndReset}
-            className="flex items-center justify-center gap-2 rounded-xl border border-rose-200 dark:border-red-500/30 bg-rose-50 dark:bg-red-500/10 hover:bg-rose-100 dark:hover:bg-red-500/20 px-4 py-3 text-xs font-bold text-rose-700 dark:text-red-300 transition-all cursor-pointer shadow-xs"
+            className="flex items-center justify-center gap-2 rounded-xl border border-rose-200 dark:border-red-500/30 bg-rose-50 dark:bg-red-500/10 hover:bg-rose-100 dark:hover:bg-red-500/20 px-4 py-3 text-xs font-bold text-rose-700 dark:text-red-300 transition-all cursor-pointer shadow-sm"
           >
             <Trash2 className="h-4 w-4" />
             <span>Purge Cache &amp; Reset</span>

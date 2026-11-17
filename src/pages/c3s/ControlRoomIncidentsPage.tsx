@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AppShell } from '@/components/c3s/AppShell';
+import { PageHeader } from '@/components/c3s/PageHeader';
 import { StatusBadge } from '@/components/c3s/StatusBadge';
 import { DataTable } from '@/components/c3s/DataTable';
 import { IncidentEvidenceModal } from '@/components/c3s/IncidentEvidenceModal';
@@ -63,10 +64,7 @@ export default function ControlRoomIncidentsPage() {
     <AppShell>
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-black text-slate-100 uppercase tracking-tight">INCIDENT OPERATIONS HUB</h1>
-            <p className="text-xs text-slate-400">Chief Proctor &amp; Central SOC command board, CCTV evidence auditing, and dispatch verification.</p>
-          </div>
+          <PageHeader eyebrow="Incident Hub" statusTone="danger" title="INCIDENT OPERATIONS HUB" subtitle="Chief Proctor &amp; Central SOC command board, CCTV evidence auditing, and dispatch verification." />
 
           <div className="flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-900 p-1">
             {['ALL', 'CRITICAL', 'ACTIVE', 'RESOLVED'].map((f) => (

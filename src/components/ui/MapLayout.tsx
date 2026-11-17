@@ -43,6 +43,8 @@ import {
 import { useCampusNavigation } from '@/hooks/useCampusNavigation';
 import { useSafetyStore } from '@/store/safetyStore';
 import { useC3SStore } from '@/store/c3sStore';
+import { normalizeRole } from '@/lib/rbac';
+import type { C3SRole } from '@/lib/mock-data/users';
 import { CctvSocDashboard } from '@/components/safety/CctvSocDashboard';
 import { SafetyAnalyticsDashboard } from '@/components/safety/SafetyAnalyticsDashboard';
 import { PatrolDispatchDashboard } from '@/components/safety/PatrolDispatchDashboard';
@@ -112,7 +114,7 @@ const FEATURED_PLACES = [
     floorLabel: 'Campus',
     building: 'Student Amenities',
     badge: 'Food',
-    description: 'Student & Faculty Refreshment Hub',
+    description: 'Student & HOD Refreshment Hub',
     icon: '☕'
   },
   {
@@ -589,58 +591,85 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
           </div>
 
           <div className="space-y-2.5">
-            {[
-              {
-                title: 'Student Safety Base',
-                subtitle: 'View attendance logs, movement history & campus alerts',
-                icon: School,
-                action: () => navigate('/student'),
-                color: 'text-indigo-600 bg-indigo-50 dark:bg-indigo-950/50',
-                badge: 'Portal',
-              },
-              {
-                title: 'Faculty Welfare & Staff Desk',
-                subtitle: 'Acknowledge alerts, view student logs & campus safety reports',
-                icon: Users,
-                action: () => navigate('/faculty'),
-                color: 'text-rose-600 bg-rose-50 dark:bg-rose-950/50',
-                badge: 'Academic',
-              },
-              {
-                title: 'Security Guard Terminal',
-                subtitle: 'Patrol schedules, incident alerts & rapid response',
-                icon: ShieldCheck,
-                action: () => navigate('/security'),
-                color: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-950/50',
-                badge: 'Security',
-              },
-              {
-                title: 'Control Room SOC',
-                subtitle: 'Live tactical operations map & CCTV matrices',
-                icon: LayoutDashboard,
-                action: () => navigate('/control-room'),
-                color: 'text-purple-600 bg-purple-50 dark:bg-purple-950/50',
-                badge: 'SOC',
-              },
-              {
-                title: 'Emergency SOS Broadcast',
-                subtitle: 'Instantly notify security control room & nearby responders',
-                icon: ShieldAlert,
-                action: () => useSafetyStore.getState().setSosModalOpen(true),
-                color: 'text-red-600 bg-red-50 dark:bg-red-950/50',
-                badge: 'Urgent',
-              },
-            ].map((portal) => {
-              const Icon = portal.icon;
-              return (
+            {(() => {
+              const roleKey = normalizeRole(currentRole);
+              // RBAC-gated role portals — the signed-in operator only sees
+              // surfaces they are cleared to open.
+              const PORTALS: {
+                title: string;
+                subtitle: string;
+                icon: React.ElementType;
+                action: () => void;
+                color: string;
+                badge: string;
+                allowed: (role: C3SRole) => boolean;
+              }[] = [
+                {
+                  title: 'Student Safety Base',
+                  subtitle: 'View attendance logs, movement history & campus alerts',
+                  icon: School,
+                  action: () => navigate('/student'),
+                  color: 'text-indigo-600 bg-indigo-50 dark:bg-indigo-950/50',
+                  badge: 'Portal',
+                  allowed: (r) => r === 'STUDENT',
+                },
+                {
+                  title: 'Security Guard Terminal',
+                  subtitle: 'Patrol schedules, incident alerts & rapid response',
+                  icon: ShieldCheck,
+                  action: () => navigate('/security'),
+                  color: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-950/50',
+                  badge: 'Security',
+                  allowed: (r) => normalizeRole(r) === 'GUARD',
+                },
+                {
+                  title: 'Control Room SOC',
+                  subtitle: 'Live tactical operations map & CCTV matrices',
+                  icon: LayoutDashboard,
+                  action: () => navigate('/control-room'),
+                  color: 'text-purple-600 bg-purple-50 dark:bg-purple-950/50',
+                  badge: 'SOC',
+                  allowed: (r) => normalizeRole(r) === 'PROCTOR',
+                },
+                {
+                  title: 'Gate Terminal',
+                  subtitle: 'QR verification, occupancy meter & barrier control',
+                  icon: QrCode,
+                  action: () => navigate('/gate-keeper'),
+                  color: 'text-amber-600 bg-amber-50 dark:bg-amber-950/50',
+                  badge: 'Gate',
+                  allowed: (r) => normalizeRole(r) === 'GATEKEEPER',
+                },
+                {
+                  title: 'Admin Governance',
+                  subtitle: 'RBAC overview, fleet health & audit trail',
+                  icon: Users,
+                  action: () => navigate('/admin'),
+                  color: 'text-rose-600 bg-rose-50 dark:bg-rose-950/50',
+                  badge: 'Governance',
+                  allowed: (r) => normalizeRole(r) === 'ADMIN',
+                },
+                {
+                  title: 'Emergency SOS Broadcast',
+                  subtitle: 'Instantly notify security control room & nearby responders',
+                  icon: ShieldAlert,
+                  action: () => useSafetyStore.getState().setSosModalOpen(true),
+                  color: 'text-red-600 bg-red-50 dark:bg-red-950/50',
+                  badge: 'Urgent',
+                  allowed: () => true,
+                },
+              ];
+              return PORTALS.filter((p) => p.allowed(currentRole)).map((portal) => {
+                const Icon = portal.icon;
+                return (
                 <button
                   key={portal.title}
                   type="button"
                   onClick={portal.action}
-                  className="w-full p-3.5 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200/80 dark:border-white/10 hover:border-blue-500/50 hover:shadow-md text-left transition-all active:scale-[0.99] cursor-pointer flex items-center justify-between gap-3 shadow-xs"
+                  className="w-full p-3.5 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200/80 dark:border-white/10 hover:border-blue-500/50 hover:shadow-md text-left transition-all active:scale-[0.99] cursor-pointer flex items-center justify-between gap-3 shadow-sm"
                 >
                   <div className="flex items-center gap-3.5 min-w-0">
-                    <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-xs ${portal.color}`}>
+                    <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-sm ${portal.color}`}>
                       <Icon className="w-5 h-5" />
                     </div>
                     <div className="min-w-0">
@@ -659,8 +688,9 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
                   </div>
                   <ExternalLink className="w-4 h-4 text-slate-400 shrink-0" />
                 </button>
-              );
-            })}
+                );
+              });
+            })()}
           </div>
         </div>
       )}
@@ -718,7 +748,7 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
                 onClick={() => navigate(isStudent ? '/student' : '/')}
                 className="flex items-center gap-2 cursor-pointer active:opacity-80"
               >
-                <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shadow-xs">
+                <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shadow-sm">
                   <Compass className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col">
@@ -726,7 +756,7 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
                     MITS MAP
                   </span>
                   <span className="text-[9px] font-bold text-blue-600 dark:text-blue-400 mt-0.5">
-                    Campus Navigation
+                    SOS Routing Grid
                   </span>
                 </div>
               </div>
@@ -806,7 +836,7 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
                   setMobileSearchField('destination');
                   setIsMobileSearchOpen(true);
                 }}
-                className="w-full h-10 px-3.5 rounded-2xl bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200/90 dark:border-white/10 flex items-center justify-between text-left transition-all active:scale-[0.99] cursor-pointer shadow-xs"
+                className="w-full h-10 px-3.5 rounded-2xl bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200/90 dark:border-white/10 flex items-center justify-between text-left transition-all active:scale-[0.99] cursor-pointer shadow-sm"
               >
                 <div className="flex items-center gap-2.5 min-w-0">
                   <Search className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
@@ -1088,7 +1118,7 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
                         onClick={() => setMobileCategoryFilter(cat.id as any)}
                         className={`px-3 py-1 rounded-full text-[10px] font-black whitespace-nowrap transition-all cursor-pointer ${
                           mobileCategoryFilter === cat.id
-                            ? 'bg-blue-600 text-white shadow-xs'
+                            ? 'bg-blue-600 text-white shadow-sm'
                             : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
                         }`}
                       >
@@ -1106,7 +1136,7 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
                         key={node.id}
                         type="button"
                         onClick={() => handleSelectMobileNode(node)}
-                        className="w-full p-3 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 hover:border-blue-500/50 flex items-center justify-between gap-3 text-left transition-all active:scale-[0.99] cursor-pointer shadow-xs"
+                        className="w-full p-3 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 hover:border-blue-500/50 flex items-center justify-between gap-3 text-left transition-all active:scale-[0.99] cursor-pointer shadow-sm"
                       >
                         <div className="flex items-center gap-3 min-w-0">
                           <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
@@ -1185,7 +1215,7 @@ export function MapLayout({ header, searchBar, mapCanvas, routePanel }: MapLayou
 
       {/* Dedicated Desktop Navigator Card (Floating Left Panel) */}
       <div
-        className={`absolute top-5 left-5 z-20 w-[390px] lg:w-[410px] max-w-[calc(100vw-40px)] h-[calc(100vh-40px)] flex flex-col bg-white/90 dark:bg-[#0A0F1D]/90 backdrop-blur-2xl rounded-[30px] shadow-2xl border border-slate-200/80 dark:border-white/10 overflow-hidden pointer-events-auto transition-all duration-300 ${
+        className={`absolute top-5 left-5 z-20 w-[clamp(17rem,30vw,26rem)] max-w-[calc(100vw-2rem)] h-[calc(100vh-2.5rem)] flex flex-col bg-white/90 dark:bg-[#0A0F1D]/90 backdrop-blur-2xl rounded-[30px] shadow-2xl border border-slate-200/80 dark:border-white/10 overflow-hidden pointer-events-auto transition-all duration-300 ${
           activeDashboard !== 'nav'
             ? 'opacity-0 pointer-events-none -translate-x-6'
             : sidebarOpen

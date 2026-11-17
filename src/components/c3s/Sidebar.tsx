@@ -1,4 +1,10 @@
-// src/components/c3s/Sidebar.tsx
+/**
+ * src/components/c3s/Sidebar.tsx
+ *
+ * Premium navigation rail for the C3S command center:
+ * gradient active indicators, grouped sections, live badges derived from the
+ * store, and a presence capsule for the signed-in operator.
+ */
 import React, { useState } from 'react';
 import {
   LayoutDashboard,
@@ -14,10 +20,9 @@ import {
   Scan,
   Activity,
   Navigation,
-  ShieldCheck,
-  LogOut
+  LogOut,
 } from 'lucide-react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useC3SStore } from '@/store/c3sStore';
 import { normalizeRole } from '@/lib/rbac';
 import { LogoutConfirmModal } from './LogoutConfirmModal';
@@ -30,204 +35,295 @@ interface NavItem {
   to: string;
   label: string;
   icon: React.ComponentType<{ className?: string }>;
-  badge?: string;
+  end?: boolean;
+  badge?: number;
+  badgeLabel?: string;
   alert?: boolean;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
-  const { currentRole, currentUser, sosActive, isInsideCampus } = useC3SStore();
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
-  const location = useLocation();
+interface NavSection {
+  title: string;
+  items: NavItem[];
+}
 
-  // Role-tailored dynamic menu configuration
-  const getNavLinks = (): NavItem[] => {
+export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
+  const currentRole = useC3SStore((state) => state.currentRole);
+  const sosActive = useC3SStore((state) => state.sosActive);
+  const incidents = useC3SStore((state) => state.incidents);
+  const cameras = useC3SStore((state) => state.cameras);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+  const openIncidents = incidents.filter((incident) => incident.status !== 'RESOLVED').length;
+  const liveCameras = cameras.filter((camera) => camera.status === 'ONLINE').length;
+
+  // Role-tailored dynamic menu configuration.
+  const getNavSections = (): NavSection[] => {
     const roleKey = normalizeRole(currentRole);
+
     switch (roleKey) {
       case 'GATEKEEPER':
-      case 'GATE_KEEPER':
         return [
-          { to: '/gate-keeper', label: 'Gate Terminal', icon: DoorOpen },
-          { to: '/gate-keeper/qr', label: 'Daily Gate QR', icon: Scan },
-          { to: '/gate-keeper/activity', label: 'Live Gate Activity', icon: Activity },
-          { to: '/gate-keeper/occupancy', label: 'Gate Occupancy', icon: BarChart3 }
+          {
+            title: 'Terminal',
+            items: [
+              { to: '/gate-keeper', label: 'Gate Terminal', icon: DoorOpen, end: true },
+              { to: '/gate-keeper/qr', label: 'Daily Gate QR', icon: Scan },
+              { to: '/gate-keeper/activity', label: 'Live Gate Activity', icon: Activity },
+              { to: '/gate-keeper/occupancy', label: 'Gate Occupancy', icon: BarChart3 },
+            ],
+          },
+          {
+            title: 'Campus',
+            items: [{ to: '/map', label: 'Campus Grid', icon: Navigation }],
+          },
         ];
 
       case 'GUARD':
-      case 'SECURITY_GUARD':
         return [
-          { to: '/security', label: 'Guard Patrol', icon: LayoutDashboard },
-          { to: '/security/incidents', label: 'Active Incidents', icon: ShieldAlert, badge: '1 Alert' },
-          { to: '/security/map', label: 'Dispatch Map', icon: MapPin }
+          {
+            title: 'Response',
+            items: [
+              { to: '/security', label: 'Guard Patrol', icon: LayoutDashboard, end: true },
+              {
+                to: '/security/incidents',
+                label: 'Active Incidents',
+                icon: ShieldAlert,
+                badge: openIncidents || undefined,
+              },
+              { to: '/security/map', label: 'SOS Dispatch', icon: MapPin },
+            ],
+          },
         ];
 
       case 'ADMIN':
-      case 'SUPER_ADMIN':
         return [
-          { to: '/admin', label: 'Admin Overview', icon: LayoutDashboard },
-          { to: '/admin/users', label: 'User Directory', icon: Users },
-          { to: '/admin/gates', label: 'Three-Gate Hub', icon: DoorOpen },
-          { to: '/admin/cameras', label: 'CCTV Fleet', icon: Camera },
-          { to: '/admin/incidents', label: 'Incident Logs', icon: ShieldAlert },
-          { to: '/admin/analytics', label: 'Safety Analytics', icon: BarChart3 },
-          { to: '/admin/audit', label: 'Audit Trail', icon: FileText }
+          {
+            title: 'Governance',
+            items: [
+              { to: '/admin', label: 'Admin Overview', icon: LayoutDashboard, end: true },
+              { to: '/admin/users', label: 'User Directory', icon: Users },
+              { to: '/admin/gates', label: 'Gate Network', icon: DoorOpen },
+              { to: '/admin/audit', label: 'Audit Trail', icon: FileText },
+            ],
+          },
+          {
+            title: 'Surveillance',
+            items: [
+              {
+                to: '/admin/cameras',
+                label: 'CCTV Fleet',
+                icon: Camera,
+                badgeLabel: liveCameras ? `${liveCameras} live` : undefined,
+              },
+              {
+                to: '/admin/incidents',
+                label: 'Incident Logs',
+                icon: ShieldAlert,
+                badge: openIncidents || undefined,
+              },
+              { to: '/admin/analytics', label: 'Safety Analytics', icon: BarChart3 },
+            ],
+          },
         ];
 
       case 'PROCTOR':
-      case 'CONTROL_ROOM_OPERATOR':
         return [
-          { to: '/control-room', label: 'Control Center (SOC)', icon: LayoutDashboard },
-          { to: '/control-room/incidents', label: 'Incident Hub', icon: ShieldAlert },
-          { to: '/control-room/cameras', label: 'CCTV Matrix', icon: Camera, badge: '12 Live' },
-          { to: '/control-room/map', label: 'Tactical Campus Map', icon: MapPin },
-          { to: '/control-room/occupancy', label: 'Campus Occupancy', icon: BarChart3 }
-        ];
-
-      case 'PROCTOR':
-      case 'HOD':
-      case 'DEAN':
-      case 'CLASS_COORDINATOR':
-      case 'FACULTY':
-        return [
-          { to: '/control-room', label: 'Campus Overview', icon: LayoutDashboard },
-          { to: '/control-room/incidents', label: 'Incident Reports', icon: ShieldAlert },
-          { to: '/control-room/occupancy', label: 'Headcount & Flow', icon: BarChart3 },
-          { to: '/control-room/cameras', label: 'CCTV Feeds', icon: Camera },
-          { to: '/student/location', label: 'Campus Map', icon: MapPin }
+          {
+            title: 'Command',
+            items: [
+              { to: '/control-room', label: 'Control Center', icon: LayoutDashboard, end: true },
+              {
+                to: '/control-room/incidents',
+                label: 'Incident Hub',
+                icon: ShieldAlert,
+                badge: openIncidents || undefined,
+              },
+              {
+                to: '/control-room/cameras',
+                label: 'CCTV Matrix',
+                icon: Camera,
+                badgeLabel: liveCameras ? `${liveCameras} live` : undefined,
+              },
+            ],
+          },
+          {
+            title: 'Awareness',
+            items: [
+              { to: '/control-room/map', label: 'SOS Tactical', icon: MapPin },
+              { to: '/control-room/occupancy', label: 'Campus Occupancy', icon: BarChart3 },
+            ],
+          },
         ];
 
       case 'STUDENT':
       default:
         return [
-          { to: '/student/sos', label: 'Emergency SOS', icon: ShieldAlert, alert: sosActive },
-          { to: '/student/dashboard', label: 'Student Pass & Hub', icon: LayoutDashboard },
-          { to: '/student/scan', label: 'Scan Gate QR', icon: Scan },
-          { to: '/map', label: 'Campus Map', icon: Navigation },
-          { to: '/student/movement', label: 'Movement Logs', icon: Activity },
-          { to: '/student/incidents', label: 'Incident Reports', icon: ShieldAlert },
-          { to: '/student/notifications', label: 'Alerts', icon: Bell }
+          {
+            title: 'Safety',
+            items: [
+              { to: '/student/sos', label: 'Emergency SOS', icon: ShieldAlert, alert: sosActive },
+              { to: '/student/dashboard', label: 'Student Pass & Hub', icon: LayoutDashboard, end: true },
+            ],
+          },
+          {
+            title: 'Campus',
+            items: [
+              { to: '/student/scan', label: 'Scan Gate QR', icon: Scan },
+              { to: '/map', label: 'Campus Grid', icon: Navigation },
+            ],
+          },
+          {
+            title: 'Records',
+            items: [
+              { to: '/student/movement', label: 'Movement Logs', icon: Activity },
+              { to: '/student/incidents', label: 'Incident Reports', icon: ShieldAlert },
+              { to: '/student/notifications', label: 'Alerts', icon: Bell },
+            ],
+          },
         ];
     }
   };
 
-  const navLinks = getNavLinks();
+  const navSections = getNavSections();
 
   return (
-    <aside className="flex h-full w-64 flex-col justify-between border-r border-slate-200 dark:border-white/[0.08] bg-white dark:bg-[#070B14] p-4 select-none transition-colors">
-      <div className="space-y-6">
-        {/* Navigation Section */}
-        <div>
-          <div className="px-3 pb-2 flex items-center justify-between">
-            <span className="text-[10px] font-black tracking-widest text-slate-400 dark:text-slate-500 uppercase">
-              NAVIGATION
-            </span>
-            <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400 border border-blue-200 dark:border-blue-500/20 uppercase">
-              {currentRole.replace(/_/g, ' ')}
-            </span>
+    <aside className="relative flex h-full w-full flex-col justify-between overflow-hidden border-r border-slate-200 bg-white transition-colors dark:border-white/[0.07] dark:bg-[#05070d]">
+      {/* ── Command header ────────────────────────────────────────── */}
+      <div className="relative border-b border-slate-200 px-5 py-4 dark:border-white/[0.06]">
+        <div
+          aria-hidden="true"
+          className="absolute -right-8 -top-10 h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.14)_0%,transparent_70%)]"
+        />
+        <div className="relative flex items-center gap-2">
+          <span className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg border border-white/10 bg-white/5">
+            <img src="/c3s_logo.png" alt="" className="h-6 w-6 object-contain" />
+          </span>
+          <div className="leading-tight">
+            <p className="font-mono text-[9px] font-black uppercase tracking-[0.24em] text-slate-500 dark:text-slate-500">
+              Command Center
+            </p>
+            <p className="text-xs font-extrabold text-slate-900 dark:text-white">
+              MITS · Gwalior
+            </p>
           </div>
-
-          <nav className="mt-1 space-y-1">
-            {navLinks.map((item) => {
-              const Icon = item.icon;
-              const isActive = location.pathname === item.to;
-
-              return (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  onClick={onCloseMobile}
-                  className={`group relative flex items-center justify-between rounded-xl px-3 py-2.5 text-xs font-semibold transition-all duration-200 ${
-                    isActive
-                      ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30 font-bold'
-                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <Icon
-                      className={`h-4 w-4 shrink-0 transition-transform group-hover:scale-110 ${
-                        isActive
-                          ? 'text-white'
-                          : 'text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-200'
-                      } ${item.alert ? 'text-rose-500 animate-pulse' : ''}`}
-                    />
-                    <span className="truncate">{item.label}</span>
-                  </div>
-
-                  {item.badge && (
-                    <span
-                      className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
-                        isActive
-                          ? 'bg-white/20 text-white'
-                          : 'bg-blue-50 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300'
-                      }`}
-                    >
-                      {item.badge}
-                    </span>
-                  )}
-                  {item.alert && (
-                    <span className="h-2 w-2 rounded-full bg-rose-500 animate-ping shrink-0" />
-                  )}
-                </NavLink>
-              );
-            })}
-          </nav>
         </div>
       </div>
 
-      {/* Bottom Global Links & User Status Capsule */}
-      <div className="space-y-3 pt-3 border-t border-slate-200 dark:border-white/[0.08]">
-        {/* User Presence Card */}
-        <div className="rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-slate-50 dark:bg-slate-900/60 p-3">
-          <div className="flex items-center gap-2.5">
-            <div className="relative">
-              <img
-                src={currentUser?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80'}
-                alt={currentUser?.name || 'User'}
-                className="h-8 w-8 rounded-xl object-cover border border-slate-200 dark:border-white/10"
-              />
-              <span className={`absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-white dark:border-slate-900 ${isInsideCampus ? 'bg-emerald-500' : 'bg-slate-400'}`} />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-xs font-bold text-slate-900 dark:text-white truncate">
-                {currentUser?.name || 'Campus User'}
-              </p>
-              <div className="flex items-center gap-1.5 mt-0.5">
-                <span className={`h-1.5 w-1.5 rounded-full ${isInsideCampus ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`} />
-                <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 truncate">
-                  {isInsideCampus ? 'Inside Campus' : 'Outside Campus'}
+      {/* ── Navigation (scrollable when content exceeds height) ── */}
+      <nav className="relative min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 py-4 scroll-thin" aria-label="Primary navigation">
+        {navSections.map((section, sectionIndex) => (
+          <div key={section.title} className={sectionIndex > 0 ? 'mt-5' : ''}>
+            <div className="flex items-center justify-between px-3 pb-1.5">
+              <span className="font-mono text-[9px] font-black uppercase tracking-[0.26em] text-slate-400 dark:text-slate-600">
+                {section.title}
+              </span>
+              {sectionIndex === 0 && (
+                <span className="rounded-md border border-sky-500/25 bg-sky-500/10 px-1.5 py-0.5 font-mono text-[8px] font-bold uppercase tracking-widest text-sky-600 dark:text-sky-400">
+                  {normalizeRole(currentRole).replace(/_/g, ' ')}
                 </span>
-              </div>
+              )}
             </div>
-          </div>
-        </div>
 
-        {/* Settings, ID & Sign Out Links */}
-        <div className="flex items-center gap-1">
+            <ul className="space-y-0.5">
+              {section.items.map((item) => {
+                const Icon = item.icon;
+                const badgeText =
+                  item.badgeLabel ?? (item.badge !== undefined ? String(item.badge) : undefined);
+
+                return (
+                  <li key={item.to}>
+                    <NavLink
+                      to={item.to}
+                      end={item.end}
+                      onClick={onCloseMobile}
+                      className={({ isActive }) =>
+                        `group relative flex items-center justify-between rounded-xl px-3 py-2.5 text-[13px] font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60 ${
+                          isActive
+                            ? 'text-white'
+                            : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/[0.05] dark:hover:text-white'
+                        }`
+                      }
+                    >
+                      {({ isActive }) => (
+                        <>
+                          {isActive && (
+                            <>
+                              <span
+                                aria-hidden="true"
+                                className="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-full bg-gradient-to-b from-sky-400 to-indigo-500"
+                              />
+                              <span
+                                aria-hidden="true"
+                                className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-r from-sky-500/[0.14] via-indigo-500/[0.08] to-transparent ring-1 ring-inset ring-sky-500/20"
+                              />
+                            </>
+                          )}
+                          <span className="relative flex min-w-0 items-center gap-3">
+                            <span
+                              className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border transition-all duration-200 ${
+                                isActive
+                                  ? 'border-sky-400/30 bg-gradient-to-br from-sky-500/25 to-indigo-500/20 text-sky-300'
+                                  : 'border-slate-200 bg-slate-50 text-slate-400 group-hover:border-slate-300 group-hover:text-slate-600 dark:border-white/[0.07] dark:bg-white/[0.04] dark:text-slate-500 dark:group-hover:border-white/[0.12] dark:group-hover:text-slate-300'
+                              }`}
+                            >
+                              <Icon
+                                className={`h-4 w-4 transition-transform duration-200 group-hover:scale-110 ${
+                                  item.alert ? 'text-rose-500' : ''
+                                }`}
+                                aria-hidden="true"
+                              />
+                            </span>
+                            <span className="truncate">{item.label}</span>
+                          </span>
+
+                          <span className="relative flex shrink-0 items-center">
+                            {badgeText && (
+                              <span
+                                className={`rounded-md px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider ${
+                                  isActive
+                                    ? 'bg-sky-400/20 text-sky-300'
+                                    : 'bg-slate-100 text-slate-500 dark:bg-white/[0.06] dark:text-slate-400'
+                                }`}
+                              >
+                                {badgeText}
+                              </span>
+                            )}
+                            {item.alert && (
+                              <span
+                                className="ml-2 h-2 w-2 animate-ping rounded-full bg-rose-500"
+                                aria-label="Active emergency"
+                              />
+                            )}
+                          </span>
+                        </>
+                      )}
+                    </NavLink>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </nav>
+
+      {/* ── Footer controls — slim, profile intentionally removed ── */}
+      <div className="relative border-t border-slate-200 p-3 transition-colors dark:border-white/[0.07]">
+        <div className="grid grid-cols-2 gap-1.5">
           <NavLink
             to="/settings"
             onClick={onCloseMobile}
-            className="flex-1 flex items-center justify-center gap-1.5 rounded-xl px-2 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] hover:text-slate-900 dark:hover:text-white transition-colors"
-            title="System Settings"
+            className="flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-2 py-2 text-[10px] font-bold text-slate-500 transition-colors hover:border-slate-300 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60 dark:border-white/[0.07] dark:bg-white/[0.02] dark:text-slate-400 dark:hover:border-white/[0.12] dark:hover:text-white"
           >
-            <Settings className="h-3.5 w-3.5" />
-            <span className="hidden sm:inline">Settings</span>
-          </NavLink>
-          <NavLink
-            to="/profile"
-            onClick={onCloseMobile}
-            className="flex-1 flex items-center justify-center gap-1.5 rounded-xl px-2 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] hover:text-slate-900 dark:hover:text-white transition-colors"
-            title="Digital ID Pass"
-          >
-            <ShieldCheck className="h-3.5 w-3.5 text-blue-500" />
-            <span className="hidden sm:inline">ID Pass</span>
+            <Settings className="h-3.5 w-3.5" aria-hidden="true" />
+            <span>Settings</span>
           </NavLink>
           <button
             type="button"
             onClick={() => setShowLogoutModal(true)}
-            className="flex items-center justify-center rounded-xl p-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors cursor-pointer"
-            title="Sign Out of Terminal"
-            aria-label="Sign Out"
+            className="flex cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-rose-500/25 bg-rose-500/5 px-2 py-2 text-[10px] font-bold text-rose-500 transition-colors hover:border-rose-400/40 hover:bg-rose-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/60 dark:text-rose-400"
           >
-            <LogOut className="h-3.5 w-3.5" />
+            <LogOut className="h-3.5 w-3.5" aria-hidden="true" />
+            <span>Sign out</span>
           </button>
         </div>
       </div>
@@ -237,3 +333,5 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
     </aside>
   );
 };
+
+export default Sidebar;

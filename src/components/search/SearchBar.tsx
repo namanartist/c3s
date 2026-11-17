@@ -210,7 +210,7 @@ export function SearchBar({ }: SearchBarProps) {
                         setActiveSearchField(null);
                         setMobileSearchQuery('');
                       }}
-                      className="w-full bg-white dark:bg-slate-900 p-3.5 rounded-2xl border border-slate-200 dark:border-white/10 shadow-xs flex items-start gap-3 text-left transition-all cursor-pointer active:scale-[0.99]"
+                      className="w-full bg-white dark:bg-slate-900 p-3.5 rounded-2xl border border-slate-200 dark:border-white/10 shadow-sm flex items-start gap-3 text-left transition-all cursor-pointer active:scale-[0.99]"
                     >
                       <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
                         <School className="w-4.5 h-4.5" />
@@ -255,7 +255,7 @@ export function SearchBar({ }: SearchBarProps) {
 
       <div className="space-y-3.5">
         {/* Connected Journey Card (Start & Destination with Connecting Rail) */}
-        <div className="relative p-3.5 rounded-3xl bg-slate-50/90 dark:bg-slate-900/80 border border-slate-200/80 dark:border-white/10 shadow-xs">
+        <div className="relative p-3.5 rounded-3xl bg-slate-50/90 dark:bg-slate-900/80 border border-slate-200/80 dark:border-white/10 shadow-sm">
           {/* Vertical Connecting Guide Rail */}
           <div className="absolute left-[26px] top-[30px] bottom-[30px] w-0.5 bg-dashed border-l-2 border-dashed border-blue-400/40 dark:border-blue-500/30 pointer-events-none" />
 
@@ -308,7 +308,7 @@ export function SearchBar({ }: SearchBarProps) {
         </div>
 
         {/* Step-Free Accessibility Toggle */}
-        <div className="flex items-center justify-between bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-white/10 rounded-2xl p-3 shadow-xs select-none transition-colors">
+        <div className="flex items-center justify-between bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-white/10 rounded-2xl p-3 shadow-sm select-none transition-colors">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
               <Accessibility className="w-4.5 h-4.5" />

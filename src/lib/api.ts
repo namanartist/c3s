@@ -158,6 +158,52 @@ export async function fetchGateHistory(userId?: string): Promise<any[]> {
 }
 
 /**
+ * Loads the persisted user settings from MongoDB via /api/settings.
+ * Returns the merged settings object (falls back to defaults when the DB is unavailable).
+ */
+export async function fetchSettings(userId?: string): Promise<{
+  settings: Record<string, unknown> | null;
+  source: 'mongodb' | 'default';
+  updatedAt?: string;
+}> {
+  try {
+    const url = userId
+      ? `${API_BASE}/api/settings?userId=${encodeURIComponent(userId)}`
+      : `${API_BASE}/api/settings`;
+    const res = await fetch(url, { headers: { 'X-User-Id': userId ?? 'global' } });
+    if (!res.ok) return { settings: null, source: 'default' };
+    const json = (await res.json()) as {
+      data?: Record<string, unknown>;
+      source?: 'mongodb' | 'default';
+      updatedAt?: string;
+    };
+    return { settings: json?.data ?? null, source: json?.source ?? 'default', updatedAt: json?.updatedAt };
+  } catch {
+    return { settings: null, source: 'default' };
+  }
+}
+
+/**
+ * Persists user settings to MongoDB via /api/settings (PUT).
+ * Callers should pass the full merged settings object.
+ */
+export async function saveSettings(
+  settings: Record<string, unknown>,
+  userId?: string,
+): Promise<boolean> {
+  try {
+    const res = await fetch(`${API_BASE}/api/settings`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'X-User-Id': userId ?? 'global' },
+      body: JSON.stringify({ ...settings, userId: userId ?? 'global' }),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Pings the database to retrieve health and connected collection status.
  */
 export async function fetchDbStatus(): Promise<{ success: boolean; connected: boolean; database?: string; collections?: string[] }> {
